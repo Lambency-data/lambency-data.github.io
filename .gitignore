@@ -11,3 +11,6 @@ blog/편집원칙.md
 DEPLOY.md
 # EN-KO-대조본.md = 내부 카피 검토용
 EN-KO-대조본.md
+
+# OG 카드 생성기 — 로컬 도구 (사이트 자산 아님)
+assets/og-generate.py
