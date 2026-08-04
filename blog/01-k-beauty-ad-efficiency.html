@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매출은 늘었는데 이익률이 무너졌다 — 공개 데이터로 본 K-뷰티 8곳 | Lambency</title>
+<meta name="description" content="2025년 K-뷰티 브랜드사 8곳 중 6곳에서 매출은 늘고 영업이익률은 내려갔다. DART 감사보고서만으로 그 원인을 분해했다. 광고비 탓이라는 보도는 절반만 맞다.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<!-- Open Graph / 링크 공유 미리보기 (배포 시 REPLACE-WITH-YOUR-DOMAIN 치환) -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/blog/01-k-beauty-ad-efficiency.html">
+<meta property="og:title" content="매출은 늘었는데 이익률이 무너졌다 — 공개 데이터로 본 K-뷰티 8곳">
+<meta property="og:description" content="브랜드사 8곳 중 6곳이 같은 병을 앓았다. 언론은 마케팅비 급증을 원인으로 지목했다. 그런데 그 돈이 증분 매출을 만들었는지 확인한 흔적은 어디에도 없었다.">
+<meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="매출은 늘었는데 이익률이 무너졌다 — 공개 데이터로 본 K-뷰티 8곳">
+<meta name="twitter:description" content="브랜드사 8곳 중 6곳이 같은 병을 앓았다. 언론은 마케팅비 급증을 원인으로 지목했다. 그런데 그 돈이 증분 매출을 만들었는지 확인한 흔적은 어디에도 없었다.">
+<meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/og-default.png">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/blog/01-k-beauty-ad-efficiency.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0b08; --bg-2:#131009;
+  --ink:#ece5d8; --ink-dim:#a89e8a; --ink-faint:#6e6552;
+  --amber:#e8b458; --amber-hi:#f5d489; --amber-deep:#c98a2e;
+  --hairline:rgba(232,180,88,.16); --hairline-dim:rgba(232,180,88,.08);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --kr:'Source Serif 4','Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--kr);font-weight:300;line-height:1.9;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(232,180,88,.28);color:#fff}
+body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(24px,5vw,72px);background:linear-gradient(to bottom,rgba(13,11,8,.94),rgba(13,11,8,0))}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:26px;height:26px}
+.brand span{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:.18em;color:var(--ink)}
+nav{display:flex;gap:clamp(16px,3vw,40px)}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-dim);text-decoration:none;text-transform:uppercase;transition:color .3s}
+nav a:hover{color:var(--amber-hi)}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 clamp(22px,5vw,32px)}
+article{padding:clamp(130px,17vw,190px) 0 90px}
+
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:26px}
+h1{font-family:var(--kr);font-size:clamp(30px,5.4vw,46px);font-weight:600;line-height:1.32;letter-spacing:-.02em;color:var(--ink);margin-bottom:26px}
+.meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-faint);line-height:2;padding-bottom:34px;border-bottom:1px solid var(--hairline)}
+
+.lede{font-size:19px;line-height:1.85;color:var(--ink);margin:38px 0 8px;padding-left:20px;border-left:2px solid var(--amber-deep)}
+.lede strong{font-weight:600;color:var(--amber-hi)}
+
+h2{font-family:var(--kr);font-size:clamp(20px,3vw,25px);font-weight:600;line-height:1.45;color:var(--ink);margin:64px 0 20px;letter-spacing:-.01em}
+h2 .num{font-family:var(--mono);font-size:13px;color:var(--amber-deep);letter-spacing:.1em;display:block;margin-bottom:9px;font-weight:400}
+p{font-size:16.5px;margin-bottom:20px;color:var(--ink-dim)}
+p strong{color:var(--ink);font-weight:600}
+em{font-style:italic;color:var(--ink)}
+a.inl{color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline)}
+
+.tw{overflow-x:auto;margin:30px 0 26px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:480px}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-deep);
+  text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--hairline);font-weight:500;white-space:nowrap}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--hairline-dim);color:var(--ink-dim);vertical-align:top}
+td strong{color:var(--amber-hi);font-weight:600}
+tr:last-child td{border-bottom:none}
+
+ul,ol{margin:0 0 22px 20px}
+li{font-size:16.5px;color:var(--ink-dim);margin-bottom:11px;padding-left:5px}
+li strong{color:var(--ink);font-weight:600}
+
+.pull{margin:40px 0;padding:26px 30px;background:var(--bg-2);border:1px solid var(--hairline);border-radius:2px}
+.pull p{font-family:var(--serif);font-size:23px;line-height:1.55;color:var(--amber-hi);margin:0;font-weight:400}
+
+.note{margin:52px 0 0;padding:26px 0 0;border-top:1px solid var(--hairline)}
+.note h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:16px;font-weight:500}
+.note li,.note p{font-size:14px;line-height:1.8;color:var(--ink-faint)}
+
+.next{margin-top:46px;padding:26px 30px;border:1px solid var(--hairline);border-radius:2px;background:linear-gradient(180deg,rgba(232,180,88,.04),transparent)}
+.next .lb{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:11px}
+.next p{margin:0;font-size:16px;color:var(--ink)}
+
+.cta{margin-top:64px;padding-top:34px;border-top:1px solid var(--hairline);text-align:center}
+.cta p{font-size:15.5px;color:var(--ink-dim);margin-bottom:8px}
+.cta a{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline)}
+.cta a:hover{color:var(--amber)}
+
+footer{padding:52px clamp(24px,5vw,72px);border-top:1px solid var(--hairline-dim);text-align:center}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-faint);margin:0}
+footer svg{width:22px;height:22px;opacity:.55;margin-bottom:14px}
+
+@media(max-width:560px){
+  nav{gap:14px}
+  .lede{font-size:17.5px;padding-left:15px}
+  p,li{font-size:16px}
+  .pull{padding:22px}
+  .pull p{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="index.html">Insights</a>
+    <a href="../engagements.html">Engagements</a>
+    <a href="../index.html#work">Work</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+
+  <div class="kicker">공개 데이터 시리즈 · 01 · K-뷰티</div>
+  <h1>매출은 늘었는데 이익률이 무너졌다</h1>
+  <div class="meta">
+    캐프(이충우) · 2026년 8월<br>
+    사용 데이터 — 금융감독원 전자공시(DART) 감사보고서, 공개 공시, 채용공고, 페이지 소스. <strong>내부 데이터 0건.</strong>
+  </div>
+
+  <div class="lede">
+    <p>K-뷰티 브랜드사 여덟 곳의 감사보고서를 하나씩 열어봤다. 여섯 곳이 같은 병을 앓고 있었다. 매출은 늘었는데 영업이익률이 내려갔다. 기사들은 대체로 "마케팅비 급증"을 원인으로 적었다. 틀린 말은 아니다. 그런데 <strong>그 돈이 실제로 매출을 만들어냈는지 확인한 흔적은 여덟 곳 어디에도 없었다.</strong></p>
+  </div>
+
+  <h2><span class="num">01</span>무슨 일이 있었나</h2>
+  <p>산업 지표만 보면 K-뷰티는 잘나간다. 2025년 화장품 수출은 114억 달러(+12.2%)로 세계 2위, 무역흑자는 처음으로 101억 달러를 넘겼다. 그래서 개별 회사 손익계산서도 비슷할 줄 알았다.</p>
+  <p>아니었다.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>회사</th><th>매출 성장</th><th>영업이익</th><th>영업이익률 변화</th></tr></thead>
+    <tbody>
+      <tr><td>A사</td><td><strong>+67.8%</strong></td><td>−11.1%</td><td>34.1% → 18.0% (<strong>−16.0%p</strong>)</td></tr>
+      <tr><td>B사</td><td>+22.0%</td><td>−10.6%</td><td>28.2% → 20.6% (−7.5%p)</td></tr>
+      <tr><td>C사</td><td>+56.8%</td><td>−20.8%</td><td>21.6% → 10.9% (−10.7%p)</td></tr>
+      <tr><td>D사</td><td>−13.9%</td><td><strong>−87.8%</strong></td><td>획득비용이 매출의 <strong>56.4%</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>성장률이 +68%든 −14%든, 이익률은 같은 방향으로 무너졌다. <strong>성장 여부와 무관하다</strong>는 게 이 표의 핵심이다.</p>
+
+  <h2><span class="num">02</span>"업계가 다 그렇다"는 틀렸다</h2>
+  <p>"요즘 업계가 다 어렵다"는 말을 여러 번 들었다. 그래서 집계부터 찾아봤는데, 반대였다. 화장품 82개사의 영업이익률은 오히려 <strong>+0.38%p 개선</strong>됐다. 대상을 브랜드사 8곳으로 좁혀도 <strong>중위 하락폭은 −3.2%p</strong>에 그친다.</p>
+  <p>−16%p가 빠진 회사는 업종 중위의 <strong>5배</strong>를 잃은 셈이다. 그 차이는 시장이 아니라 회사 안에서 만들어졌다고 봐야 한다.</p>
+  <p>더 결정적인 건 같은 조건에서 반대로 간 회사들이 있다는 사실이다.</p>
+  <ul>
+    <li><strong>에이피알</strong> — 매출 +111% 성장하면서 영업이익률을 <strong>+6.96%p 올렸다.</strong></li>
+    <li><strong>달바글로벌</strong> — 매출 +68%(위 A사와 동급) 성장하면서 이익률을 <strong>+0.18%p로 방어했다.</strong> IR에는 "주요 권역 마케팅 및 비용구조 최적화"가 2026년 공식 과제로 올라 있다.</li>
+    <li><strong>코니바이에린</strong> — 업종은 다르지만(유아용품 D2C) 구조가 같다. 광고 비중을 <strong>10.65% → 9.13%로 낮추면서</strong> 매출을 <strong>+64%</strong> 키우고 이익률을 <strong>+9.17%p</strong> 올렸다. 외부 투자 없이 9년 연속 흑자다.</li>
+  </ul>
+  <p>"고성장하려면 이익률을 희생해야 한다"는 명제는 업계 법칙이 아니다. <strong>회사별 집행의 문제다.</strong></p>
+
+  <h2><span class="num">03</span>그럼 광고비가 범인인가 — 절반만 맞다</h2>
+  <p>하락한 6곳 중 광고비가 주도한 건 <strong>4곳</strong>이다. 나머지는 다르다. <strong>마녀공장</strong>은 광고선전비를 오히려 <strong>−8.5% 줄였고</strong>, 원인은 매출 감소에 따른 원가율 상승과 일회성 비용이었다. <strong>실리콘투</strong>처럼 광고비 비중이 1%대인 유통 마진 구조도 있다.</p>
+  <p>"광고비 탓"이라는 프레임을 전제로 깔면 이런 회사에는 빗나간다. 진단은 회사마다 따로 해야 한다. 그리고 광고비가 주도한 4곳에서도, 정확한 질문은 "광고비를 줄여라"가 아니다.</p>
+
+  <div class="pull">
+    <p>그 광고비 중 얼마가 새 매출을 만들었고, 얼마가 어차피 살 사람에게 쓴 돈인가.</p>
+  </div>
+
+  <p>이걸 구분하지 못하면 늘리는 것도 줄이는 것도 도박이다.</p>
+
+  <h2><span class="num">04</span>왜 아무도 측정하지 않았나</h2>
+  <p>여기서부터가 실은 더 궁금했던 부분이다. 재무제표는 결과만 보여주니까. 그래서 브랜드사 채용공고를 전수로 훑고, 기술블로그와 자사몰 페이지 소스를 하나씩 열어봤다.</p>
+  <ul>
+    <li>광고 픽셀은 다 붙어 있다. GA4, Google Ads, Meta, TikTok, Kakao, Naver 전환추적, 리뷰 솔루션, 채널톡, 이메일 자동화까지. 이 정도면 도구는 부족하지 않다.</li>
+    <li>그런데 <strong>그 위에서 판단하는 계층이 비어 있다.</strong> 데이터 전담 채용이 0건인 곳이 흔했고, 있어도 BI·대시보드에서 끝났다.</li>
+    <li><code>incrementality</code>, <code>geo-lift</code>, <code>holdout</code>, <code>MMM</code>. 공고 전수를 검색해도 <strong>0건</strong>이었다.</li>
+  </ul>
+  <p>조사하면서 오래 남은 장면이 두 개 있다.</p>
+  <p>한 회사는 채용 페이지에 조직 원칙을 적어 두었는데, 그중 하나가 문자 그대로 <em>"선행지표를 빠르게 검증한다"</em>였다. 좋은 문장이다. 그런데 그 검증을 실제로 수행하는 직무 — 가설을 미리 등록하고, 최소검출효과를 정하고, 유의성을 판정하는 일 — 는 조직 어디에도 없었다. 원칙은 있는데 방법이 없는 상태다.</p>
+  <p>다른 회사에서는 대시보드 관리가 <strong>시급 1만원대 아르바이트 업무</strong>로 올라와 있었다. 수천억을 굴리는 브랜드에서, 숫자를 보는 자리의 값이 그렇게 매겨져 있었다.</p>
+  <p>결론은 하나로 모인다. 데이터가 없는 게 아니다. <strong>데이터는 쌓이는데 볼 사람이 없다.</strong> 도구는 채널마다 따로 놀고, 고객 단위로 붙여서 "이 돈이 회수됐는가"를 답하는 계층만 통째로 빠져 있다.</p>
+
+  <h2><span class="num">05</span>마지막 클릭 ROAS가 못 보는 것</h2>
+  <p>대부분의 브랜드가 보는 지표는 마지막 클릭 기준 ROAS다. 이 지표에는 구조적인 구멍이 하나 있다. <strong>어차피 살 사람이 광고를 한 번 클릭하고 사면, 그 매출도 광고 성과로 잡힌다는 것.</strong> 브랜드가 클수록, 재구매가 많을수록 이 구멍은 커진다.</p>
+  <p>증분은 완전히 다른 질문이다. <em>"이 광고를 켜지 않았다면, 이 매출이 있었을까?"</em></p>
+  <p>이걸 답하려면 비교군이 있어야 한다. holdout을 남기거나, 지역을 나눠 실험하거나, 최소한 가설과 판정 기준을 미리 정해 두거나. 리포트를 잘 만드는 문제가 아니라 <strong>실험을 설계하는 문제</strong>다. 그래서 대시보드를 아무리 예쁘게 만들어도 여기엔 도달하지 않는다.</p>
+
+  <h2><span class="num">06</span>공개 데이터로 어디까지 보이나</h2>
+  <p><strong>보이는 것</strong> — 광고선전비·판매수수료·판매촉진비의 절대액과 매출 대비 비중, 3년 추이, peer 대비 초과분, 판관비 구성 변화, 재고자산 증가율 대 매출 증가율, 채널 구조(수수료 채널이 전사보다 빠른가 느린가), 마케팅 스택, 데이터 조직의 유무.</p>
+  <p><strong>보이지 않는 것</strong> — 증분 그 자체, 채널별 실제 기여이익, 재구매와 LTV, 매장별 sell-through. 이것들은 내부 데이터(광고 계정, 자사몰 주문, 채널 정산, 리테일러 EPOS)가 있어야 계산된다.</p>
+  <p>그래서 공개 자료로 하는 진단은 <strong>"어디를 봐야 하는가"의 가설이지 증분 측정 결과가 아니다.</strong> 이 경계를 흐리는 분석은 첫 반문에서 무너진다.</p>
+
+  <h2><span class="num">07</span>그래서 첫 세 가지 질문</h2>
+  <p>업종을 막론하고, 광고비가 늘고 이익률이 빠지는 회사에 우리가 먼저 던지는 질문은 같다.</p>
+  <ol>
+    <li><strong>이익률 하락분에서 시장 몫과 기저 정상화분을 뺀 나머지는 얼마인가.</strong> peer 코호트를 직접 계산하기 전에는 "업계 탓"인지 알 수 없다.</li>
+    <li><strong>흩어진 데이터가 고객 단위로 붙어 있는가.</strong> 광고 계정·자사몰·채널 정산·CRM이 따로 놀면 재구매도 증분도 계산 자체가 불가능하다.</li>
+    <li><strong>다음 100억을 어디에 걸지 정할 근거가 있는가.</strong> 브랜드·국가·채널 확장은 결국 배분 결정이고, 채널별 증분 수익성을 모르면 감으로 하는 결정이다.</li>
+  </ol>
+
+  <div class="note">
+    <h3>방법론 · 한계</h3>
+    <ul>
+      <li>재무 수치는 전부 DART 감사보고서 원문 대조. 별도/연결 기준을 확인하지 않은 비교는 하지 않았다.</li>
+      <li>peer 중위와 초과 하락분은 브랜드사 8곳 수동 계산치다.</li>
+      <li>일부 회사를 익명 처리한 것은 개별 기업 평가가 목적이 아니기 때문이다. 관심 있는 대상은 개별 회사가 아니라 <strong>업종 전체에 반복되는 구조</strong>다.</li>
+      <li>에이피알의 이익률 개선은 <strong>측정 체계 때문이라는 근거가 없다.</strong> 공시상 동인은 매출 2.1배 성장에 따른 분모효과, 디바이스–화장품 락인, 인지도 선순환이다.</li>
+      <li>코니바이에린은 화장품이 아니라 유아용품 D2C다. 광고비–성장 구조의 비교 사례로만 인용했다.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <div class="lb">다음 편</div>
+    <p>같은 방법을 <strong>전통주</strong>에 적용한다 — 여섯 곳의 매출 성장률이 전부 3%p 안에 몰려 있었는데, 이익률만 22%p가 갈렸다.</p>
+  </div>
+
+  <div class="cta">
+    <p>Lambency는 공개 데이터로 어디를 봐야 할지 진단하고, 내부 데이터로 그것이 사실인지 검증합니다.</p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · 데이터·AI 컨설팅, 서울</p>
+</footer>
+
+</body>
+</html>

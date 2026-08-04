@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lambency — Data &amp; AI Consulting</title>
+<meta name="description" content="Lambency is a one-person data & AI consultancy in Seoul. Growth and CRM analytics, experiment design, LLM agents in production, warehouse-first data infrastructure. Measured numbers only.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<!-- Open Graph / 링크 공유 미리보기 (배포 시 REPLACE-WITH-YOUR-DOMAIN 치환) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta property="og:title" content="Lambency — Data & AI Consulting">
+<meta property="og:description" content="서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계, 프로덕션 LLM 에이전트. 실측한 숫자만 씁니다.">
+<meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lambency — Data & AI Consulting">
+<meta name="twitter:description" content="서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계, 프로덕션 LLM 에이전트. 실측한 숫자만 씁니다.">
+<meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN/assets/og-default.png">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0b08;
+  --bg-2:#131009;
+  --ink:#ece5d8;
+  --ink-dim:#a89e8a;
+  --ink-faint:#6e6552;
+  --amber:#e8b458;
+  --amber-hi:#f5d489;
+  --amber-deep:#c98a2e;
+  --hairline:rgba(232,180,88,.16);
+  --hairline-dim:rgba(232,180,88,.08);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --body:'Source Serif 4',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --kr:'Source Serif 4','Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:300;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+::selection{background:rgba(232,180,88,.28);color:#fff}
+/* language toggle */
+html[data-lang="en"] .t[lang="ko"]{display:none}
+html[data-lang="ko"] .t[lang="en"]{display:none}
+html[data-lang="ko"] .t[lang="ko"]{font-family:var(--kr);font-style:normal}
+html[data-lang="ko"] .t[lang="ko"] em{font-style:normal}
+.hnav{display:flex;align-items:center;gap:clamp(16px,3vw,34px)}
+.langtoggle{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-hi);background:transparent;border:1px solid rgba(232,180,88,.4);border-radius:100px;padding:6px 13px;cursor:pointer;transition:background .3s,color .3s;white-space:nowrap}
+.langtoggle:hover{background:var(--amber);color:#191308}
+.langtoggle:focus-visible{outline:2px solid var(--amber-hi);outline-offset:2px}
+
+/* ── grain ─────────────────────────────── */
+body::after{
+  content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── header ────────────────────────────── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(24px,5vw,72px);
+  background:linear-gradient(to bottom,rgba(13,11,8,.92),rgba(13,11,8,0));
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:26px;height:26px}
+.brand span{
+  font-family:var(--serif);font-size:20px;font-weight:500;
+  letter-spacing:.18em;color:var(--ink);
+}
+nav{display:flex;gap:clamp(16px,3vw,40px)}
+nav a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  color:var(--ink-dim);text-decoration:none;text-transform:uppercase;
+  transition:color .3s;
+}
+nav a:hover{color:var(--amber-hi)}
+
+/* ── hero ──────────────────────────────── */
+.hero{
+  min-height:100svh;position:relative;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(24px,5vw,72px);
+}
+.orb{
+  position:absolute;right:clamp(-140px,2vw,8vw);top:50%;
+  width:min(62vw,660px);aspect-ratio:1;transform:translateY(-50%);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 46% 44%,
+    rgba(249,231,184,.85) 0%,
+    rgba(238,192,106,.5) 13%,
+    rgba(201,138,46,.18) 34%,
+    rgba(201,138,46,.05) 55%,
+    transparent 72%);
+  filter:blur(2px);
+  animation:breathe 7s ease-in-out infinite;
+}
+.orb::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(242,207,138,.22);
+  transform:scale(.52);
+}
+@keyframes breathe{
+  0%,100%{opacity:.85;transform:translateY(-50%) scale(1)}
+  50%{opacity:1;transform:translateY(-50%) scale(1.035)}
+}
+.hero-inner{position:relative;z-index:2;max-width:880px}
+.hero .kicker{
+  font-family:var(--mono);font-size:12px;letter-spacing:.3em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:34px;
+  display:flex;align-items:center;gap:14px;
+}
+.hero .kicker::before{content:"";width:44px;height:1px;background:var(--amber-deep)}
+h1{
+  font-family:var(--serif);
+  font-size:clamp(64px,11vw,148px);
+  font-weight:400;line-height:.96;letter-spacing:.015em;
+  color:var(--ink);
+}
+h1 em{font-style:italic;color:var(--amber-hi)}
+.dict{
+  margin-top:40px;max-width:620px;
+  border-left:1px solid var(--hairline);padding-left:28px;
+}
+.dict .entry{font-size:17px;line-height:1.8;color:var(--ink-dim)}
+.dict .word{font-family:var(--serif);font-size:25px;font-weight:500;color:var(--ink);letter-spacing:.02em;margin-right:6px}
+.dict .pos{font-style:italic;color:var(--ink-faint);margin-right:6px}
+.dict .gloss{
+  margin-top:14px;font-family:var(--serif);font-style:italic;
+  font-size:19px;color:var(--amber-hi);letter-spacing:.01em;
+}
+.hero .motto{
+  margin-top:30px;font-family:var(--serif);font-style:italic;
+  font-size:14px;letter-spacing:.32em;text-transform:uppercase;color:var(--amber);
+}
+.hero .meta{
+  margin-top:52px;display:flex;gap:clamp(24px,4vw,64px);flex-wrap:wrap;
+}
+.hero .meta div{font-family:var(--mono);font-size:12px;line-height:2;color:var(--ink-faint);letter-spacing:.04em}
+.hero .meta b{display:block;color:var(--ink-dim);font-weight:500}
+.scroll-cue{
+  position:absolute;bottom:36px;right:clamp(24px,5vw,72px);
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--ink-faint);
+  writing-mode:vertical-rl;display:flex;align-items:center;gap:10px;
+}
+.scroll-cue::after{content:"";width:1px;height:52px;background:linear-gradient(var(--amber-deep),transparent);animation:drip 2.4s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* load reveal */
+.rise{opacity:0;transform:translateY(26px);animation:rise 1s cubic-bezier(.22,.8,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.d1{animation-delay:.1s}.d2{animation-delay:.28s}.d3{animation-delay:.46s}.d4{animation-delay:.66s}
+
+/* ── sections ──────────────────────────── */
+section{padding:clamp(88px,12vh,150px) clamp(24px,5vw,72px);position:relative}
+.wrap{max-width:1080px;margin:0 auto}
+.sec-label{
+  font-family:var(--mono);font-size:12px;letter-spacing:.26em;
+  color:var(--amber);text-transform:uppercase;
+  display:flex;align-items:center;gap:14px;margin-bottom:44px;
+}
+.sec-label i{font-style:normal;color:var(--ink-faint)}
+.sec-label::after{content:"";flex:1;height:1px;background:var(--hairline-dim)}
+h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(34px,4.8vw,56px);line-height:1.22;letter-spacing:.005em;
+  margin-bottom:34px;
+}
+h2 em{font-style:italic;color:var(--amber-hi)}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.22,.8,.3,1),transform .9s cubic-bezier(.22,.8,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ── stats strip ──────────────────────── */
+.stats{
+  padding:0 clamp(24px,5vw,72px);
+  border-top:1px solid var(--hairline-dim);border-bottom:1px solid var(--hairline-dim);
+}
+.stats-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,40px);
+  padding:40px 0;
+}
+.stat b{
+  display:block;font-family:var(--serif);font-weight:500;
+  font-size:clamp(36px,4vw,52px);line-height:1;color:var(--amber-hi);
+  margin-bottom:10px;
+}
+.stat span{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);line-height:1.7;display:block;
+}
+
+/* ── method (modus) ────────────────────── */
+.wk{
+  display:block;margin-top:9px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase;
+}
+
+/* ── about ─────────────────────────────── */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(36px,6vw,90px);align-items:start}
+.about-grid p{color:var(--ink-dim);font-size:16.5px;margin-bottom:1.2em;max-width:58ch}
+.about-grid p strong{color:var(--ink);font-weight:500}
+.about-grid p em{color:var(--ink);font-style:italic}
+.cred{border-left:1px solid var(--hairline);padding-left:28px}
+.cred li{
+  list-style:none;padding:16px 0;border-bottom:1px solid var(--hairline-dim);
+  font-size:14.5px;color:var(--ink-dim);
+}
+.cred li:last-child{border-bottom:none}
+.cred b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+.cred span{display:block;margin-top:4px;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em}
+
+/* ── practice ──────────────────────────── */
+.svc{border-top:1px solid var(--hairline)}
+.svc-row{
+  display:grid;grid-template-columns:88px 1fr 1.35fr;gap:clamp(18px,3vw,48px);
+  padding:38px 0;border-bottom:1px solid var(--hairline-dim);
+  align-items:baseline;transition:background .4s,padding-left .4s;
+}
+.svc-row:hover{background:linear-gradient(90deg,rgba(232,180,88,.045),transparent 70%);padding-left:14px}
+.svc-row .no{font-family:var(--mono);font-size:13px;color:var(--amber-deep)}
+.svc-row h3{
+  font-family:var(--serif);font-weight:500;font-size:clamp(22px,2.5vw,28px);line-height:1.35;
+}
+.svc-row p{color:var(--ink-dim);font-size:15.5px;max-width:54ch}
+.svc-row .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.svc-row .tags i{
+  font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+  color:var(--ink-faint);border:1px solid var(--hairline);border-radius:100px;
+  padding:3px 10px;transition:color .3s,border-color .3s;
+}
+.svc-row:hover .tags i{color:var(--amber);border-color:rgba(232,180,88,.4)}
+
+/* ── principles ────────────────────────── */
+.principles{background:var(--bg-2);border-top:1px solid var(--hairline-dim);border-bottom:1px solid var(--hairline-dim)}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);margin-top:8px}
+.pr-grid article{position:relative;padding-top:26px}
+.pr-grid article::before{content:"";position:absolute;top:0;left:0;width:34px;height:1px;background:var(--amber)}
+.pr-num{
+  display:block;font-family:var(--serif);font-weight:400;font-size:30px;
+  color:var(--amber-hi);margin-bottom:10px;letter-spacing:.04em;
+}
+.pr-grid h3{font-family:var(--serif);font-weight:500;font-size:23px;margin-bottom:12px}
+.pr-grid p{font-size:14.5px;color:var(--ink-dim)}
+.pr-grid p .tf{color:var(--amber-deep);margin-right:8px;font-family:var(--serif)}
+.creed-quote{
+  margin-top:clamp(56px,8vw,84px);padding-top:clamp(36px,5vw,52px);
+  border-top:1px solid var(--hairline-dim);text-align:center;
+}
+.creed-quote p{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(24px,3.2vw,36px);line-height:1.4;color:var(--ink);
+}
+.creed-quote p::before{content:"\201C";color:var(--amber);margin-right:2px}
+.creed-quote p::after{content:"\201D";color:var(--amber);margin-left:2px}
+.creed-quote cite{
+  display:block;margin-top:18px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--ink-faint);
+}
+
+/* ── brand wall ────────────────────────── */
+.brandwall-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:20px;
+}
+.brandwall{
+  display:flex;flex-wrap:wrap;gap:16px clamp(28px,4vw,56px);
+  align-items:baseline;margin-bottom:56px;
+}
+.brandwall span{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(19px,2.4vw,28px);letter-spacing:.16em;
+  color:var(--ink-faint);white-space:nowrap;
+  transition:color .45s;
+}
+.brandwall span:hover{color:var(--ink)}
+.brandwall span i{font-style:normal;font-size:.55em;letter-spacing:.12em;color:var(--ink-faint);opacity:.7;margin-left:8px}
+
+/* ── work ──────────────────────────────── */
+.work-item{
+  border:1px solid var(--hairline-dim);border-radius:4px;
+  padding:clamp(28px,4vw,48px);margin-bottom:20px;
+  background:linear-gradient(160deg,rgba(232,180,88,.03),transparent 40%);
+  transition:border-color .4s,box-shadow .4s;
+}
+.work-item:hover{border-color:rgba(232,180,88,.35);box-shadow:0 0 60px rgba(201,138,46,.07)}
+.work-item .role{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:14px}
+.work-item h3{font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.8vw,31px);margin-bottom:14px}
+.work-item p{color:var(--ink-dim);font-size:15.5px;max-width:70ch}
+.work-item .clients{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.04em}
+.work-item .clients b{color:var(--ink-dim);font-weight:500}
+.work-more{
+  margin-top:34px;font-size:14px;line-height:1.9;color:var(--ink-faint);max-width:76ch;
+}
+.work-more b{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:500}
+
+/* ── contact ───────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,6vw,100px);align-items:start}
+.contact-grid .lead{font-size:17px;line-height:1.85;color:var(--ink-dim)}
+.contact-grid .lead strong{color:var(--ink);font-weight:500}
+.contact-direct{margin-top:36px}
+.contact-direct a{
+  font-family:var(--mono);font-size:14px;color:var(--amber-hi);
+  text-decoration:none;border-bottom:1px solid rgba(232,180,88,.35);
+  padding-bottom:3px;transition:border-color .3s;
+}
+.contact-direct a:hover{border-color:var(--amber-hi)}
+form{display:flex;flex-direction:column;gap:22px}
+.field label{
+  display:block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;
+}
+.field input,.field textarea{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid var(--hairline);
+  padding:8px 2px 12px;color:var(--ink);
+  font-family:var(--body);font-size:16px;font-weight:300;
+  transition:border-color .3s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--amber)}
+.field textarea{resize:vertical;min-height:110px;line-height:1.7}
+button{
+  align-self:flex-start;margin-top:10px;cursor:pointer;
+  background:transparent;color:var(--amber-hi);
+  border:1px solid rgba(232,180,88,.45);border-radius:100px;
+  padding:15px 42px;font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+  transition:background .35s,color .35s,box-shadow .35s;
+}
+button:hover{background:var(--amber);color:#191308;box-shadow:0 0 44px rgba(232,180,88,.3)}
+.form-note{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.03em}
+.mailcard{border:1px solid var(--hairline);border-radius:4px;padding:clamp(30px,4vw,44px);
+  background:linear-gradient(160deg,rgba(232,180,88,.05),transparent 46%)}
+.mc-lb{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.mc-mail{display:inline-block;font-family:var(--serif);font-size:clamp(24px,3.2vw,34px);letter-spacing:.01em;
+  color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.35);
+  padding-bottom:4px;transition:color .3s,border-color .3s;word-break:break-all}
+.mc-mail:hover{color:var(--amber);border-color:var(--amber-hi)}
+.mc-hint{margin-top:26px;font-size:15.5px;line-height:1.8;color:var(--ink-dim)}
+html[data-lang="ko"] .mc-hint{font-family:var(--kr)}
+.mailcard .form-note{margin-top:22px;padding-top:20px;border-top:1px solid var(--hairline-dim)}
+
+/* ── footer ────────────────────────────── */
+footer{
+  padding:44px clamp(24px,5vw,72px);border-top:1px solid var(--hairline-dim);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+}
+footer p{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em}
+footer p em{font-family:var(--serif);font-style:italic;font-size:13px;letter-spacing:.12em;color:var(--ink-dim)}
+footer .fm{display:flex;align-items:center;gap:10px}
+footer .fm svg{width:18px;height:18px;opacity:.8}
+
+@media (prefers-reduced-motion:reduce){
+  .rise,.reveal{opacity:1;transform:none;animation:none;transition:none}
+  .orb,.scroll-cue::after{animation:none}
+}
+@media (max-width:820px){
+  nav{display:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr);row-gap:32px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .pr-grid{grid-template-columns:1fr}
+  .svc-row{grid-template-columns:44px 1fr;grid-template-rows:auto auto}
+  .svc-row p{grid-column:2}
+  .orb{right:-30vw;opacity:.75}
+  .cred{border-left:none;padding-left:0;border-top:1px solid var(--hairline);padding-top:8px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#top" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <div class="hnav">
+    <nav>
+      <a href="#about"><span class="t" lang="en">About</span><span class="t" lang="ko">소개</span></a>
+      <a href="#practice"><span class="t" lang="en">Practice</span><span class="t" lang="ko">분야</span></a>
+      <a href="#method"><span class="t" lang="en">Method</span><span class="t" lang="ko">방식</span></a>
+      <a href="engagements.html"><span class="t" lang="en">Engagements</span><span class="t" lang="ko">서비스</span></a>
+      <a href="#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
+      <a href="blog/index.html"><span class="t" lang="en">Insights</span><span class="t" lang="ko">인사이트</span></a>
+      <a href="#contact"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></a>
+    </nav>
+    <button id="langtoggle" class="langtoggle" type="button" aria-label="Switch language / 언어 전환">한국어</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" style="padding-top:0;padding-bottom:0">
+    <div class="orb" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="kicker rise d1"><span class="t" lang="en">Data &amp; AI Consulting · Seoul</span><span class="t" lang="ko">데이터·AI 컨설팅 · 서울</span></p>
+      <h1 class="rise d2">Lamben<em>cy</em></h1>
+      <div class="dict rise d3">
+        <p class="entry"><span class="word">lam·ben·cy</span><em class="pos">n.</em><span class="t" lang="en">— light that plays gently over a surface, revealing its shape without burning it.</span><span class="t" lang="ko">— 표면을 태우지 않고 부드럽게 훑으며, 그 형태를 드러내는 빛.</span></p>
+        <p class="gloss"><span class="t" lang="en">Here, analysis is held to the same standard.</span><span class="t" lang="ko">분석도 같은 기준으로 다룹니다.</span></p>
+      </div>
+      <p class="motto rise d3" lang="la">Vires acquirit eundo</p>
+      <div class="meta rise d4">
+        <div><b><span class="t" lang="en">Principal</span><span class="t" lang="ko">대표</span></b>Caffrey Lee</div>
+        <div><b><span class="t" lang="en">Practice</span><span class="t" lang="ko">분야</span></b><span class="t" lang="en">Growth · Experiments · Applied AI</span><span class="t" lang="ko">그로스 · 실험설계 · 응용 AI</span></div>
+        <div><b><span class="t" lang="en">Base</span><span class="t" lang="ko">거점</span></b><span class="t" lang="en">Seoul, KR</span><span class="t" lang="ko">서울</span></div>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">SCROLL</div>
+  </section>
+
+  <!-- ═══ STATS ═══ -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat reveal"><b>10</b><span class="t" lang="en">years in<br>data science</span><span class="t" lang="ko">년차<br>데이터 사이언스</span></div>
+      <div class="stat reveal"><b>1.95M</b><span class="t" lang="en">customer profiles<br>modeled</span><span class="t" lang="ko">고객 프로파일<br>모델링</span></div>
+      <div class="stat reveal"><b>50+</b><span class="t" lang="en">hospital systems<br>served</span><span class="t" lang="ko">의료 시스템<br>운영 지원</span></div>
+      <div class="stat reveal"><b>0</b><span class="t" lang="en">unsourced numbers<br>shipped</span><span class="t" lang="ko">출처 없이<br>내보낸 숫자</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══ -->
+  <section id="about">
+    <div class="wrap">
+      <p class="sec-label reveal">01 — De Me <i><span class="t" lang="en">· About</span><span class="t" lang="ko">· 소개</span></i></p>
+      <div class="about-grid">
+        <div class="reveal">
+          <h2 class="t" lang="en">The deliverable is not a deck.<br><em>It runs.</em></h2>
+          <h2 class="t" lang="ko">보고서는 서랍으로,<br><em>시스템은 현장으로.</em></h2>
+          <p class="t" lang="en">Lambency is a one-person consultancy, run that way since 2023 — <strong>deliberately</strong>. The person who scopes your problem is the same person who writes the SQL, fits the model, ships the dashboard, and stands behind the number.</p>
+          <p class="t" lang="ko">Lambency는 2023년부터 1인 컨설팅으로 운영합니다 — <strong>일부러 그렇게</strong>. 문제를 정의하는 사람이 곧 SQL을 짜고, 모델을 세우고, 대시보드를 내보내고, 그 숫자를 책임지는 사람입니다.</p>
+          <p class="t" lang="en">The foundation is ten years of growth analytics, CRM and experiment design; the recent ones were spent putting <strong>LLM agents into production pipelines</strong>, not demos. Founded twice — so the analysis is built to end in a decision, not a slide. The standard was set in production, from Silicon Valley healthcare operations to Seoul retail — where a wrong number has a P&amp;L attached, and sometimes a patient schedule behind it.</p>
+          <p class="t" lang="ko">바탕은 10년의 그로스 분석·CRM·실험설계입니다. 최근 몇 년은 데모가 아니라 <strong>실제 운영 파이프라인에 LLM 에이전트를 심는 일</strong>에 썼습니다. 두 번 창업해봤기에, 분석은 슬라이드가 아니라 결정으로 끝나도록 설계합니다. 기준은 실무에서 세웠습니다 — 실리콘밸리 헬스케어 운영부터 서울 리테일까지, 틀린 숫자 하나에 손익이 걸리고 때로는 환자 일정까지 걸리는 현장에서.</p>
+          <p class="t" lang="en">One rule, kept stubbornly: measured numbers only. Where the data cannot answer, you will hear <em>I don't know</em> — followed by what it would take to know.</p>
+          <p class="t" lang="ko">고집스럽게 지키는 원칙 하나 — 실측한 숫자만 씁니다. 데이터가 답하지 못하는 지점에선 <em>모른다</em>고 말합니다. 그리고 알기 위해 무엇이 필요한지 이어서 말씀드립니다.</p>
+        </div>
+        <ul class="cred reveal">
+          <li class="t" lang="en"><b>Lambency</b>Founder &amp; Principal Consultant<span>2023 — present</span></li>
+          <li class="t" lang="ko"><b>Lambency</b>창업자 · 프린시펄 컨설턴트<span>2023 — 현재</span></li>
+          <li class="t" lang="en"><b>Retail CDP — Seoul</b>Data-hub lead · 1.95M customers, 256 brands<span>2024 — 2026</span></li>
+          <li class="t" lang="ko"><b>리테일 CDP — 서울</b>데이터 허브 리드 · 고객 195만 · 브랜드 256<span>2024 — 2026</span></li>
+          <li class="t" lang="en"><b>LeanTaaS — Silicon Valley</b>Sr. Data Analyst, healthcare operations AI<span>2020 — 2022</span></li>
+          <li class="t" lang="ko"><b>LeanTaaS — 실리콘밸리</b>시니어 데이터 애널리스트 · 헬스케어 운영 AI<span>2020 — 2022</span></li>
+          <li class="t" lang="en"><b>Open source</b>CRAN author — getDTeval (top-50), formulaic<span>R · research</span></li>
+          <li class="t" lang="ko"><b>오픈소스</b>CRAN 저자 — getDTeval (top-50), formulaic<span>R · 연구</span></li>
+          <li class="t" lang="en"><b>Columbia University</b>M.S. Applied Analytics<span>New York</span></li>
+          <li class="t" lang="ko"><b>컬럼비아 대학교</b>응용분석 석사 (M.S.)<span>뉴욕</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRACTICE ═══ -->
+  <section id="practice">
+    <div class="wrap">
+      <p class="sec-label reveal">02 — Opera <i><span class="t" lang="en">· Practice</span><span class="t" lang="ko">· 분야</span></i></p>
+      <div class="svc reveal">
+        <div class="svc-row">
+          <span class="no">P.01</span>
+          <h3><span class="t" lang="en">Growth &amp; CRM Analytics</span><span class="t" lang="ko">그로스 · CRM 분석</span></h3>
+          <div>
+            <p class="t" lang="en">Customer data, arranged until it points at revenue. RFM and behavioral segmentation, cohort-based LTV with uncertainty attached — a range you can plan against, not a point estimate with false precision.</p>
+            <p class="t" lang="ko">고객 데이터를, 매출을 가리킬 때까지 정리합니다. RFM·행동 세그먼테이션, 불확실성을 함께 붙인 코호트 기반 LTV — 헛된 정밀함으로 찍은 점 하나가 아니라, 계획을 세울 수 있는 범위로.</p>
+            <div class="tags"><i>RFM</i><i>Cohort LTV</i><i>Segmentation</i><i>Retention</i></div>
+          </div>
+        </div>
+        <div class="svc-row">
+          <span class="no">P.02</span>
+          <h3><span class="t" lang="en">Experiment Design &amp; Causal Inference</span><span class="t" lang="ko">실험설계 · 인과추론</span></h3>
+          <div>
+            <p class="t" lang="en">"Did it actually work?" — answered with statistics, not enthusiasm. Power analysis before launch, empirical-Bayes shrinkage when segments run thin, holdouts guarded against contamination, and quasi-experimental designs when you can't randomize.</p>
+            <p class="t" lang="ko">"그거, 진짜 효과 있었어요?" — 열정이 아니라 통계로 답합니다. 론칭 전 검정력 분석, 세그먼트가 얇아지면 empirical-Bayes 축소, 오염을 막는 홀드아웃, 무작위 배정이 어려우면 준실험 설계까지.</p>
+            <div class="tags"><i>Power Analysis</i><i>Holdout</i><i>Empirical Bayes</i><i>Causal Inference</i></div>
+          </div>
+        </div>
+        <div class="svc-row">
+          <span class="no">P.03</span>
+          <h3><span class="t" lang="en">Applied AI &amp; LLM Agents</span><span class="t" lang="ko">응용 AI · LLM 에이전트</span></h3>
+          <div>
+            <p class="t" lang="en">AI that clocks in. Agents wired into the pipelines you already run, drafting the first pass of analysis — and shipped with an evaluation harness, because "we tried it and it seemed fine" is not a QA strategy.</p>
+            <p class="t" lang="ko">출근하는 AI. 이미 돌리고 있는 파이프라인에 에이전트를 연결해 분석의 초안을 뽑습니다 — 평가 하네스와 함께 넘깁니다. "돌려보니 괜찮던데요"는 QA가 아니니까요.</p>
+            <div class="tags"><i>LLM Pipelines</i><i>Agents</i><i>Evals</i><i>RAG</i></div>
+          </div>
+        </div>
+        <div class="svc-row">
+          <span class="no">P.04</span>
+          <h3><span class="t" lang="en">Data Infrastructure &amp; CDP</span><span class="t" lang="ko">데이터 인프라 · CDP</span></h3>
+          <div>
+            <p class="t" lang="en">The quiet part that makes the rest possible. Warehouse-first architecture: one source of truth, versioned transformations, metrics defined once and reused everywhere — so two dashboards never disagree about revenue again.</p>
+            <p class="t" lang="ko">나머지를 가능하게 하는 조용한 토대. 웨어하우스 우선 아키텍처 — 하나의 진실 소스, 버전 관리되는 변환, 한 번 정의해 어디서나 재사용하는 지표. 두 대시보드가 매출을 두고 다시는 어긋나지 않도록.</p>
+            <div class="tags"><i>BigQuery</i><i>CDP</i><i>Metrics Layer</i><i>Pipelines</i></div>
+          </div>
+        </div>
+      </div>
+      <p class="reveal" style="margin-top:44px;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase"><a href="engagements.html" style="color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.4);padding-bottom:3px"><span class="t" lang="en">Engagements &amp; pricing →</span><span class="t" lang="ko">서비스 · 비용 보기 →</span></a></p>
+    </div>
+  </section>
+
+  <!-- ═══ METHOD ═══ -->
+  <section id="method">
+    <div class="wrap">
+      <p class="sec-label reveal">03 — Modus <i><span class="t" lang="en">· A Typical Engagement</span><span class="t" lang="ko">· 진행 방식</span></i></p>
+      <div class="svc reveal">
+        <div class="svc-row">
+          <span class="no">Ph.I</span>
+          <h3><span class="t" lang="en">Diagnose</span><span class="t" lang="ko">진단</span><span class="wk"><span class="t" lang="en">Weeks 1–2</span><span class="t" lang="ko">1–2주차</span></span></h3>
+          <div>
+            <p class="t" lang="en">Define the decision, audit the data that is supposed to support it, and state upfront what can and cannot be answered at current data quality. The deliverable is a measurement plan — not a proposal deck.</p>
+            <p class="t" lang="ko">내려야 할 결정을 정의하고, 그걸 뒷받침한다는 데이터를 감사하고, 지금 데이터 품질로 답할 수 있는 것과 없는 것을 먼저 말합니다. 결과물은 제안서가 아니라 측정 계획입니다.</p>
+          </div>
+        </div>
+        <div class="svc-row">
+          <span class="no">Ph.II</span>
+          <h3><span class="t" lang="en">Build</span><span class="t" lang="ko">구축</span><span class="wk"><span class="t" lang="en">Weeks 3–8</span><span class="t" lang="ko">3–8주차</span></span></h3>
+          <div>
+            <p class="t" lang="en">Pipelines, models, experiments — committed to your repositories from the first week. Every metric versioned, every assumption written down, every estimate carrying its interval.</p>
+            <p class="t" lang="ko">파이프라인·모델·실험을 첫 주부터 귀사 저장소에 커밋합니다. 모든 지표는 버전 관리하고, 모든 가정은 기록하며, 모든 추정치는 신뢰구간을 달고 나옵니다.</p>
+          </div>
+        </div>
+        <div class="svc-row">
+          <span class="no">Ph.III</span>
+          <h3><span class="t" lang="en">Transfer</span><span class="t" lang="ko">이관</span><span class="wk"><span class="t" lang="en">Week 9 onward</span><span class="t" lang="ko">9주차부터</span></span></h3>
+          <div>
+            <p class="t" lang="en">Operate together, then hand over: documentation, runbooks, and a team that no longer needs me. Planned obsolescence is part of the deliverable.</p>
+            <p class="t" lang="ko">함께 운영해본 뒤 넘깁니다 — 문서, 런북, 그리고 더 이상 저를 필요로 하지 않는 팀까지. 제가 필요 없어지도록 설계하는 것, 그것도 결과물의 일부입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRINCIPLES ═══ -->
+  <section class="principles">
+    <div class="wrap">
+      <p class="sec-label reveal">04 — Principia <i><span class="t" lang="en">· How I Work</span><span class="t" lang="ko">· 일하는 방식</span></i></p>
+      <div class="pr-grid">
+        <article class="reveal">
+          <span class="pr-num">I.</span>
+          <h3 class="t" lang="en">Numbers carry provenance.</h3>
+          <h3 class="t" lang="ko">숫자에는 출처가 있다.</h3>
+          <p class="t" lang="en"><span class="tf">∴ </span>Every figure arrives with its source and its date, like anything of value. A number that cannot be traced does not ship — however impressive.</p>
+          <p class="t" lang="ko"><span class="tf">∴ </span>모든 수치는, 값진 것이 다 그렇듯, 출처와 날짜를 달고 옵니다. 추적할 수 없는 숫자는 아무리 그럴듯해도 내보내지 않습니다.</p>
+        </article>
+        <article class="reveal">
+          <span class="pr-num">II.</span>
+          <h3 class="t" lang="en">Uncertainty is part of the result.</h3>
+          <h3 class="t" lang="ko">불확실성도 결과의 일부다.</h3>
+          <p class="t" lang="en"><span class="tf">∴ </span>Limits are stated before findings — confidence intervals, not confidence tricks. "I don't know" is a deliverable, priced with what it would take to know.</p>
+          <p class="t" lang="ko"><span class="tf">∴ </span>한계를 결론보다 먼저 말합니다 — 근거 없는 확신이 아니라 신뢰구간으로. "모른다"도 하나의 결과물입니다. 알기 위해 무엇이 필요한지까지 함께 값을 매겨서.</p>
+        </article>
+        <article class="reveal">
+          <span class="pr-num">III.</span>
+          <h3 class="t" lang="en">Advice must compile.</h3>
+          <h3 class="t" lang="ko">조언은 컴파일되어야 한다.</h3>
+          <p class="t" lang="en"><span class="tf">∴ </span>Recommendations ship as running code. Engagements end; the pipelines, models and documentation remain — yours.</p>
+          <p class="t" lang="ko"><span class="tf">∴ </span>제언은 돌아가는 코드로 넘깁니다. 프로젝트는 끝나도 파이프라인·모델·문서는 남습니다 — 온전히 귀사의 것으로.</p>
+        </article>
+      </div>
+      <blockquote class="creed-quote reveal">
+        <p class="t" lang="en">Our team's data literacy has gone up.</p>
+        <p class="t" lang="ko">우리 팀의 데이터 리터러시가 확 올라갔어요.</p>
+        <cite class="t" lang="en">— a CRM client, one year into the engagement. Still the review that matters most.</cite>
+        <cite class="t" lang="ko">— 어느 CRM 클라이언트, 프로젝트 1년 차. 지금도 가장 소중한 후기입니다.</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section id="work">
+    <div class="wrap">
+      <p class="sec-label reveal">05 — Acta <i><span class="t" lang="en">· Selected Work</span><span class="t" lang="ko">· 주요 사례</span></i></p>
+      <!-- ⚠ 브랜드 실명 노출은 2026-07-12 사용자 결정 — 계약상 문제 시 업종 표기로 롤백 -->
+      <div class="reveal">
+        <p class="brandwall-label"><span class="t" lang="en">Experience includes</span><span class="t" lang="ko">함께한 브랜드</span></p>
+        <div class="brandwall" aria-label="Brands served through client engagements">
+          <span>GLOBAL EYEWEAR<i>KR · US · JP · AU</i></span>
+          <span>ANTOINE SOLÈRE</span>
+          <span>RAWROW</span>
+        </div>
+      </div>
+      <div class="work-item reveal">
+        <p class="role t" lang="en">2023 — Ongoing · Lambency Engagement</p>
+        <p class="role t" lang="ko">2023 — 진행 중 · Lambency 프로젝트</p>
+        <h3 class="t" lang="en">Cross-Market CRM for a Global Eyewear Brand</h3>
+        <h3 class="t" lang="ko">글로벌 아이웨어 브랜드 CRM</h3>
+        <p class="t" lang="en">The metric this group's flagship brand needed wasn't captured by its existing data. Reframed the question with everyone from data owners to decision-makers, then rebuilt the pipeline from instrumentation through modeling — across the Korean, U.S., Japanese and Australian markets. It now runs as a core CRM model, extending to the group's sister brands; the engagement has been renewed every quarter for over a year.</p>
+        <p class="t" lang="ko">이 그룹 대표 브랜드가 필요로 한 지표는 기존 데이터로는 잡히지 않았습니다. 데이터 담당자부터 의사결정권자까지 함께 질문을 다시 세우고, 계측부터 모델링까지 파이프라인을 새로 구축했습니다 — 한국·미국·일본·호주 시장에 걸쳐. 지금은 핵심 CRM 모델로 가동되며 그룹 자매 브랜드로 확장 중이고, 이 프로젝트는 1년 넘게 분기마다 갱신되고 있습니다.</p>
+        <p class="clients t" lang="en"><b>Scope</b> — KR · US · JP · AU · multi-market lifecycle &amp; repurchase modeling</p>
+        <p class="clients t" lang="ko"><b>범위</b> — KR · US · JP · AU · 멀티마켓 라이프사이클 &amp; 재구매 모델링</p>
+      </div>
+      <div class="work-item reveal">
+        <p class="role t" lang="en">2024 — 2026 · Data Hub Lead</p>
+        <p class="role t" lang="ko">2024 — 2026 · 데이터 허브 리드</p>
+        <h3 class="t" lang="en">A Data Hub for 1.95M Customers</h3>
+        <h3 class="t" lang="ko">고객 195만 명을 위한 데이터 허브</h3>
+        <p class="t" lang="en">Led the data hub inside a Series A customer-data platform spanning 1.95 million customers and 256 brands: RFM segmentation, collaborative filtering, Customer360, a proprietary user–brand affinity index — and LLM agents drafting the first pass of analysis. Dashboards stopped being reports and started being decisions.</p>
+        <p class="t" lang="ko">고객 195만 명, 브랜드 256개를 아우르는 시리즈 A 고객 데이터 플랫폼에서 데이터 허브를 이끌었습니다 — RFM 세그먼테이션, 협업 필터링, Customer360, 자체 개발한 사용자–브랜드 친화도 지수, 그리고 분석 초안을 뽑는 LLM 에이전트까지. 대시보드가 보고서에서 결정으로 바뀌었습니다.</p>
+        <p class="clients t" lang="en"><b>Stack</b> — BigQuery · Python · LLM agents · reverse ETL</p>
+        <p class="clients t" lang="ko"><b>스택</b> — BigQuery · Python · LLM 에이전트 · reverse ETL</p>
+      </div>
+      <div class="work-item reveal">
+        <p class="role t" lang="en">D2C Brands · Measurement Showcase</p>
+        <p class="role t" lang="ko">D2C 브랜드 · 측정 쇼케이스</p>
+        <h3 class="t" lang="en">The Control Group Never Stood a Chance</h3>
+        <h3 class="t" lang="ko">대조군은 애초에 상대가 안 됐다</h3>
+        <p class="t" lang="en">RFM and clustering audiences for two D2C brands, tested against both broad and purchase-based targeting — verified with two-proportion z-tests, bootstrap resampling, and Beta-Binomial conversion modeling. Antoine Solère grew own-mall revenue 4.3× in six weeks; RAWROW's first campaign hit a 16.5% CTR. The point is not the multiples — it's that they were measured properly.</p>
+        <p class="t" lang="ko">D2C 브랜드 두 곳의 오디언스를 RFM·클러스터링으로 뽑아, 광범위 타겟팅과 구매 기반 타겟팅 양쪽에 붙여 검증했습니다 — 2비율 z-검정, 부트스트랩 리샘플링, Beta-Binomial 전환 모델링으로. Antoine Solère는 6주 만에 자사몰 매출 4.3배, RAWROW의 첫 캠페인은 CTR 16.5%를 기록했습니다. 핵심은 배수가 아니라, 그것이 제대로 측정됐다는 사실입니다.</p>
+        <p class="clients t" lang="en"><b>Method</b> — z-test · bootstrap · Beta-Binomial CVR · holdout</p>
+        <p class="clients t" lang="ko"><b>방법</b> — z-검정 · 부트스트랩 · Beta-Binomial CVR · 홀드아웃</p>
+      </div>
+      <div class="work-item reveal">
+        <p class="role t" lang="en">Public Sector · Clinical Research</p>
+        <p class="role t" lang="ko">공공 · 임상 연구</p>
+        <h3 class="t" lang="en">Proof, in the Public Interest</h3>
+        <h3 class="t" lang="ko">공익을 위한 증명</h3>
+        <p class="t" lang="en">A predictive model of cyclist killed-or-severely-injured intersections, built with Columbia University for the New York City Council to inform Vision Zero road-safety policy. Statistical power analysis and validation protocols for COVID-era clinical studies at Richmond University Medical Center. Currently, a government-funded deepfake &amp; NCII detection system. Different domains, one discipline — when a number informs policy or patient care, the evidentiary bar only rises.</p>
+        <p class="t" lang="ko">자전거 사망·중상 교차로 예측 모델을 컬럼비아 대학교와 함께 뉴욕시의회를 위해 구축해 Vision Zero 도로안전 정책에 반영했습니다. 리치먼드 대학병원의 코로나 시기 임상 연구를 위한 통계 검정력 분석·검증 프로토콜. 현재는 정부 지원 딥페이크·NCII 탐지 시스템. 영역은 달라도 규율은 하나입니다 — 숫자가 정책이나 환자 치료를 좌우할 때, 증거의 기준은 더 높아질 뿐입니다.</p>
+        <p class="clients t" lang="en"><b>Scope</b> — NYC Vision Zero · clinical statistics · trust &amp; safety</p>
+        <p class="clients t" lang="ko"><b>범위</b> — NYC Vision Zero · 임상 통계 · 신뢰·안전(T&amp;S)</p>
+      </div>
+      <div class="work-item reveal">
+        <p class="role t" lang="en">Hospitality · Kyoto — Family Office</p>
+        <p class="role t" lang="ko">호스피탈리티 · 교토 — 패밀리 오피스</p>
+        <h3 class="t" lang="en">First, Invent the Dataset</h3>
+        <h3 class="t" lang="ko">먼저, 데이터셋부터 만들었습니다</h3>
+        <p class="t" lang="en">A family office running short-stay properties in Kyoto needed dynamic pricing — but the market data didn't exist. So it was built: competitors' nightly rates and booking occupancy, crawled and assembled into a dataset the market itself didn't have. The result priced the calendar dynamically, and settled physical questions too — which property configurations were worth building at all.</p>
+        <p class="t" lang="ko">교토에서 단기 숙박을 운영하는 패밀리 오피스가 다이내믹 프라이싱이 필요했지만, 시장 데이터가 존재하지 않았습니다. 그래서 만들었습니다 — 경쟁 숙소의 1박 요금과 예약 점유율을 크롤링해, 시장에도 없던 데이터셋으로 엮었습니다. 그 결과 캘린더 단가를 동적으로 매겼고, '어떤 객실 구성을 지을 가치가 있는가'라는 물리적 질문까지 정리했습니다.</p>
+        <p class="clients t" lang="en"><b>Scope</b> — market construction · dynamic pricing · property configuration</p>
+        <p class="clients t" lang="ko"><b>범위</b> — 시장 데이터 구축 · 다이내믹 프라이싱 · 객실 구성 설계</p>
+      </div>
+      <p class="work-more reveal t" lang="en"><b>Also</b> — two R packages on CRAN (getDTeval, a top-50 package; formulaic) · a comp-based real-estate pricing engine, in closed B2B beta.</p>
+      <p class="work-more reveal t" lang="ko"><b>그 외</b> — CRAN에 등록한 R 패키지 둘 (getDTeval, top-50 · formulaic) · comp 기반 부동산 가격 산정 엔진, B2B 클로즈드 베타 진행 중.</p>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="wrap">
+      <p class="sec-label reveal">06 — Epistula <i><span class="t" lang="en">· Contact</span><span class="t" lang="ko">· 문의</span></i></p>
+      <div class="contact-grid">
+        <div class="reveal">
+          <h2 class="t" lang="en">Bring the question<br>your data keeps <em>dodging</em>.</h2>
+          <h2 class="t" lang="ko">데이터는 쌓였는데, 답이 없던 질문.<br><em>그걸 가져오세요.</em></h2>
+          <p class="lead t" lang="en">Describe the decision you're trying to make and what stands in its way. You'll hear back <strong>within two business days</strong> — from me, since there is no one else here.</p>
+          <p class="lead t" lang="ko">내리려는 결정과, 그 앞을 막고 있는 것을 적어주세요. <strong>영업일 이틀 안</strong>에 답을 드립니다 — 여기엔 저뿐이라, 제가 직접.</p>
+          <p class="contact-direct">
+            <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+          </p>
+          <p class="contact-direct" style="margin-top:16px">
+            <a href="https://linkedin.com/in/caffrey-lee/" target="_blank" rel="noopener">LinkedIn</a>
+            &nbsp;&nbsp;
+            <a href="https://github.com/decaff46" target="_blank" rel="noopener">GitHub</a>
+          </p>
+        </div>
+        <div class="reveal mailcard">
+          <p class="mc-lb"><span class="t" lang="en">Write directly</span><span class="t" lang="ko">바로 메일 주세요</span></p>
+          <a class="mc-mail" href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+          <p class="mc-hint t" lang="en">Useful to include — the decision you're facing, what's blocking it, and roughly when you need it settled.</p>
+          <p class="mc-hint t" lang="ko">이런 걸 적어주시면 좋습니다 — 내리려는 결정, 그 앞을 막고 있는 것, 그리고 대략 언제까지 정해야 하는지.</p>
+          <p class="form-note t" lang="en">Read by one person. Used for nothing else.</p>
+          <p class="form-note t" lang="ko">한 사람이 읽습니다. 다른 데는 쓰지 않습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fm">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+      </g>
+    </svg>
+    <p><span class="t" lang="en">© MMXXVI Lambency. All rights reserved.</span><span class="t" lang="ko">© MMXXVI Lambency. 모든 권리 보유.</span></p>
+  </div>
+  <!-- TODO: 사업자등록 완료 후 표기 -->
+  <p><span class="t" lang="en">Data &amp; AI Consulting, Seoul</span><span class="t" lang="ko">데이터·AI 컨설팅, 서울</span> · <em lang="la">Vires acquirit eundo</em></p>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+// 첫 페인트에 이미 뷰포트 안인 요소는 즉시 표시 (앵커 진입·스크롤 복원 시 빈 화면 방지)
+document.querySelectorAll('.reveal').forEach(el=>{
+  if(el.getBoundingClientRect().top<window.innerHeight*.96){el.classList.add('in')}
+  else{io.observe(el)}
+});
+
+// language toggle (EN default; remembers choice)
+(function(){
+  var root=document.documentElement, btn=document.getElementById('langtoggle');
+  function apply(l){
+    root.setAttribute('data-lang',l);
+    root.setAttribute('lang',l==='ko'?'ko':'en');
+    if(btn)btn.textContent=l==='ko'?'EN':'한국어';
+    document.querySelectorAll('[data-ph-en]').forEach(function(el){
+      var v=(l==='ko')?el.getAttribute('data-ph-ko'):el.getAttribute('data-ph-en');
+      if(v!=null)el.setAttribute('placeholder',v);
+    });
+    try{localStorage.setItem('lam-lang',l)}catch(e){}
+  }
+  var saved=null;try{saved=localStorage.getItem('lam-lang')}catch(e){}
+  apply(saved==='ko'?'ko':'en');
+  if(btn)btn.addEventListener('click',function(){
+    apply(root.getAttribute('data-lang')==='ko'?'en':'ko');
+  });
+})();
+</script>
+
+</body>
+</html>

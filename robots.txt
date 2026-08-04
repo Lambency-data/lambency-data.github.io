@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# 검색엔진이 사이트맵을 찾도록 안내
+# ⚠️ 배포 후 실제 주소로 교체할 것 (예: https://caffreywlee-decaff.github.io/lambency_site/sitemap.xml)
+Sitemap: https://REPLACE-WITH-YOUR-DOMAIN/sitemap.xml

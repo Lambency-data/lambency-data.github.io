@@ -1,0 +1,11 @@
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# ── 내부 문서 (절대 공개 금지) ──────────────
+# 편집원칙.md = 아웃리치 보호 대상 명단·익명화 전략이 들어 있음
+blog/편집원칙.md
+# DEPLOY.md = 내부 배포 체크리스트·미결 판단 사항
+DEPLOY.md

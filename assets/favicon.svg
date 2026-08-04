@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0d0b08"/>
+  <g transform="translate(32,32)">
+    <path d="M 12.2 -14.6 A 19 19 0 0 1 9.5 16.5" fill="none" stroke="#f5d489" stroke-width="2.6" stroke-linecap="round" opacity=".95"/>
+    <path d="M -23.4 -13.5 A 27 27 0 0 1 25.4 -9.2" fill="none" stroke="#eec06a" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+    <g transform="rotate(35)">
+      <path d="M 0 -19 L 3.6 2 L -3.6 2 Z" fill="#f2cf8a"/>
+      <path d="M 0 11 L 2.6 2 L -2.6 2 Z" fill="#c98a2e" opacity=".7"/>
+    </g>
+    <circle r="2.2" fill="#fdf3d7"/>
+  </g>
+</svg>
