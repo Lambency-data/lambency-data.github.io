@@ -161,15 +161,15 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
         <div class="code"><span class="t" lang="en">Phase 0 · When the data doesn't exist yet</span><span class="t" lang="ko">Phase 0 · 쓸 데이터가 아직 없을 때</span><i class="t" lang="en">optional pre-step</i><i class="t" lang="ko">선택 · 선행 단계</i></div>
         <h3 class="t" lang="en">First, we build the dataset.</h3>
         <h3 class="t" lang="ko">데이터가 없다면, 데이터부터 짓습니다.</h3>
-        <p class="promise t" lang="en">Most companies don't have dirty data — they have <em>no</em> usable data. So we make it: instrumentation (event tagging, order/POS/CRM connection), external sourcing (public data, APIs, lawful crawling of the market), and generation (backfill, synthetic bootstrap, labeling). We don't just clean what you have — we go get what you're missing. <span style='color:var(--ink-faint)'>(The Kyoto engagement started exactly here — the market data didn't exist, so it was crawled into being.)</span></p>
-        <p class="promise t" lang="ko">대부분은 데이터가 더러운 게 아니라 아예 <em>없습니다.</em> 그래서 만듭니다 — 이벤트를 심고(계측), 밖에서 끌어오고(공개데이터·API·합법 크롤링), 그래도 없으면 생성(백필·합성·라벨링)까지. 있는 걸 닦아드리는 데서 그치지 않고, <em>없는 걸 구해다 드립니다.</em> <span style='color:var(--ink-faint)'>(교토 프로젝트가 딱 이랬어요 — 시장 데이터가 없어서, 크롤링으로 만들어냈습니다.)</span></p>
+        <p class="promise t" lang="en">Most companies don't have dirty data — they have <em>no</em> usable data. So we make it: instrumentation (event tagging, order/POS/CRM connection), external sourcing (public data, APIs, market data collected lawfully), and generation (backfill, synthetic bootstrap, labeling). We don't just clean what you have — we go get what you're missing. <span style='color:var(--ink-faint)'>(The Kyoto engagement started exactly here — the market data didn't exist, so we built it.)</span></p>
+        <p class="promise t" lang="ko">대부분은 데이터가 더러운 게 아니라 아예 <em>없습니다.</em> 그래서 만듭니다 — 이벤트를 심고(계측), 밖에서 끌어오고(공개데이터·API·적법한 웹 수집), 그래도 없으면 생성(백필·합성·라벨링)까지. 있는 걸 닦아드리는 데서 그치지 않고, <em>없는 걸 구해다 드립니다.</em> <span style='color:var(--ink-faint)'>(교토 프로젝트가 딱 이 경우였습니다. 시장 데이터가 없어서 직접 만들었습니다.)</span></p>
         <div class="tiers">
           <div class="tier"><div class="tl"><span class="t" lang="en">Build</span><span class="t" lang="ko">구축</span><span class="pr">₩10–20M</span></div>
             <p class="t" lang="en">Metrics-first design → collection/sourcing/generation → an AI-ready data layer, handed over. <span class="mono" style='color:var(--ink-faint)'>+2–4 weeks</span></p>
             <p class="t" lang="ko">뭘 결정할지부터 거꾸로 설계 → 수집·소싱·생성 → AI가 바로 쓰는 데이터 레이어로 이관. <span class="mono" style='color:var(--ink-faint)'>+2~4주</span></p></div>
           <div class="tier sub"><div class="tl"><span class="t" lang="en">Feeds into</span><span class="t" lang="ko">그다음</span><span class="pr">A / B / C</span></div>
-            <p class="t" lang="en">Once the data exists, any offering below can run on top of it.</p>
-            <p class="t" lang="ko">데이터가 생기면, 아래 상품 아무거나 그 위에 올립니다.</p></div>
+            <p class="t" lang="en">Once the data exists, everything below can run on top of it.</p>
+            <p class="t" lang="ko">데이터가 준비되면, 아래 상품은 그 위에 바로 올릴 수 있습니다.</p></div>
         </div>
       </div>
 
@@ -181,14 +181,14 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
         <p class="promise t" lang="en">Replace the dashboard nobody opens with an agent that speaks up: a daily narrative read of the business, and anomaly alerts before a revenue dip or stock break has run for days.</p>
         <p class="promise t" lang="ko">아무도 안 여는 대시보드를, 먼저 말 거는 에이전트로 바꿉니다. 아침마다 사업 상태를 정리해 주고, 매출이 꺾이거나 재고가 튀면 며칠 지나기 전에 알려줍니다.</p>
         <p class="who t" lang="en"><b>For</b> — teams with dashboards no one reads, who learn about problems a few days late.</p>
-        <p class="who t" lang="ko"><b>이런 곳에</b> — 대시보드는 있는데 아무도 안 보고, 문제는 늘 며칠 지나서야 아는 팀.</p>
+        <p class="who t" lang="ko">대시보드는 있는데 아무도 안 보고, 문제는 늘 며칠 지나서야 알게 되는 팀에 맞습니다.</p>
         <div class="tiers">
           <div class="tier"><div class="tl"><span class="t" lang="en">① Build</span><span class="t" lang="ko">① 구축</span><span class="pr">₩20–30M</span></div>
             <p class="t" lang="en">Briefing + anomaly-detection agent on your data, pipeline &amp; runbook transferred, effect measured. <span class="mono" style='color:var(--ink-faint)'>4–6 weeks</span></p>
             <p class="t" lang="ko">데이터 위에 브리핑·이상탐지 에이전트를 올리고, 파이프라인·운영 매뉴얼까지 넘깁니다. 효과는 숫자로. <span class="mono" style='color:var(--ink-faint)'>4~6주</span></p></div>
           <div class="tier sub"><div class="tl"><span class="t" lang="en">② Data-readiness subscription</span><span class="t" lang="ko">② 데이터 레디니스 구독</span><span class="pr">₩2–4M / mo</span></div>
-            <p class="t" lang="en">Keeps the briefing running on fresh data — automated monitoring, not on-call. MRR anchored to something you see daily.</p>
-            <p class="t" lang="ko">브리핑이 최신 데이터로 계속 돌도록 자동으로 지킵니다. 상시 대기가 아니라 자동 감시 — 매일 눈에 보이는 값에 붙는 월 구독이라 잘 안 끊습니다.</p></div>
+            <p class="t" lang="en">Keeps the briefing running on fresh data. Not someone on call — the pipeline watches itself. A monthly subscription attached to something you actually open every day.</p>
+            <p class="t" lang="ko">브리핑이 늘 최신 데이터로 돌아가게 유지합니다. 사람이 대기하는 게 아니라 파이프라인이 스스로 감시합니다. 매일 여는 화면에 붙는 월 구독입니다.</p></div>
         </div>
         <div class="figs">
           <div class="fig"><b>60d → 5min</b><span class="t" lang="en">data validation automated (healthcare SaaS, anon.)</span><span class="t" lang="ko">데이터 검증 자동화 (헬스케어 SaaS·익명)</span></div>
@@ -202,19 +202,19 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
       <!-- B -->
       <div class="offer reveal">
         <div class="code"><span class="t" lang="en">Offering B · Data Foundation + Decision Model</span><span class="t" lang="ko">상품 B · 데이터 파운데이션 + 결정모델</span><i class="t" lang="en">the core engine · MRR</i><i class="t" lang="ko">핵심 엔진 · MRR</i></div>
-        <h3 class="t" lang="en">Make the data usable for AI — then keep it that way.</h3>
-        <h3 class="t" lang="ko">AI가 쓸 수 있는 데이터로. 그리고 계속 그렇게.</h3>
+        <h3 class="t" lang="en">Make the data usable for AI — and keep it that way.</h3>
+        <h3 class="t" lang="ko">AI가 바로 쓸 수 있는 상태로 만들고, 그 상태를 유지합니다.</h3>
         <p class="promise t" lang="en">Entity resolution (SKU / product / customer standardization) into an AI-ready layer, with one decision model that actually gets used on top — segmentation, pricing, demand/churn, or matching. And if the data isn't there, Phase 0 sources it first.</p>
         <p class="promise t" lang="ko">제각각인 SKU·상품명·고객ID를 맞춰(entity resolution) AI가 바로 쓰는 데이터로 만들고, 그 위에 실제로 쓰이는 결정 하나를 올립니다 — 세그먼트든, 가격이든, 수요·이탈 예측이든, 매칭이든. 데이터가 없으면 Phase 0가 먼저 구해 옵니다.</p>
         <p class="who t" lang="en"><b>For</b> — teams stuck because SKUs, names and IDs don't line up; AI projects that stalled on dirty data.</p>
-        <p class="who t" lang="ko"><b>이런 곳에</b> — SKU·이름·ID가 안 맞아 아무것도 못 하는 팀, 데이터가 더러워서 AI가 멈춰버린 팀.</p>
+        <p class="who t" lang="ko">SKU·이름·ID가 서로 안 맞아 아무것도 못 하고 있는 팀, 데이터가 지저분해서 AI 프로젝트가 멈춰 선 팀에 맞습니다.</p>
         <div class="tiers">
           <div class="tier"><div class="tl"><span class="t" lang="en">① Build</span><span class="t" lang="ko">① 구축</span><span class="pr">₩30–50M</span></div>
             <p class="t" lang="en">Sourcing (if needed) + cleansing + AI-ready layer + one decision model + pilot lift, measured with statistics. <span class="mono" style='color:var(--ink-faint)'>4–8 weeks</span></p>
             <p class="t" lang="ko">(필요하면) 데이터 확보부터, 정제, AI-ready 레이어, 결정모델 1개, 그리고 파일럿으로 효과를 통계로 증명. <span class="mono" style='color:var(--ink-faint)'>4~8주</span></p></div>
           <div class="tier sub"><div class="tl"><span class="t" lang="en">② Data-readiness subscription</span><span class="t" lang="ko">② 데이터 레디니스 구독</span><span class="pr">₩2–4M / mo</span></div>
-            <p class="t" lang="en">New data standardized, quality held, pipeline self-monitored. Clean data is a <em>state</em>, not an event — that's where the value recurs.</p>
-            <p class="t" lang="ko">새로 들어오는 데이터도 표준화하고 품질을 지키고, 파이프라인은 알아서 감시합니다. 깨끗한 데이터는 한 번 하고 끝이 아니라 <em>계속 지켜야 하는 상태</em> — 값이 반복되는 지점입니다.</p></div>
+            <p class="t" lang="en">New data standardized on the same rules, quality checked automatically, pipeline self-monitoring. Clean data isn't a project you finish — it's a <em>state you hold</em>. That's where it keeps paying.</p>
+            <p class="t" lang="ko">새로 들어오는 데이터도 같은 규칙으로 정리되고, 품질은 자동으로 점검되고, 파이프라인은 스스로 감시합니다. 데이터 정리는 한 번 하고 끝나는 일이 아닙니다. <em>계속 유지되는 상태</em>여야 값어치가 이어집니다.</p>
         </div>
         <div class="figs">
           <div class="fig"><b>4.3×</b><span class="t" lang="en">own-mall revenue in 6 weeks (ROAS 5,370%) · z-test verified</span><span class="t" lang="ko">자사몰 매출, 6주 만에 (ROAS 5,370%) · z-test 검증</span></div>
@@ -233,7 +233,7 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
         <p class="promise t" lang="en">CS drafts, quotes/proposals, document extraction, or meeting summaries — wired into your real systems and data with exception handling, not assembled from no-code toys.</p>
         <p class="promise t" lang="ko">CS 답변 초안, 견적·제안서, 문서에서 뽑아내기, 회의 요약 — 노코드로 대충 엮는 게 아니라, 실제 시스템·데이터에 예외 처리까지 붙여서.</p>
         <p class="who t" lang="en"><b>For</b> — companies burning staff hours on the same documents, replies and cleanup every day.</p>
-        <p class="who t" lang="ko"><b>이런 곳에</b> — 매일 같은 문서·응대·정리에 사람 시간이 갈려 나가는 회사.</p>
+        <p class="who t" lang="ko">매일 같은 문서 작성, 같은 응대, 같은 정리에 사람 시간이 갈려 나가는 회사에 맞습니다.</p>
         <div class="tiers">
           <div class="tier"><div class="tl"><span class="t" lang="en">① Build</span><span class="t" lang="ko">① 구축</span><span class="pr">₩20–30M</span></div>
             <p class="t" lang="en">One job re-engineered as an agent, connected to your stack (LLM + retrieval + tools), effect measured. <span class="mono" style='color:var(--ink-faint)'>4–6 weeks</span></p>
