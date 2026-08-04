@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue grew. Margins collapsed anyway. — eight K-beauty brands in public data | Lambency</title>
+<meta name="description" content="Six of eight K-beauty brand companies grew revenue while operating margin fell in 2025. I decomposed the cause using nothing but DART audited statements. The press blamed ad spend; that is half right.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/01-k-beauty-ad-efficiency.html">
+<meta property="og:title" content="Revenue grew. Margins collapsed anyway. — eight K-beauty brands in public data">
+<meta property="og:description" content="Six of eight K-beauty brand companies grew revenue while operating margin fell in 2025. I decomposed the cause using nothing but DART audited statements. The press blamed ad spend; that is half right.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Revenue grew. Margins collapsed anyway. — eight K-beauty brands in public data">
+<meta name="twitter:description" content="Six of eight K-beauty brand companies grew revenue while operating margin fell in 2025. I decomposed the cause using nothing but DART audited statements. The press blamed ad spend; that is half right.">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-default.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/01-k-beauty-ad-efficiency.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/01-k-beauty-ad-efficiency.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/01-k-beauty-ad-efficiency.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/01-k-beauty-ad-efficiency.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0b08; --bg-2:#131009;
+  --ink:#ece5d8; --ink-dim:#a89e8a; --ink-faint:#6e6552;
+  --amber:#e8b458; --amber-hi:#f5d489; --amber-deep:#c98a2e;
+  --hairline:rgba(232,180,88,.16); --hairline-dim:rgba(232,180,88,.08);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --kr:'Source Serif 4','Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--kr);font-weight:300;line-height:1.9;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(232,180,88,.28);color:#fff}
+body::after{content:"";position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:22px clamp(24px,5vw,72px);background:linear-gradient(to bottom,rgba(13,11,8,.94),rgba(13,11,8,0))}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:26px;height:26px}
+.brand span{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:.18em;color:var(--ink)}
+nav{display:flex;gap:clamp(12px,2.2vw,32px);flex-wrap:wrap;justify-content:flex-end}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-dim);text-decoration:none;text-transform:uppercase;transition:color .3s}
+nav a:hover{color:var(--amber-hi)}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 clamp(22px,5vw,32px)}
+article{padding:clamp(130px,17vw,190px) 0 90px}
+
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:26px}
+h1{font-family:var(--kr);font-size:clamp(30px,5.4vw,46px);font-weight:600;line-height:1.32;letter-spacing:-.02em;color:var(--ink);margin-bottom:26px}
+.meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-faint);line-height:2;padding-bottom:34px;border-bottom:1px solid var(--hairline)}
+
+.lede{font-size:19px;line-height:1.85;color:var(--ink);margin:38px 0 8px;padding-left:20px;border-left:2px solid var(--amber-deep)}
+.lede strong{font-weight:600;color:var(--amber-hi)}
+
+h2{font-family:var(--kr);font-size:clamp(20px,3vw,25px);font-weight:600;line-height:1.45;color:var(--ink);margin:64px 0 20px;letter-spacing:-.01em}
+h2 .num{font-family:var(--mono);font-size:13px;color:var(--amber-deep);letter-spacing:.1em;display:block;margin-bottom:9px;font-weight:400}
+p{font-size:16.5px;margin-bottom:20px;color:var(--ink-dim)}
+p strong{color:var(--ink);font-weight:600}
+em{font-style:italic;color:var(--ink)}
+a.inl{color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline)}
+
+.tw{overflow-x:auto;margin:30px 0 26px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:480px}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-deep);
+  text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--hairline);font-weight:500;white-space:nowrap}
+td{padding:13px 14px 13px 0;border-bottom:1px solid var(--hairline-dim);color:var(--ink-dim);vertical-align:top}
+td strong{color:var(--amber-hi);font-weight:600}
+tr:last-child td{border-bottom:none}
+
+ul,ol{margin:0 0 22px 20px}
+li{font-size:16.5px;color:var(--ink-dim);margin-bottom:11px;padding-left:5px}
+li strong{color:var(--ink);font-weight:600}
+
+.pull{margin:40px 0;padding:26px 30px;background:var(--bg-2);border:1px solid var(--hairline);border-radius:2px}
+.pull p{font-family:var(--serif);font-size:23px;line-height:1.55;color:var(--amber-hi);margin:0;font-weight:400}
+
+.note{margin:52px 0 0;padding:26px 0 0;border-top:1px solid var(--hairline)}
+.note h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:16px;font-weight:500}
+.note li,.note p{font-size:14px;line-height:1.8;color:var(--ink-faint)}
+
+.next{margin-top:46px;padding:26px 30px;border:1px solid var(--hairline);border-radius:2px;background:linear-gradient(180deg,rgba(232,180,88,.04),transparent)}
+.next .lb{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:11px}
+.next p{margin:0;font-size:16px;color:var(--ink)}
+
+.cta{margin-top:64px;padding-top:34px;border-top:1px solid var(--hairline);text-align:center}
+.cta p{font-size:15.5px;color:var(--ink-dim);margin-bottom:8px}
+.cta a{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline)}
+.cta a:hover{color:var(--amber)}
+
+footer{padding:52px clamp(24px,5vw,72px);border-top:1px solid var(--hairline-dim);text-align:center}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-faint);margin:0}
+footer svg{width:22px;height:22px;opacity:.55;margin-bottom:14px}
+
+@media(max-width:560px){
+  nav{gap:14px}
+  .lede{font-size:17.5px;padding-left:15px}
+  p,li{font-size:16px}
+  .pull{padding:22px}
+  .pull p{font-size:20px}
+}
+.langlink{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--amber-deep);
+  text-decoration:none;border:1px solid var(--hairline);border-radius:100px;padding:3px 11px;
+  transition:background .3s,color .3s;white-space:nowrap}
+.langlink:hover{background:var(--amber);color:#191308}
+nav{align-items:center}
+body{font-family:'Source Serif 4',Georgia,serif}
+h1,h2,.post h2{font-family:'Source Serif 4',Georgia,serif}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../01-k-beauty-ad-efficiency.html">한국어</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+
+  <div class="kicker">Public Data Series · 01 · K-Beauty</div>
+  <h1>Revenue grew. Margins collapsed anyway.</h1>
+  <div class="meta">
+    Caeff (Caffrey Lee) · August 2026<br>
+    Sources — audited financial statements filed with Korea's FSS (DART), public disclosures, job postings, storefront page source. <strong>No internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>I opened the audited statements of eight K-beauty brand companies one at a time. Six had the same condition: revenue up, operating margin down. Press coverage generally attributed it to a surge in marketing spend, which is not wrong. But across all eight, <strong>there was no trace of anyone having checked whether that money produced revenue at all.</strong></p>
+  </div>
+
+  <h2><span class="num">01</span>What happened</h2>
+  <p>Read the sector indicators and K-beauty is thriving. Cosmetics exports reached $11.4bn in 2025 (+12.2%), second in the world, and the trade surplus cleared $10.1bn for the first time. I expected the individual income statements to say something similar.</p>
+  <p>They did not.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Company</th><th>Revenue growth</th><th>Operating profit</th><th>Margin change</th></tr></thead>
+    <tbody>
+      <tr><td>Company A</td><td><strong>+67.8%</strong></td><td>−11.1%</td><td>34.1% → 18.0% (<strong>−16.0pp</strong>)</td></tr>
+      <tr><td>Company B</td><td>+22.0%</td><td>−10.6%</td><td>28.2% → 20.6% (−7.5pp)</td></tr>
+      <tr><td>Company C</td><td>+56.8%</td><td>−20.8%</td><td>21.6% → 10.9% (−10.7pp)</td></tr>
+      <tr><td>Company D</td><td>−13.9%</td><td><strong>−87.8%</strong></td><td>acquisition cost at <strong>56.4%</strong> of revenue</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Whether growth came in at +68% or −14%, margin moved the same way. <strong>The deterioration is indifferent to growth</strong> — that is what the table is for.</p>
+
+  <h2><span class="num">02</span>"The whole sector is like this" is false</h2>
+  <p>I heard "everyone is having a hard year" more than once, so I went to the aggregate first. It said the opposite. Across 82 cosmetics companies, operating margin <strong>improved by 0.38pp</strong>. Narrow the field to the eight brand companies and the <strong>median decline is 3.2pp</strong>.</p>
+  <p>A company that shed 16pp therefore lost <strong>five times</strong> the sector median. A gap that size was manufactured inside the company, not by the market.</p>
+  <p>More decisive still: under the same conditions, several companies moved the other way.</p>
+  <ul>
+    <li><strong>APR</strong> — grew revenue 111% and <strong>raised operating margin 6.96pp.</strong></li>
+    <li><strong>D'Alba Global</strong> — grew 68%, the same band as Company A above, and <strong>held margin at +0.18pp.</strong> Its investor materials name "marketing and cost-structure optimization in key regions" as a formal objective for 2026.</li>
+    <li><strong>Konny by Erin</strong> — a different category (infant D2C), the same structure. It <strong>cut advertising from 10.65% to 9.13%</strong> of revenue while growing <strong>64%</strong> and lifting margin <strong>9.17pp</strong>. Nine consecutive profitable years, no outside capital.</li>
+  </ul>
+  <p>"High growth costs you margin" is not a law of this sector. <strong>It is a question of execution, company by company.</strong></p>
+
+  <h2><span class="num">03</span>So advertising is the culprit — half right</h2>
+  <p>Of the six that declined, advertising drove <strong>four</strong>. The others do not fit. <strong>Manyo Factory</strong> in fact <strong>cut advertising 8.5%</strong>; its decline came from a higher cost ratio on falling revenue, plus one-off charges. <strong>Silicon2</strong> runs a distribution-margin model where advertising is barely 1% of revenue.</p>
+  <p>Assume the ad-spend explanation up front and you will misread companies like these entirely. The diagnosis has to be rebuilt for each one. And even for the four where advertising did drive it, the precise question is not "spend less."</p>
+
+  <div class="pull">
+    <p>How much of that spend created revenue that would not otherwise exist, and how much went to people who were going to buy regardless?</p>
+  </div>
+
+  <p>Until you can separate the two, raising the budget and cutting it are both bets.</p>
+
+  <h2><span class="num">04</span>Why did no one measure it</h2>
+  <p>This is the part I was actually curious about, since financial statements only report outcomes. So I read every open job posting these brands had, and opened their engineering blogs and storefront page source one by one.</p>
+  <ul>
+    <li>The pixels are all in place. GA4, Google Ads, Meta, TikTok, Kakao, Naver conversion tracking, review platforms, chat widgets, email automation. Tooling is not the constraint.</li>
+    <li>What is missing is <strong>the layer that exercises judgment on top of it.</strong> Zero dedicated data hires was common, and where the function existed it stopped at BI and dashboards.</li>
+    <li><code>incrementality</code>, <code>geo-lift</code>, <code>holdout</code>, <code>MMM</code>. Searching the full set of postings returned <strong>zero</strong>.</li>
+  </ul>
+  <p>Two things from the research stayed with me.</p>
+  <p>One company publishes its operating principles on its careers page, and one of them reads, word for word, "validate leading indicators quickly." It is a good sentence. But the work that performs the validation — registering a hypothesis in advance, setting a minimum detectable effect, ruling on significance — existed nowhere in the organization. The principle was in place; the method was not.</p>
+  <p>At another, dashboard upkeep was listed as a part-time role paying around ₩10,000 an hour. At a brand turning over hundreds of billions of won, that was the price set on the seat where the numbers get read.</p>
+  <p>It all converges on one point. The data is not missing. <strong>It accumulates, and no one reads it.</strong> The tools run in separate silos channel by channel, and the layer that joins them at the customer level — the one that answers whether the money came back — is absent entirely.</p>
+
+  <h2><span class="num">05</span>What last-click ROAS cannot see</h2>
+  <p>Most brands manage against last-click ROAS, and that metric has a structural hole. When someone who was going to buy anyway clicks an ad once and buys, the revenue is booked as advertising performance. The larger the brand and the higher the repeat rate, the wider the hole gets.</p>
+  <p>Incrementality asks something different: <em>had this campaign not run, would this revenue exist?</em></p>
+  <p>Answering that requires a comparison group — a holdout, a geo-split, or at minimum a hypothesis and a decision rule fixed before the spend goes out. It is a problem of experimental design, not of reporting. Which is why no amount of dashboard work ever arrives at it.</p>
+
+  <h2><span class="num">06</span>How far public data actually goes</h2>
+  <p><strong>Visible</strong> — advertising, sales commission and promotion expense in absolute terms and as a share of revenue; three-year trends; the excess over peers; shifts in SG&amp;A composition; inventory growth against revenue growth; channel structure, meaning whether commission channels are outpacing the company or lagging it; the marketing stack; and whether a data function exists at all.</p>
+  <p><strong>Not visible</strong> — incrementality itself, true contribution profit by channel, repeat purchase and LTV, sell-through by store. Those require internal data: ad accounts, storefront orders, channel settlements, retailer EPOS.</p>
+  <p>A diagnosis built from public sources is therefore <strong>a hypothesis about where to look, not a measurement of incremental return.</strong> An analysis that blurs that line collapses at the first serious question.</p>
+
+  <h2><span class="num">07</span>The first three questions</h2>
+  <p>Sector aside, when a company's advertising spend is climbing and its margin is falling, we open with the same three.</p>
+  <ul>
+    <li><strong>Subtract the market's share of the decline and the normalization off a high base. How much is left?</strong> Until you compute the peer cohort yourself, "the industry did it" is an assertion, not a finding.</li>
+    <li><strong>Is the scattered data joined at the customer level?</strong> While ad accounts, the storefront, channel settlements and CRM sit apart, neither repeat purchase nor incrementality can be computed at all.</li>
+    <li><strong>Is there a basis for deciding where the next ₩10bn goes?</strong> Expanding brands, countries and channels is an allocation decision, and without incremental profitability by channel it is made on instinct.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Method · Limits</h3>
+    <ul>
+      <li>Every financial figure was checked against the original DART audited statements. No comparison was made without first confirming standalone versus consolidated basis.</li>
+      <li>Peer medians and excess decline are my own calculations across the eight brand companies.</li>
+      <li>Some companies are anonymized because the purpose here is not to grade individual firms. What interests me is the structure that repeats across the sector.</li>
+      <li>There is no evidence that APR's margin improvement came from measurement. Its filings attribute it to the denominator effect of 2.1× revenue growth, device-to-cosmetics lock-in, and a virtuous cycle in brand awareness.</li>
+      <li>Konny by Erin is infant D2C, not cosmetics, and is cited only as a comparison case for the advertising-to-growth structure.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <div class="lb">Next in the series</div>
+    <p>The same method applied to Korean traditional liquor — six producers whose revenue growth all landed within 3pp of one another, and whose margins diverged by 22pp.</p>
+  </div>
+
+  <div class="cta">
+    <p>Lambency uses public data to diagnose where to look, and internal data to test whether it holds.</p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · Data &amp; AI consulting, Seoul</p>
+</footer>
+
+</body>
+</html>
