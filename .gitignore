@@ -21,3 +21,4 @@ assets/og-generate.py
 # 로컬 도구 (사이트 자산 아님)
 tools/
 .indexnow_key
+blog/research/
