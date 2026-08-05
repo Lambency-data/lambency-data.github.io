@@ -1,4 +1,48 @@
 User-agent: *
 Allow: /
 
+# ── AI 크롤러 명시 허용 ──────────────────────────────
+# 위 와일드카드로 이미 전부 허용되지만, 의도를 명시적으로 남긴다.
+# (Allow 지시문이라 이름이 틀려도 무해한 no-op이 된다)
+
+# OpenAI — 학습 / 검색 / 사용자 요청 시 조회
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Google — Gemini 학습·그라운딩. Googlebot과 별개 제어다
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl — 다수 모델의 공통 학습 소스
+User-agent: CCBot
+Allow: /
+
+# Meta
+User-agent: meta-externalagent
+Allow: /
+
 Sitemap: https://lambency-data.github.io/sitemap.xml

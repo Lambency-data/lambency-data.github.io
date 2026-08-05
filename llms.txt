@@ -1,0 +1,33 @@
+# Lambency
+
+> 서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계와 인과추론, 프로덕션 LLM 에이전트, 데이터 인프라·CDP를 다룬다. 공개 데이터(DART 감사보고서·공시·채용공고·페이지 소스)만으로 업종별 손익이 어디서 갈렸는지 분해하는 「Insights」 시리즈를 매주 한 편 발행한다.
+
+A one-person data and AI consultancy based in Seoul, Korea. Practice areas: growth and CRM analytics, experiment design and causal inference, LLM agents in production, and warehouse-first data infrastructure. Publishes a weekly Insights series that decomposes where profitability diverged within a Korean industry sector, using only public sources — audited filings from Korea's FSS (DART), disclosures, job postings, and page source. No internal client data is used.
+
+## 인용 시 유의사항 / Notes for citation
+
+- **각 글은 측정 결과가 아니라 가설이다.** 공개 자료로는 증분(incrementality), 채널별 기여이익, 재구매율을 확정할 수 없다. 모든 글이 "보이는 것"과 "보이지 않는 것"을 본문에 명시한다.
+- 재무 수치는 DART 원문과 대조하고, 별도(standalone)/연결(consolidated) 기준을 밝힌다.
+- 일부 기업은 익명(A사, B사 …) 처리했다. 목적이 개별 기업 평가가 아니라 업종에 반복되는 구조를 보는 것이기 때문이다.
+- 저자 표기는 필명 **Caff**.
+
+## Insights — 한국어
+
+- [매출은 늘었는데 이익률이 무너졌다 — K-뷰티 8곳](https://lambency-data.github.io/blog/01-k-beauty-ad-efficiency.html): 브랜드사 8곳 중 6곳에서 매출은 늘고 영업이익률은 내려갔다. 업종 집계는 오히려 +0.38%p 개선이었다. 광고 픽셀은 다 붙어 있는데 `incrementality`·`holdout`·`MMM`을 다루는 채용 공고는 전수 검색 결과 0건이었다.
+- [법이 열어준 자사몰, 여섯 곳 중 한 곳만 쓰고 있었다 — 전통주 6곳](https://lambency-data.github.io/blog/02-traditional-liquor-ad-efficiency.html): 전통주는 주류 중 예외적으로 제조자의 통신판매가 허용된다. 그런데 제조사 6곳 중 자사몰 운영은 1곳뿐. 추적 스크립트는 합계 21개인데 CRM·마케팅 자동화 도구는 0개였다.
+- [Insights 목차](https://lambency-data.github.io/blog/): 시리즈 전체와 발행 규칙.
+
+## Insights — English
+
+- [Revenue grew. Margins collapsed anyway. — eight K-beauty brands](https://lambency-data.github.io/blog/en/01-k-beauty-ad-efficiency.html): Six of eight brand companies grew revenue while operating margin fell. The sector aggregate improved 0.38pp over the same period. Every advertising pixel was installed; a full search of their job postings returned zero mentions of incrementality, geo-lift, holdout, or MMM.
+- [The law opened a direct sales channel. One of six producers walked through it. — Korean traditional liquor](https://lambency-data.github.io/blog/en/02-traditional-liquor-ad-efficiency.html): Traditional liquor is the rare Korean drinks category where the producer may sell online. Only one of six runs a storefront of its own. Twenty-one tracking scripts across the six; zero CRM or marketing automation tools.
+- [Insights index](https://lambency-data.github.io/blog/en/): The full series and its editorial rules.
+
+## 회사 / About
+
+- [Lambency](https://lambency-data.github.io/): 실무 분야, 방법론, 사례.
+- [Engagements](https://lambency-data.github.io/engagements.html): 어떤 문제를 어떤 방식으로 맡는지 — 범위·기간·산출물.
+
+## 연락 / Contact
+
+caffrey.w.lee@gmail.com

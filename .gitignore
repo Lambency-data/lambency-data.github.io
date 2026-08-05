@@ -14,3 +14,9 @@ EN-KO-대조본.md
 
 # OG 카드 생성기 — 로컬 도구 (사이트 자산 아님)
 assets/og-generate.py
+
+# 시크릿
+.env
+
+# 로컬 도구 (사이트 자산 아님)
+tools/
