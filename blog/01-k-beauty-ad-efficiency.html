@@ -115,6 +115,25 @@ footer svg{width:22px;height:22px;opacity:.55;margin-bottom:14px}
   transition:background .3s,color .3s;white-space:nowrap}
 .langlink:hover{background:var(--amber);color:#191308}
 nav{align-items:center}
+
+/* ── 한국어 가독성 (2026-08-05) ────────────────────────────
+   브라우저 기본값은 CJK를 글자 단위로 끊는다('이틀' → '이 / 틀').
+   한국어는 어절 단위로만 끊어야 한다. 이 페이지는 한국어 전용이라 조건 없이 적용한다.
+   행장은 42em(≈한글 42자) — ch는 숫자 '0' 폭(≈0.5em) 기준이라 전각 한글엔 쓰면 안 된다. */
+p, li, h1, h2, h3, .lede, .pull p, blockquote, td, th{
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+article p, article li{
+  max-width: 42em;
+  line-height: 1.95;
+}
+article p{ margin-bottom: 1.9em; }
+.lede p{ max-width: 40em; }
+@media(max-width:900px){
+  article p, article li{ max-width:none; line-height:1.9; }
+  article p{ margin-bottom:1.7em; }
+}
 </style>
 <meta name="keywords" content="데이터 컨설팅, 데이터 분석, 그로스 애널리틱스, CRM 분석, 고객 데이터 분석, 실험 설계, A/B 테스트, 인과추론, 증분 측정, 마케팅 성과 측정, RFM 분석, LTV 예측, 리텐션 분석, 고객 세그먼테이션, 데이터 인프라, CDP, 데이터 파이프라인, LLM 에이전트, 응용 AI, AI 컨설팅, CDP 구축, 고객 데이터 플랫폼, 데이터 클렌징, 데이터 정제, 데이터 전처리, 데이터 통합, 데이터 품질, 고객 데이터 통합, 데이터 웨어하우스, ETL 파이프라인">
 <script type="application/ld+json">
