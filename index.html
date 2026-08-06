@@ -390,7 +390,7 @@ html[data-lang="ko"] .svc-row p.t,
 html[data-lang="ko"] .work-item p.t,
 html[data-lang="ko"] .pr-grid p.t,
 html[data-lang="ko"] .offer p.t{
-  max-width: 38em;           /* ≈ 한글 38자 */
+  max-width: 42em;           /* ≈ 한글 42자 */
   line-height: 1.95;
   margin-bottom: 1.9em;
   word-break: keep-all;
@@ -412,6 +412,39 @@ html[data-lang="ko"] .fig p.t{ max-width:none; }
     max-width:none; line-height:1.9; margin-bottom:1.7em;
   }
 }
+
+/* ── 네비 (2026-08-05) ────────────────────────────────────
+   영문은 uppercase + letter-spacing으로 부피가 커지는데 한글은 그 효과가 없어
+   같은 11px이어도 확연히 작아 보인다. 한글일 때만 크기·자간을 올린다. */
+html[data-lang="ko"] nav a{
+  font-family: var(--kr);
+  font-size: 14px;
+  letter-spacing: .02em;
+  text-transform: none;
+  font-weight: 500;
+}
+/* 인사이트 — 매주 갱신되는 유일한 섹션이라 상시 강조한다 */
+nav a.nav-insights{
+  color: var(--amber-hi);
+  position: relative;
+}
+nav a.nav-insights::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-5px; height:1px;
+  background:linear-gradient(90deg,var(--amber-deep),transparent);
+}
+nav a.nav-insights .dot{
+  display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:var(--amber); margin-right:6px; vertical-align:middle;
+  box-shadow:0 0 0 0 rgba(232,180,88,.6); animation:navpulse 2.8s infinite;
+}
+@keyframes navpulse{
+  0%{box-shadow:0 0 0 0 rgba(232,180,88,.55)}
+  70%{box-shadow:0 0 0 7px rgba(232,180,88,0)}
+  100%{box-shadow:0 0 0 0 rgba(232,180,88,0)}
+}
+@media(prefers-reduced-motion:reduce){ nav a.nav-insights .dot{animation:none} }
+@media(max-width:900px){ html[data-lang="ko"] nav a{font-size:13px} }
 </style>
 <meta name="keywords" content="데이터 컨설팅, 데이터 분석, 그로스 애널리틱스, CRM 분석, 고객 데이터 분석, 실험 설계, A/B 테스트, 인과추론, 증분 측정, 마케팅 성과 측정, RFM 분석, LTV 예측, 리텐션 분석, 고객 세그먼테이션, 데이터 인프라, CDP, 데이터 파이프라인, LLM 에이전트, 응용 AI, AI 컨설팅, data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP 구축, 고객 데이터 플랫폼, 데이터 클렌징, 데이터 정제, 데이터 전처리, 데이터 통합, 데이터 품질, 고객 데이터 통합, 데이터 웨어하우스, ETL 파이프라인, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
@@ -648,7 +681,7 @@ html[data-lang="ko"] .fig p.t{ max-width:none; }
       <a href="#method"><span class="t" lang="en">Method</span><span class="t" lang="ko">방식</span></a>
       <a href="engagements.html"><span class="t" lang="en">Engagements</span><span class="t" lang="ko">서비스</span></a>
       <a href="#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
-      <a href="blog/index.html"><span class="t" lang="en">Insights</span><span class="t" lang="ko">인사이트</span></a>
+      <a class="nav-insights" href="blog/index.html" title="매주 한 편 · 공개 데이터로 본 업종별 손익"><span class="dot"></span><span class="t" lang="en">Insights</span><span class="t" lang="ko">인사이트</span></a>
       <a href="#contact"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></a>
     </nav>
     <button id="langtoggle" class="langtoggle" type="button" aria-label="Switch language / 언어 전환">한국어</button>
@@ -907,10 +940,10 @@ html[data-lang="ko"] .fig p.t{ max-width:none; }
       <p class="sec-label reveal">06 — Epistula <i><span class="t" lang="en">· Contact</span><span class="t" lang="ko">· 문의</span></i></p>
       <div class="contact-grid">
         <div class="reveal">
-          <h2 class="t" lang="en">The question your data<br>keeps <em>not answering</em>.</h2>
-          <h2 class="t" lang="ko">데이터는 있는데<br><em>답이 안 나오는 질문.</em></h2>
+          <h2 class="t" lang="en">The data piled up.<br><em>The answer didn't.</em></h2>
+          <h2 class="t" lang="ko">데이터는 쌓였는데,<br><em>답은 아직입니까.</em></h2>
           <p class="lead t" lang="en">Tell me what you're trying to decide, and why you haven't been able to. You'll have a reply <strong>within two business days</strong> — from me, because there's no one else here.</p>
-          <p class="lead t" lang="ko">무엇을 정해야 하는지, 그리고 왜 아직 못 정하고 있는지 적어주세요. <strong>이틀 안</strong>에 답장 드립니다. 여기는 저 혼자라 제가 직접 읽고 제가 씁니다.</p>
+          <p class="lead t" lang="ko">무엇을 정해야 하는지, 그리고 왜 아직 못 정하고 있는지 적어주세요. <strong>이틀 안에</strong> 답장 드립니다. 여기는 저 혼자라 제가 직접 읽고 제가 씁니다.</p>
           <p class="contact-direct">
             <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
           </p>
