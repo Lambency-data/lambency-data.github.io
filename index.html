@@ -379,6 +379,12 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
   .svc-row p{grid-column:2}
   .orb{right:-30vw;opacity:.75}
   .cred{border-left:none;padding-left:0;border-top:1px solid var(--hairline);padding-top:8px}
+  /* 브랜드월은 nowrap 이라 이름이 길어지면 화면 밖으로 나간다. 좁은 화면에서는
+     줄바꿈을 허용하고 부제(<i>)를 아랫줄로 내린다 — 기관명이 길어질 때마다
+     CSS 를 고치는 대신 구조로 막는다. */
+  .brandwall{gap:14px 24px}
+  .brandwall span{white-space:normal;letter-spacing:.1em;line-height:1.3}
+  .brandwall span i{display:block;margin-left:0;margin-top:3px}
 }
 
 /* ── 한국어 본문 가독성 (2026-08-05) ───────────────────────────
@@ -604,10 +610,16 @@ html[data-lang="ko"] blockquote{
    "worksFor": {
     "@id": "https://lambency-data.github.io/#organization"
    },
-   "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "Columbia University"
-   },
+   "alumniOf": [
+    {
+     "@type": "CollegeOrUniversity",
+     "name": "Columbia University"
+    },
+    {
+     "@type": "CollegeOrUniversity",
+     "name": "University of Washington"
+    }
+   ],
    "knowsAbout": [
     "데이터 컨설팅",
     "데이터 분석",
@@ -761,8 +773,10 @@ html[data-lang="ko"] blockquote{
           <li class="t" lang="ko"><b>LeanTaaS — 실리콘밸리</b>시니어 데이터 애널리스트 · 헬스케어 운영 AI<span>2020 — 2022</span></li>
           <li class="t" lang="en"><b>Open source</b>CRAN author — getDTeval (top-50), formulaic<span>R · research</span></li>
           <li class="t" lang="ko"><b>오픈소스</b>CRAN 저자 — getDTeval (top-50), formulaic<span>R · 연구</span></li>
-          <li class="t" lang="en"><b>Columbia University</b>M.S. Applied Analytics<span>New York</span></li>
-          <li class="t" lang="ko"><b>컬럼비아 대학교</b>응용분석 석사 (M.S.)<span>뉴욕</span></li>
+          <li class="t" lang="en"><b>Columbia University</b>M.S.<span>New York</span></li>
+          <li class="t" lang="ko"><b>컬럼비아 대학교</b>석사 (M.S.)<span>뉴욕</span></li>
+          <li class="t" lang="en"><b>University of Washington</b>B.S., Honors<span>Seattle</span></li>
+          <li class="t" lang="ko"><b>워싱턴 대학교</b>학사 (B.S.) · Honors<span>시애틀</span></li>
         </ul>
       </div>
     </div>
@@ -889,11 +903,17 @@ html[data-lang="ko"] blockquote{
       <p class="sec-label reveal">05 — Acta <i><span class="t" lang="en">· Selected Work</span><span class="t" lang="ko">· 주요 사례</span></i></p>
       <!-- ⚠ 브랜드 실명 노출은 2026-07-12 사용자 결정 — 계약상 문제 시 업종 표기로 롤백 -->
       <div class="reveal">
-        <p class="brandwall-label"><span class="t" lang="en">Experience includes</span><span class="t" lang="ko">함께한 브랜드</span></p>
-        <div class="brandwall" aria-label="Brands served through client engagements">
+        <p class="brandwall-label"><span class="t" lang="en">Experience includes</span><span class="t" lang="ko">함께한 곳</span></p>
+        <!-- 아래 절반은 클라이언트, 절반은 컬럼비아 시절 연구 협업이다. 라벨을
+             "함께한 브랜드"로 두면 연구까지 고객사로 읽힌다. 각 항목의 <i> 로
+             성격을 표시해 둔다 — 뭉뚱그리는 순간 과장이 된다. -->
+        <div class="brandwall" aria-label="Organisations worked with — client engagements and research collaborations">
           <span>GLOBAL EYEWEAR<i>KR · US · JP · AU</i></span>
           <span>D2C F&amp;B<i>own-mall · KR</i></span>
           <span>LIFESTYLE ACCESSORIES</span>
+          <span>KYOTO FAMILY OFFICE<i>hospitality · JP</i></span>
+          <span>NEW YORK CITY COUNCIL<i>research · Vision Zero</i></span>
+          <span>RICHMOND UNIVERSITY MEDICAL CENTER<i>research · clinical</i></span>
         </div>
       </div>
       <div class="work-item reveal">
