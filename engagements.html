@@ -115,33 +115,34 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
 @media (max-width:820px){nav{display:none}.tiers{grid-template-columns:1fr}}
 
 /* ── 한국어 본문 가독성 (2026-08-05) ───────────────────────────
-   한국어는 어절 사이 공백이 영어보다 적어, 같은 글자수라도 더 빽빽하게 읽힌다.
-   ① 한 줄을 45자 안쪽으로   ② 문단 사이를 줄간격보다 확실히 넓게
-   ③ word-break:keep-all 로 어절 중간 끊김 방지
-   선택자는 실제 마크업 기준(.about-grid / .svc-row / .work-item / .pr-grid / .offer / .fig) */
+   ⚠️ ch 단위 금지: ch는 숫자 '0'의 폭(≈0.5em)이라 전각인 한글에는 절반만 잡힌다.
+      45ch로 걸었더니 한 줄 24자가 되어 리본처럼 좁아졌다. em으로 직접 지정한다.
+   한국어 본문 적정 행장은 35~40자. 문단 간격은 줄간격보다 확실히 넓게. */
 html[data-lang="ko"] .about-grid p.t,
 html[data-lang="ko"] .svc-row p.t,
 html[data-lang="ko"] .work-item p.t,
 html[data-lang="ko"] .pr-grid p.t,
-html[data-lang="ko"] .offer p.t,
-html[data-lang="ko"] .fig p.t{
-  max-width: 45ch;
+html[data-lang="ko"] .offer p.t{
+  max-width: 38em;           /* ≈ 한글 38자 */
   line-height: 1.95;
-  letter-spacing: -0.003em;
   margin-bottom: 1.9em;
   word-break: keep-all;
   overflow-wrap: break-word;
 }
 html[data-lang="ko"] p.t strong{ font-weight:600; color:var(--ink); }
 
-@media(max-width:720px){
+/* 범위·스택 같은 메타 한 줄은 폭을 제한하지 않는다 — 단어 하나가 떨어져 나간다 */
+html[data-lang="ko"] .work-item .meta,
+html[data-lang="ko"] .work-item p.t:last-child,
+html[data-lang="ko"] .fig p.t{ max-width:none; }
+
+@media(max-width:900px){
   html[data-lang="ko"] .about-grid p.t,
   html[data-lang="ko"] .svc-row p.t,
   html[data-lang="ko"] .work-item p.t,
   html[data-lang="ko"] .pr-grid p.t,
-  html[data-lang="ko"] .offer p.t,
-  html[data-lang="ko"] .fig p.t{
-    max-width: none; line-height: 1.9; margin-bottom: 1.7em;
+  html[data-lang="ko"] .offer p.t{
+    max-width:none; line-height:1.9; margin-bottom:1.7em;
   }
 }
 </style>
