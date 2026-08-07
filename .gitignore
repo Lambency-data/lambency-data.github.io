@@ -11,6 +11,10 @@ blog/편집원칙.md
 DEPLOY.md
 # EN-KO-대조본.md = 내부 카피 검토용
 EN-KO-대조본.md
+# LOG.md = 코드·디자인·배포 사고 이력 (내부용)
+# 🔴 이 리포는 루트가 곧 사이트 루트라 추적 = 공개다.
+#    실측 2026-08-07: README.md(추적) HTTP 200 / DEPLOY.md(ignored) HTTP 404
+LOG.md
 
 # OG 카드 생성기 — 로컬 도구 (사이트 자산 아님)
 assets/og-generate.py

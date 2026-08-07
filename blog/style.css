@@ -197,3 +197,18 @@ html[lang="ko"] .lede p{ max-width: 40em; }
   html[lang="ko"] article li{ max-width:none; line-height:1.9; }
   html[lang="ko"] article p{ margin-bottom:1.7em; }
 }
+
+/* ── 박스형 컴포넌트는 위 문단 여백에서 제외한다 ─────────────────
+   위 `html[lang="ko"] article p`(0,1,3)가 `.pull p{margin:0}`(0,1,1)를
+   우선순위로 이겨서, 테두리 있는 박스 안쪽 아래에 빈 공간이 생겼다.
+   2026-08-07 실측(발행된 2편, 뷰포트 662px):
+     .pull  텍스트 아래 66px — padding 26px + 이 마진 40px  (3개 전부 동일)
+     .next  텍스트 아래 54px — padding 26px + 이 마진 28px
+     .cta   문단→링크 간격이 설계값 8px 대신 26px
+   박스는 자체 padding으로 여백을 잡으므로 문단 마진은 0이어야 한다.
+   line-height 는 되돌리지 않는다 — 한글 가독성 조정은 의도된 것이고,
+   빈 공간의 원인이 아니다(원인은 margin 하나뿐).
+   셀렉터를 (0,2,2)로 올려 미디어쿼리 분기까지 함께 덮는다. */
+html[lang="ko"] .pull p,
+html[lang="ko"] .next p{ margin: 0; }
+html[lang="ko"] .cta p{ margin: 0 0 8px; }
