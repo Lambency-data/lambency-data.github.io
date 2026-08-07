@@ -1,13 +1,14 @@
 # Lambency
 
-> 서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계와 인과추론, 프로덕션 LLM 에이전트, 데이터 인프라·CDP를 다룬다. 공개 데이터(DART 감사보고서·공시·채용공고·페이지 소스)만으로 업종별 손익이 어디서 갈렸는지 분해하는 「Insights」 시리즈를 매주 한 편 발행한다.
+> 서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계와 인과추론, 프로덕션 LLM 에이전트, 데이터 인프라·CDP를 다룬다. 「Insights」 시리즈를 매주 한 편 발행한다 — **그 업종이 실제로 안고 있는 병목을 공개 데이터만으로 짚는다.** 출처는 특정 데이터베이스에 한정하지 않는다: 금융감독원 전자공시(DART), 통계청·식약처 등 정부 통계, 인허가 기록, 관세청 수출입, 채용공고, 웹페이지 소스 등 되짚을 수 있는 1차 자료면 무엇이든 쓴다. 내부 데이터는 쓰지 않는다.
 
-A one-person data and AI consultancy based in Seoul, Korea. Practice areas: growth and CRM analytics, experiment design and causal inference, LLM agents in production, and warehouse-first data infrastructure. Publishes a weekly Insights series that decomposes where profitability diverged within a Korean industry sector, using only public sources — audited filings from Korea's FSS (DART), disclosures, job postings, and page source. No internal client data is used.
+A one-person data and AI consultancy based in Seoul, Korea. Practice areas: growth and CRM analytics, experiment design and causal inference, LLM agents in production, and warehouse-first data infrastructure. Publishes a weekly Insights series that works out where the real bottleneck sits in a given Korean industry, using public data alone. Sources are not limited to any one database: regulatory filings (Korea's FSS/DART), government statistics, licensing records, customs trade data, job postings, and page source — anything a reader can trace back. No internal client data is used.
 
 ## 인용 시 유의사항 / Notes for citation
 
 - **각 글은 측정 결과가 아니라 가설이다.** 공개 자료로는 증분(incrementality), 채널별 기여이익, 재구매율을 확정할 수 없다. 모든 글이 "보이는 것"과 "보이지 않는 것"을 본문에 명시한다.
-- 재무 수치는 DART 원문과 대조하고, 별도(standalone)/연결(consolidated) 기준을 밝힌다.
+- 재무 수치는 원문 공시와 대조하고, 별도(standalone)/연결(consolidated) 기준을 밝힌다. 2차 집계나 언론 요약은 헤드라인 숫자로 쓰지 않는다.
+- **각 편의 축은 업종마다 다르다.** 고정된 분석 틀을 반복하지 않는다 — 그 업종의 실제 병목이 무엇인지가 먼저이고, 데이터는 그다음에 고른다.
 - 일부 기업은 익명(A사, B사 …) 처리했다. 목적이 개별 기업 평가가 아니라 업종에 반복되는 구조를 보는 것이기 때문이다.
 - 저자 표기는 필명 **Caff**.
 
