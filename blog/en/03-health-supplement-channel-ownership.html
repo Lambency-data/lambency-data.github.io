@@ -328,17 +328,46 @@
 
   <h2><span class="num">07</span>What public data can and cannot show</h2>
   <p><strong>Visible</strong> — channel revenue and mix, for the companies that disclose it; advertising and selling-commission expense in absolute terms and as a share of revenue; cases where the channel is written into the chart of accounts itself (Company D books a line item literally named <em>broadcast sales commission</em>); the type and count of tracking scripts on each store; whether membership tiers and loyalty points exist.</p>
-  <p><strong>Not visible</strong> — revenue from the own storefront alone. No company discloses it. Nor repeat-purchase rate, contribution margin by channel, or the incremental effect of advertising. Those require the ad accounts, the order ledger, and channel settlement data.</p>
-  <p>So this piece is a hypothesis about where to look, not a measurement. What <strong>is</strong> established is that the own-channel share cannot be seen from outside at all — which is the argument.</p>
+  <p><strong>Not visible</strong> — repeat-purchase rate, contribution margin by channel, the incremental effect of advertising. Those require the ad accounts, the order ledger, and channel settlement data. And revenue from the own storefront alone — except that one turned out not to end at "not visible."</p>
+  <p>So everything to this point is a hypothesis about where to look, not a measurement. But even what can't be seen has an outline. The next section measures it.</p>
 
-    <h2><span class="num">08</span>So how should repurchase be reported?</h2>
-  <p>The most common mistake in this category is <strong>reporting repurchase as a single number.</strong> At a company booking half its revenue on someone else's channel, the sentence "our repurchase rate is 32%" is almost always a statement about the storefront.</p>
+  <h2><span class="num">08</span>When a point won't come out, measure the interval</h2>
+  <p>No company discloses its own-storefront revenue as an exact figure. But <strong>the ceiling and the floor that the filings permit can be computed.</strong> The quantity being measured is the <strong>owned share</strong> — revenue where a customer ID lands in your own ledger ÷ total revenue — and applying each company's written definition of "online" literally gives this.</p>
 
-  <div class="pull">
-    <p>Owned share = revenue where a customer ID lands in your ledger ÷ total revenue</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Company</th><th>Owned share</th><th>Interval width</th><th>Why this interval</th></tr></thead>
+    <tbody>
+      <tr><td>Company F</td><td><strong>47.0 – 53.2%</strong></td><td><strong>6.2pt</strong></td><td>Its "online" is defined as <strong>the company's own mall only</strong>, so 47.0% is effectively a disclosed figure. Telemarketing (6.2%) sits only in the ceiling — where the call records land is unconfirmed</td></tr>
+      <tr><td>Company A</td><td>0 – 45.8%</td><td>45.8pt</td><td>"Online" bundles the own mall with open markets, so the floor opens all the way to zero</td></tr>
+      <tr><td>Company D</td><td>0 – 78.8%</td><td><strong>78.8pt</strong></td><td>Direct mall and external platforms share one cell — the widest interval of the three</td></tr>
+    </tbody>
+  </table>
   </div>
 
-  <p>That figure belongs next to the repurchase rate every time. Without it, a reader cannot tell whether the 32% <strong>describes the whole business or a slice of it.</strong></p>
+  <p>The first thing that catches the eye: <strong>one of the three can be read.</strong> Company F defines "online" as its own mall alone, so its owned share is effectively public. Same disclosure format — one company legible, two not. It isn't the format that sets the resolution; it's <strong>what each company chose to bundle into one cell.</strong></p>
+
+  <div class="pull">
+    <p>Interval width = the resolution public data has on that company.</p>
+  </div>
+
+  <p>And the column that matters more than the values is the <strong>width</strong>. 6.2pt against 78.8pt — same format, a twelvefold difference in resolution. A narrow interval means even an outsider can move straight to the next question (repurchase). A wide one means attribution has to be settled internally before any number downstream means anything.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Interval width</th><th>Read</th><th>What comes first</th></tr></thead>
+    <tbody>
+      <tr><td><strong>10pt or less</strong></td><td>Attribution effectively settled</td><td>Skip the attribution step — <strong>go straight to designing repurchase measurement</strong></td></tr>
+      <tr><td>10 – 40pt</td><td>Partially settled</td><td>Split the own channel out of the order ledger and <strong>pin down the floor first</strong></td></tr>
+      <tr><td><strong>Over 40pt</strong></td><td>Attribution unknown</td><td>Talk of advertising is premature. <strong>The first job is channel attribution</strong> — until then, any repurchase rate or LTV is a number without a basis</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+    <h2><span class="num">09</span>So how should repurchase be reported?</h2>
+  <p>The most common mistake in this category is <strong>reporting repurchase as a single number.</strong> At a company booking half its revenue on someone else's channel, the sentence "our repurchase rate is 32%" is almost always a statement about the storefront.</p>
+
+  <p>The owned share measured in the previous section <strong>belongs next to the repurchase rate every time.</strong> Without it, a reader cannot tell whether the 32% <strong>describes the whole business or a slice of it.</strong></p>
 
   <div class="tw">
   <table>
@@ -353,7 +382,7 @@
 
   <p>This is not about modesty; <strong>money turns on it.</strong> Repurchase feeds lifetime value, and lifetime value sets the ceiling on acquisition spend. Report the storefront number as the company number and <strong>LTV inflates — and you overspend by exactly that much.</strong></p>
 
-  <h2><span class="num">09</span>Three choices that decide this calculation</h2>
+  <h2><span class="num">10</span>Three choices that decide this calculation</h2>
   <ul>
     <li><strong>Start home shopping and marketplace revenue at zero in any customer count.</strong> Do not fill the gap by inferring from settlement data. A settlement line is a transaction, not a person, so counting them as people invents customers who don't exist. <strong>Zero is not a wrong value; it is the honest notation for "unknown."</strong></li>
     <li><strong>Never use the storefront's repurchase rate as the company's.</strong> Someone who navigates all the way to your own store already has an attachment to the brand. Leave that selection bias uncorrected and repurchase is <strong>structurally overstated.</strong></li>
@@ -369,6 +398,7 @@
       <li><strong>Only three companies disclose sales channels</strong>, so the full cohort cannot be compared on channel mix. The denominators also differ — Company A reports product revenue, Company D product plus merchandise, Company F the total. These should be read as <strong>each company's internal composition</strong>, not as a cross-company ranking.</li>
       <li>Contract manufacturers (ODM/CDMO) were excluded from the cohort. They don't sell to consumers, so they have no reason to advertise; including them in the same table produces the false reading that spending less is what earns more.</li>
       <li><strong>All companies are anonymized (A through H)</strong>, because the point is not to evaluate individual firms. The subject is a structure that repeats across the industry. Every figure cited comes from a public filing, so a reader who wants to check can trace it in DART directly.</li>
+      <li><strong>The owned-share intervals were computed by reading each company's written definition of "online" literally.</strong> If Company F's "own mall" loosely includes branded storefronts on marketplaces in practice, the 47.0% floor weakens by that much. Whether the written definition matches operations cannot be settled from outside — which is why this, too, is an interval and not a point.</li>
       <li>The key-audit-matter passage must be read together with the unqualified opinion. It does not indicate that fraud or error was found.</li>
     </ul>
   </div>
