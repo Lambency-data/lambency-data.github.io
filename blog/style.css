@@ -212,3 +212,10 @@ html[lang="ko"] .lede p{ max-width: 40em; }
 html[lang="ko"] .pull p,
 html[lang="ko"] .next p{ margin: 0; }
 html[lang="ko"] .cta p{ margin: 0 0 8px; }
+
+/* h1 부제 — 업종·키워드를 화면 제목에 노출한다 (2026-08-10).
+   그 전까지 업종은 kicker(11px)와 <title> 에만 있어 화면 대제목에서 안 보였다.
+   실측: h1 6개 중 4개에 업종 키워드 0건. */
+.h1sub{ display:block; margin-top:16px; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.05em; line-height:1.7; font-weight:400; color:var(--amber-deep); }
+@media(max-width:900px){ .h1sub{ font-size:11.5px; margin-top:13px; } }
