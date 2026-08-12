@@ -77,4 +77,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://lambency-data.github.io/blog/04-food-registry-metabolism.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/04-food-registry-metabolism.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html"/>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/04-food-registry-metabolism.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html"/>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

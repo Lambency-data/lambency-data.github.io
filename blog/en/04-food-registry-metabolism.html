@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A million food products, and not a single recorded death | Lambency</title>
+<meta name="description" content="I pulled Korea's full food product registry — 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths. Half of everything alive entered within five years, and shelves turn at speeds that differ almost ninefold — measured with shelf metabolism.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html">
+<meta property="og:title" content="A million food products, and not a single recorded death">
+<meta property="og:description" content="Korea's food registry: 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths — so I measured the age of the survivors instead.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A million food products, and not a single recorded death">
+<meta name="twitter:description" content="Korea's food registry: 1,066,415 rows, each with a 'production ended' field. Zero say yes. So I measured the age of the survivors instead.">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/04-food-registry-metabolism.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, retention analysis, customer segmentation, data infrastructure, CDP, food product launches, SKU management, product discontinuation, new product survival, Korea food industry">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html#post",
+   "headline": "A million food products, and not a single recorded death",
+   "url": "https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html",
+   "datePublished": "2026-08-12",
+   "dateModified": "2026-08-12",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, SKU management, product discontinuation, Korea food industry",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계와 인과추론, 프로덕션 LLM 에이전트, 데이터 인프라·CDP를 다룹니다.",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../04-food-registry-metabolism.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+
+  <div class="kicker">DeepCaffein · Public Data Series · 04 · Food &amp; Beverage</div>
+  <h1>A million food products,<br>and not a single recorded death
+    <span class="h1sub">Korea's product manufacturing registry, all 1,066,415 rows · shelf metabolism · public data only</span>
+  </h1>
+  <div class="meta">
+    Caff · August 2026<br>
+    Data — full snapshot of Korea MFDS open API (food product manufacturing reports, collected 2026-08-10), MFDS 2023 food production statistics, MFDS Statistical Yearbook 2023. <strong>Zero internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>Korea's food safety agency publishes a registry of product manufacturing reports. To legally sell a processed food here, you file one per product — which makes this, in effect, a complete roster of the country's packaged food and beverages. The field list includes a column for <strong>whether production has ended</strong>. So I downloaded all million-plus rows and counted. <strong>Zero say yes.</strong></p>
+  </div>
+
+  <h2><span class="num">01</span>The whole registry, downloaded</h2>
+  <p>Deduplicated by report number, the snapshot holds <strong>1,066,415 products</strong> from <strong>29,134 manufacturers</strong>. One row per product: when it was filed, who makes it, what type it is, and whether production has ended.</p>
+  <p>Start with the pace. The past twelve months alone account for <strong>139,097 filings</strong> still alive today — roughly ten thousand a month, <strong>about 380 new products a day</strong>. "New products are flooding in" is not a figure of speech in this industry. It is arithmetic.</p>
+
+  <h2><span class="num">02</span>A registry with zero deaths</h2>
+  <p>But there is no exit door. Not one product carries the discontinued flag, which suggests that when production stops or a manufacturer folds, the report is simply <strong>removed from the public view</strong> (I can't confirm the mechanism — no public document describes it; see the methods section).</p>
+  <p>Surely the official statistics count it somewhere. I checked: the 875-page MFDS Statistical Yearbook, the national statistics portal KOSIS, the national indicators site, the MFDS industry trends report, and the agency's open data portal (2026-08-12). <strong>No yearly count of new product filings exists at the product level. Neither does any count of discontinuations.</strong> What exists is a count of manufacturers, and a "production performance" item count — <strong>77,127</strong> for 2023 — which, per its own footnote, collapses every product a company makes within one food type into a single item. Different unit entirely.</p>
+  <p>One contrast worth savoring: for health functional foods, the agency's data catalog lists a separate "production ended" dataset. For ordinary food, no such entry exists at all.</p>
+
+  <div class="pull">
+    <p>Births are tallied at 380 a day. Deaths are structurally uncountable.</p>
+  </div>
+
+  <p>Why this matters: plenty of food companies call their launches "experiments." But half of any experiment is the <strong>termination call</strong> — what died, when, and why, recorded so the next launch learns something. In this industry's public data, that half is structurally empty. And as we'll see, most companies' internal ledgers look the same.</p>
+
+  <h2><span class="num">03</span>So I measured the age of the survivors</h2>
+  <p>If you can't count the dead, change the method — <strong>measure the age distribution of the living</strong>. Line up all million products in production today by filing date, and the median lands in 2021. <strong>Half of everything alive entered the registry within the past five years.</strong></p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Filing year</th><th>Products alive today</th></tr></thead>
+    <tbody>
+      <tr><td>2019</td><td>59,287</td></tr>
+      <tr><td>2020</td><td>72,982</td></tr>
+      <tr><td>2021</td><td>83,287</td></tr>
+      <tr><td>2022</td><td>87,445</td></tr>
+      <tr><td>2023</td><td>101,915</td></tr>
+      <tr><td>2024</td><td>118,006</td></tr>
+      <tr><td>2025</td><td>134,846</td></tr>
+      <tr><td>2026 (through Aug 10)</td><td>85,879</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Read this honestly. The curve rises to the right for two entangled reasons — more products were born recently, and older ones have died out of the frame. This registry alone cannot split the two. Splitting them would take a denominator: how many were filed each year. As §02 established, that number is published nowhere. So this piece claims no survival rate. Instead it builds <strong>a metric that doesn't need the split</strong>.</p>
+
+  <h2><span class="num">04</span>Every shelf runs on a different clock</h2>
+  <p>The metric: <strong>shelf metabolism = products filed in the past 24 months ÷ all products alive today.</strong> Numerator and denominator come from the same registry on the same day, so no missing denominator has to be guessed. The meaning is plain — of what sits on this shelf right now, how much arrived within two years?</p>
+  <p>Across the whole registry: <strong>25.0%</strong>. One in four living food products is less than two years old. Split by product type, though, and the gap between the fastest shelf and the slowest stretches to almost ninefold.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Product type</th><th>Products alive</th><th>Metabolism (24 mo)</th></tr></thead>
+    <tbody>
+      <tr><td>Ready-to-eat meals</td><td>18,258</td><td><strong>44.8%</strong></td></tr>
+      <tr><td>Meal kits</td><td>6,326</td><td><strong>40.7%</strong></td></tr>
+      <tr><td>Mixed beverages</td><td>8,980</td><td>36.5%</td></tr>
+      <tr><td>Breads</td><td>57,371</td><td>34.9%</td></tr>
+      <tr><td>Ready-to-cook foods</td><td>41,235</td><td>33.4%</td></tr>
+      <tr><td>Kimchi</td><td>20,882</td><td>25.6%</td></tr>
+      <tr><td>Sauces</td><td>146,038</td><td>25.2%</td></tr>
+      <tr><td>Coffee</td><td>49,401</td><td>23.5%</td></tr>
+      <tr><td>Rice cakes</td><td>27,330</td><td>20.3%</td></tr>
+      <tr><td>Liquid teas</td><td>30,574</td><td>20.1%</td></tr>
+      <tr><td>Leaf/infusion teas</td><td>28,586</td><td><strong>17.7%</strong></td></tr>
+      <tr><td>Seasoned laver</td><td>6,885</td><td><strong>5.0%</strong></td></tr>
+      <tr><td><strong>All types</strong></td><td>1,066,401</td><td><strong>25.0%</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Ready-to-eat meals — lunch boxes, sandwiches, kimbap — run at nearly <strong>half the shelf under two years old</strong>. On that shelf, a position is rented, never owned. At the other end, seasoned laver sits at 5.0% — a shelf where years-old products still hold their places. Beverages split internally too: mixed drinks turn at 36.5% while infusion teas turn at 17.7%. "A new beverage launch" names two entirely different events depending on which shelf it lands on.</p>
+  <p>The ordering survives a change of window. Recomputed at 12 months and at 36, no type swaps ends — figures in the methods section.</p>
+
+  <h2><span class="num">05</span>The rush belongs to a few</h2>
+  <p>I also counted who generates those 380 filings a day. The median manufacturer holds <strong>9 living products</strong>; the top 10% of manufacturers hold <strong>67.0%</strong> of everything alive.</p>
+  <p>Filing activity is more concentrated still. Only <strong>53.4%</strong> of manufacturers filed even one new product in the past 24 months — nearly half filed none at all. Among those who did, the median filed <strong>5</strong>, and 54.1% filed five or fewer. Meanwhile, of the 266,862 filings in those 24 months, <strong>53.4% came from the top 1,000 manufacturers.</strong></p>
+
+  <div class="pull">
+    <p>The market's rush is the pace of a few large players. Adopt it as your KPI and you are running on someone else's clock.</p>
+  </div>
+
+  <h2><span class="num">06</span>What to actually do</h2>
+  <p>Compute your own metabolism first. Same formula — <strong>SKUs launched in the past 24 months ÷ all SKUs currently sold.</strong> With a clean SKU master this is a five-minute calculation, and if it takes longer than five minutes, that itself is the first finding. Then compare against two numbers: your product type's value in the table above, and the registry-wide <strong>25.0%</strong>. That baseline is nobody's opinion — it is the whole market measured with the same ruler.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Your position</th><th>How to read it</th><th>What changes</th></tr></thead>
+    <tbody>
+      <tr><td>Category above 25.0%, and your company turns faster than the category</td><td>You live by rotation on a rotating shelf</td><td>Change the new-product KPI from <strong>launch count to survival count</strong>. Write the kill criteria — window and threshold — before each launch, and discontinue automatically on a miss. Keep new-product P&amp;L separate from the legacy lines</td></tr>
+      <tr><td>Category above 25.0%, but your company turns slower</td><td>The shelf rotates and you don't</td><td>Pick a strategy explicitly — if you're betting on long-lived SKUs, move budget to repurchase metrics; if you intend to keep pace, measure the launch pipeline's bottleneck first. The expensive place is in between, by accident</td></tr>
+      <tr><td>Category below 25.0%</td><td>A slow shelf</td><td>The asset is not launch volume but <strong>keeping the products you have</strong>. Before expanding the launch budget, spend on repurchase and distribution coverage of what already sells</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>One rule holds across all three rows: <strong>record your discontinuations.</strong> What was killed, when, and against what criterion. In a ledger that erases deaths — like this registry — the next launch learns nothing from the last one. A discontinuation log is not a record of failure; it is the cheapest experimental data this industry can accumulate.</p>
+  <p>Three choices made in this calculation, stated with their counterfactuals:</p>
+  <ul>
+    <li><strong>Why 24 months.</strong> At 12, the value wobbles with a single holiday-season cycle and with the lag between filing and reaching shelves; at 36, you're measuring a three-year average rather than the current speed. Twenty-four months is the longest window that still hugs "now" while containing two seasonal cycles.</li>
+    <li><strong>Why the denominator is living products.</strong> Using yearly filings as the denominator requires counting dead reports — and this data contains no deaths. Drawing numerator and denominator from the same day's registry dissolves the problem. The price: this metric measures the <strong>youth of the shelf</strong>, not survival-per-launch, and that limitation stays.</li>
+    <li><strong>What I deliberately left out.</strong> The 103,142 filings from food-additive manufacturers — flavorings, mixed preparations — are excluded from the table. They are factory-to-factory trade, not a consumer shelf. For reference, their metabolism is 18.7%, slower than the consumer shelves.</li>
+  </ul>
+
+  <h2><span class="num">07</span>What this registry cannot see</h2>
+  <p><strong>A filing is not a launch.</strong> Products that were filed but never reached a shelf, or shipped once and vanished, are all in here. Shelf metabolism therefore leans high relative to true shelf rotation — the direction is knowable, the magnitude is not.</p>
+  <p><strong>No time or cause of death.</strong> So no survival rate and no half-life can be computed from this data. Those numbers exist only inside companies that kept their own discontinuation history — which is exactly the shared rule in §06.</p>
+  <p><strong>The kill-criteria inputs aren't out here either.</strong> First-repurchase rate after launch, shelf turnover speed — the raw material for a termination call mostly lives in distributors' settlement data. Getting it into your own books is the subject of the third piece in this series.</p>
+
+  <div class="note">
+    <h3>Methods &amp; limits</h3>
+    <ul>
+      <li><strong>Source</strong> — Korea MFDS open API, food (and additive) product manufacturing reports: 1,066,448 rows, collection completed 2026-08-10. After removing 33 duplicate report numbers and 14 rows with corrupt filing dates (future or pre-1945), the analysis set is 1,066,401. Fields include filing date, manufacturer, product type, and production-ended status. Product types are the agency's own classification, used as-is.</li>
+      <li><strong>Interpreting "zero discontinued"</strong> — that every row reads "no" is measured fact; that ended or withdrawn reports are deleted from public view is my inference from it. How closures, withdrawals, and production stops are handled in the registry is not documented publicly.</li>
+      <li><strong>Scope</strong> — reports under the Food Sanitation Act. Processed livestock products and health functional foods are governed by different laws and different registries, and are not included. "Food and beverage" in this piece means this scope.</li>
+      <li><strong>The missing yearly series</strong> — I searched the MFDS Statistical Yearbook 2023 (full 875-page text), KOSIS, the national indicators portal, the MFDS industry trend statistics 2023, and the agency's open data file catalog (2026-08-12). No product-level yearly count of new filings or discontinuations exists. The closest official figure — 77,127 items in the 2023 production statistics — counts each (company × food type) pair once, a different unit, so it was not used as a denominator.</li>
+      <li><strong>Window sensitivity</strong> — recomputing metabolism at 12 months (13.0% overall) and 36 months (35.4% overall) preserves the ordering across types: ready-to-eat 27.9→44.8→56.0%, infusion teas 9.3→17.7→25.9%.</li>
+      <li><strong>No company names</strong> — the unit of this piece is the product type and the distribution; no individual manufacturer is evaluated. Every figure comes from the public API, so a reader who wants to verify can pull the same registry and check.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="cta">
+    <p>Lambency diagnoses where to look with public data, then verifies it against your internal data.</p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
