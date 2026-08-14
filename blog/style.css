@@ -219,3 +219,14 @@ html[lang="ko"] .cta p{ margin: 0 0 8px; }
 .h1sub{ display:block; margin-top:16px; font-family:var(--mono); font-size:12.5px;
   letter-spacing:.05em; line-height:1.7; font-weight:400; color:var(--amber-deep); }
 @media(max-width:900px){ .h1sub{ font-size:11.5px; margin-top:13px; } }
+
+/* ── 구독 (2026-08-14) — 셀렉터는 .subscribe 스코프 밖으로 안 나간다 ── */
+.subscribe{margin-top:56px;padding:30px clamp(20px,4vw,38px);border:1px solid var(--hairline);text-align:center}
+.subscribe .lb{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:10px}
+.subscribe p{font-size:15px;color:var(--ink-dim);margin:0 0 18px}
+.subscribe form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.subscribe input{flex:1 1 200px;max-width:300px;padding:11px 14px;background:transparent;border:1px solid var(--hairline);color:inherit;font-size:14.5px;font-family:inherit}
+.subscribe input:focus{outline:none;border-color:var(--amber-deep)}
+.subscribe button{padding:11px 24px;background:transparent;border:1px solid var(--amber-deep);color:var(--amber-hi);font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;cursor:pointer}
+.subscribe button:hover{border-color:var(--amber);color:var(--amber)}
+.subscribe .ok{display:none;font-family:var(--mono);font-size:13px;color:var(--amber-hi);margin-top:4px}
