@@ -292,6 +292,38 @@
 
   <p>가장 아쉬운 건 B사다. 스마트스토어에 검색광고까지 태우면서 <strong>정작 자사 홈페이지에는 그 스토어로 가는 링크조차 없다.</strong> 광고비를 써서 만든 트래픽이 자기 자산으로 한 방울도 안 고인다.</p>
 
+
+  <div class="fig">
+<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img">
+<style>text{font-family:'IBM Plex Mono',monospace}</style>
+<rect x="60" y="40" width="120" height="36" rx="5" fill="#131009" stroke="#e8b458" stroke-width="1.6"/>
+<text x="120" y="63" font-size="13" fill="#ece5d8" text-anchor="middle">E사</text>
+<line x1="180" y1="58" x2="440" y2="76" stroke="#e8b458" stroke-width="2.4"/>
+<rect x="60" y="92" width="120" height="36" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.6"/>
+<text x="120" y="115" font-size="13" fill="#ece5d8" text-anchor="middle">A사</text>
+<line x1="180" y1="110" x2="440" y2="256" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<rect x="60" y="144" width="120" height="36" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.6"/>
+<text x="120" y="167" font-size="13" fill="#ece5d8" text-anchor="middle">B사</text>
+<line x1="180" y1="162" x2="440" y2="256" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<rect x="60" y="196" width="120" height="36" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.6"/>
+<text x="120" y="219" font-size="13" fill="#ece5d8" text-anchor="middle">C사</text>
+<line x1="180" y1="214" x2="440" y2="256" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<rect x="60" y="248" width="120" height="36" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.6"/>
+<text x="120" y="271" font-size="13" fill="#ece5d8" text-anchor="middle">D사</text>
+<line x1="180" y1="266" x2="440" y2="256" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<rect x="60" y="300" width="120" height="36" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.6"/>
+<text x="120" y="323" font-size="13" fill="#ece5d8" text-anchor="middle">F사</text>
+<line x1="180" y1="318" x2="440" y2="256" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<rect x="440" y="48" width="230" height="56" rx="5" fill="#131009" stroke="#e8b458" stroke-width="1.8"/>
+<text x="555" y="72" font-size="13" fill="#e8b458" text-anchor="middle">자사몰</text>
+<text x="555" y="91" font-size="10.5" fill="#a89e8a" text-anchor="middle">주문자 ID · 재구매 주기 · 자기 서버</text>
+<rect x="440" y="228" width="230" height="56" rx="5" fill="#131009" stroke="#6e6552" stroke-width="1.4" stroke-dasharray="5 5"/>
+<text x="555" y="252" font-size="12.5" fill="#ece5d8" text-anchor="middle">네이버 · 카카오 · 편의점 앱</text>
+<text x="555" y="271" font-size="10.5" fill="#a89e8a" text-anchor="middle">남는 것: 정산서</text>
+<text x="360" y="378" font-size="12" fill="#a89e8a" text-anchor="middle">여섯 곳 합계 — 추적 스크립트 21개 · 고객(CRM) 도구 0개</text>
+</svg>
+    <div class="figcap">그림 · 주문 데이터가 남는 곳 — 여섯 제조사의 온라인 주문 경로(본문 §03 표 그대로). 다섯 곳의 주문 기록은 플랫폼 서버에 남고, 제조사에는 정산서가 돌아온다.</div>
+  </div>
   <h2><span class="num">04</span>유일하게 자사몰이 있는 곳을 열어봤다</h2>
   <p>E사는 제대로 하고 있었다. <strong>정기구독 상품 7종</strong>(주 1회~월 1회, 전 품목 10% 할인, 출고일 오전 8시 자동결제), 마이페이지에서 해지와 1회 건너뛰기, 그리고 <strong>다이아몬드부터 브론즈까지 5단계 회원등급</strong>. 최근 3개월 구매액 기준으로 적립률이 0.5%에서 8%까지 올라가고 등급별 쿠폰이 따로 나온다.</p>
   <p>결제 실패 처리까지 문서화돼 있다 — <em>"카드한도초과이거나 결제에 이상이 있는 경우 2~3회 자동결제 시도 후 정기결제가 해지됩니다."</em> 재시도 로직이 있다는 뜻이다.</p>
@@ -377,6 +409,21 @@
     <li><strong>자사몰을 여는 결정은 식별률을 재고 난 뒤에 한다.</strong> 식별률이 이미 높은데 매출이 안 나오는 것과, 매출은 나오는데 식별이 안 되는 것은 완전히 다른 문제다. 전자에 자사몰은 답이 아니다.</li>
   </ul>
   <p>공개 자료로는 식별 접점이 <strong>있는지 없는지</strong>까지만 보인다. 비율은 주문원장을 열어야 나온다. 그래도 순서는 바뀌지 않는다 — <strong>재기 전에 사지 않는다.</strong></p>
+
+  <h2><span class="num">10</span>그래서 이 글이 하고 싶은 말</h2>
+  <p>법이 열어준 문을 여섯 중 하나만 열었다. 그런데 답은 「자사몰을 열어라」가 아니다 — 식별률부터 재라. 서로 다른 두 주문을 같은 사람의 것으로 이을 수 있는 매출이 전체의 몇 %인가. 50%를 넘으면 재구매율을 값으로 말할 수 있고, 20% 아래면 CRM 도구부터 사는 건 순서가 뒤집힌 것이다. 지금 다섯 곳은 잴 데이터가 남의 서버에 있고, 한 곳은 갖고 있으면서 빈도를 안 센다.</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>어느 자리에 있든</th><th>먼저 보면 좋은 것</th></tr></thead>
+    <tbody>
+      <tr><td>자사몰 없는 제조사</td><td>주문이 흘러간 뒤 자기 손에 남는 것이 정산서뿐인지. 식별률이 0에 가까운 이유가 §03에 있다</td></tr>
+      <tr><td>자사몰·구독이 있는 곳</td><td>§04 — 등급 산정에 빈도 축이 있는지, 가장 자주 사는 구독자가 리텐션 프로그램 밖에 있지 않은지</td></tr>
+      <tr><td>판매를 플랫폼에 맡긴 곳</td><td>광고로 만든 트래픽이 자기 자산으로 고이는 경로가 하나라도 있는지 — §03의 B사가 반면교사다</td></tr>
+      <tr><td>재무</td><td>추적 스크립트 21개의 유지비 대비 고객을 다시 부르는 도구 0개 — 지출의 방향이 §05에 있다</td></tr>
+    </tbody>
+  </table>
+  </div>
 
   <div class="note">
     <h3>방법론 · 한계</h3>
