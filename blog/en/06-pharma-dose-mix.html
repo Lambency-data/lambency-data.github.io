@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Data Is Public. Nobody's Using It — Korea's Prescription Data | Lambency</title>
+<meta name="description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874 in eighteen months. Using it directly showed: combination drugs crossed half the market, the best-selling drug's dose demand and product lineup diverge by 18 points on average, and low doses arrived years late. The demand is public; nobody builds against it.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+<meta property="og:title" content="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+<meta property="og:description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+<meta name="twitter:description" content="Skincare-adjacent categories trade brands at 1.2–1.4× chance; the paths into makeup sit below half of chance, every week.">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/06-pharma-dose-mix.html">
+<link rel="alternate" hreflang="en" href="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+<link rel="alternate" hreflang="x-default" href="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "The Data Is Public. Nobody's Using It — Korea's Prescription Data#post",
+   "headline": "The Data Is Public. Nobody's Using It — Korea's Prescription Data",
+   "url": "The Data Is Public. Nobody's Using It — Korea's Prescription Data",
+   "datePublished": "2026-08-24",
+   "dateModified": "2026-08-24",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, K-beauty, Olive Young, category expansion, shelf analysis, retail data",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "The Data Is Public. Nobody's Using It — Korea's Prescription Data"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874 in eighteen months. Using it ",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../06-pharma-dose-mix.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 06 · Pharmaceuticals</div>
+  <h1>The data is public.<br>Nobody's using it
+    <span class="h1sub">Pharmaceuticals · HIRA prescription data × drug registry · dose mix and regional demand · public-data analysis</span>
+  </h1>
+  <div class="meta">
+    Caff · August 2026<br>
+    Data used — HIRA drug-utilization open API (top 100 classes × 3 time points; district and ingredient level; 3,695 queries), the reimbursed-drug ATC mapping list, resident population registry, HIRA research reports and ministry releases, peer-reviewed literature. <strong>Zero internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>I spent the first months of the pandemic on a hospital data team in the United States. There was no vaccine yet, and the doctors were testing drugs that might work. My job was to make those tests statistically real — starting with the math of how many patients you need before a difference stops being luck. What stayed with me from those months is this. The same drug looked different at different doses, and sometimes the difference dissolved when you measured it properly. But one thing was unambiguous: <strong>what dose reliably separated was not efficacy but safety.</strong> The high-dose arm got into trouble first. The conclusion those months left behind is simple — for the same molecule, the milligrams are a different event.</p>
+  </div>
+
+  <h2><span class="num">01</span>The note-parsing years</h2>
+
+  <p>This is not a story about making vaccines. I am a data person, and that work led me to a healthcare IT company, collecting oncology data from American hospitals. The data lived in three systems: <strong>Epic and Cerner</strong>, which run whole hospitals, and <strong>iKnowMed</strong>, used by community oncology clinics. They store the same items, but every hospital wrote them differently — some in codes, some in other units, some not at all. Every new hospital meant redoing the mapping from scratch.</p>
+
+  <p>The data had to flow in real time. If the pipeline died overnight, the next morning's clinic saw yesterday's numbers, so we rotated on-call shifts through weekends and holidays. And the hardest part was the prescriptions themselves. <strong>What drug a patient received, at how many milligrams, was in no column at all.</strong> It was inside the sentences of the physician's notes. Building the rules that pulled drug names and doses out of those sentences was half the project. The notes also carried patient identifiers, and in the end the project was stopped over exactly that. The prescription data I knew was that kind of thing — something you build until you have to stop.</p>
+
+  <h2><span class="num">02</span>In Korea, it's a table</h2>
+
+  <p>That is why I paused when I first opened Korea's public health-insurance data. Here, that data is a table. <strong>Ingredient, dose, and formulation live inside a single nine-digit code, and prescription quantities and amounts for each code are published by district, by month, nationwide, back to 2010.</strong> No notes to parse. No privacy problem — it is aggregated. It sits there, tidier than what we built on weekend shifts, for anyone to look at.</p>
+
+  <p>But being public and being usable turned out to be different things. The data lives behind a query screen, not a download. Pick one therapeutic class, one region, one month, and you get one table. It is a door built for a person with a mouse — assembling this article's national picture took 3,695 queries, over two days, at whatever pace the server would tolerate. The official file channels do not carry this combination at all. <strong>The data is open; the door is narrow.</strong> In America the wall was the physician's note. Here, the wall is this door.</p>
+
+  <p>How many people have actually walked through it can be counted. On Korea's open-data portal, applications for this prescription-data API total 2,352 in ten years (as of 2026-08-23). The hospital-location data the same agency opened the same year has 8,606. Apartment transaction prices collected 16,874 applications within a year and a half of registration. On GitHub, public repositories touching this API: zero. Repositories touching real-estate prices: 248. <strong>Sixteen thousand hands lined up for property numbers; this door saw two thousand in a decade, and I could not find a single public analysis they left behind.</strong> Why? Housing prices are everyone's own problem; prescription data belongs to an industry — an industry used to buying estimates, facing a narrow door. A guess, but probably all three.</p>
+
+  <div class="pull">
+  <p>Sixteen thousand hands gathered around real-estate prices in eighteen months. This door saw two thousand in ten years.</p>
+</div>
+
+  <p>So this industry's gap has a different shape from the earlier essays. The gaps so far were data that didn't exist (the food registry records no deaths) or data in someone else's hands (the shelf belongs to the channel). Here it is the opposite: <strong>the data is this open, and nobody is using it.</strong> So let's use it.</p>
+
+  <p>This essay will follow one drug. <strong>The lipid-lowering combination — a statin and ezetimibe fused into a single pill</strong>, the kind you may know by names like Rosuzet. Why this one: over the past five years it became the most-prescribed drug class in Korea. You would expect the best-selling drug to be the one built with the best knowledge of demand. What the data shows is closer to the opposite. Here is that story, in order.</p>
+
+  <h2><span class="num">03</span>A map of the market — its shape is changing</h2>
+
+  <p>Data first. I took the 100 therapeutic classes with the most reimbursed products and collected nationwide claims for three months: June 2019, June 2024, and March 2026, the latest month available. The monthly reimbursement for these 100 classes went from ₩720bn to ₩1,190bn in five years. That is 64% growth — but what catches the eye before the growth is that <strong>the market is changing shape.</strong></p>
+
+  <p>As of 2024, the biggest class is not statins. It is the <strong>lipid combination</strong> — a statin plus ezetimibe in one pill. ₩78bn a month, 4.4 times its level five years earlier, overtaking single statins (₩62.6bn, +50%). The same direction repeats elsewhere: blood-pressure combinations are up +94% and +279%, diabetes combinations +118%. Much of this is substitution rather than growth — lipid drugs as a whole grew +135% in five years, while the combination share within them went from 35% to 55%. <strong>A market of one ingredient per pill crossed the halfway mark into a market of several.</strong></p>
+
+  <p>Other classes tell their own stories on the same map. In acid suppression the old generation (H2 blockers) fell -34% — the only decline in the top 100 — while the new generation (PPIs) filled the space at +174%. And the class containing choline alfoscerate, a "brain-function" drug under reimbursement review for disputed efficacy, still moves ₩36.4bn a month. But this essay doesn't linger there; it follows the class that became number one.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="치료군 지도: 규모와 성장"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<line x1="62" y1="384" x2="700" y2="384" stroke="#6e6552" stroke-opacity=".22" stroke-dasharray="2 4"/>
+<text class="t" x="54" y="388" font-size="10.5" text-anchor="end">+0%</text>
+<line x1="62" y1="285" x2="700" y2="285" stroke="#6e6552" stroke-opacity=".22" stroke-dasharray="2 4"/>
+<text class="t" x="54" y="289" font-size="10.5" text-anchor="end">+100%</text>
+<line x1="62" y1="186" x2="700" y2="186" stroke="#6e6552" stroke-opacity=".22" stroke-dasharray="2 4"/>
+<text class="t" x="54" y="190" font-size="10.5" text-anchor="end">+200%</text>
+<line x1="62" y1="87" x2="700" y2="87" stroke="#6e6552" stroke-opacity=".22" stroke-dasharray="2 4"/>
+<text class="t" x="54" y="91" font-size="10.5" text-anchor="end">+300%</text>
+<text class="t" x="222" y="402" font-size="10.5" text-anchor="middle">₩20bn</text>
+<text class="t" x="381" y="402" font-size="10.5" text-anchor="middle">₩40bn</text>
+<text class="t" x="540" y="402" font-size="10.5" text-anchor="middle">₩60bn</text>
+<text class="t" x="700" y="402" font-size="10.5" text-anchor="middle">₩80bn</text>
+<line x1="62" y1="384" x2="700" y2="384" stroke="#6e6552" stroke-opacity=".5"/>
+<circle cx="684" cy="50" r="5" fill="#e8b458" fill-opacity="0.9" stroke="#e8b458" stroke-opacity="1"/>
+<text class="a" x="684" y="64" font-size="11" text-anchor="middle">Lipid combos</text>
+<circle cx="561" cy="335" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="561" y="324" font-size="11" text-anchor="middle">Statins</text>
+<circle cx="560" cy="212" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="560" y="201" font-size="11" text-anchor="middle">PPIs</text>
+<circle cx="542" cy="304" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="542" y="293" font-size="11" text-anchor="middle">Antiplatelets</text>
+<circle cx="445" cy="291" r="5" fill="#e8b458" fill-opacity="0.9" stroke="#e8b458" stroke-opacity="1"/>
+<text class="a" x="445" y="280" font-size="11" text-anchor="middle">BP combos (ARB+CCB)</text>
+<circle cx="352" cy="275" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="352" y="264" font-size="11" text-anchor="middle">Choline alfoscerate cls.</text>
+<circle cx="328" cy="267" r="5" fill="#e8b458" fill-opacity="0.9" stroke="#e8b458" stroke-opacity="1"/>
+<text class="a" x="328" y="256" font-size="11" text-anchor="middle">Diabetes combos</text>
+<circle cx="322" cy="367" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="322" y="356" font-size="11" text-anchor="middle">Contrast agents</text>
+<circle cx="283" cy="315" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="283" y="304" font-size="11" text-anchor="middle">ARBs (single)</text>
+<circle cx="281" cy="331" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="281" y="320" font-size="11" text-anchor="middle">Dementia drugs</text>
+<circle cx="276" cy="296" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="276" y="285" font-size="11" text-anchor="middle">Ophthalmics</text>
+<circle cx="245" cy="357" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="213" cy="385" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="213" y="374" font-size="11" text-anchor="middle">B02BD</text>
+<circle cx="207" cy="358" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="201" cy="296" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="199" cy="356" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="192" cy="346" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="189" cy="304" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="188" cy="357" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="187" cy="355" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="180" cy="327" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="179" cy="305" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="174" cy="366" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="170" cy="359" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="169" cy="311" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="163" cy="362" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="158" cy="368" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="158" cy="108" r="5" fill="#e8b458" fill-opacity="0.9" stroke="#e8b458" stroke-opacity="1"/>
+<text class="a" x="158" y="97" font-size="11" text-anchor="middle">C09DX</text>
+<circle cx="158" cy="361" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="154" cy="298" r="5" fill="#e8b458" fill-opacity="0.9" stroke="#e8b458" stroke-opacity="1"/>
+<text class="a" x="154" y="287" font-size="11" text-anchor="middle">C10BX</text>
+<circle cx="151" cy="330" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="150" cy="303" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="150" cy="364" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="149" cy="288" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="149" cy="298" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="149" cy="301" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="148" cy="305" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<circle cx="146" cy="404" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="d" x="146" y="393" font-size="11" text-anchor="middle">H2 blockers</text>
+<circle cx="143" cy="344" r="3.5" fill="none" fill-opacity="0" stroke="#a89e8a" stroke-opacity="0.55"/>
+<text class="t" x="62" y="16" font-size="10.5">Vertical = 5-yr growth · Horizontal = monthly reimbursement, Jun 2024 · <tspan fill="#e8b458">■</tspan> combination drugs</text>
+</svg>
+<p class="figcap">Figure 1 · Size and 5-year growth of the top 100 classes (monthly reimbursement Jun 2024 × growth vs Jun 2019). Amber = combinations</p>
+</div>
+
+  <p>(Note: the disease names attached to this data are the primary diagnosis on the prescription — the patient's representative condition, not the drug's indication. That is also why the most frequent diagnosis on statin prescriptions is not a lipid disorder but hypertension, at 25% of prescribed volume.)</p>
+
+  <p>You can also see the order in which this combination spread. Divide each region's prescriptions by its population — proportional is 1.0 — and in 2019, when the market was a third of its current size, Seoul was highest at 1.31. The new drug settled in Seoul first. The five years since were growth for everyone: Seoul's per-capita prescriptions rose 3.3-fold. The rest of the country simply rose faster — Gwangju and Daegu 4-fold, Jeju 4.3-fold, Sejong 5.2-fold. By 2024, per-capita prescriptions in Gwangju and Daegu (2.6 tablets per person-month) had reached Seoul's level. <strong>Seoul did not decline; the country caught up to Seoul.</strong> In the chart below, the multiples converging toward 1.0 are the trace of it. Who learned from whom — the path of transmission — is not visible in this data. What is visible is who settled first, who followed, and how fast the gap closed.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 720 429" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="지질 복합제 지역 확산 2019 대비 2024"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<line x1="421" y1="32" x2="421" y2="409" stroke="#6e6552" stroke-opacity=".45" stroke-dasharray="3 4"/>
+<text class="t" x="421" y="26" font-size="10" text-anchor="middle">population parity 1.0</text>
+<text class="d" x="80" y="50" font-size="11" text-anchor="end">Sejong</text>
+<line x1="151" y1="46" x2="269" y2="46" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="151" cy="46" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="269" cy="46" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="50" font-size="10.5">0.51→0.72</text>
+<text class="d" x="80" y="71" font-size="11" text-anchor="end">Gwangju</text>
+<line x1="448" y1="67" x2="511" y2="67" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="448" cy="67" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="511" cy="67" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="71" font-size="10.5">1.05→1.16</text>
+<text class="d" x="80" y="92" font-size="11" text-anchor="end">Jeju</text>
+<line x1="209" y1="88" x2="269" y2="88" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="209" cy="88" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="269" cy="88" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="92" font-size="10.5">0.61→0.72</text>
+<text class="d" x="80" y="113" font-size="11" text-anchor="end">Daegu</text>
+<line x1="463" y1="109" x2="513" y2="109" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="463" cy="109" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="513" cy="109" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="113" font-size="10.5">1.08→1.17</text>
+<text class="d" x="80" y="134" font-size="11" text-anchor="end">Gyeongbuk</text>
+<line x1="283" y1="130" x2="327" y2="130" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="283" cy="130" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="327" cy="130" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="134" font-size="10.5">0.75→0.83</text>
+<text class="d" x="80" y="155" font-size="11" text-anchor="end">Ulsan</text>
+<line x1="329" y1="151" x2="362" y2="151" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="329" cy="151" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="362" cy="151" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="155" font-size="10.5">0.83→0.89</text>
+<text class="d" x="80" y="176" font-size="11" text-anchor="end">Chungbuk</text>
+<line x1="351" y1="172" x2="381" y2="172" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="351" cy="172" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="381" cy="172" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="176" font-size="10.5">0.87→0.93</text>
+<text class="d" x="80" y="197" font-size="11" text-anchor="end">Chungnam</text>
+<line x1="294" y1="193" x2="321" y2="193" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="294" cy="193" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="321" cy="193" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="197" font-size="10.5">0.77→0.82</text>
+<text class="d" x="80" y="218" font-size="11" text-anchor="end">Jeonnam</text>
+<line x1="336" y1="214" x2="361" y2="214" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="336" cy="214" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="361" cy="214" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="218" font-size="10.5">0.85→0.89</text>
+<text class="d" x="80" y="239" font-size="11" text-anchor="end">Gyeonggi</text>
+<line x1="349" y1="235" x2="367" y2="235" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="349" cy="235" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="367" cy="235" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="239" font-size="10.5">0.87→0.90</text>
+<text class="d" x="80" y="260" font-size="11" text-anchor="end">Gyeongnam</text>
+<line x1="382" y1="256" x2="398" y2="256" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="382" cy="256" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="398" cy="256" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="260" font-size="10.5">0.93→0.96</text>
+<text class="d" x="80" y="281" font-size="11" text-anchor="end">Daejeon</text>
+<line x1="561" y1="277" x2="573" y2="277" stroke="#e8b458" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="561" cy="277" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="573" cy="277" r="4" fill="#e8b458"/>
+<text class="a" x="654" y="281" font-size="10.5">1.26→1.28</text>
+<text class="d" x="80" y="302" font-size="11" text-anchor="end">Busan</text>
+<line x1="506" y1="298" x2="516" y2="298" stroke="#a89e8a" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="506" cy="298" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="516" cy="298" r="4" fill="#a89e8a"/>
+<text class="t" x="654" y="302" font-size="10.5">1.16→1.17</text>
+<text class="d" x="80" y="323" font-size="11" text-anchor="end">Jeonbuk</text>
+<line x1="417" y1="319" x2="427" y2="319" stroke="#a89e8a" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="417" cy="319" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="427" cy="319" r="4" fill="#a89e8a"/>
+<text class="t" x="654" y="323" font-size="10.5">0.99→1.01</text>
+<text class="d" x="80" y="344" font-size="11" text-anchor="end">Gangwon</text>
+<line x1="353" y1="340" x2="350" y2="340" stroke="#a89e8a" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="353" cy="340" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="350" cy="340" r="4" fill="#a89e8a"/>
+<text class="t" x="654" y="344" font-size="10.5">0.88→0.87</text>
+<text class="d" x="80" y="365" font-size="11" text-anchor="end">Incheon</text>
+<line x1="466" y1="361" x2="423" y2="361" stroke="#a89e8a" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="466" cy="361" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="423" cy="361" r="4" fill="#a89e8a"/>
+<text class="t" x="654" y="365" font-size="10.5">1.08→1.00</text>
+<text class="d" x="80" y="386" font-size="11" text-anchor="end">Seoul</text>
+<line x1="590" y1="382" x2="513" y2="382" stroke="#a89e8a" stroke-opacity=".55" stroke-width="3"/>
+<circle cx="590" cy="382" r="3.4" fill="none" stroke="#a89e8a" stroke-opacity=".8"/>
+<circle cx="513" cy="382" r="4" fill="#a89e8a"/>
+<text class="t" x="654" y="386" font-size="10.5">1.31→1.17</text>
+<text class="t" x="80" y="26" font-size="10" text-anchor="end">○ 2019 · ● 2024</text>
+</svg>
+<p class="figcap">Figure 2 · The lipid combination's regional multiples, 2019 (○) → 2024 (●). 1.0 = proportional to population. Amber = rising</p>
+</div>
+
+  <p>(Note: region here is the location of the prescribing institution, not the patient's address. Sejong's low multiple and Daejeon's high one are a pair — Sejong residents seen in Daejeon clinics — and should always be read together.)</p>
+
+  <h2><span class="num">04</span>Same drug — which milligrams sell</h2>
+
+  <p>This is the part the essay was written for. When combinations pass half the market, the number of products to make multiplies. Two ingredients make a pair, and every pair splits again by dose. What to make, and how much of it, becomes a much harder question than before.</p>
+
+  <p>Count the supply first. The 21,953 reimbursed drugs collapse to 2,268 ingredients by code. What matters is that the nine-digit code holds more than the ingredient: four digits for the molecule, two for the dose, three for the form. <strong>Which milligrams it is, is already split out in the code.</strong> The exact distinction we tried to parse out of physicians' notes in America is one line of code here. Two-thirds of ingredients (65.5%) come in a single dose — but there is another end. Donepezil, the dementia drug, comes in ten dose-forms made by 122 companies as 288 products. Rosuvastatin: seven, 124 companies, 330 products. For hospitals and pharmacies this is an inventory problem — stocking one drug means choosing among hundreds.</p>
+
+  <p>And because the dose is in the code, demand can be read by dose too. I split all dose combinations of the two number-one classes — lipid and diabetes combinations — by prescription volume. Doses are written the way product names write them: "ezetimibe 10mg + statin 5mg" becomes 10/5. The rosuvastatin combination sells in four doses: 48.5% of prescriptions go to 10/5 alone, 33.2% to 10/10. The atorvastatin combination is even more concentrated — <strong>10/10 alone takes 67.6% of prescriptions.</strong> The metformin-dapagliflozin diabetes combination scatters across nine doses. Same "combination drug," very different shapes of demand.</p>
+
+  <p>Now set that demand beside the products companies have registered. The atorvastatin combination's products: 96 at 10/10, 97 at 10/20, 66 at 10/40 — <strong>spread almost evenly across the three doses.</strong> By product count alone, the three doses look equally important. Yet two-thirds of the prescriptions go to 10/10 alone. The rosuvastatin side shows the reverse mismatch too: the 10/20 dose takes 10% of prescriptions but holds 31% of the products, while the youngest dose, 10/2.5, where demand is growing, holds 6%. <strong>Prescriptions concentrate; products spread evenly — demand and supply have different shapes.</strong> In the chart below, the width mismatch between the upper and lower bars is that difference.</p>
+
+  <div class="pull">
+  <p>Prescriptions pile onto one dose; products sit evenly across three. And this, with demand published at national scale.</p>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="용량별 처방 비중과 품목 비중"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="t" x="74" y="16" font-size="10.5">Same dose order. Top = where prescriptions go, bottom = where products sit (Jun 2024). The wider the mismatch, the bigger the gap</text>
+<text class="d" x="74" y="40" font-size="12.5">Rosuvastatin + ezetimibe</text>
+<text class="t" x="64" y="74" font-size="11" text-anchor="end">Rx</text>
+<rect x="74.0" y="54" width="299.6" height="30" fill="#e8b458" fill-opacity="0.92"/>
+<text x="81" y="73" font-size="10.5" fill="#241c10">10/5 · 48%</text>
+<rect x="375.6" y="54" width="204.7" height="30" fill="#f5d489" fill-opacity="0.8"/>
+<text x="383" y="73" font-size="10.5" fill="#241c10">10/10 · 33%</text>
+<rect x="582.3" y="54" width="58.6" height="30" fill="#a89e8a" fill-opacity="0.45"/>
+<text x="586" y="73" font-size="9.5" fill="#ece5d8" fill-opacity=".75">10%</text>
+<rect x="642.9" y="54" width="51.1" height="30" fill="#a89e8a" fill-opacity="0.22"/>
+<text x="647" y="73" font-size="9.5" fill="#ece5d8" fill-opacity=".75">9%</text>
+<text class="t" x="64" y="114" font-size="11" text-anchor="end">Products</text>
+<rect x="74.0" y="94" width="196.1" height="30" fill="#e8b458" fill-opacity="0.92"/>
+<text x="81" y="113" font-size="10.5" fill="#241c10">10/5 · 32%</text>
+<rect x="272.1" y="94" width="196.1" height="30" fill="#f5d489" fill-opacity="0.8"/>
+<text x="279" y="113" font-size="10.5" fill="#241c10">10/10 · 32%</text>
+<rect x="470.2" y="94" width="188.2" height="30" fill="#a89e8a" fill-opacity="0.45"/>
+<text x="477" y="113" font-size="10.5" fill="#ece5d8">10/20 · 31%</text>
+<rect x="660.3" y="94" width="33.7" height="30" fill="#a89e8a" fill-opacity="0.22"/>
+<text x="664" y="113" font-size="9.5" fill="#ece5d8" fill-opacity=".75">6%</text>
+<text class="d" x="74" y="190" font-size="12.5">Atorvastatin + ezetimibe</text>
+<text class="t" x="64" y="224" font-size="11" text-anchor="end">Rx</text>
+<rect x="74.0" y="204" width="418.4" height="30" fill="#e8b458" fill-opacity="0.92"/>
+<text x="81" y="223" font-size="10.5" fill="#241c10">10/10 · 68%</text>
+<rect x="494.4" y="204" width="144.9" height="30" fill="#f5d489" fill-opacity="0.8"/>
+<text x="501" y="223" font-size="10.5" fill="#241c10">10/20 · 24%</text>
+<rect x="641.3" y="204" width="52.7" height="30" fill="#a89e8a" fill-opacity="0.45"/>
+<text x="645" y="223" font-size="9.5" fill="#ece5d8" fill-opacity=".75">9%</text>
+<text class="t" x="64" y="264" font-size="11" text-anchor="end">Products</text>
+<rect x="74.0" y="244" width="228.5" height="30" fill="#e8b458" fill-opacity="0.92"/>
+<text x="81" y="263" font-size="10.5" fill="#241c10">10/10 · 37%</text>
+<rect x="304.5" y="244" width="230.9" height="30" fill="#f5d489" fill-opacity="0.8"/>
+<text x="312" y="263" font-size="10.5" fill="#241c10">10/20 · 37%</text>
+<rect x="537.5" y="244" width="156.5" height="30" fill="#a89e8a" fill-opacity="0.45"/>
+<text x="544" y="263" font-size="10.5" fill="#ece5d8">10/40 · 25%</text>
+</svg>
+<p class="figcap">Figure 3 · Prescription share (top) vs registered-product share (bottom) by dose, Jun 2024. Width mismatches are the gap</p>
+</div>
+
+  <p>Reduced to one number: take the share of prescriptions going to each pair's most-prescribed dose, minus that dose's share of products — the atorvastatin combination is 67.6% versus 37.1%, a gap of 30.5 points. Weighted by volume across both classes, the average gap is <strong>18 points</strong>. The more a dose is prescribed, the less of the product lineup it gets.</p>
+
+  <p>To be precise about what this does and does not say: product counts are registered products, not production volume. How much each company makes of each product is not in this data. So the number says one thing — <strong>the shape of the lineup differs from the shape of demand.</strong> What is oversupplied and what is short only comes out when each company joins its own production and shipment data. Public data shows the mismatch exists; that is where it stops.</p>
+
+  <p>Add time and one more thing appears. The rosuvastatin combination's lowest dose, 10/2.5, did not exist in 2019. It reached 8.5% in 2024 and 12% by March 2026. On the atorvastatin side, the low 10/5 dose only recently entered at 5%. The patients who needed lower doses existed all along. <strong>The products arrived late.</strong> And the signal had been there for years: a 2019 study found 15.6% of prescriptions involved tablet-splitting. That is what physicians and pharmacists do when the doses on sale don't match the doses needed.</p>
+
+  <p>I don't think the industry didn't know. But a public analysis that measures this mismatch at national scale, down to the individual dose, I could not find. What it took was not new data. It took joining two already-public tables — one from prescriptions, one from the registry — on a nine-digit code.</p>
+
+  <h2><span class="num">05</span>The rulers this essay made</h2>
+
+  <p>To make the observations reusable for any class, here they are as rulers. This essay measured two things.</p>
+
+  <p>One is the <strong>dose gap</strong>: within an ingredient pair, the prescription share of the most-prescribed dose minus that dose's share of registered products. Near zero when demand and lineup share a shape; the wider it opens, the emptier the shelf where demand concentrates. Across the two classes here it averaged +18 points; the atorvastatin combination was +30.5 points.</p>
+
+  <p>The other is the <strong>regional multiple</strong>: a region's share of prescriptions divided by its share of population. 1.0 is proportional; the further from 1.0, the more that region has its own story. With this ruler we measured the country catching up to Seoul, the multiples converging toward 1.0.</p>
+
+  <p>The decision rule: if the dose gap is wide, if corroborating signals overlap — tablet-splitting, doses arriving late — and if the regional multiples are moving, that class's lineup and inventory allocation likely deserve a redesign against demand data. But the conclusion is not drawn from public data alone. Product counts are not production volumes; the final call comes after joining each company's own production and shipment numbers.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Ruler</th><th>How it's measured</th><th>Reference</th><th>What you do when it trips</th></tr></thead>
+  <tbody>
+    <tr><td>Dose gap</td><td>Rx share of the most-prescribed dose − that dose's product share</td>
+    <td>Near 0 = aligned. The two classes here average <strong>+18pts</strong></td>
+    <td>Starting with the widest pairs, check against your own production and shipment data — consider a lineup redesign</td></tr>
+    <tr><td>Regional multiple</td><td>Region's Rx share ÷ population share</td>
+    <td><strong>1.0</strong> = proportional to population</td>
+    <td>Re-examine field and inventory allocation starting with regions far from 1.0 or moving year over year</td></tr>
+  </tbody>
+</table>
+</div>
+
+  <h2><span class="num">06</span>The money beside the data</h2>
+
+  <p>Why it matters that nobody uses this data can be counted in money. By a HIRA research report's estimate (2018), duplicate prescriptions of the same ingredient leak ₩138.2bn a year — 1.16% of prescription value. Drugs prescribed but never taken are estimated at ₩218bn a year. Of leftover medicine, 55.2% went into the trash or the drain, and in 94.4% of cases the patient decided alone whether to take it.</p>
+
+  <p>It is not for lack of infrastructure. Hospital-grade EMR adoption was already 93.9% in the 2020 survey; certified institutions went from 41 in June 2020 to 4,052 by December 2024. The system that checks every outpatient prescription in real time for duplication and contraindications (DUR) screened about 1.49 billion prescriptions in 2025. <strong>This is a country where prescription data flows in real time.</strong> What's missing is the layer that reads that flow into demand and inventory — and the money leaks through that missing layer.</p>
+
+  <p>And there is one more hole. Patient-side waste at least has official estimates. <strong>For the inventory hospitals and pharmacies discard, I could not find a statistic at all.</strong> The eye that counts waste stops at the patient. Institutional inventory lives only in each institution's own ledger, and nobody adds it up.</p>
+
+  <div class="pull">
+  <p>The eye that counts waste stops at the patient. How much hospital and pharmacy stock gets discarded — there is no statistic.</p>
+</div>
+
+  <h2><span class="num">07</span>What this data cannot see</h2>
+
+  <p><strong>Its field of view ends at the reimbursement boundary.</strong> This is data that captures ₩1.2 trillion a month, and the Wegovy boom everyone knows about registers as zero inside it. Obesity drugs have no reimbursed products at all, and reimbursement claims for the GLP-1 class Wegovy belongs to measured zero at all three time points. A diabetes drug that did enter reimbursement — the SGLT2 inhibitors — shows up clearly, growing from ₩2.6bn to ₩9.1bn a month. The private-pay market is outside this lens.</p>
+
+  <p><strong>These are prescriptions, not consumption.</strong> As the non-adherence numbers in section 06 show, the two differ — read prescription volume as demand with that margin in mind.</p>
+
+  <p><strong>Diagnoses are primary diagnoses.</strong> The representative condition on the prescription, not the drug's indication. Use the distribution to see the patient profile, not as indication statistics.</p>
+
+  <p><strong>Regions are institution locations.</strong> They can differ from where patients live, and regions dense with large hospitals look inflated. Hence dividing by population, and reading outflow-inflow pairs like Sejong-Daejeon together.</p>
+
+  <p><strong>Masking and lag.</strong> Cells with three or fewer manufacturers are masked, and the aggregates run months behind — the latest month in this essay is March 2026.</p>
+
+  <h2><span class="num">08</span>What this essay wants to say</h2>
+
+  <p>In America we parsed physicians' notes to build prescription data, and had to stop. Korea publishes the same data by ingredient, dose, region, and month — and in ten years this door saw about two thousand applications and, as far as I could find, not one public analysis. Using it directly showed: while combinations crossed half the market, the best-selling drug's dose demand and its product lineup diverge by an average of 18 points; low doses arrived years after their demand; and the country's five-year catch-up to Seoul is stamped in the regional multiples. This was never a picture missing for lack of data. <strong>It was missing for lack of anyone looking.</strong> What the two rulers — dose gap and regional multiple — read for your own therapeutic class can be measured today, from public data.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 720 388" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="자리별로 먼저 볼 것"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<rect x="0" y="8" width="348" height="168" rx="3" fill="none" stroke="#e8b458" stroke-opacity=".22"/>
+<text class="a" x="18" y="38" font-size="11.5" letter-spacing=".04em">Pharma · portfolio & production</text>
+<text x="18" y="64" font-size="13" fill="#f5d489">Start with your dose gap</text>
+<text class="d" x="18" y="88" font-size="11">Does any of our combos put</text>
+<text class="d" x="18" y="107" font-size="11">two-thirds of demand on a</text>
+<text class="d" x="18" y="126" font-size="11">dose that holds a third of</text>
+<text class="d" x="18" y="145" font-size="11">the products — and is a</text>
+<text class="d" x="18" y="164" font-size="11">late-arriving low dose</text>
+<rect x="372" y="8" width="348" height="168" rx="3" fill="none" stroke="#e8b458" stroke-opacity=".22"/>
+<text class="a" x="390" y="38" font-size="11.5" letter-spacing=".04em">Pharma · sales & marketing</text>
+<text x="390" y="64" font-size="13" fill="#f5d489">Regional multiples, in motion</text>
+<text class="d" x="390" y="88" font-size="11">Is our market one where</text>
+<text class="d" x="390" y="107" font-size="11">the catch-up is done, or</text>
+<text class="d" x="390" y="126" font-size="11">one still converging — the</text>
+<text class="d" x="390" y="145" font-size="11">two need different field</text>
+<text class="d" x="390" y="164" font-size="11">allocation</text>
+<rect x="0" y="196" width="348" height="168" rx="3" fill="none" stroke="#e8b458" stroke-opacity=".22"/>
+<text class="a" x="18" y="226" font-size="11.5" letter-spacing=".04em">Distribution · wholesale · pharmacy</text>
+<text x="18" y="252" font-size="13" fill="#f5d489">Re-rank inventory by demand share</text>
+<text class="d" x="18" y="276" font-size="11">Combination drugs</text>
+<text class="d" x="18" y="295" font-size="11">multiplied the SKUs — if</text>
+<text class="d" x="18" y="314" font-size="11">half the prescriptions sit</text>
+<text class="d" x="18" y="333" font-size="11">on one dose, the ordering</text>
+<text class="d" x="18" y="352" font-size="11">priority is already</text>
+<rect x="372" y="196" width="348" height="168" rx="3" fill="none" stroke="#e8b458" stroke-opacity=".22"/>
+<text class="a" x="390" y="226" font-size="11.5" letter-spacing=".04em">Hospital · healthcare IT</text>
+<text x="390" y="252" font-size="13" fill="#f5d489">Does flowing data reach decisions</text>
+<text class="d" x="390" y="276" font-size="11">Prescription data streams</text>
+<text class="d" x="390" y="295" font-size="11">through EMR and DUR in</text>
+<text class="d" x="390" y="314" font-size="11">real time — but no</text>
+<text class="d" x="390" y="333" font-size="11">statistic even exists for</text>
+<text class="d" x="390" y="352" font-size="11">institution-level</text>
+</svg>
+<p class="figcap">Figure 4 · What to look at first, wherever you sit</p>
+</div>
+
+  <div class="note">
+<h3>Method &amp; limits</h3>
+<ul>
+  <li><strong>Sources</strong> — HIRA's drug-utilization open API (registered on Korea's open-data portal): nationwide claims for the top 100 therapeutic classes (ATC level 4) by reimbursed product count, at 2019-06, 2024-06 and 2026-03, plus district-level (298 official region codes) and ingredient-level sweeps for the lipid and diabetes combinations — 3,695 queries, dispensing basis, all payer types summed. The product and dose axis comes from the reimbursed-drug ATC mapping list (as of 2025-06-30), 21,953 products.</li>
+  <li><strong>The dose-safety account in section 01</strong> — grounded in public literature: a randomized trial halted early for significantly higher mortality in its high-dose arm (CloroCovid-19, 2020); efficacy differences were non-significant in most trials. Personal experience is used only as scene and timing.</li>
+  <li><strong>Dose gap definition</strong> — within an ingredient pair, the volume share of the most-prescribed dose minus that dose's share of registered products. Product counts are registration counts, not production volumes — the gap speaks only to the shape of the lineup.</li>
+  <li><strong>Regional multiple definition</strong> — a province's share of prescription volume ÷ its share of resident population (Ministry of the Interior, same-month basis). Gwangju and South Jeolla are computed on their pre-2026 administrative boundaries.</li>
+  <li><strong>Reproducibility</strong> — the figures in this essay pass a verification script that recomputes them from the raw data; application counts and repository counts are as of 2026-08-23.</li>
+</ul>
+</div>
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
