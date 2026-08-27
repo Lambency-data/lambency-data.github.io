@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상권 — 업종을 넣으면 동네가 보인다 | Lambency</title>
+<meta name="description" content="서울 행정동별 업종 매출·점포·폐업률·유동인구를 가게당 월매출 순으로 폅니다. 공공데이터를 그대로 쓰면 폐업률이 두 배로 부풀고 계절성이 쇠퇴로 읽힙니다 — 무엇을 고쳐야 쓸 수 있는 숫자가 되는지 함께 적었습니다.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://lambency-data.github.io/blog/sangkwon.html">
+<meta property="og:title" content="상권 — 업종을 넣으면 동네가 보인다 | Lambency">
+<meta property="og:description" content="서울 행정동별 업종 매출·폐업률을 가게당 월매출 순으로. 공공데이터를 쓸 수 있게 만드는 과정을 함께 적었습니다.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://lambency-data.github.io/blog/sangkwon.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* 상권 인포그래픽 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
+.tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
+.pick{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px}
+.pick label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);display:block;margin-bottom:8px}
+.pick select{background:var(--bg-2);color:var(--ink);border:1px solid var(--hairline);
+  border-radius:2px;padding:11px 13px;font-family:var(--kr);font-size:15px;min-width:200px}
+.pick select:focus{outline:none;border-color:var(--amber-deep)}
+.hint{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin:14px 0 22px;line-height:1.7}
+
+/* 요약 3칸 — 무엇을 보고 있는지 먼저 */
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--hairline-dim);border:1px solid var(--hairline-dim);margin-bottom:30px}
+.sum div{background:var(--bg);padding:16px 18px}
+.sum .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.sum .v{font-family:var(--serif);font-size:30px;line-height:1.15;color:var(--amber);margin-top:5px;
+  font-variant-numeric:tabular-nums}
+.sum .d{font-size:12px;color:var(--ink-faint);margin-top:4px;line-height:1.6}
+
+/* 막대 — 순위를 길이로 읽는다 */
+.bars{margin:0 0 6px}
+.bar{padding:13px 0 15px;border-bottom:1px solid var(--hairline-dim)}
+.bar .row1{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+.bar .rk{font-family:var(--mono);font-size:11px;color:var(--amber-deep);min-width:22px}
+.bar .nm{font-size:15.5px;color:var(--ink)}
+.bar .vl{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar .track{height:7px;background:var(--bg-2);border-radius:1px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--amber-deep),var(--amber));
+  border-radius:1px;transition:width .45s cubic-bezier(.22,.61,.36,1)}
+.bar.dim .fill{background:var(--ink-faint);opacity:.5}
+.bar .row2{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+.bar .row2 b{color:var(--ink-dim);font-weight:400}
+.up{color:#7fb069}.dn{color:#c96a5e}
+
+.caveat{font-size:13px;color:var(--ink-faint);line-height:1.75;margin-top:22px;
+  padding:14px 16px;border-left:1px solid var(--hairline);background:var(--bg-2)}
+.fix{margin:14px 0 0;padding:0;list-style:none}
+.fix li{padding:20px 0;border-bottom:1px solid var(--hairline-dim)}
+.fix .h{font-family:var(--kr);font-size:16px;color:var(--ink);margin-bottom:8px;font-weight:400}
+.fix .b{font-size:14.5px;color:var(--ink-dim);line-height:1.85}
+.fix .n{font-family:var(--mono);font-size:11px;color:var(--amber-deep);letter-spacing:.1em;margin-right:8px}
+.mono{font-family:var(--mono);font-size:.92em}
+@media (max-width:520px){
+  .bar .vl{font-size:13px}
+  .bar .row2{gap:11px;font-size:10.5px}
+  .sum .v{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#practice">Practice</a>
+    <a href="../index.html#method">Method</a>
+    <a href="../engagements.html">Engagements</a>
+    <a href="../index.html#work">Work</a>
+    <a href="index.html">Insights</a>
+    <a href="sangkwon.html" aria-current="page">상권</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="langlink" href="en/">EN</a>
+  </nav>
+</header>
+
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="kicker">Insights · 상권</div>
+    <h1>업종을 넣으면<br><em>동네</em>가 보인다</h1>
+    <p class="sub">서울 행정동을 <strong>가게당 월매출 순</strong>으로 폅니다. ‘어디가 좋다’는 판정이 아니라 카드 매출·점포수·개폐업·유동인구를 <strong>실측 정렬</strong>한 것입니다. 원본은 누구나 받을 수 있는 공공데이터입니다 — 그런데 <strong>그대로 쓰면 폐업률이 두 배로 부풀고, 계절성이 쇠퇴로 읽힙니다.</strong> 아래 표를 만들려고 무엇을 고쳤는지도 같이 적었습니다.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="tool">
+    <div class="pick">
+      <div>
+        <label for="ind">업종</label>
+        <select id="ind"><option>불러오는 중…</option></select>
+      </div>
+      <div>
+        <label for="sortby">정렬</label>
+        <select id="sortby">
+          <option value="per_store_month_man">가게당 월매출</option>
+          <option value="sales_month_man">동 전체 월매출</option>
+          <option value="close_rate_pct">폐업률 낮은 순</option>
+          <option value="yoy_pct">전년 대비 증가율</option>
+          <option value="living_pop">유동인구</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint" id="meta">—</p>
+    <div class="sum" id="sum"></div>
+    <div class="bars" id="bars"></div>
+    <p class="caveat" id="caveat"></p>
+  </div>
+
+  <h2 style="font-family:var(--serif);font-size:clamp(28px,4.5vw,40px);font-weight:400;line-height:1.2;margin:64px 0 8px">이 표를 만들려고 고친 것</h2>
+  <p style="color:var(--ink-dim);font-size:15px;line-height:1.9;margin-bottom:6px">공공데이터는 열려 있습니다. 그런데 열려 있다는 것과 쓸 수 있다는 것은 다릅니다. 아래 넷은 <strong>원본을 그대로 집계하면 반드시 틀리는 지점</strong>이고, 전부 실측으로 확인한 것입니다.</p>
+
+  <ul class="fix">
+    <li>
+      <div class="h"><span class="n">01</span>폐업률의 분모가 점포 수가 아니다</div>
+      <div class="b">개·폐업 건수를 그 업종 점포 수로 나누면 될 것 같지만, 원본이 개·폐업률을 계산할 때 쓰는 분모는 <span class="mono">유사업종 점포 수</span>입니다. 점포 수로 나누면 <strong>치킨집 폐업률이 10.7%로 나옵니다 — 공시값은 4.1%입니다.</strong> 두 배 반 부풀린 숫자로 “이 동네는 위험하다”고 말하게 됩니다. 공시된 비율이 있으면 그걸 쓰고, 없을 때만 유사업종 분모로 계산했습니다.</div>
+    </li>
+    <li>
+      <div class="h"><span class="n">02</span>전분기 대비는 계절을 쇠퇴로 읽는다</div>
+      <div class="b">1분기를 직전 4분기와 비교하면 거의 모든 업종이 감소로 나옵니다. 연말 성수기가 기준이 되기 때문입니다. <strong>증감은 전년 같은 분기와 비교</strong>해야 합니다. 표의 ‘전년비’가 그것입니다 — 계절을 빼고 남은 변화만 봅니다.</div>
+    </li>
+    <li>
+      <div class="h"><span class="n">03</span>점포가 적은 동네의 평균은 평균이 아니다</div>
+      <div class="b">한 동에 그 업종 가게가 두세 곳이면 한 곳의 매출이 평균 전체를 흔듭니다. 순위표 상단이 통째로 그런 동네로 채워집니다. <strong>점포 5곳 미만인 동은 뺐습니다.</strong> 빼지 않으면 “가게당 월매출 1위”가 사실은 표본 하나짜리 숫자가 됩니다.</div>
+    </li>
+    <li>
+      <div class="h"><span class="n">04</span>업종마다 ‘말이 되는 범위’가 다르다</div>
+      <div class="b">가게당 월매출이 억 단위로 찍히는 업종이 있습니다. 편의점처럼 본사 매출이 섞이거나 집계 단위가 다른 경우입니다. 업종별로 서울 전체 분포를 먼저 보고 <strong>신뢰 범위를 벗어난 값은 숫자를 내지 않습니다</strong> — 대신 왜 못 내는지 표시합니다. 그럴듯한 오답은 빈칸보다 나쁩니다.</div>
+    </li>
+  </ul>
+
+  <div class="caveat" style="margin-top:34px">
+    <strong style="color:var(--ink)">여기까지가 공개 데이터로 보이는 범위입니다.</strong><br>
+    이 표는 <strong>행정동 평균</strong>입니다. 같은 동 안에서도 대로변과 이면도로는 다르고, 같은 업종도 평수·층·업력에 따라 갈립니다. 카드 기준 ‘추정’ 매출이라 현금 비중이 큰 업종은 낮게 잡힙니다.<br><br>
+    그 너머 — <em>우리 매장이 이 동네 평균 대비 어디에 있는지, 어느 채널이 실제로 증분을 만들었는지, 어떤 고객이 남고 어떤 고객이 떠났는지</em> — 는 <strong>귀사의 데이터로만 잴 수 있습니다.</strong> 대개 그 데이터는 여러 시스템에 흩어져 있어 지금 상태로는 답이 안 나옵니다. <strong>그걸 답이 나오는 상태로 만드는 것이 저희가 하는 일입니다.</strong>
+    <div style="margin-top:16px"><a href="../index.html#contact" style="color:var(--amber);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:2px">상담 문의 →</a></div>
+  </div>
+
+</div>
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · 데이터·AI 컨설팅, 서울</p>
+</footer>
+<script>
+(function(){
+  var D=null, EL=function(id){return document.getElementById(id)};
+  var FMT=function(n){return n==null?'—':Number(n).toLocaleString()};
+
+  function eok(man){                       // 만원 → 사람이 읽는 단위
+    if(man==null) return '—';
+    var n=Number(man);
+    if(n>=10000) return (n/10000).toFixed(n>=100000?0:1)+'억';
+    return FMT(Math.round(n))+'만';
+  }
+  // 정렬 기준별 라벨·표시 방식 — 막대 길이는 «그 기준» 을 그린다
+  var KEYS={
+    per_store_month_man:{t:'가게당 월매출', f:eok, asc:false},
+    sales_month_man:    {t:'동 전체 월매출', f:eok, asc:false},
+    close_rate_pct:     {t:'폐업률',        f:function(v){return v==null?'—':v+'%'}, asc:true},
+    yoy_pct:            {t:'전년비',        f:function(v){return v==null?'—':(v>=0?'+':'')+v+'%'}, asc:false},
+    living_pop:         {t:'유동인구',      f:function(v){return FMT(v)+'명'}, asc:false}
+  };
+
+  function median(a){
+    var v=a.filter(function(x){return x!=null}).sort(function(p,q){return p-q});
+    if(!v.length) return null;
+    var m=Math.floor(v.length/2);
+    return v.length%2 ? v[m] : (v[m-1]+v[m])/2;
+  }
+
+  function render(){
+    var ind=EL('ind').value, key=EL('sortby').value, K=KEYS[key];
+    var pack=D.industries[ind]; if(!pack) return;
+    var rows=pack.rows.slice().sort(function(a,b){
+      var x=a[key], y=b[key];
+      if(x==null) return 1; if(y==null) return -1;
+      return K.asc ? x-y : y-x;
+    });
+
+    // ── 요약 — 무엇을 보고 있는지 먼저 (표 읽기 전에 감이 오게)
+    var per=rows.map(function(r){return r.per_store_month_man});
+    var cls=rows.map(function(r){return r.close_rate_pct});
+    var top=rows[0]||{};
+    EL('sum').innerHTML =
+      '<div><div class="k">1위</div><div class="v">'+(top.adstrd||'—')+'</div>'
+      + '<div class="d">'+K.t+' '+K.f(top[key])+'</div></div>'
+      + '<div><div class="k">가게당 월매출 중위</div><div class="v">'+eok(median(per))+'</div>'
+      + '<div class="d">이 업종 상위 '+rows.length+'개 동 기준</div></div>'
+      + '<div><div class="k">폐업률 중위</div><div class="v">'
+      + (median(cls)==null?'—':median(cls).toFixed(1)+'%')+'</div>'
+      + '<div class="d">공시 폐업률 · 유사업종 분모</div></div>';
+
+    // ── 막대 — 순위를 길이로 (숫자를 세지 않아도 보이게)
+    var vals=rows.map(function(r){return r[key]}).filter(function(v){return v!=null});
+    var mx=Math.max.apply(null, vals.map(Math.abs).concat([1]));
+    EL('bars').innerHTML = rows.map(function(r,i){
+      var v=r[key], w=(v==null?0:Math.abs(v)/mx*100);
+      // 폐업률·감소는 «낮/작을수록 좋다» 라 채도를 낮춘다 — 길다고 좋은 게 아니다
+      var dim = (key==='close_rate_pct') || (key==='yoy_pct' && v!=null && v<0);
+      var yoy = r.yoy_pct==null ? '—'
+        : '<span class="'+(r.yoy_pct>=0?'up':'dn')+'">'+(r.yoy_pct>=0?'+':'')+r.yoy_pct+'%</span>';
+      return '<div class="bar'+(dim?' dim':'')+'">'
+        + '<div class="row1"><span class="rk">'+String(i+1).padStart(2,'0')+'</span>'
+        + '<span class="nm">'+r.adstrd+'</span>'
+        + '<span class="vl">'+K.f(v)+'</span></div>'
+        + '<div class="track"><div class="fill" style="width:'+w.toFixed(1)+'%"></div></div>'
+        + '<div class="row2">'
+        + '<span>가게당 <b>'+eok(r.per_store_month_man)+'</b></span>'
+        + '<span>점포 <b>'+FMT(r.stores)+'</b></span>'
+        + '<span>전년비 '+yoy+'</span>'
+        + '<span>폐업률 <b>'+(r.close_rate_pct==null?'—':r.close_rate_pct+'%')+'</b></span>'
+        + '<span>유동 <b>'+FMT(r.living_pop)+'</b></span>'
+        + '</div></div>';
+    }).join('');
+
+    var q=(D.meta.quarter||'').toString();
+    var qtxt=q.length===5 ? q.slice(0,4)+'년 '+q.slice(4)+'분기' : q;
+    EL('meta').innerHTML='막대 길이 = <b style="color:var(--ink-dim)">'+K.t+'</b> · 서울 '
+      + (pack.n_dongs||rows.length)+'개 행정동 중 상위 '+rows.length+'곳 · '+qtxt+' 기준'
+      + (K.asc ? ' · 낮을수록 위' : '');
+  }
+
+  fetch('data/sangkwon.json').then(function(r){return r.json()}).then(function(j){
+    D=j;
+    var names=Object.keys(j.industries).sort(function(a,b){return a.localeCompare(b,'ko')});
+    EL('ind').innerHTML=names.map(function(n){
+      return '<option'+(n==='커피-음료'?' selected':'')+'>'+n+'</option>'}).join('');
+    EL('caveat').textContent=(j.meta.caveat||'')+' 출처: '+(j.meta.source||'');
+    EL('ind').addEventListener('change',render);
+    EL('sortby').addEventListener('change',render);
+    render();
+  }).catch(function(){
+    EL('meta').textContent='데이터를 불러오지 못했습니다.';
+    EL('bars').innerHTML='';
+  });
+})();
+</script>
+
+</body>
+</html>
