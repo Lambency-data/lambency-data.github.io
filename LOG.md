@@ -935,3 +935,66 @@ API 를 공개하면 B2C 게이트·CORS·어뷰징·비용이 붙는데 얻는 
   도구는 차분한 청록(#8FC7BC) + **펄스 없음**(도구는 «새로 올라왔다» 를 알릴 대상이 아니다).
 - ⚠ CSS 순서 함정: `nav a.nav-tool .dot` 을 `nav a.nav-insights .dot` **앞**에 두니 졌다 —
   같은 특정도라 순서가 승부를 가른다. 뒤로 옮겨 해결(실측: 점색 rgb(143,199,188)·animation none).
+
+## 2026-08-27 — 상권분석 탭 배포 확인 · 출처 표기 통일 · hicce 유지 계약 문의
+
+**카프가 직접 만들어 배포했다** — `blog/sangkwon.html` + `blog/data/sangkwon.json`
+(커밋 `2962880` → `267430f` → `e3758fb`, pages 푸시 완료). 같은 커밋에 **07·08편도 함께
+배포**됐다(그때까지 미커밋이던 것). 라이브 실측: sangkwon·07·08·JSON 전부 **200**.
+
+**JSON 스펙**(실측): 62개 업종 × 동별 상위 15곳 · `quarter 20261` · `baked_at 2026-08-27` ·
+점포 5곳 미만 동 제외 · `skipped: ["고시원"]` · 156KB. 원자료는 hicce 수집분
+(`data/sales_adstrd.csv` · `store_churn.csv`).
+
+~~**🔴 재생성 경로가 리포에 없다.**~~ → **정정(카프 2026-08-27): hicce 에 있다.**
+`lambency_site` 만 뒤져서 없다고 판단한 것이 잘못이다 — 생성물이 여기 있다고 생성기도
+여기 있는 게 아니다.
+
+**🔴 `blog/data/sangkwon.json` 은 자동 생성물이다. 손으로 고치지 않는다.**
+- 굽는 곳: `airbnb_investment/property_pricer/scripts/bake_sangkwon.py`
+  (출력 기본값이 `../../lambency_site/blog/data/sangkwon.json` — 바로 떨어진다)
+- 출처·caveat 문구의 원본: `property_pricer/sales_intel.py` 의 `source` / `caveat`
+- 재굽기 안내는 `ops/hicce_nightly.sh` 에 이미 박혀 있다 (lambency_site 커밋은 사람이)
+- **블로그가 할 일은 「받아서 커밋」뿐이다.** 갱신은 hicce 가 계속 맡는다(카프 2026-08-27).
+
+**자동화 고리 실측** — `ops/hicce_nightly.sh` 에 이미 걸려 있다:
+`scripts/fetch_sales.py --check` 로 **새 분기가 나왔는지 감지해 알린다.** 다만 그 배치의 계약이
+«아무것도 실행·저장하지 않는다» 라 **자동으로 굽지는 않는다** — 산출물이 남의 리포(여기)에
+커밋돼야 하기 때문이다. 즉 흐름은 이렇다:
+
+```
+hicce nightly 가 새 분기를 알림
+  → (hicce) fetch_sales.py 로 받고 bake_sangkwon.py 로 굽는다   ← hicce 소관
+  → (여기)  git add blog/data/sangkwon.json && commit && push    ← 블로그 소관, 이게 전부
+```
+
+🔴 **굽기만 하고 커밋을 안 하면 라이브는 옛 분기 그대로다.** 파일이 로컬에서만 새로워지고
+`baked_at` 도 로컬 값이라 화면상 티가 안 난다. **분기 갱신 소식을 들으면
+`git status` 로 `blog/data/sangkwon.json` 이 M 인지 먼저 본다.**
+라이브 확인: `curl -s https://lambency-data.github.io/blog/data/sangkwon.json | python3 -c
+"import json,sys;m=json.load(sys.stdin)['meta'];print(m['quarter'],m['baked_at'])"`
+(2026-08-27 실측: `20261` · `2026-08-27`)
+
+🔴 **사고(2026-08-27): 이 JSON 의 출처 문구를 손으로 고쳤다.** 헌장 「자동 생성 구간은
+손대지 않는다」(예: 편집원칙 보호명단 ← sync_protected.py) 위반이다. 다행히 카프가 같은 날
+`sales_intel.py` 소스도 고쳐 두어 **재굽기 결과와 바이트 단위로 완전 일치**(156,761B)했지만,
+안 맞았으면 다음 굽기에 라이브 문구가 조용히 바뀌었을 것이다.
+**교훈: 산출물을 고치기 전에 생성기부터 찾는다. 리포가 다를 수 있다.**
+
+**출처 표기를 통일했다.** 갈려 있었다 — JSON meta 는 「서울신용보증재단 상권분석서비스」,
+`sangkwon.html`·08편은 「서울 열린데이터광장 상권분석서비스」. hicce `scripts/fetch_sales.py`
+헤더 실측으로 정확한 사실 확인: **서울 열린데이터광장(`VwsmSignguSelngW`) 배포 · 제공기관
+서울신용보증재단**. → 전부 **「서울 열린데이터광장 상권분석서비스(제공기관 서울신용보증재단)」**
+로. 영문은 "(published by the Seoul Credit Guarantee Foundation)".
+· `sangkwon.html` 은 출처를 JSON 에서 읽어 그리므로(`'출처: '+j.meta.source`) JSON 한 곳만
+  고치면 탭도 따라온다 — 손으로 두 번 고치지 말 것.
+
+**hicce 헤더에서 가져온 주의사항** (블로그 문구에 반영 대상):
+카드사명을 적지 않는다(데이터셋에 비공개) · 2024년부터 공간단위가 표준단위구역으로 바뀌었다 ·
+상권(TRDAR) 단위가 더 촘촘하나 상권코드↔법정동 매핑이 없다.
+
+**내부 문서 비공개 유지 확인.** `.nojekyll` 을 지우고 `_config.yml` exclude 로 전환한 구조가
+실제로 막는지 실측 — `LOG.md`·`blog/편집원칙.md`·`DEPLOY.md` 전부 **404**. 안전하다.
+🔴 대신 Jekyll 빌드가 켜졌으므로 **HTML 에 `{{ }}` 를 쓰면 Liquid 가 삼킨다** (`_config.yml` 경고).
+
+게이트 재통과: 08편 수치 227건 · 집필_검사 --pair 전 항목.
