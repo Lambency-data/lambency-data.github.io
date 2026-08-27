@@ -439,11 +439,18 @@ nav a.nav-insights::after{
   position:absolute; left:0; right:0; bottom:-5px; height:1px;
   background:linear-gradient(90deg,var(--amber-deep),transparent);
 }
+/* 🔴 상권분석 툴 — 인사이트와 같은 대우(점+밑줄)를 주되 **색을 갈랐다** (2026-08-27 카프).
+   둘 다 amber 면 «매주 새 글» 과 «상시 도구» 가 같은 신호가 된다. 도구는 차분한 청록,
+   펄스도 없다 — 도구는 «새로 올라왔다» 를 알릴 대상이 아니다. */
+nav a.nav-tool{color:#8FC7BC}
+nav a.nav-tool::after{background:linear-gradient(90deg,#4E8C80,transparent)}
 nav a.nav-insights .dot{
   display:inline-block; width:5px; height:5px; border-radius:50%;
   background:var(--amber); margin-right:6px; vertical-align:middle;
   box-shadow:0 0 0 0 rgba(232,180,88,.6); animation:navpulse 2.8s infinite;
 }
+/* ⚠ .nav-insights .dot 뒤에 와야 이긴다 — 같은 특정도라 순서가 승부를 가른다 */
+nav a.nav-tool .dot{background:#8FC7BC;animation:none;box-shadow:none}
 @keyframes navpulse{
   0%{box-shadow:0 0 0 0 rgba(232,180,88,.55)}
   70%{box-shadow:0 0 0 7px rgba(232,180,88,0)}
@@ -711,7 +718,7 @@ html[data-lang="ko"] blockquote{
       <a href="engagements.html"><span class="t" lang="en">Engagements</span><span class="t" lang="ko">서비스</span></a>
       <a href="#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
       <a class="nav-insights" href="blog/index.html" title="매주 한 편 · 공개 데이터로 본 업종별 손익"><span class="dot"></span><span class="t" lang="en">Insights</span><span class="t" lang="ko">인사이트</span></a>
-    <a href="blog/sangkwon.html">상권</a>
+    <a class="nav-insights nav-tool" href="blog/sangkwon.html" title="서울 62개 업종 × 행정동 — 가게당 매출·폐업률 실측 정렬"><span class="dot"></span><span class="t" lang="en">Sangkwon Tool</span><span class="t" lang="ko">상권분석 툴</span></a>
       <a href="#contact"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></a>
     </nav>
     <button id="langtoggle" class="langtoggle" type="button" aria-label="Switch language / 언어 전환">한국어</button>
