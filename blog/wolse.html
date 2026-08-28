@@ -270,7 +270,8 @@ function render(){
              '20대':'연령_20대','30대':'연령_30대','40대':'연령_40대','50대':'연령_50대','60대+':'연령_60대+'};
     var DR=M.drivers||{};
     H+='<div class="sec"><h2>서울에서 이 동네는 <small>336개 동 중 자리</small></h2>'
-      +'<p class="lead">가장 튀는 축 <strong>3개</strong>입니다 — 이 동네에서 무엇이 갈리는지를 먼저 봅니다.</p>';
+      +'<p class="lead">가장 튀는 축 <strong>'+TOP.length+'개</strong>입니다 — 이 동네에서 무엇이 갈리는지를 먼저 봅니다.'
+        +(TOP.length<3?' <span style="color:var(--amber-deep)">이 동네는 잴 수 있는 축이 적습니다 — 생활인구·상가 자료가 없습니다.</span>':'')+'</p>';
     H+=TOP.map(function(ax){
       var v=PV[ax], pos=v>=97?'서울 최상위권':v<=3?'서울 최하위권':(v>=50?'서울 상위 '+(100-v)+'%':'서울 하위 '+v+'%');
       var vr=AXV[ax], want=v>=50, hits=[];
