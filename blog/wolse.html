@@ -82,6 +82,13 @@
 .stand .ps{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
 .stand .ps.hi{color:var(--amber)} .stand .ps.lo{color:#7fb069}
 .stand .ind{font-size:13px;color:var(--ink-faint);line-height:1.7}
+/* 유리/불리 — 🔴 «위험» 이라 쓰지 않는다. 폐업률은 매출과 무관했다(+0.04) */
+.fa{display:grid;grid-template-columns:80px 1fr;gap:12px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--hairline-dim);font-size:14px}
+.fa .lb{font-size:12.5px}
+.fa .lb.g{color:#7fb069} .fa .lb.b{color:var(--amber)}
+.fa .li{color:var(--ink-dim)} .fa .li em{font-style:normal;color:var(--ink-faint);font-size:12px}
+.fa-note{font-size:12.5px;color:var(--amber-deep);line-height:1.75;margin-top:10px}
 @media (max-width:520px){ .stand{grid-template-columns:1fr;gap:3px;padding:10px 0} }
 .gap{padding:11px 0;text-align:center;font-family:var(--mono);font-size:10.5px;
   color:var(--ink-faint);border-bottom:1px solid var(--hairline-dim)}
@@ -282,6 +289,15 @@ function render(){
         +'<span class="ind">'+(hits.length?'이런 동네에서 강한 업종 — <strong>'+hits.join(' · ')+'</strong>'
           :'이 축에서 뚜렷한 업종 신호는 없습니다')+'</span></div>';
     }).join('');
+    var FV=R.fv||[], AV=R.av||[];
+    if(FV.length||AV.length){
+      H+='<div class="fa"><span class="lb g">유리한 업종</span><span class="li">'
+        +(FV.length?FV.join(' · ')+((R.fvn||0)>FV.length?' <em>외 '+((R.fvn||0)-FV.length)+'개</em>':''):'<em>뚜렷한 게 없습니다</em>')+'</span></div>'
+       +'<div class="fa"><span class="lb b">불리한 업종</span><span class="li">'
+        +(AV.length?AV.join(' · ')+((R.avn||0)>AV.length?' <em>외 '+((R.avn||0)-AV.length)+'개</em>':''):'<em>뚜렷한 게 없습니다</em>')+'</span></div>'
+       +'<p class="fa-note">🔴 <strong>‘불리’는 매출이 낮게 잡힌다는 뜻이지 ‘망한다’가 아닙니다.</strong> 폐업률은 매출과 관계가 없었습니다(+0.04) — 우리 숫자로 생존을 말할 수 없습니다.'
+        +((R.mx||0)?' 방향이 엇갈리는 '+R.mx+'개 업종은 어느 쪽으로도 넣지 않았습니다.':'')+'</p>';
+    }
     H+='<p class="lead" style="margin-top:12px">서울 336개 동 분포에서 이 동네의 자리입니다. 축마다 표본이 다릅니다 — 상가 관련은 자료가 있는 211개 동 기준.</p></div>';
   }
 
