@@ -34,3 +34,4 @@ assets/og-generate.py
 tools/
 .indexnow_key
 blog/research/
+.staged/
