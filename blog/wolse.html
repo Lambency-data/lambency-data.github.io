@@ -304,7 +304,9 @@ function render(){
       if(c.om && i===5) s+='<div class="gap">— 가운데 '+c.om+'개 생략 —</div>';
       return s;
     }).join('');
-    var F=M.facts||{};
+    /* facts 문장은 «**굵게**» 를 쓴다 — 그대로 두면 별표가 화면에 보인다 */
+    var bd=function(x){return String(x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')};
+    var F0=M.facts||{}, F={}; for(var k in F0) F[k]=bd(F0[k]);
     if(F.twist||F.survival){
       H+='<div class="facts"><h3>그래서 무엇을 봐야 하나 — 우리가 재본 것</h3><dl>'
        +(F.twist?'<dt>매출 높은 동네를 고르면 되나</dt><dd>'+F.twist+'</dd>':'')
