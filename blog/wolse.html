@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동네 월세 툴 — 동네를 고르면 월세가 보인다 | Lambency</title>
+<meta name="description" content="서울 336개 법정동의 평형별 월세 실거래 중위값, 상가가 매출의 몇 %를 임대료로 내는지, 사람이 몇 시에 있는지를 한 화면에 폅니다. 상권 이름이 낡아 삼성동이 조용히 빠져 있었고, 폐업률만 보면 뜻이 뒤집힙니다 — 무엇을 고쳐야 쓸 수 있는 숫자가 되는지 함께 적었습니다.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://lambency-data.github.io/blog/wolse.html">
+<meta property="og:title" content="동네 월세 툴 — 동네를 고르면 월세가 보인다 | Lambency">
+<meta property="og:description" content="서울 336개 동의 평형별 월세, 상가 임대료 부담률, 시간대 인구를 한 화면에. 공공데이터를 쓸 수 있게 만드는 과정을 함께 적었습니다.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://lambency-data.github.io/blog/wolse.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* 동네 월세 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
+.tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
+.pick{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px}
+.pick label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);display:block;margin-bottom:8px}
+.pick select{background:var(--bg-2);color:var(--ink);border:1px solid var(--hairline);
+  border-radius:2px;padding:11px 13px;font-family:var(--kr);font-size:15px;min-width:180px}
+.pick select:focus{outline:none;border-color:var(--amber-deep)}
+.hint{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin:14px 0 22px;line-height:1.7}
+
+/* 요약 3칸 — 무엇을 보고 있는지 먼저 */
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+  background:var(--hairline-dim);border:1px solid var(--hairline-dim);margin-bottom:30px}
+.sum div{background:var(--bg);padding:16px 18px}
+.sum .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.sum .v{font-family:var(--serif);font-size:30px;line-height:1.15;color:var(--amber);margin-top:5px;
+  font-variant-numeric:tabular-nums}
+.sum .d{font-size:12px;color:var(--ink-faint);margin-top:4px;line-height:1.6}
+
+/* 절 제목 — 세 덩어리를 가른다 */
+.sec{margin:34px 0 0}
+.sec h2{font-family:var(--kr);font-size:17px;font-weight:400;color:var(--ink);
+  display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.sec h2 small{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.sec .lead{font-size:13.5px;color:var(--ink-faint);line-height:1.8;margin:0 0 14px}
+
+/* 막대 — 순위를 길이로 읽는다 (sangkwon.html 과 같은 문법) */
+.bars{margin:0 0 6px}
+.bar{padding:13px 0 15px;border-bottom:1px solid var(--hairline-dim)}
+.bar .row1{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+.bar .nm{font-size:15.5px;color:var(--ink)}
+.bar .vl{margin-left:auto;font-family:var(--mono);font-size:14px;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar .track{height:7px;background:var(--bg-2);border-radius:1px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--amber-deep),var(--amber));
+  border-radius:1px;transition:width .45s cubic-bezier(.22,.61,.36,1)}
+.bar.hot .fill{background:linear-gradient(90deg,#a8503f,#c96a5e)}
+.bar.cool .fill{background:linear-gradient(90deg,#5c8449,#7fb069)}
+.bar .row2{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+.bar .row2 b{color:var(--ink-dim);font-weight:400}
+.bar .when{letter-spacing:.06em}
+.gap{padding:11px 0;text-align:center;font-family:var(--mono);font-size:10.5px;
+  color:var(--ink-faint);border-bottom:1px solid var(--hairline-dim)}
+.up{color:#7fb069}.dn{color:#c96a5e}
+
+/* 24시간 인구 — 숫자를 읽지 않아도 모양으로 보인다 */
+.hrs{display:flex;align-items:flex-end;gap:2px;height:54px;margin:14px 0 5px}
+.hrs span{flex:1;background:var(--amber-deep);opacity:.38;border-radius:1px 1px 0 0;min-height:2px;
+  transition:height .45s cubic-bezier(.22,.61,.36,1)}
+.hrs span.pk{opacity:.95}
+.hrlab{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;
+  color:var(--ink-faint)}
+/* 연령 — 한 줄 스택. 어느 나이대 동네인지 길이로 바로 보인다 */
+.ages{display:flex;height:28px;margin:20px 0 7px;background:var(--bg-2)}
+.ages b{display:flex;align-items:center;justify-content:center;font-family:var(--mono);
+  font-size:10.5px;font-weight:400;color:var(--bg);background:var(--amber-deep);
+  opacity:.55;white-space:nowrap;overflow:hidden;border-right:1px solid var(--bg)}
+.ages b:nth-child(even){opacity:.72}
+.ages b.mx{opacity:1;background:var(--amber)}
+
+.caveat{font-size:13px;color:var(--ink-faint);line-height:1.75;margin-top:22px;
+  padding:14px 16px;border-left:1px solid var(--hairline);background:var(--bg-2)}
+.fix{margin:14px 0 0;padding:0;list-style:none}
+.fix li{padding:20px 0;border-bottom:1px solid var(--hairline-dim)}
+.fix .h{font-family:var(--kr);font-size:16px;color:var(--ink);margin-bottom:8px;font-weight:400}
+.fix .b{font-size:14.5px;color:var(--ink-dim);line-height:1.85}
+.fix .n{font-family:var(--mono);font-size:11px;color:var(--amber-deep);letter-spacing:.1em;margin-right:8px}
+.mono{font-family:var(--mono);font-size:.92em}
+@media (max-width:520px){
+  .bar .vl{font-size:13px}
+  .bar .row2{gap:11px;font-size:10.5px}
+  .sum .v{font-size:25px}
+  .ages b{font-size:9.5px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#practice">Practice</a>
+    <a href="../index.html#method">Method</a>
+    <a href="../engagements.html">Engagements</a>
+    <a href="../index.html#work">Work</a>
+    <a href="index.html">Insights</a>
+    <a href="sangkwon.html">상권분석 툴</a>
+    <a href="wolse.html" aria-current="page">동네 월세 툴</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="langlink" href="en/">EN</a>
+  </nav>
+</header>
+
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="kicker">Insights · 동네 월세 툴</div>
+    <div class="top" style="margin-bottom:20px">
+      <span class="no">TOOL</span>
+      <span class="tag">월세</span>
+      <span class="tag">상권</span>
+      <span class="tag">공공데이터</span>
+      <span class="date">2026.08 · 분기 갱신</span>
+    </div>
+    <h1>동네를 고르면<br><em>월세</em>가 보인다</h1>
+    <p class="sub">서울 <strong>336개 법정동</strong>의 평형별 월세 중위값, 상가가 매출의 몇 %를 임대료로 내는지, 사람이 몇 시에 있는지를 한 화면에 폅니다. 원본은 누구나 받을 수 있는 공공데이터입니다 — 그런데 <strong>상권 이름이 낡아 삼성동이 통째로 빠져 있었고, 폐업률만 보면 뜻이 정반대로 읽힙니다.</strong> 아래 표를 만들려고 무엇을 고쳤는지도 같이 적었습니다.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="tool">
+    <div class="pick">
+      <div>
+        <label for="gu">자치구</label>
+        <select id="gu"><option>불러오는 중…</option></select>
+      </div>
+      <div>
+        <label for="dg">동</label>
+        <select id="dg"><option>—</option></select>
+      </div>
+    </div>
+    <p class="hint" id="hint"></p>
+
+    <div id="out"></div>
+  </div>
+
+  <div class="sec" style="border-top:1px solid var(--hairline);padding-top:26px">
+    <h2>이 표를 만들려고 고친 것 <small>What we had to fix</small></h2>
+    <p class="lead">원본을 그대로 쓰면 아래가 전부 조용히 틀린다. <strong>에러가 나지 않아서</strong> 더 위험하다.</p>
+    <ul class="fix">
+      <li>
+        <div class="h"><span class="n">01</span>상권 이름이 낡아 <strong>삼성동이 통째로 빠져</strong> 있었다</div>
+        <div class="b">부동산원 임대동향조사는 <strong>상권 단위</strong>라 동을 상권에 붙여야 값이 나온다. 그 명단에서 삼성동은 <span class="mono">영동</span>, 쌍문동은 <span class="mono">쌍문역</span>을 가리키고 있었는데 <strong>두 이름 다 현행 표에 없다.</strong> 없는 이름을 찾으면 예외가 나지 않고 «서울 평균»으로 조용히 떨어진다 — 화면에는 그냥 «자료 없음»이 뜬다. 사람이 “여기가 왜 안 나오지”라고 말해 주기 전까지 아무도 모른다. 이름을 고치고, 안 쓰던 상권 20여 개를 더 붙였다(<strong>71 → 124개 동</strong>). 그리고 <strong>이름이 아직 유효한지 기계가 매번 검사</strong>하게 했다 — 발표 기관이 이름을 바꾸면 또 생길 일이다.</div>
+      </li>
+      <li>
+        <div class="h"><span class="n">02</span>폐업률만 보면 <strong>뜻이 정반대로</strong> 읽힌다</div>
+        <div class="b">같은 폐업률이라도 신규 개업을 같이 보지 않으면 판단이 뒤집힌다. <span class="mono">중계2·3동 신규 11% · 폐업 4%</span>(순 +7%p)와 <span class="mono">일원본동 신규 0% · 폐업 9%</span>(순 −9%p)는 완전히 다른 동네인데, 폐업만 보여주면 앞쪽이 “물갈이가 심한 위험한 곳”으로 읽힌다. 개업 수치는 원본에 <strong>행정동 단위로 처음부터 들어 있었다</strong> — 읽지 않고 있었을 뿐이다.</div>
+      </li>
+      <li>
+        <div class="h"><span class="n">03</span>분모를 못 믿으면 비율도 못 믿는다 — <strong>부담률 2,016%</strong></div>
+        <div class="b">임대료 부담률은 <span class="mono">월세 ÷ 가게당 매출</span>이다. 그런데 카드 매출이 거의 안 잡히는 업종(도매·B2B)은 «가게당 월매출 12만원»으로 집계돼서, 그대로 나누면 <strong>부담률이 2,016%</strong>가 된다. 기존 신뢰 게이트는 <strong>상한만</strong> 보고 있어서 이런 값이 통과했다. 하한을 세우고 나니 한 동네 중위 부담률이 22.5% → <strong>16.4%</strong>로 제자리를 찾았다.</div>
+      </li>
+      <li>
+        <div class="h"><span class="n">04</span>«평균»이라고 다 같은 평균이 아니다</div>
+        <div class="b">조사 상권이 아닌 동은 상위 집계로 대체되는데, 그 집계가 두 종류다. <span class="mono">강남지역</span>은 강남·서초·송파·강동을 묶은 것이라 대치동을 <strong>포함한다</strong> — 남의 동네 값이 아니다. 반면 <span class="mono">기타지역</span>은 나머지 22개 구를 통째로 묶은 것이라 어느 동네도 대표하지 못한다. 앞은 “강남지역 평균”이라고 <strong>화면이 밝히고</strong> 쓰고, 뒤는 <strong>쓰지 않는다.</strong> 겉모습이 같다고 같이 취급하면 그게 거짓말이 된다.</div>
+      </li>
+      <li>
+        <div class="h"><span class="n">05</span>재봤더니 상관이 없어서 — <strong>넣지 않았다</strong></div>
+        <div class="b">“상권이 살아나면 월세도 오른다”는 그럴듯하고, 그림으로 그리면 설득력도 있다. 그래서 실제로 쟀다: 상권 매출 증감 대 주거 월세 증감 <span class="mono">pearson −0.11 (p=0.72)</span> · <span class="mono">spearman −0.15 (p=0.63)</span>, 생활인구는 <span class="mono">−0.02 (p=0.95)</span>. <strong>상관이 없다.</strong> 직관적으로 그릴수록 없는 인과를 보여주게 되므로 넣지 않았다. 대신 <strong>임대료 부담률</strong>을 넣었다 — 두 실측치의 비율이라 가정이 들어가지 않는다.</div>
+      </li>
+    </ul>
+    <p class="caveat" id="src"></p>
+  </div>
+
+</div>
+
+<script>
+var $=function(id){return document.getElementById(id)};
+var D=null, M=null;
+var man=function(v){return v==null?'—':Math.round(v).toLocaleString()};
+var eok=function(v){return v>=10000?(v/10000).toFixed(1)+'억':(v||0).toLocaleString()+'만'};
+
+fetch('data/dong_brief.json').then(function(r){return r.json()}).then(function(j){
+  D=j.gu; M=j.meta;
+  var gus=Object.keys(D).sort();
+  $('gu').innerHTML=gus.map(function(g){return '<option>'+g+'</option>'}).join('');
+  $('src').innerHTML='출처: '+M.source+'<br>'+M.caveat.replace(/\*\*/g,'')
+    +'<br>기준 '+M.baked_at+' · '+M.n_gu+'개 구 · '+M.n_dong+'개 동';
+  $('gu').value = gus.indexOf('마포구')>=0 ? '마포구' : gus[0];
+  fillDong(); render();
+}).catch(function(){ $('out').innerHTML='<p class="hint">자료를 불러오지 못했습니다.</p>'; });
+
+function fillDong(){
+  var g=$('gu').value, ds=Object.keys(D[g]||{}).sort();
+  $('dg').innerHTML=ds.map(function(d){return '<option>'+d+'</option>'}).join('');
+  if(ds.indexOf('서교동')>=0) $('dg').value='서교동';
+}
+$('gu').addEventListener('change',function(){ fillDong(); render(); });
+$('dg').addEventListener('change',render);
+
+/* 받침 있는 말엔 «은», 없으면 «는» — «대치동 은» 처럼 뜨는 걸 막는다 */
+function eun(w){var c=String(w||'').trim().slice(-1).charCodeAt(0);
+  return w+((c>=0xAC00&&c<=0xD7A3)?(((c-0xAC00)%28)?'은':'는'):'은');}
+/* 부담률 색 — 경계는 소상공인 임대료 부담 통설(10% 이하 여유 · 20% 넘으면 빠듯) */
+function burCls(p){return p>=30?'hot':(p<10?'cool':'');}
+
+function render(){
+  var g=$('gu').value, d=$('dg').value, R=(D[g]||{})[d];
+  if(!R){ $('out').innerHTML='<p class="hint">이 동은 표본이 얇아 값을 내지 않습니다.</p>'; return; }
+  var h=R.h, c=R.c, p=R.p, H='';
+
+  /* ── 요약 3칸 ── */
+  var first = h && h.length ? h[0] : null;
+  H+='<div class="sum">'
+    +'<div><div class="k">원룸 월세</div><div class="v">'+(first?man(first[1])+'만':'—')+'</div>'
+      +'<div class="d">'+(first?M.bands[first[0]]+' · 보증 '+man(first[2])+'만':'자료 없음')+'</div></div>'
+    +'<div><div class="k">상가 월세</div><div class="v">'+(c?man(c.rent)+'만':'—')+'</div>'
+      +'<div class="d">'+(c?'1층 '+c.a+'㎡('+(c.a/3.3058).toFixed(0)+'평) 기준':'조사 상권 아님')+'</div></div>'
+    +'<div><div class="k">임대료 부담률</div><div class="v">'+(c&&c.mid!=null?c.mid+'%':'—')+'</div>'
+      +'<div class="d">'+(c?'업종 '+c.n+'개의 중위':'—')+'</div></div>'
+    +'</div>';
+
+  /* ── 주거 월세 ── */
+  H+='<div class="sec"><h2>집을 구한다면 <small>빌라 월세 실거래 중위</small></h2>';
+  if(h&&h.length){
+    var mx=Math.max.apply(null,h.map(function(r){return r[1]}))||1;
+    H+='<p class="lead">최근 24개월 실거래 <strong>'+(R.hn||0).toLocaleString()+'건</strong>의 중위값입니다. 전세는 빼고 <strong>월세 계약만</strong> 셌습니다.</p><div class="bars">';
+    H+=h.map(function(r){
+      return '<div class="bar"><div class="row1"><span class="nm">'+M.bands[r[0]]+'</span>'
+        +'<span class="vl">'+man(r[1])+'만</span></div>'
+        +'<div class="track"><div class="fill" style="width:'+Math.max(4,r[1]/mx*100)+'%"></div></div>'
+        +'<div class="row2"><span>보증금 <b>'+man(r[2])+'만</b></span><span>월세 거래 <b>'+r[3]+'건</b></span></div></div>';
+    }).join('');
+    H+='</div>';
+  } else { H+='<p class="lead">이 동은 월세 표본이 얇습니다.</p>'; }
+  H+='</div>';
+
+  /* ── 사람은 언제 있나 ── */
+  if(p&&p.hr&&p.hr.length===24){
+    var mh=Math.max.apply(null,p.hr)||1;
+    var ai=0; if(p.ag&&p.ag.length){ for(var i=1;i<p.ag.length;i++) if(p.ag[i]>p.ag[ai]) ai=i; }
+    H+='<div class="sec"><h2>사람은 언제 있나 <small>생활인구 24시간</small></h2>'
+      +'<p class="lead"><strong>'+p.pk+'시</strong>에 가장 많습니다. 밤(19–23시)은 낮(11–15시)보다 <strong>'
+      +(p.nd==null?'—':(p.nd>0?p.nd+'% 많습니다':Math.abs(p.nd)+'% 적습니다'))+'</strong>.</p>'
+      +'<div class="hrs">'+p.hr.map(function(v,i){
+          return '<span class="'+(i===p.pk?'pk':'')+'" style="height:'+Math.max(4,v/mh*100)+'%" title="'+i+'시 '+v.toLocaleString()+'명"></span>';
+        }).join('')+'</div>'
+      +'<div class="hrlab"><span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span></div>';
+    if(p.ag&&p.ag.length){
+      H+='<div class="ages">'+p.ag.map(function(v,i){
+          return '<b class="'+(i===ai?'mx':'')+'" style="flex:'+v+'" title="'+M.age_labels[i]+' '+v+'%">'+(v>=11?M.age_labels[i]:'')+'</b>';
+        }).join('')+'</div>'
+        +'<p class="lead" style="margin-top:6px"><strong>'+M.age_labels[ai]+'</strong>가 '+p.ag[ai]+'%로 가장 많습니다'
+        +(p.f!=null?' · 여성 '+p.f+'%':'')+'.</p>';
+    }
+    H+='</div>';
+  }
+
+  /* ── 상가 부담률 ── */
+  H+='<div class="sec"><h2>가게를 한다면 <small>매출의 몇 %가 월세로 나가나</small></h2>';
+  if(c&&c.r&&c.r.length){
+    var mb=Math.max(30,Math.max.apply(null,c.r.map(function(r){return r[1]})));
+    H+='<p class="lead">'
+      +(c.sc==='권역'
+        ? eun(d)+' 따로 조사되는 상권이 아니라 <strong>'+String(c.sk).replace(/소계\((.+)\)/,'$1')+' 평균</strong>으로 계산했습니다'
+        : '<strong>'+c.sk+'</strong> 상권 임대료로 계산했습니다')
+      +'. 1층 '+c.a+'㎡ 기준 월세 <strong>'+man(c.rent)+'만원</strong>'
+      +(c.vac!=null?' · 이 상권 공실률 <strong>'+c.vac+'%</strong>':'')
+      +'. 아래는 <strong>부담 큰 순</strong>입니다.</p><div class="bars">';
+    H+=c.r.map(function(r,i){
+      var pct=r[1], cls=burCls(pct), w=M.whens[r[3]]||'';
+      var s='<div class="bar '+cls+'"><div class="row1"><span class="nm">'+M.industries[r[0]]+'</span>'
+        +'<span class="vl">'+pct+'%</span></div>'
+        +'<div class="track"><div class="fill" style="width:'+Math.min(100,pct/mb*100)+'%"></div></div>'
+        +'<div class="row2"><span>가게당 매출 <b>'+eok(r[2])+'</b></span>'
+        +(w?'<span class="when">'+(w==='주말형'?'주말에 번다':w==='평일형'?'평일에 번다':'고르게')+'</span>':'')
+        +'</div></div>';
+      if(c.om && i===5) s+='<div class="gap">— 가운데 '+c.om+'개 생략 —</div>';
+      return s;
+    }).join('');
+    H+='</div><p class="lead" style="margin-top:12px">‘주말에 번다’로 표시된 업종은 <strong>평일이 비는 동네에서 같은 부담률이라도 더 위험합니다.</strong> 위 24시간 그래프와 같이 보세요.</p>';
+  } else {
+    H+='<p class="lead">'+eun(d)+' 부동산원 조사 상권이 아니고, 속한 권역도 «기타지역»으로 묶여 있어 <strong>다른 동네 평균을 대신 보여드리지 않습니다.</strong></p>';
+  }
+  H+='</div>';
+
+  $('out').innerHTML=H;
+}
+</script>
+
+</body>
+</html>
