@@ -71,6 +71,18 @@
 .facts dl{margin:10px 0 0}
 .facts dt{font-size:14.5px;color:var(--amber);margin-top:16px}
 .facts dd{margin:5px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.85}
+/* 🔴 위쪽은 동네별, 아래쪽은 서울 전체 법칙 — 어느 쪽인지 화면이 말해야 한다 */
+.facts .scopenote{margin:8px 0 0;font-size:13px;color:var(--amber-deep);line-height:1.75}
+/* 🔴 «55만원» 만 주면 비싼지 싼지 모른다 — 336개 동 안의 자리를 같이 준다 (카프 지시) */
+.sum .rk{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-faint);margin-top:3px}
+.sum .rk.hi{color:#c96a5e} .sum .rk.lo{color:#7fb069}
+.stand{display:grid;grid-template-columns:96px 116px 1fr;gap:12px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid var(--hairline-dim);font-size:14px}
+.stand .ax{color:var(--ink)}
+.stand .ps{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
+.stand .ps.hi{color:var(--amber)} .stand .ps.lo{color:#7fb069}
+.stand .ind{font-size:13px;color:var(--ink-faint);line-height:1.7}
+@media (max-width:520px){ .stand{grid-template-columns:1fr;gap:3px;padding:10px 0} }
 .gap{padding:11px 0;text-align:center;font-family:var(--mono);font-size:10.5px;
   color:var(--ink-faint);border-bottom:1px solid var(--hairline-dim)}
 .up{color:#7fb069}.dn{color:#c96a5e}
@@ -234,17 +246,43 @@ function render(){
   var g=$('gu').value, d=$('dg').value, R=(D[g]||{})[d];
   if(!R){ $('out').innerHTML='<p class="hint">이 동은 표본이 얇아 값을 내지 않습니다.</p>'; return; }
   var h=R.h, c=R.c, p=R.p, H='';
+  var PV=R.pct||{}, TOP=R.top||[], PN=M.pct_n||{};
+  /* 백분위 배지 — 이 동네 숫자가 서울에서 어디쯤인지 */
+  var rk=function(ax){var v=PV[ax]; if(v==null) return '';
+    var c2=v>=70?'hi':(v<=30?'lo':'');
+    var s2=v>=97?'서울 최상위':v<=3?'서울 최하위':(v>=50?'서울 상위 '+(100-v)+'%':'서울 하위 '+v+'%');
+    return '<span class="rk '+c2+'">'+s2+'</span>';};
 
   /* ── 요약 3칸 ── */
   var first = h && h.length ? h[0] : null;
   H+='<div class="sum">'
-    +'<div><div class="k">원룸 월세</div><div class="v">'+(first?man(first[1])+'만':'—')+'</div>'
+    +'<div><div class="k">원룸 월세</div>'+rk('원룸 월세')+'<div class="v">'+(first?man(first[1])+'만':'—')+'</div>'
       +'<div class="d">'+(first?M.bands[first[0]]+' · 보증 '+man(first[2])+'만':'자료 없음')+'</div></div>'
-    +'<div><div class="k">상가 월세</div><div class="v">'+(c?man(c.rent)+'만':'—')+'</div>'
+    +'<div><div class="k">상가 월세</div>'+rk('상가 월세')+'<div class="v">'+(c?man(c.rent)+'만':'—')+'</div>'
       +'<div class="d">'+(c?'1층 '+c.a+'㎡('+(c.a/3.3058).toFixed(0)+'평) 기준':'조사 상권 아님')+'</div></div>'
-    +'<div><div class="k">임대료 부담률</div><div class="v">'+(c&&c.mid!=null?c.mid+'%':'—')+'</div>'
+    +'<div><div class="k">임대료 부담률</div>'+rk('임대료 부담률')+'<div class="v">'+(c&&c.mid!=null?c.mid+'%':'—')+'</div>'
       +'<div class="d">'+(c?'업종 '+c.n+'개의 중위':'—')+'</div></div>'
     +'</div>';
+
+  /* ── 서울에서 이 동네는 (2026-08-28 신설) ── */
+  if(TOP.length){
+    var AXV={'생활인구':'생활인구','밤낮비':'밤낮비','여성 비중':'여성비중','10대이하':'연령_10대이하',
+             '20대':'연령_20대','30대':'연령_30대','40대':'연령_40대','50대':'연령_50대','60대+':'연령_60대+'};
+    var DR=M.drivers||{};
+    H+='<div class="sec"><h2>서울에서 이 동네는 <small>336개 동 중 자리</small></h2>'
+      +'<p class="lead">가장 튀는 축 <strong>3개</strong>입니다 — 이 동네에서 무엇이 갈리는지를 먼저 봅니다.</p>';
+    H+=TOP.map(function(ax){
+      var v=PV[ax], pos=v>=97?'서울 최상위권':v<=3?'서울 최하위권':(v>=50?'서울 상위 '+(100-v)+'%':'서울 하위 '+v+'%');
+      var vr=AXV[ax], want=v>=50, hits=[];
+      if(vr) for(var k in DR){ if(DR[k].var===vr && ((DR[k].rho>0)===want)) hits.push(k); }
+      hits.sort(); hits=hits.slice(0,4);
+      return '<div class="stand"><span class="ax">'+ax+'</span>'
+        +'<span class="ps '+(v>=70?'hi':(v<=30?'lo':''))+'">'+pos+'</span>'
+        +'<span class="ind">'+(hits.length?'이런 동네에서 강한 업종 — <strong>'+hits.join(' · ')+'</strong>'
+          :'이 축에서 뚜렷한 업종 신호는 없습니다')+'</span></div>';
+    }).join('');
+    H+='<p class="lead" style="margin-top:12px">서울 336개 동 분포에서 이 동네의 자리입니다. 축마다 표본이 다릅니다 — 상가 관련은 자료가 있는 211개 동 기준.</p></div>';
+  }
 
   /* ── 주거 월세 ── */
   H+='<div class="sec"><h2>집을 구한다면 <small>빌라 월세 실거래 중위</small></h2>';
@@ -308,7 +346,8 @@ function render(){
     var bd=function(x){return String(x||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')};
     var F0=M.facts||{}, F={}; for(var k in F0) F[k]=bd(F0[k]);
     if(F.twist||F.survival){
-      H+='<div class="facts"><h3>그래서 무엇을 봐야 하나 — 우리가 재본 것</h3><dl>'
+      H+='<div class="facts"><h3>그래서 무엇을 봐야 하나 — <em>서울 전체</em>를 재본 것</h3>'
+       +'<p class="scopenote">🔴 아래는 <strong>이 동네 숫자가 아닙니다.</strong> 서울 336개 동을 한꺼번에 재서 나온 <strong>법칙</strong>이라 어느 동네를 골라도 같습니다 — 위쪽(월세·부담률·인구)이 이 동네 숫자입니다.</p><dl>'
        +(F.twist?'<dt>매출 높은 동네를 고르면 되나</dt><dd>'+F.twist+'</dd>':'')
        +(F.rent?'<dt>월세는 무엇이 정하나</dt><dd>'+F.rent+'</dd>':'')
        +(F.survival?'<dt>폐업률이 낮으면 안전한가</dt><dd>'+F.survival
@@ -316,7 +355,8 @@ function render(){
        +(F.explains?'<dt>그럼 동네를 잘 고르면 살아남나</dt><dd>'+F.explains+'</dd>':'')
        +'</dl></div>';
     }
-    H+='</div><p class="lead" style="margin-top:12px">‘주말에 번다’로 표시된 업종은 <strong>평일이 비는 동네에서 같은 부담률이라도 더 위험합니다.</strong> 위 24시간 그래프와 같이 보세요.</p>';
+    H+='</div><p class="lead" style="margin-top:10px">업종 이름 아래 회색 글씨(‘…동네일수록 강하다’)는 <strong>서울 전체</strong>에서 잰 그 업종의 성향입니다 — 이 동네 얘기가 아닙니다.</p>'
+     +'<p class="lead" style="margin-top:12px">‘주말에 번다’로 표시된 업종은 <strong>평일이 비는 동네에서 같은 부담률이라도 더 위험합니다.</strong> 위 24시간 그래프와 같이 보세요.</p>';
   } else {
     H+='<p class="lead">'+eun(d)+' 부동산원 조사 상권이 아니고, 속한 권역도 «기타지역»으로 묶여 있어 <strong>다른 동네 평균을 대신 보여드리지 않습니다.</strong></p>';
   }
