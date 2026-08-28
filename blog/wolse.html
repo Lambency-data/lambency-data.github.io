@@ -63,6 +63,14 @@
   font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
 .bar .row2 b{color:var(--ink-dim);font-weight:400}
 .bar .when{letter-spacing:.06em}
+.bar .drv{font-size:11.5px;color:var(--ink-faint);margin-top:3px;line-height:1.5}
+/* 🔴 우리가 재서 무너뜨린 조언을 여기서 말한다 — 안 쓰면 위 표가 «매출 높은 동네를
+   고르라» 는 틀린 조언으로 읽힌다 (카프: "블로그 그리고 상권 분석에서 둘다 써") */
+.facts{margin-top:24px;border-top:1px solid var(--hairline);padding-top:18px}
+.facts h3{font-family:var(--kr);font-size:15px;font-weight:400;color:var(--ink);margin-bottom:4px}
+.facts dl{margin:10px 0 0}
+.facts dt{font-size:14.5px;color:var(--amber);margin-top:16px}
+.facts dd{margin:5px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.85}
 .gap{padding:11px 0;text-align:center;font-family:var(--mono);font-size:10.5px;
   color:var(--ink-faint);border-bottom:1px solid var(--hairline-dim)}
 .up{color:#7fb069}.dn{color:#c96a5e}
@@ -286,16 +294,26 @@ function render(){
       +(c.vac!=null?' · 이 상권 공실률 <strong>'+c.vac+'%</strong>':'')
       +'. 아래는 <strong>부담 큰 순</strong>입니다.</p><div class="bars">';
     H+=c.r.map(function(r,i){
-      var pct=r[1], cls=burCls(pct), w=M.whens[r[3]]||'';
+      var pct=r[1], cls=burCls(pct), w=M.whens[r[3]]||'', dv=r[4]||'';
       var s='<div class="bar '+cls+'"><div class="row1"><span class="nm">'+M.industries[r[0]]+'</span>'
         +'<span class="vl">'+pct+'%</span></div>'
         +'<div class="track"><div class="fill" style="width:'+Math.min(100,pct/mb*100)+'%"></div></div>'
         +'<div class="row2"><span>가게당 매출 <b>'+eok(r[2])+'</b></span>'
         +(w?'<span class="when">'+(w==='주말형'?'주말에 번다':w==='평일형'?'평일에 번다':'고르게')+'</span>':'')
-        +'</div></div>';
+        +'</div>'+(dv?'<div class="drv">'+dv+'</div>':'')+'</div>';
       if(c.om && i===5) s+='<div class="gap">— 가운데 '+c.om+'개 생략 —</div>';
       return s;
     }).join('');
+    var F=M.facts||{};
+    if(F.twist||F.survival){
+      H+='<div class="facts"><h3>그래서 무엇을 봐야 하나 — 우리가 재본 것</h3><dl>'
+       +(F.twist?'<dt>매출 높은 동네를 고르면 되나</dt><dd>'+F.twist+'</dd>':'')
+       +(F.rent?'<dt>월세는 무엇이 정하나</dt><dd>'+F.rent+'</dd>':'')
+       +(F.survival?'<dt>폐업률이 낮으면 안전한가</dt><dd>'+F.survival
+          +(F.survival_n?' <span style="opacity:.65">('+F.survival_n+')</span>':'')+'</dd>':'')
+       +(F.explains?'<dt>그럼 동네를 잘 고르면 살아남나</dt><dd>'+F.explains+'</dd>':'')
+       +'</dl></div>';
+    }
     H+='</div><p class="lead" style="margin-top:12px">‘주말에 번다’로 표시된 업종은 <strong>평일이 비는 동네에서 같은 부담률이라도 더 위험합니다.</strong> 위 24시간 그래프와 같이 보세요.</p>';
   } else {
     H+='<p class="lead">'+eun(d)+' 부동산원 조사 상권이 아니고, 속한 권역도 «기타지역»으로 묶여 있어 <strong>다른 동네 평균을 대신 보여드리지 않습니다.</strong></p>';
