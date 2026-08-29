@@ -1,0 +1,446 @@
+<!-- baked-from-b2c-where: 49870bffab627969 -->
+<!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
+     소스: airbnb_investment/property_pricer/web/static/b2c-where.html
+     생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>동네 월세·상권 — hicce 미리보기 | Lambency</title>
+<meta name="description" content="동네를 고르면 월세가 먼저 나옵니다. 가게를 볼 생각이면 매출의 몇 %가 월세로 나가는지도 함께 봅니다. hicce 화면 그대로, 분기 스냅샷으로 돕니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{ --paper:#FFFFFF; --ink:#16181D; --soft:#5F6570; --faint:#8B9099;
+    --rule:#E1E4E8; --field:#F6F7F9; --seal:#1A4FA0; --seal-wash:#EDF2FB;
+    --warn:#96601A; --down:#B33A3A; --up:#1F6F45;
+    --ff:"Noto Sans KR","Apple SD Gothic Neo",sans-serif; --fm:"IBM Plex Mono",ui-monospace,monospace; }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#101216; --ink:#E9EBEE; --soft:#9AA0A8; --faint:#767C85;
+    --rule:#262A31; --field:#191C22; --seal:#7BA5E8; --seal-wash:#161C28;
+    --warn:#D8A657; --down:#E07A7A; --up:#5FBF8B;}}
+  *{box-sizing:border-box;margin:0}
+  body{font-family:var(--ff);background:var(--paper);color:var(--ink);line-height:1.6;
+       max-width:760px;margin:0 auto;padding:28px 18px 70px}
+  h1{font-size:21px;letter-spacing:-.02em}
+  .lead{font-size:13px;color:var(--soft);margin:6px 0 18px}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  input,select{font-family:inherit;font-size:15px;padding:.65rem .8rem;border:1.5px solid var(--rule);
+        border-radius:9px;background:var(--field);color:var(--ink);flex:1;min-width:140px}
+  input:focus,select:focus{outline:none;border-color:var(--seal)}
+  button{font-family:inherit;font-size:14px;font-weight:700;padding:.65rem 1.2rem;border:0;
+         border-radius:9px;background:var(--seal);color:#fff;cursor:pointer}
+  .sug{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+  .sug button{background:var(--field);color:var(--soft);font-weight:500;font-size:12px;
+              padding:.35rem .7rem;border:1px solid var(--rule)}
+  .sug button:hover{color:var(--seal);border-color:var(--seal)}
+  .g{display:grid;grid-template-columns:26px 92px 1fr 86px 126px;gap:9px;align-items:center;
+     padding:9px 0;border-top:1px solid var(--rule);font-size:13px}
+  .g.hd{font-size:11px;color:var(--faint);border-top:0;padding-bottom:2px}
+  .rk{font-family:var(--fm);color:var(--faint)}
+  .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar2{position:relative;height:17px;background:var(--field);border-radius:3px;overflow:hidden}
+  .bar2 i{position:absolute;left:0;top:0;bottom:0;background:var(--seal);opacity:.35}
+  .bar2 b{position:absolute;right:6px;line-height:17px;font-size:11px;font-family:var(--fm)}
+  .dl{font-size:11px;font-family:var(--fm);white-space:nowrap}
+  .dl .up{color:var(--up)} .dl .dn{color:var(--down)}
+  .sub{font-size:10.5px;color:var(--faint);font-family:var(--fm);white-space:nowrap;text-align:right;line-height:1.45}
+  .sub .up{color:var(--up)} .sub .dn{color:var(--down)}
+  .src{font-size:11px;color:var(--faint);margin-top:16px;line-height:1.7}
+  .empty{padding:26px 0;color:var(--soft);font-size:13.5px}
+
+  /* ── 탭 — 「동네로」가 기본이다. 월세를 알아보러 온 사람이 첫 화면에서 답을 본다 ── */
+  .tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--rule);margin-bottom:18px}
+  .tabs button{background:none;color:var(--faint);border:0;border-bottom:2.5px solid transparent;
+    border-radius:0;padding:.55rem .9rem;font-size:14px;font-weight:700;margin-bottom:-1.5px}
+  .tabs button[aria-selected="true"]{color:var(--seal);border-bottom-color:var(--seal)}
+  .pane[hidden]{display:none}
+
+  /* ── 주거 월세 — 이 페이지의 본체. 숫자를 크게, 설명은 짧게 ── */
+  .sec{margin:24px 0 0}
+  .sec h2{font-size:15px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:8px}
+  .sec h2 small{font-size:11.5px;font-weight:400;color:var(--faint)}
+  .rentrow{display:grid;grid-template-columns:104px 1fr 128px;gap:10px;align-items:center;
+    padding:10px 0;border-top:1px solid var(--rule)}
+  .rentrow .bd{font-size:12.5px;color:var(--soft);white-space:nowrap}
+  .rentrow .track{position:relative;height:22px;background:var(--field);border-radius:4px;overflow:hidden}
+  .rentrow .track i{position:absolute;inset:0 auto 0 0;background:var(--seal);opacity:.30}
+  .rentrow .val{text-align:right;font-family:var(--fm);white-space:nowrap}
+  .rentrow .val b{font-size:17px;letter-spacing:-.02em}
+  .rentrow .val span{font-size:11px;color:var(--faint);display:block;line-height:1.3}
+  .hero{background:var(--seal-wash);border-radius:11px;padding:14px 16px;margin:14px 0 4px}
+  .hero .big{font-size:26px;font-weight:700;letter-spacing:-.03em;font-family:var(--fm)}
+  .hero .cap{font-size:12.5px;color:var(--soft);margin-top:2px}
+
+  /* ── 부담률 — 색이 판정이다. 글로 «높다» 라고 쓰지 않는다 ── */
+  .bur{display:grid;grid-template-columns:104px 52px 1fr 50px 78px;gap:9px;align-items:center;
+    padding:8px 0;border-top:1px solid var(--rule);font-size:13px}
+  .bur .ind{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bur .drv{display:block;font-size:10px;color:var(--faint);font-weight:400;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+  /* 🔴 «무엇을 봐야 하나» — 우리가 실제로 재서 무너뜨린 조언을 여기서 말한다.
+     이걸 안 쓰면 위 표가 «매출 높은 동네를 고르라» 는 틀린 조언으로 읽힌다. */
+  .facts{margin-top:16px;border-top:1px solid var(--rule);padding-top:12px}
+  .facts summary{font-size:12.5px;color:var(--seal);cursor:pointer;font-weight:500}
+  .facts dl{margin:10px 0 0;font-size:12px;line-height:1.75}
+  .facts dt{color:var(--ink);font-weight:500;margin-top:9px}
+  .facts dd{margin:2px 0 0;color:var(--soft)}
+  /* 🔴 카프: *"이런것들은 그래서 지금 이제 동네별로 나오는거지?"* — 헷갈렸다는 뜻이다.
+     위쪽은 동네별, 아래쪽은 서울 전체 법칙이라 **어느 쪽인지 화면이 말해야 한다.** */
+  .facts .scopenote{margin:8px 0 0;font-size:11.5px;color:var(--warn);line-height:1.65}
+  /* 🔴 카프: *"전체 서울 대비 어떻다 라고… 그 안에서 이 동네에서는 뭐가 중요한지"*
+     «55만원» 만 주면 비싼지 싼지 모른다. 336개 동 안의 자리를 같이 준다. */
+  .rank{font-size:10.5px;color:var(--faint);font-family:var(--fm);margin-left:5px;white-space:nowrap}
+  .rank.hi{color:var(--warn)} .rank.lo{color:var(--up)}
+  .stand{display:grid;grid-template-columns:92px 104px 1fr;gap:9px;align-items:baseline;
+    padding:9px 0;border-top:1px solid var(--rule);font-size:13px}
+  .stand .ax{font-weight:500}
+  .stand .ps{font-family:var(--fm);font-size:11.5px}
+  .stand .ps.hi{color:var(--warn)} .stand .ps.lo{color:var(--seal)}
+  .stand .ind{font-size:11.5px;color:var(--soft)}
+  /* 유리/불리 — 카프: *"위험한 업종도 있으면 더 좋을것 같은데"*
+     🔴 «위험» 이라 쓰지 않는다. 폐업률은 매출과 무관했다(+0.04) — 매출이 낮게 잡히는 것과
+     망하는 것은 다른 말이고, 뒤쪽은 우리 데이터로 못 말한다. 그 단서를 화면이 달고 있어야 한다. */
+  .fa{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline;
+    padding:9px 0;border-top:1px solid var(--rule);font-size:12.5px}
+  .fa .lb{font-weight:500;font-size:11.5px}
+  .fa .lb.g{color:var(--up)} .fa .lb.b{color:var(--warn)}
+  .fa .li{color:var(--ink)} .fa .li em{font-style:normal;color:var(--faint);font-size:11px}
+  @media (max-width:520px){ .stand{grid-template-columns:76px 92px 1fr;gap:7px;font-size:12px} }
+  .bur .pct{font-family:var(--fm);font-weight:700;text-align:right;font-size:14px}
+  .bur .track{position:relative;height:14px;background:var(--field);border-radius:3px;overflow:hidden}
+  .bur .track i{position:absolute;inset:0 auto 0 0;border-radius:3px}
+  .bur .sales{font-size:11px;color:var(--faint);font-family:var(--fm);text-align:right;white-space:nowrap}
+  .lo{color:var(--up)}      .lo-bg{background:var(--up);opacity:.55}
+  .mid{color:var(--ink)}    .mid-bg{background:var(--seal);opacity:.45}
+  .hi{color:var(--warn)}    .hi-bg{background:var(--warn);opacity:.55}
+  .top{color:var(--down)}   .top-bg{background:var(--down);opacity:.55}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--faint);margin-top:10px}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+  /* 언제 버는 장사인가 — 글로 길게 쓰지 않고 뱃지 하나로 */
+  .when{font-size:10.5px;font-weight:700;padding:.12rem .4rem;border-radius:4px;white-space:nowrap;
+    text-align:center;display:inline-block;min-width:44px}
+  .w-end{background:var(--warn);color:var(--paper)}
+  .w-day{background:var(--seal);color:var(--paper)}
+  .w-flat{background:var(--field);color:var(--faint)}
+  /* 24시간 인구 — 숫자를 읽지 않아도 모양으로 보인다 */
+  .hrs{display:flex;align-items:flex-end;gap:2px;height:46px;margin:10px 0 4px}
+  .hrs span{flex:1;background:var(--seal);opacity:.30;border-radius:2px 2px 0 0;min-height:2px}
+  .hrs span.pk{opacity:.75}
+  .hrlab{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);font-family:var(--fm)}
+  /* 연령 — 한 줄 스택. 어느 나이대 동네인지 색 길이로 바로 보인다 */
+  .ages{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:12px 0 6px}
+  .ages b{display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;
+    color:var(--paper);background:var(--seal);white-space:nowrap;overflow:hidden}
+  .ages b:nth-child(odd){opacity:.55} .ages b:nth-child(even){opacity:.80}
+  .ages b.mx{background:var(--warn);opacity:1}
+  .agelab{font-size:11px;color:var(--faint)}
+  .warnbox{background:var(--field);border-left:3px solid var(--warn);padding:9px 12px;
+    border-radius:0 7px 7px 0;font-size:12px;color:var(--soft);margin:12px 0}
+  @media (max-width:520px){
+    .g{grid-template-columns:22px 1fr 86px;grid-auto-rows:auto}
+    .g .bar2{grid-column:2/4} .g .sub{display:none} .g.hd span:nth-child(n+4){display:none}
+    .rentrow{grid-template-columns:88px 1fr 104px;gap:8px}
+    .bur{grid-template-columns:88px 46px 1fr 46px;gap:7px} .bur .sales{display:none}
+  }
+</style>
+</head>
+<body>
+<h1>동네 월세·상권</h1>
+<p class="lead">동네를 고르면 <b>월세가 얼마인지</b> 먼저 보여드립니다.
+  가게를 볼 생각이면 <b>매출의 몇 %가 월세로 나가는지</b>도 함께 봅니다.</p>
+
+<div class="tabs" role="tablist">
+  <button role="tab" id="t-dong" aria-selected="true" onclick="tab('dong')">동네로 보기</button>
+  <button role="tab" id="t-ind" aria-selected="false" onclick="tab('ind')">업종으로 보기</button>
+</div>
+
+<!-- ══ 동네로 보기 — 본체 ══ -->
+<section class="pane" id="p-dong">
+  <div class="bar">
+    <select id="gu"><option value="">자치구</option></select>
+    <select id="dg"><option value="">동</option></select>
+    <button id="go2">보기</button>
+  </div>
+  <div class="sug" id="sug2"></div>
+  <div id="out2" class="empty">자치구와 동을 고르면 월세가 나옵니다.</div>
+</section>
+
+<!-- ══ 업종으로 보기 — 기존 ══ -->
+<section class="pane" id="p-ind" hidden>
+  <p class="lead">업종을 넣으면 서울 행정동을 <b>가게당 월매출 순</b>으로 폅니다 —
+    ‘어디가 좋다’ 는 판정이 아니라 카드 매출·점포수·개폐업·유동인구 <b>실측 정렬</b>입니다.</p>
+  <div class="bar">
+    <input id="q" list="inds" placeholder="업종 — 예: 커피-음료, 한식음식점, 미용실" autocomplete="off">
+    <datalist id="inds"></datalist>
+    <button id="go">분석</button>
+  </div>
+  <div class="sug" id="sug"></div>
+  <div id="out" class="empty">위에 업종을 넣어보세요. 63개 업종의 자료가 있습니다.</div>
+  <p class="src" id="src"></p>
+</section>
+
+<script>
+/* ── 블로그(정적) 어댑터 — scripts/bake_where_page.py 가 주입한다 ──────────────
+   화면 코드는 hicce `web/static/b2c-where.html` 을 **한 줄도 고치지 않고** 그대로 쓴다.
+   서버 API 네 개만 여기서 가로채 `data/where.json` 으로 답한다.
+
+   🔴 그 파일은 **API 응답을 그대로** 담는다(scripts/bake_where_data.py) — 그래서 여기
+      변환 코드가 없다. 예전엔 압축본(dong_brief.json)을 되돌리려다 두 번 틀렸는데,
+      축약 규칙이 굽는 쪽에만 있어 «희재에서 고치면 블로그도 따라간다» 가 깨졌다.
+      변환이 없으면 갈릴 수도 없다. */
+(function(){
+  let _p=null;
+  const data=()=>_p||(_p=fetch('data/where.json').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const _fetch=window.fetch.bind(window);
+  window.fetch=async function(url, opt){
+    const u=String(url);
+    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
+    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
+    const q=new URLSearchParams(u.split('?')[1]||'');
+    try{
+      const D=await data();
+      if(u.indexOf('/api/b2c/dong-names')===0){
+        const gu=q.get('sigungu');
+        return J(gu ? {dongs:Object.keys(D.gu[gu]||{}).sort()} : {sigungu:Object.keys(D.gu).sort()});
+      }
+      if(u.indexOf('/api/b2c/dong-brief')===0){
+        const r=((D.gu||{})[q.get('sigungu')]||{})[q.get('dong')];
+        return J(r || {ok:false});
+      }
+      if(u.indexOf('/api/b2c/industry-names')===0){
+        return J({industries:Object.keys(D.industries).sort()});
+      }
+      if(u.indexOf('/api/b2c/where-for-industry')===0){
+        return J(D.industries[q.get('industry')] || {ok:false, rows:[]});
+      }
+    }catch(e){ return J({ok:false, rows:[], error:String(e)}); }
+    return J({ok:false});
+  };
+})();
+</script>
+<script>
+const $=id=>document.getElementById(id);
+const eok=v=>v>=10000?(v/10000).toFixed(1)+'억':(v||0).toLocaleString()+'만';
+const man=v=>(v==null?'—':Math.round(v).toLocaleString());
+/* 받침 있는 말엔 «은», 없으면 «는». 동 이름은 «○○동»(받침 O)·«○○동1가»(받침 X) 가 섞인다 */
+const eun=w=>{const c=String(w||'').trim().slice(-1).charCodeAt(0);
+  return w+(c>=0xAC00&&c<=0xD7A3?((c-0xAC00)%28?'은':'는'):'은');};
+
+function tab(which){
+  const d=which==='dong';
+  $('p-dong').hidden=!d; $('p-ind').hidden=d;
+  $('t-dong').setAttribute('aria-selected',d); $('t-ind').setAttribute('aria-selected',!d);
+}
+
+/* ══════════ 동네로 보기 ══════════ */
+const QUICK=[['마포구','서교동'],['강남구','역삼동'],['용산구','후암동'],['성동구','성수동1가'],['관악구','신림동']];
+$('sug2').innerHTML=QUICK.map(([g,d])=>`<button type="button" data-g="${g}" data-d="${d}">${d}</button>`).join('');
+$('sug2').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  loadDongs(b.dataset.g).then(()=>{ $('gu').value=b.dataset.g; $('dg').value=b.dataset.d; runDong(); });
+});
+
+fetch('/api/b2c/dong-names').then(r=>r.json()).then(d=>{
+  $('gu').innerHTML='<option value="">자치구</option>'+(d.sigungu||[]).map(g=>`<option>${g}</option>`).join('');
+}).catch(()=>{});
+
+async function loadDongs(gu){
+  if(!gu){ $('dg').innerHTML='<option value="">동</option>'; return; }
+  try{
+    const d=await (await fetch('/api/b2c/dong-names?sigungu='+encodeURIComponent(gu))).json();
+    $('dg').innerHTML='<option value="">동</option>'+(d.dongs||[]).map(x=>`<option>${x}</option>`).join('');
+  }catch(_){ }
+}
+$('gu').addEventListener('change',e=>{ loadDongs(e.target.value); });
+$('go2').onclick=()=>runDong();
+$('dg').addEventListener('change',()=>{ if($('dg').value) runDong(); });
+
+/* 🔴 늦게 온 응답이 화면을 덮어쓰지 않게 한다 (2026-08-28 실측 사고).
+   서교동 버튼을 눌렀는데 요청이 **두 번**(서교동 → 망원동) 나갔고, 2ms 늦게 도착한
+   망원동 결과가 서교동 화면을 덮었다 — 화면엔 「서교동」이 떠 있는데 숫자는 망원동이었다.
+   이런 건 눈으로 못 잡는다. 요청마다 번호를 매겨 **마지막 것만** 그린다. */
+let _seq=0;
+
+/* 부담률 색 — 글로 «높다» 라고 쓰지 않는다. 색이 판정이다.
+   경계는 감이 아니라 소상공인 임대료 부담 통설(10% 이하 여유 · 20% 넘으면 빠듯)에 맞췄다. */
+function burClass(p){ return p<10?'lo':p<20?'mid':p<30?'hi':'top'; }
+
+async function runDong(){
+  const gu=$('gu').value, dg=$('dg').value;
+  if(!gu||!dg){ return; }
+  const my=++_seq;
+  $('out2').className=''; $('out2').innerHTML='<div class="empty">불러오는 중…</div>';
+  let d=null;
+  try{ d=await (await fetch(`/api/b2c/dong-brief?sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`)).json(); }catch(_){}
+  if(my!==_seq) return;                    // 더 새 요청이 이미 떠났다 — 이건 버린다
+  if(!d||!d.ok){ $('out2').innerHTML=`<div class="empty">${dg} 은 아직 자료가 얇습니다 — 다른 동을 골라보세요.</div>`; return; }
+
+  const ST=d.standing||{}; const PV=ST.pct||{};
+  /* 백분위 배지 — 위쪽 숫자는 «이 동네» 값이고, 이게 서울에서 어디쯤인지를 말한다 */
+  const rk=(ax)=>{const v=PV[ax]; if(v==null) return '';
+    const c=v>=70?'hi':(v<=30?'lo':''); const t=v>=97?'서울 최상위':v<=3?'서울 최하위':(v>=50?`서울 상위 ${100-v}%`:`서울 하위 ${v}%`);
+    return `<span class="rank ${c}">${t}</span>`;};
+  let html='';
+  /* ── 서울에서 이 동네는 (2026-08-28 신설) ── */
+  if(ST.ok && (ST.top||[]).length){
+    html+=`<section class="sec"><h2>서울에서 이 동네는 <small>336개 동 중 자리</small></h2>
+      <p class="lead" style="font-size:12.5px;color:var(--soft);margin:2px 0 2px">
+        가장 튀는 축 <b>${ST.top.length}개</b>입니다 — 이 동네에서 무엇이 갈리는지를 먼저 봅니다.${
+          ST.top.length<3?' <span style="color:var(--warn)">이 동네는 잴 수 있는 축이 적습니다 — 생활인구·상가 자료가 없습니다.</span>':''}</p>`
+      + ST.top.map(t=>`<div class="stand">
+          <span class="ax">${t.axis}</span>
+          <span class="ps ${t.pct>=70?'hi':(t.pct<=30?'lo':'')}">${t.pos}</span>
+          <span class="ind">${t.industries&&t.industries.length
+            ? '이런 동네에서 강한 업종 — <b>'+t.industries.join(' · ')+'</b>'
+            : '<span style="opacity:.6">이 축에서 뚜렷한 업종 신호는 없습니다</span>'}</span>
+        </div>`).join('')
+      + ((ST.favor&&ST.favor.length)||(ST.avoid&&ST.avoid.length) ? `
+        <div class="fa"><span class="lb g">유리한 업종</span><span class="li">${
+          ST.favor.length ? ST.favor.join(' · ') + (ST.n_favor>ST.favor.length?` <em>외 ${ST.n_favor-ST.favor.length}개</em>`:'') : '<em>뚜렷한 게 없습니다</em>'}</span></div>
+        <div class="fa"><span class="lb b">불리한 업종</span><span class="li">${
+          ST.avoid.length ? ST.avoid.join(' · ') + (ST.n_avoid>ST.avoid.length?` <em>외 ${ST.n_avoid-ST.avoid.length}개</em>`:'') : '<em>뚜렷한 게 없습니다</em>'}</span></div>
+        <p class="src" style="color:var(--warn)">🔴 <b>«불리»는 매출이 낮게 잡힌다는 뜻이지 «망한다»가 아닙니다.</b>
+          폐업률은 매출과 관계가 없었습니다(+0.04) — 우리 숫자로 생존을 말할 수 없습니다.${
+          ST.n_mixed?` 방향이 엇갈리는 ${ST.n_mixed}개 업종은 어느 쪽으로도 넣지 않았습니다.`:''}</p>` : '')
+      + `<p class="src">${ST.note||''}</p></section>`;
+  }
+
+  /* ── 주거 월세 (본체) ── */
+  const h=d.housing;
+  if(h && h.ok){
+    const rows=h.rows||[];
+    const first=rows[0];
+    const mx=Math.max(...rows.map(r=>r.monthly_man||0),1);
+    html+=`<section class="sec"><h2>집을 구한다면 <small>빌라 월세 실거래 중위</small></h2>`;
+    if(first) html+=`<div class="hero"><div class="big">${man(first.monthly_man)}만원</div>
+      <div class="cap">${dg} <b>${first.band}</b> 월세입니다. 보증금은 ${man(first.deposit_man)}만원.${
+        PV['원룸 월세']!=null?` · 336개 동 중 ${rk('원룸 월세').replace(/<[^>]+>/g,'')}`:''}</div></div>`;
+    html+=rows.map(r=>`<div class="rentrow">
+        <span class="bd">${r.band}</span>
+        <span class="track"><i style="width:${Math.max(4,(r.monthly_man||0)/mx*100)}%"></i></span>
+        <span class="val"><b>${man(r.monthly_man)}만</b><span>보증 ${man(r.deposit_man)}만 · ${r.n_wolse}건</span></span>
+      </div>`).join('');
+    html+=`<p class="src">최근 ${h.months||24}개월 실거래 ${(h.n||0).toLocaleString()}건의 중위값입니다.
+      전세는 빼고 <b>월세 계약만</b> 셌습니다.</p></section>`;
+  } else {
+    html+=`<section class="sec"><h2>집을 구한다면</h2>
+      <p class="empty">${(h&&h.reason)||'자료가 얇습니다'}</p></section>`;
+  }
+
+  /* ── 사람은 언제 있나 — 업종의 주말형/평일형과 짝으로 읽힌다 ── */
+  const cr=d.crowd;
+  if(cr && cr.ok){
+    const h=cr.hourly||[]; const mxh=Math.max(...h,1);
+    const nv=cr.night_vs_day_pct;
+    html+=`<section class="sec"><h2>사람은 언제 있나 <small>생활인구 24시간</small></h2>
+      <p class="cap" style="font-size:12.5px;color:var(--soft);margin-top:6px">
+        <b>${cr.peak_hour}시</b>에 가장 많습니다.
+        밤(19–23시)은 낮(11–15시)보다 <b>${nv==null?'—':(nv>0?nv+'% 많습니다':Math.abs(nv)+'% 적습니다')}</b>.</p>
+      ${h.length?`<div class="hrs">${h.map((v,i)=>`<span class="${i===cr.peak_hour?'pk':''}" style="height:${Math.max(4,v/mxh*100)}%" title="${i}시 ${v.toLocaleString()}명"></span>`).join('')}</div>
+      <div class="hrlab"><span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span></div>`:''}
+      ${(cr.age&&cr.age.length)?(()=>{
+        const top=cr.age.reduce((a,b)=>b.pct>a.pct?b:a);
+        return `<div class="ages">${cr.age.map(a=>`<b class="${a===top?'mx':''}" style="flex:${a.pct}" title="${a.label} ${a.pct}%">${a.pct>=11?a.label:''}</b>`).join('')}</div>
+        <p class="agelab"><b>${top.label}</b>가 ${top.pct}% 로 가장 많습니다${cr.gender?` · 여성 ${cr.gender.female_pct}%`:''}.</p>`;})():''}
+      <p class="src">${cr.caveat||''}</p></section>`;
+  }
+
+  /* ── 상가 부담률 (얹기) ── */
+  const c=d.commercial;
+  if(c && c.ok){
+    const rows=c.rows||[];
+    const mx=Math.max(...rows.map(r=>r.burden_pct||0),30);
+    html+=`<section class="sec"><h2>가게를 한다면 <small>매출의 몇 %가 월세로 나가나</small></h2>
+      <div class="hero"><div class="big">${man(c.monthly_rent_man)}만원</div>
+        <div class="cap">1층 <b>${c.area_m2}㎡</b>(${(c.area_m2/3.3058).toFixed(0)}평) 기준 월세.
+          ${c.scope==='권역'
+            ? `${eun(dg)} 따로 조사되는 상권이 아니라 <b>${String(c.sangkwon).replace(/소계\((.+)\)/,'$1')} 평균</b>으로 계산했습니다`
+            : `<b>${c.sangkwon}</b> 상권 ${c.reb_type} 임대료로 계산했습니다`}.<br>
+          이 동네 업종 <b>${c.n_industries}개</b>의 부담률 중위는
+          <b>${c.median_burden_pct}%</b>${PV['임대료 부담률']!=null?` (${rk('임대료 부담률').replace(/<[^>]+>/g,'')})`:''} 입니다 —
+          아래는 <b>부담 큰 순</b>입니다.${PV['상가 월세']!=null?` 상가 월세는 ${rk('상가 월세').replace(/<[^>]+>/g,'')}.`:''}</div></div>`;
+    const gapAt=i=>(c.omitted && i===5)
+      ? `<div class="bur" style="opacity:.55"><span style="grid-column:1/-1;text-align:center;
+           font-size:11.5px;color:var(--faint)">— 가운데 ${c.omitted}개 생략 —</span></div>` : '';
+    html+=rows.map((r,i)=>{
+      const k=burClass(r.burden_pct);
+      const wc=r.when==='주말형'?'w-end':r.when==='평일형'?'w-day':'w-flat';
+      const wt=r.when||'—';
+      const tip=r.weekend_pct!=null?`주말 매출 ${r.weekend_pct}%${r.female_pct!=null?` · 여성 손님 ${r.female_pct}%`:''}`:'';
+      return `<div class="bur">
+        <span class="ind" title="${r.industry}${r.driver?' — '+r.driver+' ('+r.driver_rho+')':''}">${r.industry}${
+          r.driver?`<b class="drv">${r.driver.replace('일수록 강하다','')}</b>`:''}</span>
+        <span class="pct ${k}">${r.burden_pct}%</span>
+        <span class="track"><i class="${k}-bg" style="width:${Math.min(100,r.burden_pct/mx*100)}%"></i></span>
+        <span class="when ${wc}" title="${tip}">${wt}</span>
+        <span class="sales">매출 ${eok(r.per_store_month_man)}</span>
+      </div>` + gapAt(i);}).join('');
+    html+=`<div class="legend">
+      <span><i class="lo-bg"></i>10% 미만 여유</span><span><i class="mid-bg"></i>10~20%</span>
+      <span><i class="hi-bg"></i>20~30% 빠듯</span><span><i class="top-bg"></i>30% 이상</span>
+      <span style="margin-left:auto"><b class="when w-end" style="min-width:0;padding:.05rem .3rem">주말형</b>
+      은 평일이 비면 위험합니다</span></div>
+      <p class="src" style="margin-top:6px">업종 이름 아래 회색 글씨(«…동네일수록 강하다»)는
+        <b>서울 전체</b>에서 잰 그 업종의 성향입니다 — 이 동네 얘기가 아닙니다.</p>`;
+    /* facts 문장은 «**굵게**» 를 쓴다 — 그대로 두면 별표가 화면에 보인다 */
+    const bd=t=>String(t||'').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+    const F0=c.facts||{}; const F={}; for(const k in F0) F[k]=bd(F0[k]);
+    if(F.survival||F.rent||F.twist) html+=`<details class="facts"><summary>그래서 무엇을 봐야 하나 — <b>서울 전체</b>를 재본 것</summary>
+      <p class="scopenote">🔴 아래는 <b>이 동네 숫자가 아닙니다.</b> 서울 336개 동을 한꺼번에 재서
+        나온 <b>법칙</b>이라 어느 동네를 골라도 같습니다 — 위쪽(월세·부담률·인구)이 이 동네 숫자입니다.</p><dl>
+      ${F.twist?`<dt>매출 높은 동네를 고르면 되나</dt><dd>${F.twist}</dd>`:''}
+      ${F.rent?`<dt>월세는 무엇이 정하나</dt><dd>${F.rent}</dd>`:''}
+      ${F.survival?`<dt>폐업률이 낮으면 안전한가</dt><dd>${F.survival}${F.survival_n?` <i style="font-style:normal;opacity:.7">(${F.survival_n})</i>`:''}</dd>`:''}
+      ${F.explains?`<dt>그럼 동네를 잘 고르면 살아남나</dt><dd>${F.explains}</dd>`:''}
+      </dl></details>`;
+    html+=`<p class="src">${c.sangkwon} 상권 공실률 ${c.vacancy_pct==null?'—':c.vacancy_pct+'%'} ·
+      업종 ${c.n_industries}개${c.dropped_thin?` (매출 자료가 얇은 ${c.dropped_thin}개는 뺐습니다)`:''}<br>
+      ${c.caveat.replace(/\*\*/g,'')}</p></section>`;
+  } else {
+    html+=`<section class="sec"><h2>가게를 한다면</h2>
+      <p class="empty">${(c&&c.reason)||'이 동네는 상가 자료가 얇습니다'}</p></section>`;
+  }
+  $('out2').innerHTML=html;
+}
+
+/* ══════════ 업종으로 보기 (기존) ══════════ */
+const POP_EX=['커피-음료','한식음식점','미용실','편의점','치킨전문점','제과점','호프-간이주점','일반의류'];
+$('sug').innerHTML=POP_EX.map(x=>`<button type="button" onclick="run('${x}')">${x}</button>`).join('');
+fetch('/api/b2c/industry-names').then(r=>r.json()).then(d=>{
+  $('inds').innerHTML=(d.industries||[]).map(x=>`<option value="${x}">`).join('');
+}).catch(()=>{});
+async function run(ind){
+  if(ind) $('q').value=ind;
+  const q=$('q').value.trim(); if(!q) return;
+  $('out').className=''; $('out').innerHTML='<div class="empty">불러오는 중…</div>'; $('src').textContent='';
+  let d=null;
+  try{ d=await (await fetch('/api/b2c/where-for-industry?industry='+encodeURIComponent(q)+'&top=15')).json(); }catch(_){}
+  if(!d||!d.ok){ $('out').innerHTML=`<div class="empty">${(d&&d.reason)||'불러오지 못했습니다'} — 아래 예시 버튼이나 자동완성에서 골라보세요.</div>`; return; }
+  const R=d.rows||[];
+  const key=r=>r.per_store_month_man ?? r.sales_month_man;
+  const maxV=Math.max(...R.map(key),1);
+  const w=v=>Math.max(3,Math.min(100,Math.sqrt((v||0)/maxV)*100));
+  $('out').innerHTML=`<div class="g hd"><span></span><span>행정동</span><span>${d.sorted_by} <i style="font-style:normal">(√눈금)</i></span><span>전년 동기</span><span style="text-align:right">신규·폐업 · 유동</span></div>`
+    + R.map((r,i)=>{
+      const y=r.yoy_pct, cls=y==null?'':(y>=5?'up':y<=-5?'dn':'');
+      return `<div class="g">
+        <span class="rk">${i+1}</span>
+        <span class="nm" title="${r.adstrd}">${r.adstrd}</span>
+        <span class="bar2"><i style="width:${w(key(r))}%"></i><b>${eok(key(r))}${r.per_store_month_man?'/가게':''}</b></span>
+        <span class="dl"><span class="${cls}">${y==null?'—':(y>0?'+':'')+y+'%'}</span> · ${r.stores}곳</span>
+        <span class="sub" title="분기 신규 개업률 · 폐업률 (서울 상권분석 공시값)">${
+          (r.open_rate_pct==null&&r.close_rate_pct==null)?'—'
+          :`신규 ${r.open_rate_pct==null?'—':r.open_rate_pct+'%'} · 폐업 ${r.close_rate_pct==null?'—':r.close_rate_pct+'%'}`
+        }<br><span style="opacity:.75">유동 ${r.living_pop?Math.round(r.living_pop/1000)+'천':'—'}${
+          r.net_rate_pct==null?'':` · 순 <b class="${r.net_rate_pct>0?'up':r.net_rate_pct<0?'dn':''}">${r.net_rate_pct>0?'+':''}${r.net_rate_pct}%p</b>`
+        }</span></span>
+      </div>`;}).join('');
+  $('src').innerHTML=`정렬: <b>${d.sorted_by}</b> · 후보 ${d.n_dongs}개 동(점포 ${d.min_stores}곳 미만 제외) · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기<br>${d.source}<br>${d.caveat}`;
+}
+$('go').onclick=()=>run(); $('q').addEventListener('keydown',e=>{ if(e.key==='Enter') run(); });
+</script>
+</body>
+</html>
