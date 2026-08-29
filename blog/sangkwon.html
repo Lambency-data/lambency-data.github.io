@@ -132,6 +132,7 @@
           <option value="per_store_month_man">가게당 월매출</option>
           <option value="sales_month_man">동 전체 월매출</option>
           <option value="close_rate_pct">폐업률 낮은 순</option>
+          <option value="net_rate_pct">점포 순증감 큰 순</option>
           <option value="yoy_pct">전년 대비 증가율</option>
           <option value="living_pop">유동인구</option>
         </select>
@@ -202,6 +203,7 @@
     per_store_month_man:{t:'가게당 월매출', f:eok, asc:false},
     sales_month_man:    {t:'동 전체 월매출', f:eok, asc:false},
     close_rate_pct:     {t:'폐업률',        f:function(v){return v==null?'—':v+'%'}, asc:true},
+    net_rate_pct:       {t:'점포 순증감',    f:function(v){return v==null?'—':(v>=0?'+':'')+v+'%p'}, asc:false},
     yoy_pct:            {t:'전년비',        f:function(v){return v==null?'—':(v>=0?'+':'')+v+'%'}, asc:false},
     living_pop:         {t:'유동인구',      f:function(v){return FMT(v)+'명'}, asc:false}
   };
@@ -253,7 +255,8 @@
         + '<span>가게당 <b>'+eok(r.per_store_month_man)+'</b></span>'
         + '<span>점포 <b>'+FMT(r.stores)+'</b></span>'
         + '<span>전년비 '+yoy+'</span>'
-        + '<span>폐업률 <b>'+(r.close_rate_pct==null?'—':r.close_rate_pct+'%')+'</b></span>'
+        + '<span>신규 <b>'+(r.open_rate_pct==null?'—':r.open_rate_pct+'%')+'</b> · 폐업 <b>'+(r.close_rate_pct==null?'—':r.close_rate_pct+'%')+'</b>'
+        + (r.net_rate_pct==null?'':' <b style="color:'+(r.net_rate_pct>=0?'var(--up,#1a7f5a)':'var(--dn,#b4442a)')+'">('+(r.net_rate_pct>=0?'+':'')+r.net_rate_pct+'%p)</b>')+'</span>'
         + '<span>유동 <b>'+FMT(r.living_pop)+'</b></span>'
         + '</div></div>';
     }).join('');
