@@ -451,6 +451,10 @@ nav a.nav-insights .dot{
 }
 /* ⚠ .nav-insights .dot 뒤에 와야 이긴다 — 같은 특정도라 순서가 승부를 가른다 */
 nav a.nav-tool .dot{background:#8FC7BC;animation:none;box-shadow:none}
+nav a{white-space:nowrap}
+nav a.nav-yt{color:#E8938A}
+nav a.nav-yt::after{background:linear-gradient(90deg,#B5544A,transparent)}
+nav a.nav-yt .dot{background:#E8938A;animation:none;box-shadow:none}
 @keyframes navpulse{
   0%{box-shadow:0 0 0 0 rgba(232,180,88,.55)}
   70%{box-shadow:0 0 0 7px rgba(232,180,88,0)}
@@ -719,7 +723,7 @@ html[data-lang="ko"] blockquote{
       <a href="#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
       <a class="nav-insights" href="blog/index.html" title="매주 한 편 · 공개 데이터로 본 업종별 손익"><span class="dot"></span><span class="t" lang="en">Insights (DeepCaffein)</span><span class="t" lang="ko">인사이트 (DeepCaffein)</span></a>
     <a class="nav-insights nav-tool" href="blog/where.html" title="동네를 고르면 월세가 먼저 — 상가 임대료 부담률까지 (hicce 화면 그대로)"><span class="dot"></span><span class="t" lang="en">Rent &amp; Area</span><span class="t" lang="ko">동네 월세·상권</span></a>
-      <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener" title="데이터로 까보는 세상, 디카폐인"><span class="t" lang="en">YouTube (Decaff)</span><span class="t" lang="ko">유튜브 (디카폐인)</span></a>
+      <a class="nav-insights nav-yt" href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener" title="데이터로 까보는 세상, 디카폐인"><span class="dot"></span><span class="t" lang="en">YouTube (Decaff)</span><span class="t" lang="ko">유튜브 (디카폐인)</span></a>
       <a href="#contact"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></a>
     </nav>
     <button id="langtoggle" class="langtoggle" type="button" aria-label="Switch language / 언어 전환">한국어</button>

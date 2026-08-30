@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lambency — Engagements &amp; Pricing</title>
+<title>Lambency — Engagements</title>
 <meta name="description" content="Productized data & AI engagements: fixed scope, measured results, transferred to your team. Four to eight weeks, a working system, and the numbers to prove it.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <!-- Open Graph / 링크 공유 미리보기 -->
@@ -176,6 +176,14 @@ nav a.nav-insights .dot{
   70%{box-shadow:0 0 0 7px rgba(232,180,88,0)}
   100%{box-shadow:0 0 0 0 rgba(232,180,88,0)}
 }
+nav a{white-space:nowrap}
+nav a.nav-tool{color:#8FC7BC}
+nav a.nav-tool::after{background:linear-gradient(90deg,#4E8C80,transparent)}
+nav a.nav-tool .dot{background:#8FC7BC;animation:none;box-shadow:none}
+nav a.nav-yt{color:#E8938A}
+nav a.nav-yt::after{background:linear-gradient(90deg,#B5544A,transparent)}
+nav a.nav-yt .dot{background:#E8938A;animation:none;box-shadow:none}
+
 @media(prefers-reduced-motion:reduce){ nav a.nav-insights .dot{animation:none} }
 @media(max-width:900px){ html[data-lang="ko"] nav a{font-size:13px} }
 
@@ -433,8 +441,8 @@ html[data-lang="ko"] blockquote{
       <a href="engagements.html" aria-current="page"><span class="t" lang="en">Engagements</span><span class="t" lang="ko">서비스</span></a>
       <a href="index.html#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
       <a class="nav-insights" href="blog/index.html" title="매주 한 편"><span class="dot"></span><span class="t" lang="en">Insights (DeepCaffein)</span><span class="t" lang="ko">인사이트 (DeepCaffein)</span></a>
-    <a href="blog/where.html">동네 월세·상권</a>
-      <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener" title="데이터로 까보는 세상, 디카폐인"><span class="t" lang="en">YouTube (Decaff)</span><span class="t" lang="ko">유튜브 (디카폐인)</span></a>
+      <a class="nav-insights nav-tool" href="blog/where.html" title="동네를 고르면 월세가 먼저 — 상가 임대료 부담률까지 (hicce 화면 그대로)"><span class="dot"></span><span class="t" lang="en">Rent &amp; Area</span><span class="t" lang="ko">동네 월세·상권</span></a>
+      <a class="nav-insights nav-yt" href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener" title="데이터로 까보는 세상, 디카폐인"><span class="dot"></span><span class="t" lang="en">YouTube (Decaff)</span><span class="t" lang="ko">유튜브 (디카폐인)</span></a>
       <a href="index.html#contact"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></a>
     </nav>
     <button id="langtoggle" class="langtoggle" type="button" aria-label="Switch language / 언어 전환">한국어</button>
@@ -444,7 +452,7 @@ html[data-lang="ko"] blockquote{
 <main>
   <section style="padding-top:clamp(140px,20vh,220px)">
     <div class="wrap">
-      <p class="sec-label reveal in">Pacta <i class="t" lang="en">· Engagements &amp; Pricing</i><i class="t" lang="ko">· 상품과 가격</i></p>
+      <p class="sec-label reveal in">Pacta <i class="t" lang="en">· Engagements &amp; Scope</i><i class="t" lang="ko">· 상품과 형태</i></p>
       <h1 class="t reveal in" lang="en">Not a deck.<br><em>A system that runs.</em></h1>
       <h1 class="t reveal in" lang="ko">보고서가 아니라,<br><em>돌아가는 시스템.</em></h1>
       <p class="lede t reveal in" lang="en">It does not end with a report. A system that ships, that your team continues to use, with the results proven in numbers — and ongoing support where you want it.</p>
