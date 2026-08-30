@@ -1199,3 +1199,31 @@ ls m/<번호>.html                                               # 존재
   **교훈: 「내렸다」는 라이브 응답이 아니라 원격 트리로 확인한다.** 캐시 탓하기 전에 트리를 본다.
   · 해결: 발행 전 원고는 `.staged/`(gitignore)로 옮기고 `git rm` 으로 실제 삭제. 파일은 보존되고
     리포에서만 사라진다. 발행일에 `.staged/` 에서 제자리로 복사 후 `git add`.
+
+## 2026-08-28 (７) — 상권분석 탭 트래킹: Cloudflare 로 된다. 단 두 층을 갈라야 한다
+
+카프: *"상권분석도 트래킹을 해야 하는데 그것도 클라우드플레어 쪽에서 할 수 있는 거야?"*
+
+**실측한 현황**
+· 사이트는 **Cloudflare Web Analytics** 를 쓴다(비콘 토큰 `41e57f5b…`). 수집 → 보고 파이프라인이
+  이미 있다: `tools/daily_analytics.py`(CF GraphQL `rumPageloadEventsAdaptiveGroups`, 차원 =
+  `date · requestPath · refererHost · countryName · deviceType · userAgentOS · bot`) →
+  `tools/blog_report.py` 가 재사용 → launchd `com.lambency.blog-report-9` 로 슬랙 보고.
+· 🔴 **`blog/sangkwon.html` 에만 비콘이 없었다.** index·본문·m 스텁엔 다 있는데 탭만 빠졌다 —
+  카프가 만든 새 페이지라 템플릿을 안 거쳤다. **방문 자체가 안 잡히고 있었다.**
+· 🔴 그리고 **업종을 골라도 URL 이 안 바뀌었다.** CF Web Analytics 는 «경로» 만 센다(커스텀
+  이벤트 API 가 없다). 즉 「탭에 몇 명 왔나」는 세도 **「무슨 업종을 봤나」는 원리적으로 못 센다.**
+
+**한 것 — 두 층**
+1. **비콘 삽입** → 이제 `/blog/sangkwon.html` 방문이 기존 리포트에 자동으로 들어온다. 코드 0줄 추가.
+2. **업종 선택을 URL 해시로** (`location.hash = 업종명`). 해시가 바뀌면 CF 가 SPA 경로 변경으로
+   잡아 `requestPath` 에 `#커피-음료` 가 남는다. **커스텀 이벤트 스크립트를 새로 붙이는 것보다
+   싸고 덜 깨진다** — 덤으로 ①링크 공유·북마크 ②뒤로가기가 동작한다.
+   · `replaceState` 가 아니라 `location.hash` 를 쓴 이유: replaceState 는 히스토리를 안 늘리지만
+     **CF 도 못 본다.** 목적이 계측이므로 hash 여야 한다.
+   · 진입 시 해시 복원 + `hashchange` 양방향 동기화. 실측 확인: `#치킨전문점` 진입 → 셀렉트가
+     치킨전문점 · 셀렉트를 커피로 바꾸면 → 해시가 `#커피-음료` 로.
+
+**남는 한계 (정직하게)**: CF Web Analytics 는 이벤트 API가 없어 «몇 초 봤나 · 스크롤 · 정렬 변경»
+은 못 잰다. 그게 필요해지면 선택지는 ①CF Workers + D1 로 자체 이벤트 엔드포인트 ②Plausible 류
+도입. 지금 필요한 「어느 업종이 관심을 받나」는 해시만으로 답이 나오므로 **아직 필요 없다.**

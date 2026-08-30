@@ -274,7 +274,29 @@
     EL('ind').innerHTML=names.map(function(n){
       return '<option'+(n==='커피-음료'?' selected':'')+'>'+n+'</option>'}).join('');
     EL('caveat').textContent=(j.meta.caveat||'')+' 출처: '+(j.meta.source||'');
-    EL('ind').addEventListener('change',render);
+
+    // 🔴 업종 선택을 URL 해시에 남긴다 (2026-08-28)
+    //    Cloudflare Web Analytics 는 «경로» 만 센다 — 화면 안 클릭은 안 잡힌다.
+    //    해시를 남기면 ①어느 업종이 많이 조회되는지 CF 에서 그대로 세어지고
+    //    ②사용자가 링크를 공유·북마크할 수 있고 ③뒤로가기가 동작한다.
+    //    커스텀 이벤트 스크립트를 새로 붙이는 것보다 이 편이 싸고 덜 깨진다.
+    function hashInd(){
+      try{ return decodeURIComponent((location.hash||'').replace(/^#/,'')).trim(); }
+      catch(e){ return ''; }
+    }
+    var want=hashInd();
+    if(want && names.indexOf(want)>=0) EL('ind').value=want;
+
+    EL('ind').addEventListener('change',function(){
+      // replaceState 는 히스토리를 늘리지 않는다 — 대신 CF 가 못 본다.
+      // location.hash 로 바꿔야 SPA 경로 변경으로 잡힌다.
+      location.hash=encodeURIComponent(EL('ind').value);
+      render();
+    });
+    window.addEventListener('hashchange',function(){
+      var v=hashInd();
+      if(v && names.indexOf(v)>=0 && v!==EL('ind').value){ EL('ind').value=v; render(); }
+    });
     EL('sortby').addEventListener('change',render);
     render();
   }).catch(function(){
@@ -284,5 +306,6 @@
 })();
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
 </body>
 </html>
