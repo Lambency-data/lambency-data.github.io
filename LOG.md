@@ -1355,3 +1355,14 @@ EN 동일 구조. 렌더 실측 확인.
    🔴 URL 은 채널 ID 형(youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ) —
    youtube_channel/CLAUDE.md 의 @decaf 핸들은 **404 실측**(2026-08-30). 문서가 낡았다.
    where.html 은 생성물이라 제외 — 내비 주입은 hicce 어댑터 소관.
+
+## 2026-08-30 22:41 — 내비 마감: 색·줄바꿈 (카프 스크린샷 2건)
+1. 서비스 탭에서 «동네 월세·상권» 이 두 줄로 꺾여 안 보임 — engagements 의 그 링크만
+   맨몸 <a>(클래스·스팬·nav-tool CSS 없음)였다. index 와 동일 마크업으로 맞추고
+   nav a{white-space:nowrap} 로 어절 중간 꺾임 차단 (1024·1440 오버플로 없음 실측).
+2. 유튜브 탭 색 — 제3 계열 신설: 인사이트=앰버 · 상권툴=틸(#8FC7BC) · **유튜브=머티드
+   레드(#E8938A)**. 블로그 18개 파일 내비엔 inline #B5544A.
+   🔴 사고: engagements 에 CSS 를 nav-insights **앞에** 꽂아 같은 특이도에 덮였다
+   (전부 앰버로 렌더). 순서가 곧 우선순위 — nav-insights 뒤로 옮겨 해결. 렌더 실측.
+3. 덤: «PACTA · 상품과 가격» → «상품과 형태», <title> 의 & Pricing 제거 —
+   가격을 없앤 페이지에 라벨만 남아 있었다.
