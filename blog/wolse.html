@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>동네 월세 툴 — 동네를 고르면 월세가 보인다 | Lambency</title>
 <meta name="description" content="서울 336개 법정동의 평형별 월세 실거래 중위값, 상가가 매출의 몇 %를 임대료로 내는지, 사람이 몇 시에 있는지를 한 화면에 폅니다. 상권 이름이 낡아 삼성동이 조용히 빠져 있었고, 폐업률만 보면 뜻이 뒤집힙니다 — 무엇을 고쳐야 쓸 수 있는 숫자가 되는지 함께 적었습니다.">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="ko_KR">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/blog/style.css">
 <style>
 /* 동네 월세 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
 .tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
@@ -128,7 +128,7 @@
 <body>
 
 <header>
-  <a class="brand" href="../index.html" aria-label="Lambency home">
+  <a class="brand" href="/index.html" aria-label="Lambency home">
     <svg viewBox="0 0 132 132" aria-hidden="true">
       <g transform="translate(66,66)">
         <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
@@ -143,17 +143,16 @@
     <span>LAMBENCY</span>
   </a>
   <nav>
-    <a href="../index.html#about">About</a>
-    <a href="../index.html#practice">Practice</a>
-    <a href="../index.html#method">Method</a>
-    <a href="../engagements.html">Engagements</a>
-    <a href="../index.html#work">Work</a>
-    <a href="index.html">Insights</a>
-    <a href="where.html">동네 월세·상권</a>
-    <a href="wolse.html" aria-current="page">동네 월세 툴</a>
-    <a href="where.html">동네 월세·상권</a>
-    <a href="../index.html#contact">Contact</a>
-    <a class="langlink" href="en/">EN</a>
+    <a href="/index.html#about">About</a>
+    <a href="/index.html#practice">Practice</a>
+    <a href="/index.html#method">Method</a>
+    <a href="/engagements.html">Engagements</a>
+    <a href="/index.html#work">Work</a>
+    <a href="/blog/index.html">Insights</a>
+    <a href="/blog/wolse.html" aria-current="page">동네 월세 툴</a>
+    <a href="/blog/where.html">동네 월세·상권</a>
+    <a href="/index.html#contact">Contact</a>
+    <a class="langlink" href="/blog/en/">EN</a>
   </nav>
 </header>
 
@@ -226,14 +225,15 @@ var D=null, M=null;
 var man=function(v){return v==null?'—':Math.round(v).toLocaleString()};
 var eok=function(v){return v>=10000?(v/10000).toFixed(1)+'억':(v||0).toLocaleString()+'만'};
 
-fetch('data/dong_brief.json').then(function(r){return r.json()}).then(function(j){
+fetch('/blog/data/dong_brief.json').then(function(r){return r.json()}).then(function(j){
   D=j.gu; M=j.meta;
   var gus=Object.keys(D).sort();
   $('gu').innerHTML=gus.map(function(g){return '<option>'+g+'</option>'}).join('');
   $('src').innerHTML='출처: '+M.source+'<br>'+M.caveat.replace(/\*\*/g,'')
     +'<br>기준 '+M.baked_at+' · '+M.n_gu+'개 구 · '+M.n_dong+'개 동';
   $('gu').value = gus.indexOf('마포구')>=0 ? '마포구' : gus[0];
-  fillDong(); render();
+  fillDong();
+  if(hashLoc().length) applyHash(); else render();   // 지정해서 들어왔으면 그 동네부터
 }).catch(function(){ $('out').innerHTML='<p class="hint">자료를 불러오지 못했습니다.</p>'; });
 
 function fillDong(){
@@ -241,8 +241,39 @@ function fillDong(){
   $('dg').innerHTML=ds.map(function(d){return '<option>'+d+'</option>'}).join('');
   if(ds.indexOf('서교동')>=0) $('dg').value='서교동';
 }
-$('gu').addEventListener('change',function(){ fillDong(); render(); });
-$('dg').addEventListener('change',render);
+/* 🔴 «어느 동네를 봤나» 를 URL 해시로 (2026-08-28) — where.html 과 같은 규칙.
+   CF Web Analytics 는 경로만 세므로, 해시가 있어야 동네별 조회가 집계된다. */
+/* 404 폴백이 넘겨준 해시, 또는 이미 예쁜 경로 — 둘 다에서 «구/동» 을 읽는다 */
+function hashLoc(){
+  try{
+    var m=location.pathname.match(/^\/blog\/wolse\/(.+)$/);
+    var raw = m ? m[1] : (location.hash||'').replace(/^#/,'');
+    return raw ? raw.replace(/\/+$/,'').split('/').map(decodeURIComponent) : [];
+  }catch(_){ return []; }
+}
+/* 🔴 CF 는 «경로» 만 센다 — 해시·쿼리는 비콘이 잘라 버린다 (2026-08-30 실측).
+   비콘 페이로드 실측: location.hash 를 바꿔도 "location":".../wolse.html" 로만 나갔다.
+   pathname 을 replaceState 로 바꾸면 그대로 실린다 — 히스토리도 안 늘어난다.
+   새로고침·공유 진입은 루트 404.html 이 받아 해시로 되돌려 준다. */
+function setPath(g,d){
+  if(!g) return;
+  var np='/blog/wolse/'+encodeURIComponent(g)+(d?'/'+encodeURIComponent(d):'');
+  if(location.pathname!==np){ try{ history.replaceState({},'',np); }catch(_){} }
+}
+$('gu').addEventListener('change',function(){
+  fillDong(); setPath($('gu').value,$('dg').value); render();
+});
+$('dg').addEventListener('change',function(){
+  setPath($('gu').value,$('dg').value); render();
+});
+function applyHash(){
+  var h=hashLoc(), g=h[0], d=h[1];
+  if(!g || !D || !D[g]) return;
+  if($('gu').value!==g){ $('gu').value=g; fillDong(); }
+  if(d && Object.keys(D[g]||{}).indexOf(d)>=0) $('dg').value=d;
+  render();
+}
+window.addEventListener('hashchange',applyHash);
 
 /* 받침 있는 말엔 «은», 없으면 «는» — «대치동 은» 처럼 뜨는 걸 막는다 */
 function eun(w){var c=String(w||'').trim().slice(-1).charCodeAt(0);
@@ -384,5 +415,6 @@ function render(){
 }
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
 </body>
 </html>
