@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 49870bffab627969 -->
+<!-- baked-from-b2c-where: 67ef072bc361e341 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -174,7 +174,7 @@
     <button id="go2">보기</button>
   </div>
   <div class="sug" id="sug2"></div>
-  <div id="out2" class="empty">자치구와 동을 고르면 월세가 나옵니다.</div>
+  <div id="out2" class="empty">동네를 고르는 중…</div>
 </section>
 
 <!-- ══ 업종으로 보기 — 기존 ══ -->
@@ -264,6 +264,17 @@ async function loadDongs(gu){
   }catch(_){ }
 }
 $('gu').addEventListener('change',e=>{ loadDongs(e.target.value); });
+
+/* 🔴 첫 화면을 비워두지 않는다 (2026-08-29) — 무엇을 얻는지 모르고 고르게 하면
+   «뭐 하는 곳인지» 가 안 읽힌다. 예시를 하나 펴 두고, 예시라고 말한다. */
+let _isSample=false;
+(async()=>{
+  const [g,d]=QUICK[0];
+  _isSample=true;
+  await loadDongs(g); $('gu').value=g; $('dg').value=d;
+  await runDong();
+  _isSample=false;
+})();
 $('go2').onclick=()=>runDong();
 $('dg').addEventListener('change',()=>{ if($('dg').value) runDong(); });
 
@@ -412,6 +423,8 @@ async function runDong(){
     html+=`<section class="sec"><h2>가게를 한다면</h2>
       <p class="empty">${(c&&c.reason)||'이 동네는 상가 자료가 얇습니다'}</p></section>`;
   }
+  if(_isSample) html='<div class="empty" style="margin:0 0 14px;padding:8px 12px;border:1px dashed var(--rule);border-radius:6px">'
+    +'<b>예시</b> — 마포구 서교동입니다. 위에서 동네를 고르면 그 동네로 바뀝니다.</div>'+html;
   $('out2').innerHTML=html;
 }
 
