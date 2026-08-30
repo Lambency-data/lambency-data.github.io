@@ -146,10 +146,25 @@
     .bur{grid-template-columns:88px 46px 1fr 46px;gap:7px} .bur .sales{display:none}
   }
 </style>
+<style>
+  :root, :root:not([data-theme="light"]), :root[data-theme="dark"]{
+    --paper:#0d0b08; --paper-2:#141109; --ink:#ece5d8; --soft:#a89e8a; --faint:#6e6552;
+    --rule:rgba(232,180,88,.16); --field:rgba(232,180,88,.05);
+    --seal:#e8b458; --seal-wash:rgba(232,180,88,.10);
+    --warn:#c98a2e; --down:#d98a6a; --up:#9ab87a;
+  }
+  body{background:var(--paper);color:var(--ink)}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;letter-spacing:.01em}
+  a{color:var(--seal)}
+</style>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:14px 20px 0;font:13px/1.6 var(--ff);">
-  <a href="index.html" style="color:var(--soft);text-decoration:none">← Lambency Insights</a>
+  <a href="/blog/index.html" style="color:var(--soft);text-decoration:none">← Lambency Insights</a>
+  <span style="color:var(--rule);margin:0 8px">·</span>
+  <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener"
+     title="데이터로 까보는 세상, 디카폐인"
+     style="color:var(--soft);text-decoration:none">유튜브 (디카폐인)</a>
   <a href="https://hicce.co.kr/?from=blog-where" target="_blank" rel="noopener"
      title="실거래로 낸 빌라·상가·꼬마빌딩 시세와 권리 진단 — 개업공인중개사 콘솔(베타)"
      style="float:right;color:var(--soft);text-decoration:none;font-size:11.5px">
@@ -216,7 +231,7 @@
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null;
-  const data=()=>_p||(_p=fetch('data/where.json?v=b8f96871daa4').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=b8f96871daa4').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){
     const u=String(url);
@@ -508,12 +523,48 @@ if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()
   따로 놀아 지금 상태로는 답이 안 나옵니다.</p>
   <p style="margin:0 0 18px">그걸 <b style="color:var(--ink)">답이 나오는 상태로 만드는 것</b>이 저희가 하는 일입니다.</p>
   <p style="margin:0">
-    <a href="../index.html?from=where#contact" style="color:var(--seal);text-decoration:none;
+    <a href="/index.html?from=where#contact" style="color:var(--seal);text-decoration:none;
        border-bottom:1px solid var(--rule);padding-bottom:2px">상담 문의 →</a>
     <span style="margin:0 10px;color:var(--rule)">·</span>
-    <a href="sangkwon.html?from=where" style="color:var(--soft);text-decoration:none;font-size:13px">이 숫자를 만들려고 고친 것 4가지</a>
+    <a href="/blog/sangkwon.html?from=where" style="color:var(--soft);text-decoration:none;font-size:13px">이 숫자를 만들려고 고친 것 4가지</a>
   </p>
 </div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function setPath(g,d){
+    if(!g) return;
+    var np='/blog/where/'+encodeURIComponent(g)+(d?'/'+encodeURIComponent(d):'');
+    if(location.pathname!==np){ try{ history.replaceState({},'',np); }catch(_){} }
+  }
+  function loc(){
+    try{
+      var m=location.pathname.match(/^\/blog\/where\/(.+)$/);
+      var raw=m?m[1]:(location.hash||'').replace(/^#/,'');
+      return raw?raw.replace(/\/+$/,'').split('/').map(decodeURIComponent):[];
+    }catch(_){ return []; }
+  }
+  function boot(){
+    var gu=$('gu'), dg=$('dg');
+    if(!gu||!dg){ return setTimeout(boot,300); }        // 화면 스크립트보다 먼저 뜰 수 있다
+    gu.addEventListener('change',function(){ setPath(gu.value,''); });
+    dg.addEventListener('change',function(){ setPath(gu.value,dg.value); });
+    function apply(){
+      var h=loc(); if(!h.length) return;
+      if(gu.value!==h[0]){ gu.value=h[0]; gu.dispatchEvent(new Event('change')); }
+      if(h[1]) setTimeout(function(){
+        if([].some.call(dg.options,function(o){return o.value===h[1]})){
+          dg.value=h[1]; dg.dispatchEvent(new Event('change'));
+        }
+      },500);
+    }
+    window.addEventListener('hashchange',apply);
+    window.addEventListener('popstate',apply);
+    setTimeout(apply,900);                              // 예시 자동로드 뒤에 덮어쓴다
+  }
+  boot();
+})();
+</script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
 </body>
 </html>
