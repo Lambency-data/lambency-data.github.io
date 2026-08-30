@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상권분석 툴 — 업종을 넣으면 동네가 보인다 | Lambency</title>
 <meta name="description" content="서울 행정동별 업종 매출·점포·폐업률·유동인구를 가게당 월매출 순으로 폅니다. 공공데이터를 그대로 쓰면 폐업률이 두 배로 부풀고 계절성이 쇠퇴로 읽힙니다 — 무엇을 고쳐야 쓸 수 있는 숫자가 되는지 함께 적었습니다.">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="ko_KR">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/blog/style.css">
 <style>
 /* 상권 인포그래픽 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
 .tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
@@ -74,7 +74,7 @@
 <body>
 
 <header>
-  <a class="brand" href="../index.html" aria-label="Lambency home">
+  <a class="brand" href="/index.html" aria-label="Lambency home">
     <svg viewBox="0 0 132 132" aria-hidden="true">
       <g transform="translate(66,66)">
         <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
@@ -89,16 +89,16 @@
     <span>LAMBENCY</span>
   </a>
   <nav>
-    <a href="../index.html#about">About</a>
-    <a href="../index.html#practice">Practice</a>
-    <a href="../index.html#method">Method</a>
-    <a href="../engagements.html">Engagements</a>
-    <a href="../index.html#work">Work</a>
-    <a href="index.html">Insights</a>
-    <a href="sangkwon.html" aria-current="page">상권분석 툴</a>
-    <a href="where.html">동네 월세·상권</a>
-    <a href="../index.html#contact">Contact</a>
-    <a class="langlink" href="en/">EN</a>
+    <a href="/index.html#about">About</a>
+    <a href="/index.html#practice">Practice</a>
+    <a href="/index.html#method">Method</a>
+    <a href="/engagements.html">Engagements</a>
+    <a href="/index.html#work">Work</a>
+    <a href="/blog/index.html">Insights</a>
+    <a href="/blog/sangkwon.html" aria-current="page">상권분석 툴</a>
+    <a href="/blog/where.html">동네 월세·상권</a>
+    <a href="/index.html#contact">Contact</a>
+    <a class="langlink" href="/blog/en/">EN</a>
   </nav>
 </header>
 
@@ -170,7 +170,7 @@
     <strong style="color:var(--ink)">여기까지가 공개 데이터로 보이는 범위입니다.</strong><br>
     이 표는 <strong>행정동 평균</strong>입니다. 같은 동 안에서도 대로변과 이면도로는 다르고, 같은 업종도 평수·층·업력에 따라 갈립니다. 카드 기준 ‘추정’ 매출이라 현금 비중이 큰 업종은 낮게 잡힙니다.<br><br>
     그 너머 — <em>우리 매장이 이 동네 평균 대비 어디에 있는지, 어느 채널이 실제로 증분을 만들었는지, 어떤 고객이 남고 어떤 고객이 떠났는지</em> — 는 <strong>귀사의 데이터로만 잴 수 있습니다.</strong> 대개 그 데이터는 여러 시스템에 흩어져 있어 지금 상태로는 답이 안 나옵니다. <strong>그걸 답이 나오는 상태로 만드는 것이 저희가 하는 일입니다.</strong>
-    <div style="margin-top:16px"><a href="../index.html#contact" style="color:var(--amber);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:2px">상담 문의 →</a></div>
+    <div style="margin-top:16px"><a href="/index.html#contact" style="color:var(--amber);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:2px">상담 문의 →</a></div>
   </div>
 
 </div>
@@ -268,35 +268,45 @@
       + (K.asc ? ' · 낮을수록 위' : '');
   }
 
-  fetch('data/sangkwon.json').then(function(r){return r.json()}).then(function(j){
+  fetch('/blog/data/sangkwon.json').then(function(r){return r.json()}).then(function(j){
     D=j;
     var names=Object.keys(j.industries).sort(function(a,b){return a.localeCompare(b,'ko')});
     EL('ind').innerHTML=names.map(function(n){
       return '<option'+(n==='커피-음료'?' selected':'')+'>'+n+'</option>'}).join('');
     EL('caveat').textContent=(j.meta.caveat||'')+' 출처: '+(j.meta.source||'');
 
-    // 🔴 업종 선택을 URL 해시에 남긴다 (2026-08-28)
-    //    Cloudflare Web Analytics 는 «경로» 만 센다 — 화면 안 클릭은 안 잡힌다.
-    //    해시를 남기면 ①어느 업종이 많이 조회되는지 CF 에서 그대로 세어지고
-    //    ②사용자가 링크를 공유·북마크할 수 있고 ③뒤로가기가 동작한다.
-    //    커스텀 이벤트 스크립트를 새로 붙이는 것보다 이 편이 싸고 덜 깨진다.
+    // 🔴 업종 선택을 URL «경로» 에 남긴다 (2026-08-30 정정)
+    //    ~~해시를 남기면 CF 에서 그대로 세어진다~~ — 틀렸다. 2026-08-30 실측:
+    //    비콘 페이로드의 "location" 은 origin+pathname 으로 정규화된다.
+    //    해시도 쿼리스트링도 잘려 나가서, 해시 방식으로는 8/28~8/30 사이
+    //    어떤 업종이 조회됐는지가 하나도 안 잡혔다 (CF 경로 목록에 sangkwon 자체가 0건).
+    //    pathname 을 replaceState 로 바꾸면 실린다 — 히스토리도 안 늘어난다.
+    //    새로고침·공유 진입은 루트 404.html 이 받아 해시로 되돌려 준다.
     function hashInd(){
-      try{ return decodeURIComponent((location.hash||'').replace(/^#/,'')).trim(); }
-      catch(e){ return ''; }
+      try{
+        var m=location.pathname.match(/^\/blog\/sangkwon\/(.+)$/);
+        var raw = m ? m[1].replace(/\/+$/,'') : (location.hash||'').replace(/^#/,'');
+        return raw ? decodeURIComponent(raw).trim() : '';
+      }catch(e){ return ''; }
+    }
+    function setPath(v){
+      if(!v) return;
+      var np='/blog/sangkwon/'+encodeURIComponent(v);
+      if(location.pathname!==np){ try{ history.replaceState({},'',np); }catch(e){} }
     }
     var want=hashInd();
     if(want && names.indexOf(want)>=0) EL('ind').value=want;
 
     EL('ind').addEventListener('change',function(){
-      // replaceState 는 히스토리를 늘리지 않는다 — 대신 CF 가 못 본다.
-      // location.hash 로 바꿔야 SPA 경로 변경으로 잡힌다.
-      location.hash=encodeURIComponent(EL('ind').value);
+      setPath(EL('ind').value);
       render();
     });
-    window.addEventListener('hashchange',function(){
+    function restore(){
       var v=hashInd();
       if(v && names.indexOf(v)>=0 && v!==EL('ind').value){ EL('ind').value=v; render(); }
-    });
+    }
+    window.addEventListener('hashchange',restore);
+    window.addEventListener('popstate',restore);
     EL('sortby').addEventListener('change',render);
     render();
   }).catch(function(){
