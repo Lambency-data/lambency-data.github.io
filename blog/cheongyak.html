@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>청약 커버리지 툴 — 내 가점이면 어떤 문이 열렸었나 | Lambency</title>
+<meta name="description" content="가점을 넣으면 최근 12개월 서울 민영 아파트 모집단위 207개 전수 기준으로, 내 점수가 커트라인을 넘겼던 모집이 몇 %였는지와 실제로 열렸던 단지·타입 목록을 보여줍니다. 무순위 경쟁률 실측까지 — 커버리지는 사후 대조이며 당첨 확률이 아닙니다.">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://lambency-data.github.io/blog/cheongyak.html">
+<meta property="og:title" content="청약 커버리지 툴 — 내 가점이면 어떤 문이 열렸었나 | Lambency">
+<meta property="og:description" content="최근 12개월 서울 청약 커트라인 207개 전수. 가점을 넣으면 열렸던 문의 비율과 목록이 나옵니다. 사후 대조이며 당첨 확률이 아닙니다.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://lambency-data.github.io/blog/cheongyak.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/style.css">
+<style>
+/* 청약 커버리지 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
+.tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
+.pick{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px}
+.pick label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);display:block;margin-bottom:8px}
+.pick input[type=number]{background:var(--bg-2);color:var(--ink);border:1px solid var(--hairline);
+  border-radius:2px;padding:11px 13px;font-family:var(--mono);font-size:18px;width:110px}
+.pick input[type=number]:focus{outline:none;border-color:var(--amber-deep)}
+.preset{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 20px}
+.preset button{background:var(--bg-2);color:var(--soft);border:1px solid var(--hairline);
+  border-radius:100px;padding:7px 14px;font-family:var(--kr);font-size:13px;cursor:pointer}
+.preset button:hover{border-color:var(--amber-deep);color:var(--ink)}
+.hint{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin:14px 0 22px;line-height:1.7}
+.big{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0 6px}
+.big .cell b{display:block;font-family:var(--serif);font-size:44px;font-weight:500;
+  color:var(--amber-hi);line-height:1.1}
+.big .cell span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint)}
+.bar{height:10px;background:var(--bg-2);border:1px solid var(--hairline);border-radius:100px;
+  overflow:hidden;margin:12px 0 4px}
+.bar i{display:block;height:100%;background:var(--amber);border-radius:100px}
+.verdict{font-family:var(--kr);font-size:15.5px;line-height:1.85;margin:16px 0 6px}
+.warn{border-left:2px solid var(--amber-deep);padding:2px 0 2px 14px;margin:20px 0;
+  color:var(--soft);font-size:14px;line-height:1.8}
+.tw{overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid var(--hairline)}
+td{padding:8px 14px 8px 0;border-bottom:1px solid var(--hairline);color:var(--soft)}
+td.s{font-family:var(--mono);color:var(--amber-hi)}
+.src{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.8;margin-top:26px}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="/index.html#about">About</a>
+    <a href="/index.html#practice">Practice</a>
+    <a href="/index.html#method">Method</a>
+    <a href="/engagements.html">Engagements</a>
+    <a href="/index.html#work">Work</a>
+    <a href="/blog/index.html">Insights (DeepCaffein)</a>
+    <a href="/blog/cheongyak.html" aria-current="page">청약 커버리지</a>
+    <a href="/blog/where.html">동네 월세·상권</a>
+    <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener" style="color:#B5544A" title="데이터로 까보는 세상, 디카폐인">유튜브 (디카폐인)</a>
+    <a href="/index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="wrap" style="max-width:860px;margin:0 auto;padding:clamp(130px,17vw,170px) 20px 60px">
+  <h1 style="font-family:var(--kr);font-size:26px;margin:6px 0 10px">청약 커버리지 — 내 가점이면 어떤 문이 열렸었나</h1>
+  <p style="color:var(--soft);font-size:15px;line-height:1.85;margin:0 0 4px">
+    가점을 넣으면, 최근 12개월 서울 민영 아파트 모집단위 <b id="nunits" style="color:var(--ink)">…</b>개
+    전수 기준으로 <strong style="color:var(--ink)">내 점수가 커트라인을 넘겼던 모집</strong>의 비율과
+    실제 목록을 보여드립니다.</p>
+  <p class="hint">사후 대조이지 당첨 확률이 아닙니다 — 같은 점수라도 동점자·물량에 따라 갈리고,
+    다음 1년은 지난 1년과 같지 않습니다.</p>
+
+  <div class="tool">
+    <div class="pick">
+      <div><label for="score">내 청약 가점 (84점 만점)</label>
+        <input type="number" id="score" min="0" max="84" step="1" value="64" inputmode="numeric"></div>
+    </div>
+    <div class="preset" aria-label="가구별 만점 프리셋">
+      <button data-s="54">혼자 산다 → 만점 54</button>
+      <button data-s="59">둘이 산다 → 만점 59</button>
+      <button data-s="64">셋이 산다 → 만점 64</button>
+      <button data-s="69">넷이 산다 → 만점 69</button>
+    </div>
+    <p class="hint">내 가점을 모르면 <a href="https://www.applyhome.co.kr" target="_blank" rel="noopener"
+      style="color:var(--soft)">청약홈</a>의 가점 계산기로 확인하세요. 위 버튼은 무주택 15년·통장
+      15년을 다 채운 가구의 만점입니다.</p>
+
+    <div class="big">
+      <div class="cell"><b id="covpct">—</b><span>문이 열려 있던 모집</span></div>
+      <div class="cell"><b id="covn">—</b><span id="covnlab">모집단위 (전체 중)</span></div>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="covbar" style="width:0%"></i></div>
+    <p class="verdict" id="verdict"></p>
+
+    <div class="warn" id="remndr"></div>
+
+    <div class="tw" id="listwrap" hidden>
+      <table>
+        <thead><tr><th>커트라인</th><th>단지</th><th>타입</th><th>구</th></tr></thead>
+        <tbody id="list"></tbody>
+      </table>
+    </div>
+    <p class="hint" id="listhint" hidden></p>
+
+    <p class="src" id="src"></p>
+  </div>
+
+  <div style="margin-top:30px;padding-top:22px;border-top:1px solid var(--hairline);
+    font-size:14px;line-height:1.85;color:var(--soft)">
+    <p style="margin:0 0 10px">이 숫자들이 어떻게 나왔고 왜 커트라인의 마디가 가족 수인지는
+      분석 글에서 다룹니다 — <a id="postlink" href="/blog/index.html"
+      style="color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:2px">Insights에서 읽기 →</a></p>
+    <p style="margin:0">여기까지가 공개 데이터로 보이는 범위입니다. 실거래 기반 비아파트
+      시세·권리 진단은 <a href="https://hicce.co.kr/?from=blog-cheongyak" target="_blank" rel="noopener"
+      style="color:var(--soft)">hicce</a>에 있습니다.</p>
+  </div>
+</main>
+
+<script>
+var $=function(id){return document.getElementById(id)};
+var D=null;
+
+/* 🔴 «어느 가점을 봤나» 를 URL 경로로 남긴다 — CF Web Analytics 는 경로만 세고
+   해시·쿼리는 비콘이 잘라 버린다 (2026-08-30 실측, where·wolse 와 동일 규칙).
+   /blog/cheongyak/<가점> · 새로고침 진입은 루트 404.html 이 해시로 되돌려 준다. */
+function setPath(s){
+  if(s==null) return;
+  var np='/blog/cheongyak/'+s;
+  if(location.pathname!==np){ try{ history.replaceState({},'',np); }catch(_){} }
+}
+function fromUrl(){
+  /* 🔴 해시가 경로보다 먼저다 — 404 폴백이 /blog/cheongyak/42 를 #42 로 되돌려 보내는데,
+     경로를 먼저 읽으면 직전 replaceState 경로가 이겨 복원이 죽는다 (2026-09-01 실측) */
+  try{
+    var h=(location.hash||'').replace(/^#/,'');
+    var m=location.pathname.match(/^\/blog\/cheongyak\/(\d{1,2})$/);
+    var v=parseInt(h!==''?h:(m?m[1]:''),10);
+    return (v>=0&&v<=84)?v:null;
+  }catch(_){ return null; }
+}
+
+function render(){
+  if(!D) return;
+  var s=Math.max(0,Math.min(84,parseInt($('score').value,10)||0));
+  var open=D.units.filter(function(u){return u.s<=s});
+  var pct=Math.round(open.length/D.units.length*100);
+  $('covpct').textContent=pct+'%';
+  $('covn').textContent=open.length;
+  $('covnlab').textContent='모집단위 ('+D.units.length+'개 중)';
+  $('covbar').style.width=pct+'%';
+  var fam=null;
+  for(var k in D.family_max) if(D.family_max[k]===s) fam=k;
+  var v='<strong style="color:var(--ink)">'+s+'점</strong>'+(fam?' — '+fam+' 가구가 무주택 15년·통장 15년을 다 채운 만점입니다.':'')+
+    ' 지난 12개월 서울에서 이 점수로 커트라인을 넘겼던 모집이 <strong style="color:var(--ink)">'+
+    open.length+'곳('+pct+'%)</strong>'+(pct<25?'뿐이었습니다.':'이었습니다.');
+  if(pct<25) v+=' 이 점수대의 현실적인 문은 가점 줄이 아니라, 가점을 안 보는 추첨 물량과 자격이 되는 특별공급입니다.';
+  else if(pct<70) v+=' 남들이 안 노리는 크기(아주 큰 집·아주 작은 집)를 고르면 문이 더 열립니다 — 실제로 최저 컷들은 전부 그런 타입이었습니다.';
+  else v+=' 웬만한 곳은 열립니다. 단, 커트라인 상위권은 사실상 서초 이야기입니다.';
+  $('verdict').innerHTML=v;
+  var R=D.remndr;
+  $('remndr').innerHTML='<b style="color:var(--ink)">무순위(줍줍)는 계획에 넣지 마세요.</b> 같은 12개월 서울 무순위는 공급 '+
+    R.supply.toLocaleString()+'가구에 신청 '+R.requests.toLocaleString()+'명 — 전체 <b style="color:var(--ink)">'+
+    R.overall+':1</b>, 최고는 1가구에 '+R.max.toLocaleString()+'명이 몰렸습니다. 전략이 아니라 복권입니다.';
+  var tb=$('list'); tb.innerHTML='';
+  if(open.length){
+    var shown=open.slice(-40).reverse();   // 내 점수에 가까운(높은 컷) 순
+    shown.forEach(function(u){
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td class="s">'+u.s+'점</td><td style="color:var(--ink)">'+u.n+'</td><td>'+u.t+'</td><td>'+u.g+'</td>';
+      tb.appendChild(tr);
+    });
+    $('listwrap').hidden=false;
+    $('listhint').hidden=false;
+    $('listhint').textContent=(open.length>40?'열렸던 '+open.length+'곳 중 커트라인이 높은 40곳만 표시. ':'열렸던 모집 전부입니다. ')+
+      '커트라인이 내 점수에 가까울수록 아슬아슬했던 문입니다.';
+  }else{
+    $('listwrap').hidden=true; $('listhint').hidden=false;
+    $('listhint').textContent='이 점수로 열렸던 일반공급 모집이 없습니다 — 아래 무순위 항목과 추첨 물량을 보세요.';
+  }
+  setPath(s);
+}
+
+fetch('/blog/data/cheongyak.json').then(function(r){return r.json()}).then(function(j){
+  D=j;
+  $('nunits').textContent=j.meta.n_units;
+  $('src').textContent='출처: '+j.meta.source+' · 창 '+j.meta.window[0]+'~'+j.meta.window[1]+
+    ' · 기준 '+j.meta.baked_at+' · '+j.meta.caveat;
+  var u=fromUrl();
+  if(u!=null) $('score').value=u;
+  render();
+}).catch(function(){ $('verdict').textContent='자료를 불러오지 못했습니다.'; });
+
+$('score').addEventListener('input',render);
+document.querySelectorAll('.preset button').forEach(function(b){
+  b.addEventListener('click',function(){ $('score').value=b.dataset.s; render(); });
+});
+window.addEventListener('popstate',function(){ var u=fromUrl(); if(u!=null){ $('score').value=u; render(); } });
+window.addEventListener('hashchange',function(){ var u=fromUrl(); if(u!=null){ $('score').value=u; render(); } });
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>

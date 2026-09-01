@@ -30,7 +30,7 @@
    그 주소로 새로고침·공유 진입하면 실제 파일이 없어 여기로 온다. 해시에 실어 툴로 돌려보낸다.
    되돌릴 때 예쁜 경로로 다시 안 바꾼다 — 그러면 같은 동네가 두 번 세어진다. */
 (function(){
-  var TOOLS = {wolse:1, where:1, sangkwon:1};
+  var TOOLS = {wolse:1, where:1, sangkwon:1, cheongyak:1};
   var m = location.pathname.match(/^\/blog\/([a-z]+)\/(.+)$/);
   if (m && TOOLS[m[1]]) {
     location.replace('/blog/' + m[1] + '.html#' + m[2].replace(/\/+$/, ''));
