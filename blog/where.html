@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: a58e643018a328e8 -->
+<!-- baked-from-b2c-where: c1fbed42d4df691f -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -6,14 +6,93 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
+<link rel="canonical" href="https://lambency-data.github.io/blog/where.html">
 <title>동네 월세·상권 — hicce 미리보기 | Lambency</title>
 <meta name="description" content="동네를 고르면 월세가 먼저 나옵니다. 가게를 볼 생각이면 매출의 몇 %가 월세로 나가는지도 함께 봅니다. hicce 화면 그대로, 분기 스냅샷으로 돕니다.">
-<link rel="icon" type="image/svg+xml" href="/static/brand/hicce-mark.svg"><!-- 시트 148: favicon 404 -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA4MCA4MCc+PHJlY3QgeD0nNCcgeT0nNCcgd2lkdGg9JzcyJyBoZWlnaHQ9JzcyJyByeD0nMjAnIGZpbGw9JyMxNDMyNTQnLz48ZyBmaWxsPSdub25lJyBzdHJva2U9JyNkOWI0NWMnIHN0cm9rZS13aWR0aD0nNCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJz48cGF0aCBkPSdNMzEgNjIgTDM2IDMxIEw0NCAzMSBMNDkgNjIgWicvPjxwYXRoIGQ9J00yNiA2MiBMNTQgNjInLz48cGF0aCBkPSdNMzUgMzEgTDQ1IDMxJy8+PHBhdGggZD0nTTM0IDIxIEw0MCAxMyBMNDYgMjEgWicvPjxyZWN0IHg9JzM1JyB5PScyMScgd2lkdGg9JzEwJyBoZWlnaHQ9JzknLz48L2c+PGcgc3Ryb2tlPScjZDliNDVjJyBzdHJva2Utd2lkdGg9JzMnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCc+PHBhdGggZD0nTTQwIDEyIEwzMiA2Jy8+PHBhdGggZD0nTTQwIDEyIEw0OSA4Jy8+PC9nPjxjaXJjbGUgY3g9JzQwJyBjeT0nMTAnIHI9JzMnIGZpbGw9JyNmMmQ5OGEnLz48L3N2Zz4K"><!-- 시트 148: favicon 404 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Newsreader:opsz,wght@6..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>/* inlined b2c-brand.css */
+/* b2c-brand.css — hicce B2C 공통 브랜드층 (2026-09-07 리디자인 핸드오프 반영)
+   근거: docs/design/B2C_디자인_기능명세.md §6 + design_handoff_hicce_b2c/README.md
+   🔴 색·서체는 여기 토큰만 쓴다. 화면마다 다시 정의하면 또 갈린다(9/1 리스킨 때 실제로 갈렸다). */
+:root{
+  --paper:#FAF9F6; --ink:#1D232B; --soft:#6B7480; --faint:#98A0AA;
+  --rule:#E6E3DB; --field:#F1EFE9; --seal:#1F3A5F; --seal-wash:#EEF2F7;
+  --warn:#9C6B12; --warn-wash:#FBF3E0; --down:#B33A3A; --up:#1F6F45;
+  --gold:#CDA15F; --lamp:#E7CF8F; --glow:#F3C47C; --glow-in:#FFF6E0;
+  --ff:'Pretendard Variable',Pretendard,"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+  --fs:Newsreader,'Times New Roman',serif;          /* 로고 글자 전용 */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--ff);
+     -webkit-font-smoothing:antialiased;min-height:100svh;overflow-x:hidden}
+a{color:var(--warn);text-decoration:none}
+a:hover{color:#7A5310}
+
+/* ── 로고 락업 ─────────────────────────────────────────────────────────
+   메인 로고: h + 등대 + cce + 마침표 자리의 돛배. 글자는 Newsreader 500.
+   램프 뒤 후광 하나만 — 로고 뒤 원형 블롭은 만들지 않는다(핸드오프 §07). */
+.lockup{position:relative;display:flex;align-items:flex-end}
+.lockup .w{position:relative;display:inline-flex;align-items:flex-end}
+.lockup .t{font:500 var(--logo-size,34px)/1 var(--fs);letter-spacing:-.025em;color:var(--ink)}
+.lockup .lh{position:relative;display:block;width:calc(var(--logo-size,34px)*.42);
+            height:calc(var(--logo-size,34px)*1.08);margin:0 0 calc(var(--logo-size,34px)*.22)}
+.lockup .lh .halo{position:absolute;left:calc(50% - 15px);top:-13px;width:30px;height:30px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,246,224,.85) 0%,rgba(243,196,124,.34) 26%,rgba(230,175,124,0) 72%)}
+.lockup .lh svg{position:relative;width:100%;height:100%;display:block}
+.lockup .boat{position:relative;display:block;width:calc(var(--logo-size,34px)*.34);
+  height:calc(var(--logo-size,34px)*.31);margin:0 0 calc(var(--logo-size,34px)*.26) 5px;transform:rotate(-7deg)}
+.lockup .boat svg{width:100%;height:100%;display:block}
+
+/* ── 헤더·푸터 ──────────────────────────────────────────────────────── */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:clamp(14px,2.2vw,20px) clamp(18px,4vw,44px);border-bottom:1px solid #EFE7D8}
+.hd .left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hd .tag{padding-left:14px;border-left:1px solid var(--rule);font:400 12px/1.6 var(--ff);color:var(--ink)}
+.hd nav{display:flex;gap:clamp(12px,2vw,20px);font:500 12.5px var(--ff);color:var(--soft);flex-wrap:wrap}
+.hd nav a{color:var(--soft)}
+.hd nav a:hover,.hd nav a.on{color:var(--ink)}
+.ft{border-top:1px solid var(--rule)}
+.ft div{max-width:1040px;margin:0 auto;padding:16px clamp(18px,4vw,40px);
+        font:400 11.5px/1.6 var(--ff);color:var(--soft)}
+
+/* ── 타이포 스케일 ──────────────────────────────────────────────────── */
+.eyebrow{font:500 11px/1 var(--fm);letter-spacing:.24em;color:var(--soft)}
+h1.big{font:300 clamp(32px,5.6vw,56px)/1.26 var(--ff);letter-spacing:-.05em;text-wrap:balance}
+h1.big b{font-weight:600}
+h1.pg{font:600 clamp(24px,3.4vw,32px)/1.3 var(--ff);letter-spacing:-.04em;text-wrap:balance}
+.lede{font:400 clamp(14px,1.5vw,15.5px)/1.85 var(--ff);color:var(--ink);max-width:540px}
+.num{font-family:var(--fm);font-variant-numeric:tabular-nums}
+
+/* ── 버튼·칩 ────────────────────────────────────────────────────────── */
+.pill{padding:13px 26px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);
+      font:600 13.5px var(--ff);cursor:pointer;transition:background .15s}
+.pill:hover{background:#000}
+.pill.ghost{background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
+.pill.ghost:hover{background:var(--field)}
+.pill[disabled]{background:var(--field);color:var(--soft);cursor:not-allowed}
+
+/* ── 신호등 (이모지 아님 — CSS 원형 점) ─────────────────────────────── */
+.gdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--soft);
+      vertical-align:-1px;margin-right:7px;flex:none}
+.gdot.up{background:var(--up)} .gdot.warn{background:var(--warn)} .gdot.down{background:var(--down)}
+
+/* ── 폭·표 ─────────────────────────────────────────────────────────── */
+.wrap{max-width:760px;margin:0 auto;padding:clamp(26px,5vw,44px) clamp(18px,4vw,40px) 40px;width:100%}
+.wrap.wide{max-width:1040px}
+.wrap.narrow{max-width:420px}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%}
+th,td{word-break:keep-all}
+
+</style>
 <style>
   /* ★ 2026-09-01 소비자 리스킨 — 랜딩과 같은 웜 라이트 팔레트로 고정(다크 추종 제거). */
   :root{
@@ -105,9 +184,9 @@
   /* 유리/불리 — 카프: *"위험한 업종도 있으면 더 좋을것 같은데"*
      🔴 «위험» 이라 쓰지 않는다. 폐업률은 매출과 무관했다(+0.04) — 매출이 낮게 잡히는 것과
      망하는 것은 다른 말이고, 뒤쪽은 우리 데이터로 못 말한다. 그 단서를 화면이 달고 있어야 한다. */
-  .fa{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline;
+  .fa{display:grid;grid-template-columns:max-content 1fr;gap:10px;align-items:baseline;   /* 2026-09-05 카프: 라벨이 «유리/한 업/종» 으로 세로 깨짐 — 라벨 폭을 내용에 맞춘다 */
     padding:9px 0;border-top:1px solid var(--rule);font-size:12.5px}
-  .fa .lb{font-weight:500;font-size:11.5px}
+  .fa .lb{font-weight:500;font-size:11.5px;white-space:nowrap;word-break:keep-all}
   .fa .lb.g{color:var(--up)} .fa .lb.b{color:var(--warn)}
   .fa .li{color:var(--ink)} .fa .li em{font-style:normal;color:var(--faint);font-size:11px}
   @media (max-width:520px){ .stand{grid-template-columns:76px 92px 1fr;gap:7px;font-size:12px} }
@@ -147,6 +226,35 @@
     .rentrow{grid-template-columns:88px 1fr 104px;gap:8px}
     .bur{grid-template-columns:88px 46px 1fr 46px;gap:7px} .bur .sales{display:none}
   }
+
+  /* 🔴 2026-09-03 모바일 — iOS 는 입력 폰트가 16px 미만이면 포커스 때 화면을 강제 줌한다
+     (실측: cash·inc 15px · rent 13.3px · join 전 필드 15px). 입력류는 16px 을 바닥으로. */
+  input:not([type=checkbox]):not([type=file]):not([type=radio]), select, textarea{font-size:16px}
+  /* 이 자리에 넣을 업종 (2026-09-07) */
+  table.pk{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+  table.pk th{text-align:left;font-weight:500;font-size:11px;color:var(--faint);letter-spacing:.04em;padding:0 8px 6px 0;border-bottom:1px solid var(--rule,#E6E3DB);white-space:nowrap}
+  table.pk td{padding:8px 8px 8px 0;border-bottom:1px solid var(--rule,#E6E3DB);vertical-align:top}
+  table.pk td.n{text-align:right;white-space:nowrap}
+  table.pk .pkfl{font-size:11px;color:var(--faint);margin-left:6px}
+  table.pk .pkexp{color:var(--faint)}
+  table.pk td.pkhint{font-size:11.5px;color:var(--warn,#9C6B12);padding-top:0;white-space:normal}
+  table.pk tr.pkhr td{border-bottom:1px solid var(--rule,#E6E3DB)} table.pk tr:has(+tr.pkhr) td{border-bottom:0}
+  table.pk td:first-child{min-width:6.5em;word-break:keep-all}
+  #pickSec{overflow:hidden}
+
+  /* 이 동네 가게, 한눈에 (2026-09-07) */
+  .ovg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin:2px 0 12px}
+  .ovc{border:1px solid var(--rule);border-radius:10px;padding:12px 13px;background:var(--paper)}
+  .ovt{font-size:12px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:7px}
+  .ovt::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--soft);flex:none}
+  .ovt.up::before{background:var(--up,#1F6F45)} .ovt.dn::before{background:var(--down,#B33A3A)}
+  .ovb{margin-top:7px;font-size:12.5px;line-height:1.75;word-break:keep-all}
+  .ovb b{font-weight:600} .ovb i{font-style:normal;color:var(--soft);font-size:11.5px}
+  .ovs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px;
+       padding:11px 13px;background:var(--field);border-radius:10px}
+  .ovs span{display:flex;flex-direction:column;gap:3px}
+  .ovs i{font-style:normal;font-size:11px;color:var(--soft)}
+  .ovs b{font-family:var(--fm);font-size:15px;font-weight:500}
 </style>
 <style>
   :root, :root:not([data-theme="light"]), :root[data-theme="dark"]{
@@ -164,6 +272,9 @@
 <div style="max-width:860px;margin:0 auto;padding:14px 20px 0;font:13px/1.6 var(--ff);">
   <a href="/blog/index.html" style="color:var(--soft);text-decoration:none">← Lambency Insights</a>
   <span style="color:var(--rule);margin:0 8px">·</span>
+  <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener"
+     title="데이터로 까보는 세상, 디카폐인"
+     style="color:var(--soft);text-decoration:none">유튜브 (디카폐인)</a>
   <a href="https://hicce.co.kr/?from=blog-where" target="_blank" rel="noopener"
      title="실거래로 낸 빌라·상가·꼬마빌딩 시세와 권리 진단 — 개업공인중개사 콘솔(베타)"
      style="float:right;color:var(--soft);text-decoration:none;font-size:11.5px">
@@ -172,22 +283,27 @@
 </div>
 
 <!-- 시트 148: 로고·홈 링크가 없어 브라우저 뒤로가기 외엔 메인으로 못 갔다 -->
-<div style="font-size:24px;margin:0 0 4px">
-  <a href="/b2c" aria-label="hicce 홈으로" style="color:var(--ink);text-decoration:none"
-     ><svg style="height:.803em;vertical-align:-.0107em;overflow:visible" viewBox="0 -1623 5425 1645" aria-hidden="true">
-<g transform="scale(1 -1)">
-<path transform="translate(0.0 0)" fill="currentColor" d="M412 628C412 772 500 854 624 854C748 854 820 774 820 640V0H1116V692C1116 948 966 1100 740 1100C576 1100 466 1022 416 896H404V1448H116V0H412Z"/>
-<g transform="translate(1134.3 1767.4) scale(24.0133 -24.0133)" fill="none" stroke="#cda15f" stroke-linecap="round" stroke-linejoin="round">
-  <g stroke-width="1.7"><path d="M15 16 L-22 34"/><path d="M15 16 L150 60"/></g>
-  <g stroke-width="3.4"><path d="M9 72 L12.5 36 L17.5 36 L21 72 Z"/><path d="M5 72 L25 72"/><path d="M11.5 36 L18.5 36"/><path d="M10.5 24 L15 15 L19.5 24 Z"/><rect x="12" y="24" width="6" height="7"/></g>
-  <g stroke-width="1.7"><path d="M15 13 L8.5 6"/><path d="M15 13 L25 10.5"/></g>
-  <circle cx="15" cy="12" r="2.4" fill="#e7cf8f" stroke="none"/>
-</g>
-<path transform="translate(1761.0 0)" fill="currentColor" d="M604 -22C892 -22 1072 148 1086 394H808C790 278 712 214 608 214C464 214 372 334 372 544C372 750 466 870 608 870C720 870 790 796 808 688H1086C1074 936 884 1100 604 1100C274 1100 72 872 72 540C72 208 272 -22 604 -22Z"/>
-<path transform="translate(2823.0 0)" fill="currentColor" d="M604 -22C892 -22 1072 148 1086 394H808C790 278 712 214 608 214C464 214 372 334 372 544C372 750 466 870 608 870C720 870 790 796 808 688H1086C1074 936 884 1100 604 1100C274 1100 72 872 72 540C72 208 272 -22 604 -22Z"/>
-<path transform="translate(3885.0 0)" fill="currentColor" d="M608 -22C876 -22 1056 110 1098 310H816C786 244 714 200 614 200C462 200 364 302 364 466H1106V550C1106 920 882 1100 596 1100C278 1100 72 874 72 538C72 194 276 -22 608 -22ZM364 652C369 777 466 878 602 878C734 878 826 784 826 652Z"/>
-<path transform="translate(4969.0 0)" fill="var(--seal,#1F3A5F)" d="M290 -18C378 -18 456 58 456 150C456 242 378 316 290 316C196 316 120 242 122 150C120 58 196 -18 290 -18Z"/>
-</g></svg></a>
+<div style="margin:0 0 10px">
+  <a class="lockup" href="/b2c" aria-label="hicce 홈으로" style="--logo-size:clamp(24px,3vw,30px)">
+    <span class="w">
+      <span class="t">h</span>
+      <span class="lh"><span class="halo"></span><svg viewBox="0 0 24 64" aria-hidden="true">
+        <circle cx="12" cy="7.2" r="6.4" fill="#F3C47C" fill-opacity=".45"></circle>
+        <circle cx="12" cy="7.2" r="3.6" fill="#FFF6E0"></circle>
+        <rect x="11.1" y="10.2" width="1.8" height="4.4" fill="#1D232B"></rect>
+        <path d="M10.1 14.4 C10.1 14.4 9.3 38 8.2 60.2 L15.8 60.2 C14.7 38 13.9 14.4 13.9 14.4 Z" fill="#1D232B"></path>
+        <rect x="8.5" y="19.4" width="7" height="2" fill="#FAF9F6"></rect>
+        <rect x="8.2" y="32" width="7.6" height="4.4" fill="#CDA15F" fill-opacity=".42"></rect>
+        <path d="M5.8 60.2 H18.2 v3.6 H5.8 Z" fill="#1D232B"></path>
+      </svg></span>
+      <span class="t">cce</span>
+    </span>
+    <span class="boat"><svg viewBox="0 0 24 22" aria-hidden="true">
+      <path d="M13.4 3 C17.6 6.4 19.4 9.8 19.8 13 L13.4 13 Z" fill="#1F3A5F"></path>
+      <path d="M10.9 6 C8.4 8.2 7.2 10.6 6.8 13 L10.9 13 Z" fill="#1F3A5F" fill-opacity=".7"></path>
+      <path d="M3.4 14.4 H21.2 C20 17.6 17.4 19.4 12.3 19.4 C7.2 19.4 4.6 17.6 3.4 14.4 Z" fill="#1F3A5F"></path>
+    </svg></span>
+  </a>
 </div>
 <h1>동네 월세·상권</h1>
 <p class="lead">동네를 고르면 <b>월세가 얼마인지</b> 먼저 보여드립니다.
@@ -277,6 +393,20 @@
 })();
 </script>
 <script>
+/* 🔒 세션 만료 처리 (2026-09-07). 화면 자체는 서버 미들웨어가 302 로 막는다.
+   보는 중에 세션이 끊기면 API 만 401 이 나 카드가 빈 채로 남는다 — 그때 로그인으로 보낸다.
+   (인증 API 는 제외 — 로그인 실패 응답까지 가로채면 화면이 무한히 튄다.) */
+(function(){ var _f = window.fetch;
+  window.fetch = function(){ var a = arguments;
+    return _f.apply(this, a).then(function(r){
+      try{ var u = (typeof a[0]==='string') ? a[0] : ((a[0]&&a[0].url)||'');
+        if(r.status===401 && u.indexOf('/api/b2c/')>=0 && u.indexOf('/auth/')<0){
+          location.href = '/b2c/login?next=' + encodeURIComponent(location.pathname+location.search+location.hash);
+        } }catch(_){}
+      return r; }); };
+})();
+</script>
+<script>
 const $=id=>document.getElementById(id);
 const eok=v=>v>=10000?(v/10000).toFixed(1)+'억':(v||0).toLocaleString()+'만';
 const man=v=>(v==null?'—':Math.round(v).toLocaleString());
@@ -347,14 +477,68 @@ let _seq=0;
 /* 부담률 색 — 글로 «높다» 라고 쓰지 않는다. 색이 판정이다.
    경계는 감이 아니라 소상공인 임대료 부담 통설(10% 이하 여유 · 20% 넘으면 빠듯)에 맞췄다. */
 function burClass(p){ return p<10?'lo':p<20?'mid':p<30?'hi':'top'; }
+let _VACANCY=null;   /* 상가 섹션이 채우고 결론 카드가 쓴다 */
 
+
+/* ── 이 동네 가게, 한눈에 (2026-09-07 리디자인 04) ──
+   표를 읽기 전에 결론부터. 네 칸은 «현재 데이터에서만» — 없으면 그 칸은 «—» 로 둔다. */
+function overviewHTML(o, vacancy){
+  if(!o || !o.ok) return '';
+  const pc=v=>v==null?'—':(v>0?'+':'')+v+'%';
+  const list=(arr,f)=>arr&&arr.length?arr.map(f).join(' · '):'<span class="pkhint">이 자료로는 못 읽습니다</span>';
+  const cell=(t,body,cls)=>`<div class="ovc"><div class="ovt ${cls||''}">${t}</div><div class="ovb">${body}</div></div>`;
+  const man=v=>v==null?'—':(v>=10000?(v/10000).toFixed(1)+'억':Math.round(v)+'만');
+  return `<section class="sec"><h2>이 동네 가게, 한눈에 <small>업종별 매출·개폐업으로 본 결론</small></h2>
+    <div class="ovg">
+      ${cell('늘고 있는', list(o.rising, r=>`<b>${r.industry}</b> ${pc(r.yoy_pct)}`), 'up')}
+      ${cell('줄고 있는', list(o.falling, r=>`<b>${r.industry}</b> ${pc(r.yoy_pct)}`), 'dn')}
+      ${cell('서울 평균보다 덜 접는', list(o.safer, r=>`<b>${r.industry}</b> ${r.close_rate_pct}% <i>vs ${r.seoul_pct}%</i>`), 'up')}
+      ${cell('서울 평균보다 더 접는', list(o.riskier, r=>`<b>${r.industry}</b> ${r.close_rate_pct}% <i>vs ${r.seoul_pct}%</i>`), 'dn')}
+    </div>
+    <div class="ovs">
+      <span><i>가게당 월매출 중위</i><b>${man(o.median_per_store_man)}원</b></span>
+      <span><i>새로 연 가게</i><b>${o.median_open_pct==null?'—':o.median_open_pct+'%'}</b></span>
+      <span><i>닫은 가게</i><b>${o.median_close_pct==null?'—':o.median_close_pct+'%'}</b></span>
+      <span><i>공실률</i><b>${vacancy==null?'—':vacancy+'%'}</b></span>
+    </div>
+    <p class="src">${o.note} · 업종 ${o.n_industries}개${o.quarter?` · ${String(o.quarter).slice(0,4)}년 ${String(o.quarter).slice(4)}분기`:''}</p></section>`;
+}
+
+/* ── 이 자리에 넣을 업종 (2026-09-07) ── */
+async function renderPick(gu, dg, seq){
+  let p=null;
+  try{ p=await (await fetch(`/api/b2c/dong-pick?sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`)).json(); }catch(_){}
+  if(seq!==_seq) return;
+  const sec=document.getElementById('pickSec'); if(!sec) return;
+  if(!p||!p.ok){ sec.innerHTML=`<h2>이 자리에 넣을 업종</h2><p class="src">${(p&&p.reason)||'지금은 내지 못했습니다'}.</p>`; return; }
+  const col=v=>v==null?'':(v>=5?'var(--up,#1F6F45)':v<=-15?'var(--down,#B33A3A)':'inherit');
+  const pc=v=>v==null?'—':(v>0?'+':'')+v+'%';
+  const bcls=b=>b==null?'':b<10?'lo':b<20?'mid':b<30?'hi':'top';
+  const row=c=>`<tr>
+      <td><b>${c.industry}</b><span class="pkfl">${c.floor}</span></td>
+      <td class="n">${c.stores}<span class="pkexp"> / ${Math.round(c.expected)}</span></td>
+      <td class="n">${eok(c.per_store_month_man)}</td>
+      <td class="n"><span class="pct ${bcls(c.burden_pct)}" style="display:inline-block;min-width:3.2em;text-align:center">${c.burden_pct==null?'—':c.burden_pct+'%'}</span></td>
+      <td class="n" style="color:${col(c.yoy_pct)}">${pc(c.yoy_pct)}</td>
+      <td class="n">${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</td></tr>${c.hint?`<tr class="pkhr"><td colspan="6" class="pkhint">⚠ ${c.hint}</td></tr>`:''}`;
+  sec.innerHTML=overviewHTML(p.overview, _VACANCY)+`<h2>이 자리에 넣을 업종 <small>닮은 동네엔 있는데 여기엔 부족한 것</small></h2>
+    <p class="cap" style="margin:0 0 8px">${dg}${((dg.charCodeAt(dg.length-1)-0xAC00)%28)?'과':'와'} 닮은 동네 ${p.peers.length}곳 — ${p.peers.map(x=>x.dong).join(' · ')} — 의 업종 구성대로면
+      «있어야 할 수»를 재고, 가게당 월매출·월세 부담률(1층 ${p.area_m2}㎡ 월세 ${man(p.rent_man)}만 기준)·전년 대비·폐업률로 골랐습니다.</p>
+    <div class="tw" style="overflow-x:auto"><table class="pk">
+      <thead><tr><th>업종 · 어느 층</th><th>여기 / 있어야 할 수</th><th>가게당 월매출</th><th>월세 부담률</th><th>전년 대비</th><th>분기 폐업률</th></tr></thead>
+      <tbody>${p.top.map(row).join('')}</tbody></table></div>
+    ${p.avoid&&p.avoid.length?`<p class="cap" style="margin-top:10px"><b>피할 것</b> — ${p.avoid.map(c=>`${c.industry}(${c.yoy_pct!=null?'전년 '+pc(c.yoy_pct):''}${c.burden_pct!=null?' · 부담률 '+c.burden_pct+'%':''})`).join(' · ')}</p>`:''}
+    <p class="src">${p.caveat} 자료: 카드 추정매출 ${p.quarter?String(p.quarter).slice(0,4)+'년 '+String(p.quarter).slice(4)+'분기':''} · 소상공인 상가업소 · 부동산원 «${p.sangkwon||''}» 임대료.</p>`;
+}
 async function runDong(){
   const gu=$('gu').value, dg=$('dg').value;
   if(!gu||!dg){ return; }
   const my=++_seq;
   $('out2').className=''; $('out2').innerHTML='<div class="empty">불러오는 중…</div>';
   let d=null;
-  try{ d=await (await fetch(`/api/b2c/dong-brief?sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`)).json(); }catch(_){}
+  try{ const _r=await fetch(`/api/b2c/dong-brief?sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`);
+       if(_r.status===401){ location.href='/b2c/login?next='+encodeURIComponent(location.pathname+location.hash); return; }
+       d=await _r.json(); }catch(_){}
   if(my!==_seq) return;                    // 더 새 요청이 이미 떠났다 — 이건 버린다
   if(!d||!d.ok){ $('out2').innerHTML=`<div class="empty">${dg} 은 아직 자료가 얇습니다 — 다른 동을 골라보세요.</div>`; return; }
 
@@ -476,6 +660,7 @@ async function runDong(){
       ${F.survival?`<dt>폐업률이 낮으면 안전한가</dt><dd>${F.survival}${F.survival_n?` <i style="font-style:normal;opacity:.7">(${F.survival_n})</i>`:''}</dd>`:''}
       ${F.explains?`<dt>그럼 동네를 잘 고르면 살아남나</dt><dd>${F.explains}</dd>`:''}
       </dl></details>`;
+    _VACANCY = (c.vacancy_pct==null?null:c.vacancy_pct);
     html+=`<p class="src">${c.sangkwon} 상권 공실률 ${c.vacancy_pct==null?'—':c.vacancy_pct+'%'} ·
       업종 ${c.n_industries}개${c.dropped_thin?` (매출 자료가 얇은 ${c.dropped_thin}개는 뺐습니다)`:''}<br>
       ${c.caveat.replace(/\*\*/g,'')}</p></section>`;
@@ -485,7 +670,11 @@ async function runDong(){
   }
   if(_isSample) html='<div class="empty" style="margin:0 0 14px;padding:8px 12px;border:1px dashed var(--rule);border-radius:6px">'
     +'<b>예시</b> — 마포구 서교동입니다. 위에서 동네를 고르면 그 동네로 바뀝니다.</div>'+html;
+  html+=`<section class="sec" id="pickSec"><h2>이 자리에 넣을 업종 <small>닮은 동네엔 있는데 여기엔 부족한 것</small></h2>
+    <p class="src">계산 중…</p></section>`;
   $('out2').innerHTML=html;
+  // 🔴 2026-09-07 카프: «통임대 건물에 어떤 업종이 들어가면 좋을지 — 그것만큼 좋은 컨설팅이 어딨겠어» → 따로 불러 채운다(계산이 무겁다)
+  renderPick(gu, dg, my);
 }
 
 /* ══════════ 업종으로 보기 (기존) ══════════ */
@@ -599,3 +788,14 @@ if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
 </body>
 </html>
+
+<script>/* 유입 계수 (2026-09-03) — 익명 sid(로그인 무관)·IP 미저장. 몇 명이 들어와 쓰는지만 센다 */
+(function(){try{
+  var k='hicce_sid', s=localStorage.getItem(k);
+  if(!s){ s='a'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(k,s); }
+  var u=new URLSearchParams(location.search).get('utm_source');
+  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||(u?'utm:'+u:null)});
+  if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/b2c/pv', new Blob([b],{type:'application/json'})); }
+  else{ Promise.resolve() && fetch('/api/b2c/pv',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true}).catch(function(){}); }
+}catch(e){}})();
+</script>
