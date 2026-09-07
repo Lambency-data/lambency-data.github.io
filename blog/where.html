@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: c1fbed42d4df691f -->
+<!-- baked-from-b2c-where: 3c8e046ba83b1ded -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -168,11 +168,9 @@ th,td{word-break:keep-all}
   .facts dl{margin:10px 0 0;font-size:12px;line-height:1.75}
   .facts dt{color:var(--ink);font-weight:500;margin-top:9px}
   .facts dd{margin:2px 0 0;color:var(--soft)}
-  /* 🔴 카프: *"이런것들은 그래서 지금 이제 동네별로 나오는거지?"* — 헷갈렸다는 뜻이다.
-     위쪽은 동네별, 아래쪽은 서울 전체 법칙이라 **어느 쪽인지 화면이 말해야 한다.** */
+  
   .facts .scopenote{margin:8px 0 0;font-size:11.5px;color:var(--warn);line-height:1.65}
-  /* 🔴 카프: *"전체 서울 대비 어떻다 라고… 그 안에서 이 동네에서는 뭐가 중요한지"*
-     «55만원» 만 주면 비싼지 싼지 모른다. 336개 동 안의 자리를 같이 준다. */
+  
   .rank{font-size:10.5px;color:var(--faint);font-family:var(--fm);margin-left:5px;white-space:nowrap}
   .rank.hi{color:var(--warn)} .rank.lo{color:var(--up)}
   .stand{display:grid;grid-template-columns:92px 104px 1fr;gap:9px;align-items:baseline;
@@ -181,10 +179,8 @@ th,td{word-break:keep-all}
   .stand .ps{font-family:var(--fm);font-size:11.5px}
   .stand .ps.hi{color:var(--warn)} .stand .ps.lo{color:var(--seal)}
   .stand .ind{font-size:11.5px;color:var(--soft)}
-  /* 유리/불리 — 카프: *"위험한 업종도 있으면 더 좋을것 같은데"*
-     🔴 «위험» 이라 쓰지 않는다. 폐업률은 매출과 무관했다(+0.04) — 매출이 낮게 잡히는 것과
-     망하는 것은 다른 말이고, 뒤쪽은 우리 데이터로 못 말한다. 그 단서를 화면이 달고 있어야 한다. */
-  .fa{display:grid;grid-template-columns:max-content 1fr;gap:10px;align-items:baseline;   /* 2026-09-05 카프: 라벨이 «유리/한 업/종» 으로 세로 깨짐 — 라벨 폭을 내용에 맞춘다 */
+  
+  .fa{display:grid;grid-template-columns:max-content 1fr;gap:10px;align-items:baseline;   
     padding:9px 0;border-top:1px solid var(--rule);font-size:12.5px}
   .fa .lb{font-weight:500;font-size:11.5px;white-space:nowrap;word-break:keep-all}
   .fa .lb.g{color:var(--up)} .fa .lb.b{color:var(--warn)}
@@ -255,6 +251,36 @@ th,td{word-break:keep-all}
   .ovs span{display:flex;flex-direction:column;gap:3px}
   .ovs i{font-style:normal;font-size:11px;color:var(--soft)}
   .ovs b{font-family:var(--fm);font-size:15px;font-weight:500}
+  /* 지하철 한 줄 (2026-09-07) */
+  .trrow{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;padding:11px 13px;
+         background:var(--field);border-radius:10px;font-size:13px;line-height:1.6}
+  .trrow .ic{font-size:15px;line-height:1.3}
+  .trrow .num{font-family:var(--fm)}
+  .trrow .tn{display:block;font-size:11.5px;color:var(--soft);margin-top:2px}
+  /* 유동인구 시간대 막대 (2026-09-07) */
+  .ftg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;margin-top:4px}
+  .ftc{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .ftc i{display:block;width:100%;background:var(--seal);border-radius:3px 3px 0 0;opacity:.85}
+  .ftc b{font-family:var(--fm);font-size:12px;font-weight:500}
+  .ftc span{font-size:10.5px;color:var(--soft);white-space:nowrap}
+  /* 집객시설 칩 (2026-09-07) */
+  .fcl{display:flex;flex-wrap:wrap;gap:7px}
+  .fc{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid var(--rule);
+      border-radius:999px;font-size:12px;background:var(--paper)}
+  .fc i{font-style:normal;font-family:var(--fm);font-size:12px;color:var(--seal);font-weight:500}
+  /* 층·평수 영향 (2026-09-07) */
+  .pegrp{margin-bottom:12px}
+  .pehd{font-size:11px;color:var(--faint);letter-spacing:.16em;font-family:var(--fm);margin:0 0 6px}
+  .perow{display:grid;grid-template-columns:74px 1fr 56px 44px;gap:8px;align-items:center;
+         padding:5px 0;font-size:12.5px}
+  .perow .pl{word-break:keep-all}
+  .perow .ptrack{position:relative;height:8px;background:var(--field);border-radius:4px}
+  .perow .ptrack em{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--rule)}
+  .perow .peb{position:absolute;top:0;bottom:0;border-radius:4px}
+  .perow .peb.p{background:var(--up)} .perow .peb.n{background:var(--down)}
+  .perow .pv{font-family:var(--fm);font-size:12.5px;text-align:right}
+  .perow .pv.up{color:var(--up)} .perow .pv.dn{color:var(--down)}
+  .perow .pn{font-family:var(--fm);font-size:11px;color:var(--faint);text-align:right}
 </style>
 <style>
   :root, :root:not([data-theme="light"]), :root[data-theme="dark"]{
@@ -271,10 +297,6 @@ th,td{word-break:keep-all}
 <body>
 <div style="max-width:860px;margin:0 auto;padding:14px 20px 0;font:13px/1.6 var(--ff);">
   <a href="/blog/index.html" style="color:var(--soft);text-decoration:none">← Lambency Insights</a>
-  <span style="color:var(--rule);margin:0 8px">·</span>
-  <a href="https://www.youtube.com/channel/UCWtggxEEZOr7MoDeiis51kQ" target="_blank" rel="noopener"
-     title="데이터로 까보는 세상, 디카폐인"
-     style="color:var(--soft);text-decoration:none">유튜브 (디카폐인)</a>
   <a href="https://hicce.co.kr/?from=blog-where" target="_blank" rel="noopener"
      title="실거래로 낸 빌라·상가·꼬마빌딩 시세와 권리 진단 — 개업공인중개사 콘솔(베타)"
      style="float:right;color:var(--soft);text-decoration:none;font-size:11.5px">
@@ -572,23 +594,34 @@ async function runDong(){
       + `<p class="src">${ST.note||''}</p></section>`;
   }
 
+  /* ── 🚇 지하철 (2026-09-07 중개사 요청) — 두 모드 공통이라 위에 한 줄로 ── */
+  const TR=d.transit;
+  if(TR && TR.ok){
+    html+=`<div class="trrow"><span class="ic" aria-hidden="true">🚇</span>
+      <span><b>${TR.station}</b>까지 <b class="num">${TR.dist_m}m</b>${
+        TR.n_stations_1km?` · 1km 안에 역 <b class="num">${TR.n_stations_1km}</b>곳`:''}
+      <span class="tn">${TR.basis}</span></span></div>`;
+  }
+
   /* ── 주거 월세 (본체) ── */
   const h=d.housing;
   if(h && h.ok){
     const rows=h.rows||[];
     const first=rows[0];
     const mx=Math.max(...rows.map(r=>r.monthly_man||0),1);
-    html+=`<section class="sec"><h2>집을 구한다면 <small>빌라 월세 실거래 중위</small></h2>`;
+    html+=`<section class="sec"><h2>집을 구한다면 <small>빌라 월세 실거래 · 보증금 기준을 맞춘 값</small></h2>`;
     if(first) html+=`<div class="hero"><div class="big">${man(first.monthly_man)}만원</div>
-      <div class="cap">${dg} <b>${first.band}</b> 월세입니다. 보증금은 ${man(first.deposit_man)}만원.${
+      <div class="cap">${dg} <b>${first.band}</b> · <b>보증금 ${man(first.deposit_man)}만 기준</b> 월세입니다.${
         PV['원룸 월세']!=null?` · 336개 동 중 ${rk('원룸 월세').replace(/<[^>]+>/g,'')}`:''}</div></div>`;
     html+=rows.map(r=>`<div class="rentrow">
         <span class="bd">${r.band}</span>
         <span class="track"><i style="width:${Math.max(4,(r.monthly_man||0)/mx*100)}%"></i></span>
-        <span class="val"><b>${man(r.monthly_man)}만</b><span>보증 ${man(r.deposit_man)}만 · ${r.n_wolse}건</span></span>
+        <span class="val"><b>${man(r.monthly_man)}만</b><span>보증 ${man(r.deposit_man)}만 기준 · ${r.n_monthly||r.n_wolse}건</span></span>
       </div>`).join('');
-    html+=`<p class="src">최근 ${h.months||24}개월 실거래 ${(h.n||0).toLocaleString()}건의 중위값입니다.
-      전세는 빼고 <b>월세 계약만</b> 셌습니다.</p></section>`;
+    html+=`<p class="src">최근 ${h.months||24}개월 실거래 ${(h.n||0).toLocaleString()}건. 전세는 빼고 <b>월세 계약만</b> 셌고,
+      <b>보증금 기준을 맞췄습니다</b> — 신규 계약만 보고(갱신은 5% 상한이라 시세가 아닙니다) 보증금이 큰 반전세는 뺐습니다.
+      기준을 안 맞추면 보증금 1억짜리 계약이 섞여 월세가 실제보다 낮게 나옵니다
+      (역삼동 25~40㎡ 실측: 섞으면 76만 · 기준을 맞추면 93만).</p></section>`;
   } else {
     html+=`<section class="sec"><h2>집을 구한다면</h2>
       <p class="empty">${(h&&h.reason)||'자료가 얇습니다'}</p></section>`;
@@ -670,10 +703,63 @@ async function runDong(){
   }
   if(_isSample) html='<div class="empty" style="margin:0 0 14px;padding:8px 12px;border:1px dashed var(--rule);border-radius:6px">'
     +'<b>예시</b> — 마포구 서교동입니다. 위에서 동네를 고르면 그 동네로 바뀝니다.</div>'+html;
+  /* ── 🚶 유동인구 (2026-09-07 중개사 요청) — 길 위를 지나가는 사람. 생활인구와 다른 수치다. ── */
+  const FT=d.foot;
+  if(FT && FT.ok){
+    const hmax=Math.max(...FT.hours.map(x=>x.pct),1);
+    const top=(100-FT.seoul_pct_rank)||1;
+    html+=`<section class="sec"><h2>이 앞을 지나가는 사람 <small>길단위 유동인구 · ${String(FT.quarter).slice(0,4)}년 ${String(FT.quarter).slice(4)}분기</small></h2>
+      <div class="hero"><div class="big">하루 ${(FT.day_avg||0).toLocaleString()}명</div>
+        <div class="cap">서울 425개 행정동 중 <b>상위 ${top}%</b>${FT.yoy_pct!=null?` · 작년보다 <b class="${FT.yoy_pct>0?'up':FT.yoy_pct<0?'dn':''}">${FT.yoy_pct>0?'+':''}${FT.yoy_pct}%</b>`:''}.
+          가장 붐비는 때는 <b>${FT.peak}</b>(${FT.peak_pct}%)이고 주말 비중은 <b>${FT.weekend_pct}%</b>,
+          가장 많은 나이대는 <b>${FT.top_age}</b>, 남성 ${FT.male_pct}%입니다.</div></div>
+      <div class="ftg">${FT.hours.map(x=>`<div class="ftc"><i style="height:${Math.max(6,x.pct/hmax*54)}px"></i>
+        <b>${x.pct}%</b><span>${x.label.replace(/ .*/,'')}</span></div>`).join('')}</div>
+      <div class="ovs" style="margin-top:12px">${FT.dows.map(x=>`<span><i>${x.label}</i><b>${x.pct}%</b></span>`).join('')}</div>
+      <p class="src">${FT.note} 자료: ${FT.source} · 행정동 ${FT.adong.join(' · ')}</p></section>`;
+  }
+
+  
+  const PE=d.price_effect;
+  if(PE && PE.ok){
+    const bar=v=>{const w=Math.min(50,Math.abs(v)/60*50); return `<i class="peb ${v<0?'n':'p'}" style="width:${w}%;${v<0?'right':'left'}:50%"></i>`;};
+    const row=x=>`<div class="perow"><span class="pl">${x.label}</span>
+      <span class="ptrack">${bar(x.vs_base_pct)}<em></em></span>
+      <span class="pv ${x.vs_base_pct>0?'up':x.vs_base_pct<0?'dn':''}">${x.vs_base_pct>0?'+':''}${x.vs_base_pct}%</span>
+      <span class="pn">${x.n}건</span></div>`;
+    html+=`<section class="sec"><h2>층·평수가 값을 얼마나 가르나 <small>같은 동네 빌라 매매 ㎡당 단가</small></h2>
+      ${PE.spread?`<p class="cap" style="margin:0 0 10px">이 동네에서는 <b>${PE.spread.high}</b>이 <b>${PE.spread.low}</b>보다
+        ㎡당 <b>${PE.spread.gap_pct}%</b> 비쌉니다. 같은 크기라도 층이 이만큼 가릅니다.</p>`:''}
+      ${PE.floors.length?`<div class="pegrp"><div class="pehd">층</div>${PE.floors.map(row).join('')}</div>`:''}
+      ${PE.areas.length?`<div class="pegrp"><div class="pehd">크기</div>${PE.areas.map(row).join('')}</div>`:''}
+      <p class="src">기준은 이 동네 중위 단가 <b>${(PE.base_psm||0).toLocaleString()}만원/㎡</b>(최근 ${PE.months}개월 ${PE.n.toLocaleString()}건).
+        ${PE.note} 자료: ${PE.source}.</p></section>`;
+  }
+
+  /* ── 🏢 일하는 사람 · 끌어오는 것 (2026-09-07 — 사무실·상가 자리 판단용) ── */
+  const WK=d.work, FC=d.fclty;
+  if((WK&&WK.ok)||(FC&&FC.ok)){
+    html+=`<section class="sec"><h2>여기서 일하는 사람 · 사람을 끌어오는 것
+      <small>사무실·상가 자리를 볼 때</small></h2>`;
+    if(WK&&WK.ok){
+      const top=(100-WK.seoul_pct_rank)||1;
+      html+=`<div class="ovs" style="margin-bottom:12px">
+        <span><i>직장인구</i><b>${(WK.total||0).toLocaleString()}명</b></span>
+        <span><i>서울 순위</i><b>상위 ${top}%</b></span>
+        <span><i>가장 많은 나이</i><b>${WK.top_age||'—'}</b></span>
+        <span><i>작년보다</i><b class="${WK.yoy_pct>0?'up':WK.yoy_pct<0?'dn':''}">${WK.yoy_pct==null?'—':(WK.yoy_pct>0?'+':'')+WK.yoy_pct+'%'}</b></span></div>`;
+    }
+    if(FC&&FC.ok){
+      html+=`<div class="fcl">${FC.items.map(x=>`<span class="fc"><b>${x.label}</b> <i>${x.n}</i></span>`).join('')}</div>`;
+    }
+    html+=`<p class="src">${(WK&&WK.source)||''}${WK&&WK.ok&&FC&&FC.ok?' · ':''}${(FC&&FC.source)||''}
+      · 행정동 기준 ${(WK&&WK.adong||FC&&FC.adong||[]).join(' · ')}.
+      주차·엘리베이터는 <b>건물마다 다른 값</b>이라 동네로는 내지 않습니다 — 지번을 넣으면 그 건물 대장에서 바로 나옵니다.</p></section>`;
+  }
+
   html+=`<section class="sec" id="pickSec"><h2>이 자리에 넣을 업종 <small>닮은 동네엔 있는데 여기엔 부족한 것</small></h2>
     <p class="src">계산 중…</p></section>`;
   $('out2').innerHTML=html;
-  // 🔴 2026-09-07 카프: «통임대 건물에 어떤 업종이 들어가면 좋을지 — 그것만큼 좋은 컨설팅이 어딨겠어» → 따로 불러 채운다(계산이 무겁다)
   renderPick(gu, dg, my);
 }
 
