@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Same Customer Is a Different Person in Every Ledger | Lambency</title>
+<meta name="description" content="We opened the public records of 85 consumer, F&B and hospitality companies — privacy policies, mall structures, corporate filings — and counted the paths along which one customer splits into separate ledgers. 84 of 85 (99%) had at least one. Fragmentation is layered: median two layers, two in five carry three or more — which is why one system never fixes it. With Gentle Monster we joined the ledgers and segments finally worked. Plus: how to measure your own fragmentation in five minutes today and one day on Monday.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/10-customer-ledger-split.html">
+<meta property="og:title" content="The Same Customer Is a Different Person in Every Ledger">
+<meta property="og:description" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Same Customer Is a Different Person in Every Ledger">
+<meta name="twitter:description" content="Skincare-adjacent categories trade brands at 1.2–1.4× chance; the paths into makeup sit below half of chance, every week.">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/10-customer-ledger-split.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/10-customer-ledger-split.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/10-customer-ledger-split.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/10-customer-ledger-split.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/10-customer-ledger-split.html#post",
+   "headline": "The Same Customer Is a Different Person in Every Ledger",
+   "url": "https://lambency-data.github.io/blog/en/10-customer-ledger-split.html",
+   "datePublished": "2026-09-07",
+   "dateModified": "2026-09-07",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, customer data unification, entity resolution, CDP, repeat rate, privacy policy, commerce data",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/10-customer-ledger-split.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "We opened the public records of 85 consumer, F&B and hospitality companies — privacy policies, mall structures, corporate filings — and counted the paths along which one customer s",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../10-customer-ledger-split.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 10 · Customer Data</div>
+  <h1>The same customer is a different person<br>in every ledger
+    <span class="h1sub">Customer data unification · 85 consumer/F&B/hospitality companies, public web records · public-data analysis</span>
+  </h1>
+  <div class="meta">
+    Caff · September 2026<br>
+    Data used — privacy policies, own-mall structures, notices and corporate filings of 85 companies (measured Aug–Sep 2026). Sample company names are not disclosed. <strong>Internal data: our published collaboration figures only.</strong>
+  </div>
+
+  <div class="lede">
+    <p>When I took over a retail data hub where the orders of 1.95 million
+customers and 256 brands came together, the first thing I met was not a
+fancy machine-learning model. <strong>It was the ledgers.</strong> The same
+product was scattered across half a dozen differently-spelled product names,
+and the same customer carried a different member ID on every channel. Nobody
+could answer the basic question "how many regulars do we have" — not because
+there was no number, but because <strong>there were several.</strong>
+Analysis could only begin after those ledgers were stitched into one person,
+one product.</p>
+  </div>
+
+  <h2><span class="num">01</span>What happened</h2>
+
+  <p>Was that one odd company? No — <strong>all 96 brands that passed through the hub were the same.</strong> Gentle Monster, RAWROW, Antoine Solais, Hunter. Big or small, thriving or not, the ledgers at the starting line were all in the same state. Half of the daily work at the hub was not modeling but two mappings — <strong>finding the same person, finding the same product.</strong></p>
+
+  <p>So what about outside the hub? This time, we counted.</p>
+
+  <h2><span class="num">02</span>It wasn't just me — 84 out of 85</h2>
+
+  <p>You cannot see inside a company from the street. But you can read what the company <strong>wrote down itself</strong> — the privacy policy (which must legally list the systems and processors handling customer data), the structure of its own malls, official notices, corporate registrations and filings. The sample: 85 consumer, F&B and hospitality companies, measured August–September 2026.</p>
+
+  <p>The counting is simple. For each company, we counted the paths along which one customer's records can split into separate ledgers:</p>
+
+  <p>- two or more own malls? - two or more customer-management systems? - multiple sales/booking channels? - separate legal entities per brand? - M&A history?</p>
+
+  <p>Fragmentation rate (%) = (companies with ≥1 path) ÷ 85 × 100. The result: <strong>84 of 85 companies — 99%.</strong> Inside or outside, almost everyone.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fragmentation paths">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="d" x="220" y="59.0" font-size="11" text-anchor="end">2+ own malls</text>
+<rect x="230" y="40" width="248" height="30" fill="#e8b458" opacity="0.88"/>
+<text class="a" x="486" y="59.0" font-size="12" font-weight="bold">49 · 58%</text>
+<text class="d" x="220" y="99.0" font-size="11" text-anchor="end">2+ customer systems</text>
+<rect x="230" y="80" width="228" height="30" fill="#e8b458" opacity="0.88"/>
+<text class="a" x="466" y="99.0" font-size="12" font-weight="bold">45 · 53%</text>
+<text class="d" x="220" y="139.0" font-size="11" text-anchor="end">3+ sales/booking channels</text>
+<rect x="230" y="120" width="334" height="30" fill="#e8b458" opacity="0.88"/>
+<text class="a" x="572" y="139.0" font-size="12" font-weight="bold">66 · 78%</text>
+<text class="d" x="220" y="179.0" font-size="11" text-anchor="end">separate legal entities</text>
+<rect x="230" y="160" width="152" height="30" fill="#e8b458" opacity="0.88"/>
+<text class="a" x="390" y="179.0" font-size="12" font-weight="bold">30 · 35%</text>
+<text class="d" x="220" y="219.0" font-size="11" text-anchor="end">M&A history</text>
+<rect x="230" y="200" width="46" height="30" fill="#e8b458" opacity="0.88"/>
+<text class="a" x="284" y="219.0" font-size="12" font-weight="bold">9 · 11%</text>
+<text class="t" x="10" y="250" font-size="10.5">Companies with each path, of 85 — one company can hold several at once</text>
+</svg>
+<p class="figcap">Figure 1 · Share of each fragmentation path — 85 consumer/F&B/hospitality companies, public web records</p>
+</div>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Path</th><th>Of 85</th><th>What splits</th></tr></thead>
+  <tbody><tr><td>Multiple own malls</td><td>49 (58%)</td><td>The same customer gets a different member ID per mall (up to 9 malls)</td></tr><tr><td>Multiple sales/booking channels</td><td>median 4 channels (max 11)</td><td>Revenue made by channels and revenue made by people blur together</td></tr><tr><td>Separate legal entities</td><td>30 (35%)</td><td>Ledgers cannot legally merge across brand entities</td></tr><tr><td>M&A history</td><td>9 (11%)</td><td>Systems and DBs never merged — only the closing numbers did</td></tr></tbody>
+</table>
+</div>
+
+  <p>By customer-system count, <strong>45 companies (53%) run two or more</strong>, and the maximum is <strong>17</strong> — at one hospitality group, written in its own privacy policy's processor list. When bookings arrive through six channels and customer records sit in seventeen systems, even "is this guest a repeat visitor?" has no answer.</p>
+
+  <div class="pull">
+  <p>We counted only what each company had written down about itself. Even that was enough to find fragmentation at 84 of 85.</p>
+</div>
+
+  <p>A caveat up front: these figures are a strict <strong>floor.</strong> We counted only what is publicly written, so the fragmentation that never reaches a policy page — a manager's spreadsheet, a dealer's paper roster, the legacy DB a departed employee built — is not in here. The real thing runs deeper.</p>
+
+  <h2><span class="num">03</span>Why "just buy a CDP" is wrong</h2>
+
+  <p>If one system fixed this, this piece would not exist. The measurement says the opposite — <strong>fragmentation is not one layer.</strong> Count the paths per company: only <strong>one company in 85</strong> has none, the median is <strong>two layers</strong>, and <strong>two in five (36 companies, 42%) carry three or more at once.</strong></p>
+
+  <div class="fig">
+<svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Layer distribution">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<line x1="64" y1="230" x2="660" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="233" font-size="10" text-anchor="end">0</text>
+<line x1="64" y1="176" x2="660" y2="176" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="179" font-size="10" text-anchor="end">10</text>
+<line x1="64" y1="122" x2="660" y2="122" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="125" font-size="10" text-anchor="end">20</text>
+<line x1="64" y1="68" x2="660" y2="68" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="71" font-size="10" text-anchor="end">30</text>
+<rect x="72" y="224.6" width="103" height="5.4" fill="#e8b458" opacity="0.45"/>
+<text class="d" x="124" y="219" font-size="10.5" text-anchor="middle">1</text>
+<text class="t" x="124" y="248" font-size="10.5" text-anchor="middle">0</text>
+<rect x="191" y="154.2" width="103" height="75.8" fill="#e8b458" opacity="0.88"/>
+<text class="d" x="243" y="148" font-size="10.5" text-anchor="middle">14</text>
+<text class="t" x="243" y="248" font-size="10.5" text-anchor="middle">1</text>
+<rect x="310" y="46.0" width="103" height="184.0" fill="#e8b458" opacity="0.88"/>
+<text class="d" x="362" y="40" font-size="10.5" text-anchor="middle">34</text>
+<text class="t" x="362" y="248" font-size="10.5" text-anchor="middle">2</text>
+<rect x="430" y="83.9" width="103" height="146.1" fill="#e8b458" opacity="0.88"/>
+<text class="d" x="481" y="78" font-size="10.5" text-anchor="middle">27</text>
+<text class="t" x="481" y="248" font-size="10.5" text-anchor="middle">3</text>
+<rect x="549" y="181.3" width="103" height="48.7" fill="#e8b458" opacity="0.88"/>
+<text class="d" x="600" y="175" font-size="10.5" text-anchor="middle">9</text>
+<text class="t" x="600" y="248" font-size="10.5" text-anchor="middle">4</text>
+<line x1="362" y1="42" x2="362" y2="230" stroke="#f5d489" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text class="a" x="354" y="52" font-size="11.5" font-weight="bold" text-anchor="end">median 2</text>
+<text class="d" x="124" y="205" font-size="9.5" text-anchor="middle">zero layers: just one company</text>
+<text class="d" x="660" y="268" font-size="10.5" text-anchor="end">Number of fragmentation paths per company</text>
+</svg>
+<p class="figcap">Figure 2 · Layers per company — the same 85. Zero layers: one company; two in five carry three or more</p>
+</div>
+
+  <p>One system cannot fix it because each layer needs a different remedy. Multiple malls are an ID-mapping problem; separate legal entities are a consent-and-contract problem — a legal one; acquired brands are an excavation problem, finding the customer DB left behind in someone else's system. A system purchase solves the first layer only; with the rest intact you get the familiar state of "we integrated, but the numbers don't match."</p>
+
+  <div class="pull">
+  <p>Buying a system settles the first layer. Every layer after that asks for a decision before it asks for budget.</p>
+</div>
+
+  <p>For the same reason, <strong>"our own team can just pull it" is only half right.</strong> For the first layer it is true — with someone who writes good SQL, mapping IDs across malls takes days. But the legal-entity layer does not yield to SQL. That one is a question of <strong>whether you have grounds to bring another entity's customer data over</strong>, and no amount of query skill creates grounds that aren't there. Acquisitions are the same: when nobody knows which system still holds the data, adding people to pull it changes nothing. Some layers are solved by adding hands; others require a decision before any hands are added. Start without telling them apart and you get "we've been integrating for six months."</p>
+
+  <p>And one more distinction must be drawn. <strong>There are two kinds of fragmentation.</strong> The four paths above are data you *could* join but haven't. Platform and open-market sales are a different kind. As <a href="03-health-supplement-channel-ownership.html">the supplements piece</a> put it — sell on your own mall and the buyer's ID, repeat cycle and drop-offs all land on your own server; <strong>sell on an open market and what you receive is a settlement statement.</strong> Who that customer is doesn't come late — it never comes. The larger your platform share, the more your <strong>own channels are the only window</strong> onto your customers — and the measurement above says that even that one window is fragmented at 99% of companies. Data you cannot receive is beyond help — which makes <strong>joining the data you do receive</strong> all the more urgent.</p>
+
+  <h2><span class="num">04</span>What a fragmented ledger hides</h2>
+
+  <p>The numbers aren't wrong — <strong>the questions stop being answerable.</strong></p>
+
+  <p><strong>Repeat rate breaks.</strong> Someone who buys on your mall and again on a marketplace storefront is two new customers in a split ledger. Repeat rate reads too low, new-customer inflow too high — and the marketing budget follows those wrong numbers into "acquisition."</p>
+
+  <p><strong>Segmentation breaks.</strong> RFM's F is the act of deciding "what counts as one purchase" — with purchases scattered across three ledgers, there is nothing to count. A loyal customer sits in the books as three drifters.</p>
+
+  <p><strong>Incrementality breaks.</strong> Whether an ad and a promotion hit the same customer is visible only after orders are joined per person; per-channel ledgers will never show it.</p>
+
+  <p><strong>Churn is a definition, not an event.</strong> Especially for memberships and subscriptions. Most teams pull their churn list by expiry date — but <strong>an expiry date is a calendar, not a signal.</strong> People don't leave because the term ended; the term ends after they have already left. The real signal sits earlier, in behavior: visits spacing out, same-day cancellations rising, the usual weekday shifting. And that behavior is scattered across the app, the on-site POS and the consultation notes. If a member who books in the app and pays at the counter exists as two people in two ledgers, "time between visits" cannot be computed at all. It is exactly RFM's F again — <strong>deciding what counts as churn comes before any model.</strong></p>
+
+  <p>And people are not the only thing that splits. <strong>Products split too.</strong> When the same SKU is registered under channel-specific spellings, options and bundles, neither "this product's repeat purchases" nor "this product's margin by channel" can be counted.</p>
+
+  <p>Finally, a newer casualty — <strong>there is no history for AI to use.</strong> To make an AI persona act as your customer, you have to hand it a line like "over the past year you bought this brand three times, most recently on discount." Aggregate rates will not open its mouth — a later piece in this series measures exactly that. The problem is that <strong>the line can only be written from a unified history.</strong> Split the ledgers, and there is no sentence to give.</p>
+
+  <div class="pull">
+  <p>Split ledgers do not hand you wrong numbers. They take the questions away — repeat rate, segments, incrementality, and the one line a persona needs.</p>
+</div>
+
+  <h2><span class="num">05</span>What happens when you join them</h2>
+
+  <p>We have done it. Together with Gentle Monster, we joined orders that had been arriving separately per channel into per-customer histories, and built RFM segments on top. The result was simple — <strong>click rates and revenue lined up in the exact order the segments were cut.</strong> Not because the model was clever, but because "what counts as one purchase" could finally be decided on a unified ledger. A CRM campaign run on that same foundation drove own-mall revenue to <strong>4.3×</strong> in six weeks (ROAS 5,370%, z-test verified) — not because the campaign was brilliant, but because for the first time we could see who *not* to send to.</p>
+
+  <p>The order matters. <strong>Unification comes before analysis.</strong> A model built on split ledgers is precisely wrong in proportion to its sophistication.</p>
+
+  <h2><span class="num">06</span>So what does your company actually do</h2>
+
+  <p>Two things — one check today, one experiment on Monday.</p>
+
+  <p><strong>Today: open your company's privacy policy.</strong> Exactly this piece's method. If the processor/system list runs past five lines, that list is the map of how many pieces your customer data is in. No meeting needed; five minutes.</p>
+
+  <p><strong>Monday: re-measure your repeat rate, once.</strong> Pull the last twelve months of orders from your top two channels and join them on a single identifier — a phone number is enough. Not a development project; a one-day job. The <strong>gap</strong> between that number and the repeat rate on your dashboard is the size of what fragmentation has been hiding from you. If the gap is small, relax and move on. If it is large — that gap is the ROI estimate of a unification project. Either way, you get the answer in a day.</p>
+
+  <p>Then read your company's row — each layer has a different first move.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Your company</th><th>First layer</th><th>What you do</th></tr></thead>
+  <tbody><tr><td>Runs several brand malls</td><td>ID mapping</td><td>Ask whether member DBs are separate per mall — if so, start with a phone-number mapping table</td></tr><tr><td>Sells through 3+ channels</td><td>One identifier</td><td>Check whether orders carry a channel-common customer ID — if not, fix collection first</td></tr><tr><td>Has separate entities per brand</td><td>Law & consent</td><td>Before any system: build the legal basis (consent, contracts) for moving customer data between entities</td></tr><tr><td>Has acquired brands</td><td>DB excavation</td><td>Find which system still holds the pre-acquisition customer DB — usually nobody knows</td></tr></tbody>
+</table>
+</div>
+
+  <h2><span class="num">07</span>What this piece is really saying</h2>
+
+  <p>This work is usually filed under "boring cleanup before the analysis." It is the opposite. That 84 of 85 companies are fragmented means <strong>joining is the scarcest work there is.</strong> Anyone can build a dashboard; everyone uses the same models. But confirming that the customer in three ledgers is one person is a re-architecture of the data — and the moment it lands, repeat rates, segments, incrementality and AI personas all come alive at once. That is what we sell.</p>
+
+  <p class="note">Method — 85 consumer/F&B/hospitality companies, public web
+records measured 2026-08-14 to 09-03 (privacy policies, own-mall structure,
+notices, registrations/filings). Fragmentation rate = companies with ≥1 path
+÷ 85 × 100. A floor based on public records; internal ledger fragmentation
+is not included. The sample is our research universe, not a random sample.
+Sample company names are not disclosed. Gentle Monster collaboration figures
+are as published on this site.</p>
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
