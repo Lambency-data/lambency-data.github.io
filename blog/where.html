@@ -620,7 +620,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=900d01fbffd5').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=a5db2e6453bb').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
