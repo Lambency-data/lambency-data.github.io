@@ -345,7 +345,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=16e268ed577e').then(r=>{
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=040078db4853').then(r=>{
     if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){

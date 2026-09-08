@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 8c31cd17295a4042 -->
+<!-- baked-from-b2c-where: 63c5fb9714428994 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -620,7 +620,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=e000730b30d2').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=7d9471de97fe').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -1003,7 +1003,7 @@ function lifeCards(){
     <div class="lv${v==null?' non':''}">${v==null?'—':v}</div><div class="ls">${s||''}</div></div>`;
   const bus=_fc('버스정거장');
   const subway = st!=null
-    ? card('지하철','걸어서 '+st+'분', `${T.station}${T.n_stations_500m!=null?' · 500m 안에 역 '+T.n_stations_500m+'곳':''}`)
+    ? card('지하철','걸어서 '+st+'분', `${T.station}${T.n_stations_500m>0?' · 500m 안에 역 '+T.n_stations_500m+'곳':''}`)
     : card('지하철',null,'이 동네는 역 좌표를 못 찾았습니다');
   const busc = card('버스', bus!=null?('정류장 '+_n(bus)+'곳'):null, '행정동 안 개수 · 걸어서 몇 분인지는 연결 예정');
   if(_AGE===0){
@@ -1450,7 +1450,7 @@ async function runDong(){
   if(TR && TR.ok){
     html+=`<div class="trrow"><span class="ic" aria-hidden="true">🚇</span>
       <span><b>${TR.station}</b>까지 <b class="num">${TR.dist_m}m</b>${
-        TR.n_stations_500m!=null?` · 500m 안에 역 <b class="num">${TR.n_stations_500m}</b>곳`:''}
+        TR.n_stations_500m>0?` · 500m 안에 역 <b class="num">${TR.n_stations_500m}</b>곳`:''}
       <span class="tn">${TR.basis}</span></span></div>`;
   }
 
