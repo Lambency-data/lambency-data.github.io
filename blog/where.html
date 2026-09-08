@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 8da6ded4f9828f45 -->
+<!-- baked-from-b2c-where: df7643ca7315decf -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -520,8 +520,8 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   #alertHost{display:none!important}
   /* 집 종류마다 — dong-rent-kinds 없음 */
   .kndbox{display:none!important}
-  /* 값이 «—» 인 생활 카드 — /api/sales-intel 없음 */
-  .lifec > div:has(.lv.non){display:none!important}
+  /* 생활 카드는 where_sales.json 으로 채운다(2026-09-08) — 숨기지 않는다.
+     그래도 «—» 가 남으면 그 동네에 자료가 실제로 없는 것이다. */
 </style>
 <style>
   :root, :root:not([data-theme="light"]), :root[data-theme="dark"]{
@@ -548,7 +548,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 
 <header class="hd sub">
   <a class="wordmark" href="https://hicce.co.kr/b2c?from=blog-where" aria-label="hicce 홈으로" style="--wm-size:26px">hicce<span class="dot">.</span></a>
-  <nav><a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a><a href="https://hicce.co.kr/b2c/where?from=blog-where" class="on">동네 월세·상권</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-where">전세 안심</a><a href="https://hicce.co.kr/b2c/guide?from=blog-where">사용법</a></nav>
+  <nav><a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a><a href="https://hicce.co.kr/b2c/where?from=blog-where" class="on">동네 월세·상권</a><a href="https://hicce.co.kr/b2c/cheongyak?from=blog-where">청약</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-where">전세 안심</a><a href="https://hicce.co.kr/b2c/guide?from=blog-where">사용법</a></nav>
 </header>
 <main>
 <div class="eyebrow2">주소를 몰라도 됩니다</div>
@@ -619,8 +619,11 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       축약 규칙이 굽는 쪽에만 있어 «희재에서 고치면 블로그도 따라간다» 가 깨졌다.
       변환이 없으면 갈릴 수도 없다. */
 (function(){
-  let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=c5196044175c').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  let _p=null, _ps=null;
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=034eb564d48a').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
+     집 모드만 보는 사람에게 이걸 지우지 않는다. */
+  const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){
     const u=String(url);
@@ -642,6 +645,11 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       }
       if(u.indexOf('/api/b2c/where-for-industry')===0){
         return J(D.industries[q.get('industry')] || {ok:false, rows:[]});
+      }
+      if(u.indexOf('/api/sales-intel')===0){
+        const S=await sales();
+        const rows=(((S.gu||{})[q.get('sigungu')]||{})[q.get('dong')])||[];
+        return J(rows.length ? {ok:true, rows:rows} : {ok:false, rows:[]});
       }
     }catch(e){ return J({ok:false, rows:[], error:String(e)}); }
     return J({ok:false});
@@ -1060,7 +1068,7 @@ function shopHead(){
   const names=(_ALLIND||[]).map(x=>x.industry).sort((a,b)=>a.localeCompare(b,'ko'));
   if(!_IND) _IND = names.includes('커피-음료') ? '커피-음료' : (names[0]||'');
   const c=indRow(_IND);
-  const nAll=names.length, nOk=(((_PICK||{}).all)||[]).length;
+  const nAll=names.length, nOk=names.filter(nm=>indRow(nm)).length;
   const jong=_DG?`<span class="dg">${_DG}</span>`:'';
 
   let h=`<div class="indbox">
