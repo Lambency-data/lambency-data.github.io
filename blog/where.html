@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: df7643ca7315decf -->
+<!-- baked-from-b2c-where: 7f42338c8369d400 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -516,12 +516,11 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .chips span b{color:var(--ink);font:600 12px var(--fm)}
 </style>
 <style id="blog-static-gaps">
-  /* 알림 신청 — 받을 서버가 없다 */
-  #alertHost{display:none!important}
-  /* 집 종류마다 — dong-rent-kinds 없음 */
-  .kndbox{display:none!important}
-  /* 생활 카드는 where_sales.json 으로 채운다(2026-09-08) — 숨기지 않는다.
-     그래도 «—» 가 남으면 그 동네에 자료가 실제로 없는 것이다. */
+  /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
+  [data-needs="api-post:b2c-alert"]{display:none!important}
+  /* 정적으로 못 채우는 절 */
+  [data-needs="api:dong-rent-kinds"]{display:none!important}
+  [data-needs="api:dong-pick"]{display:none!important}
 </style>
 <style>
   :root, :root:not([data-theme="light"]), :root[data-theme="dark"]{
@@ -620,7 +619,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=034eb564d48a').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=606af516e2d0').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -905,6 +904,7 @@ const P2M = 3.3058;                        /* 1평 = 3.3058㎡ */
 let _D=null, _GU='', _DG='';
 let _PY=10;            /* 집  — 찾는 크기(평) */
 let _BUD=150;          /* 가게 — 예산(월 만원) */
+let _SPY=10;           /* 가게 — 하고 싶은 크기(평). 예산과 **양방향**이다 */
 let _AGE=0;            /* 집  — 나이대 탭 */
 let _IND='';           /* 가게 — 고른 업종 */
 let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
@@ -957,15 +957,17 @@ function homeHead(){
     <p class="src">칸 안의 건수는 <b>월세 계약</b> 수입니다 — 30건이 안 되는 칸은 «—» 로 둡니다.
       보증금을 올리면 월세는 내려갑니다(그 관계는 연결 예정).</p>`;
 
-  h+=`<div class="kndbox"><h3>집 종류마다 — 같은 ${_PY}평이면</h3>`;
+  h+=`<div class="kndbox" data-needs="api:dong-rent-kinds"><h3>집 종류마다 — 같은 ${_PY}평이면</h3>`;
   if(_KINDS && _KINDS.kinds){
     h+=_KINDS.kinds.map(k=>{
       const rr=(k.rows||[]).filter(x=>x.monthly_man);
       const b=rr.length?bandOf(rr,m2):null;
       const kn=b?(b.n_monthly||0):0;
+      const why = b ? (kn<30?'표본 얇음':_n(kn)+'건')
+                    : (rr.length ? '이 크기 없음' : '이 동네 자료 없음');
       return `<div class="kndrow${(!b||kn<30)?' dim':''}"><span class="kl">${k.label}</span>
         <span class="kv">${b?_n(b.monthly_man)+'만':'—'}</span>
-        <span class="kn">${b?(kn<30?'표본 얇음':_n(kn)+'건'):'자료 없음'}</span></div>`;
+        <span class="kn">${why}</span></div>`;
     }).join('');
     h+=`<div class="kndrow dim"><span class="kl">도시형생활주택</span>
         <span class="kv">—</span><span class="kn">연결 예정</span></div>`;
@@ -974,7 +976,7 @@ function homeHead(){
   }
   h+=`<p class="src">각 종류의 <b>그 크기 구간 월세 중위</b>입니다 · 보증금 기준은 종류마다 달라
       칸 옆 건수와 함께 보세요. 도시형생활주택은 국토부가 따로 내려주지 않습니다.</p></div>
-    <a class="pill" href="https://hicce.co.kr/b2c/ask?from=blog-where">이 집 값이 궁금하시면 → hicce 시세 브리핑</a>`;
+    <a class="pill" href="https://hicce.co.kr/b2c/ask?from=blog-where">이 동네 <b>특정 집</b> 시세가 궁금하시면 → hicce 시세 브리핑</a>`;
   return h;
 }
 
@@ -1054,7 +1056,7 @@ function indRow(nm){
   const r = (_ALLIND||[]).find(x=>x.industry===nm);
   if(!r || !(r.stores>0)) return null;
   const psm = r.per_store_month_man;
-  if(!psm || psm < 200 || r.per_store_trusted === false) return null;   // dong_pick 과 같은 하한
+  if(!psm || psm < 200 || r.per_store_trusted === false) return null;
   const C = (_D&&_D.commercial)||{};
   const rent = (C.ok && C.monthly_rent_man) ? C.monthly_rent_man : null;
   return {industry: nm, stores: r.stores, expected: null,
@@ -1071,7 +1073,7 @@ function shopHead(){
   const nAll=names.length, nOk=names.filter(nm=>indRow(nm)).length;
   const jong=_DG?`<span class="dg">${_DG}</span>`:'';
 
-  let h=`<div class="indbox">
+  let h=`<div class="indbox" data-needs="api:sales-intel">
     <h3>${jong}에서 <u>${_IND||'—'}</u>${_eul(_IND)} 한다면?</h3>
     <div class="indpick">
       <select id="indSel" onchange="setInd(this.value)">${
@@ -1134,6 +1136,12 @@ function shopHead(){
     <p class="ansnote">${C.sangkwon} 상권 <b>${C.reb_type} 상가</b> 1㎡ 월세 <b>${per.toFixed(1)}만</b> 기준입니다.
       상가는 건물마다 실거래가 없어 <b>상권 조사값</b>으로 답합니다${
         C.vacancy_pct!=null?` · 빈 가게 <b>${C.vacancy_pct}%</b>`:''}.</p>
+    
+    <div class="ansq warn" style="margin-top:20px"><i></i><span>거꾸로 —
+      <input class="numin" id="spyIn" inputmode="decimal" value="${_SPY}"> 평(${Math.round(_SPY*P2M)}㎡)을 하려면</span></div>
+    <div class="bigans"><b>${_n(Math.round(_SPY*P2M*per))}만</b><span>이 듭니다 · 월세만</span></div>
+    <p class="ansnote">보증금·관리비·권리금은 빠진 값입니다. 같은 평수라도 <b>건물 유형</b>에 따라
+      ${types.map(t=>`${t.type} <b>${_n(Math.round(_SPY*P2M*t.per_m2_thousand/10))}만</b>`).join(' · ')} 으로 갈립니다.</p>
     <div class="ftab hd"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">이 예산으로 되는 크기</span></div>`
     + types.map(t=>{
         const p2=t.per_m2_thousand/10, a=_BUD/p2;
@@ -1141,15 +1149,18 @@ function shopHead(){
           <span class="c2">${p2.toFixed(1)}만</span>
           <span class="c3"><b>${(a/P2M).toFixed(1)}평</b><em>${a.toFixed(1)}㎡</em></span></div>`;
       }).join('')
-    + `<p class="src">부동산원은 <b>1층 기준</b>으로만 조사해서 2층·지하 차이는 아직 못 냅니다 — 연결 예정입니다.
-        보증금·관리비·권리금은 빠진 값입니다.</p>`;
+    + `<p class="src"><span class="exflag" style="float:none;margin-right:6px">⚠ 층별은 연결 예정</span>
+        부동산원은 <b>1층 기준</b>으로만 조사해서 2층·지하 차이는 아직 못 냅니다.
+        위 표는 <b>건물 유형별 실측</b>이고, 층은 아직 못 가릅니다 · 보증금·관리비·권리금은 빠진 값입니다.</p>`;
 
   const SZ=[[0,10,'~10평'],[10,15,'10~15평'],[15,20,'15~20평'],[20,30,'20~30평'],[30,50,'30~50평'],[50,80,'50평~']];
   const rowsz=SZ.map(x=>{const mid=(x[0]+x[1])/2; return {lab:x[2], man:Math.round(mid*P2M*per)};});
   const fits=rowsz.filter(r=>r.man<=_BUD).length;
   h+=`<div class="sz2">
-      <div><h4>크기를 키우면 월세는</h4>${rowsz.map(r=>
-        `<div class="r${r.man<=_BUD?'':' dim'}"><span>${r.lab}</span><b>${_n(r.man)}만</b></div>`).join('')}
+      <div><h4>크기를 키우면 월세는</h4>${rowsz.map((r,i)=>{
+        const inb = _SPY>=SZ[i][0] && _SPY<SZ[i][1];
+        return `<div class="r${r.man<=_BUD?'':' dim'}"${inb?' style="font-weight:600"':''}><span>${r.lab}${
+          inb?' <b style="color:var(--warn)">← 넣으신 크기</b>':''}</span><b>${_n(r.man)}만</b></div>`;}).join('')}
         <p class="src" style="margin-top:6px">${fits?`이 예산으로 <b>${rowsz.filter(r=>r.man<=_BUD).slice(-1)[0].lab}</b>까지 닿습니다.`
           :`지금 예산(${_BUD}만)으로는 <b>${rowsz[0].lab}(${_n(rowsz[0].man)}만)</b>도 닿지 않습니다 — 예산을 올리거나 자리를 옮기세요.`}</p></div>
       <div><h4>건물 유형마다 1㎡ 월세</h4>${types.map(t=>
@@ -1160,6 +1171,73 @@ function shopHead(){
   return h;
 }
 window.setInd=function(v){ _IND=v; renderHead(); };
+
+function floorSec(){
+  const F=(_D&&_D.rent_floor)||null;
+  if(!F || !F.ok || !(F.rows||[]).length) return '';
+  const mx=Math.max.apply(null, F.rows.map(r=>r.monthly_man).concat([1]));
+  const tone=v=>v==null?'':(v>=8?'up':v<=-8?'dn':'');
+  return `<section class="sec" data-mode="home"><h2>🪜 층마다 월세가 얼마나 다른가
+      <small>이 동네 전월세 실거래 ${_n(F.n)}건</small></h2>
+    <p class="src" style="margin:2px 0 8px">층을 안 가린 이 동네 월세 중위 <b>${_n(F.base_monthly_man)}만</b>이 기준선입니다 ·
+      ${F.note}</p>
+    ${F.rows.map(r=>`<div class="agebar"><span>${r.band}</span>
+      <span class="tk"><i style="width:${Math.max(6, r.monthly_man/mx*100)}%;background:var(--ink)"></i></span>
+      <span class="pc">${_n(r.monthly_man)}만</span>
+      <span class="rl"><b class="${tone(r.vs_base_pct)}" style="font-weight:600">${
+        r.vs_base_pct==null?'—':(r.vs_base_pct>0?'+':'')+r.vs_base_pct+'%'}</b> · ${_n(r.n)}건</span></div>`).join('')}
+    <p class="src">칸마다 전용 중위가 다릅니다(${F.rows.map(r=>`${r.band} ${r.area_m2}㎡`).join(' · ')}) —
+      <b>층 차이에 크기 차이가 섞여 있습니다.</b> 보증금 기준을 맞춘 신규 계약만 셌습니다 · ${F.source}</p>
+    </section>`;
+}
+
+function whoSec(){
+  const cr=(_D&&_D.crowd)||{}, WK=(_D&&_D.work)||{};
+  if(!cr.ok && !WK.ok) return '';
+  const ages=(cr.age||[]);
+  const top=ages.length?ages.reduce((a,b)=>b.pct>a.pct?b:a):null;
+  const mx=Math.max.apply(null, ages.map(a=>a.pct).concat([1]));
+  const CS=(_D&&_D.census)||{};
+  const HK={h_single:'단독주택', h_apt:'아파트', h_row:'연립주택', h_multi:'다세대주택'};
+  const hh = (CS.ok && CS.house_total) ? Object.keys(HK).map(k=>({
+      k, lb:HK[k], n:CS.houses[k]||0, pct: Math.round((CS.houses[k]||0)/CS.house_total*1000)/10
+    })).sort((a,b)=>b.n-a.n) : [];
+  return `<section class="sec" data-mode="home"><h2>👥 누가 사는가
+      <small>가구 구성 · 나이 · 일</small></h2>
+    ${CS.ok ? `<div class="ovs" style="margin:2px 0 14px">
+      <span><i>한 집에 사는 사람</i><b>평균 ${CS.avg_household}명</b></span>
+      <span><i>가구 수</i><b>${_n(CS.households)}가구</b></span>
+      <span><i>이 동네 집</i><b>비아파트 ${CS.nonapt_pct}%</b></span>
+      <span><i>기준</i><b>${CS.year}년 총조사</b></span></div>
+    <p class="src" style="margin:0 0 10px">평균 <b>${CS.avg_household}명</b>이면
+      ${CS.avg_household < 1.8 ? '<b>혼자 사는 집이 많은 동네</b>입니다 — 원룸·작은 평수가 잘 나갑니다.'
+        : CS.avg_household < 2.4 ? '<b>1~2인 가구가 섞인 동네</b>입니다.'
+        : '<b>가족이 함께 사는 동네</b>입니다 — 방 수와 학교가 중요해집니다.'}
+      🔴 «1인가구 몇 %» 는 통계청이 <b>동 단위로 공표하지 않습니다</b> — 평균에서 역산하지 않고
+      그대로 «평균 가구원수» 로 적습니다.</p>
+    ${hh.length?`<h3 style="margin:14px 0 4px;font:600 13.5px var(--ff)">이 동네엔 어떤 집이 있나</h3>
+      ${hh.map(x=>`<div class="agebar"><span>${x.lb}</span>
+        <span class="tk"><i style="width:${x.pct}%;background:${x.k==='h_apt'?'var(--faint)':'var(--ink)'}"></i></span>
+        <span class="pc">${x.pct}%</span><span class="rl">${_n(x.n)}호</span></div>`).join('')}
+      <p class="src" style="margin-top:4px">hicce 가 다루는 <b>비아파트</b>(단독·연립·다세대)가
+        이 동네 집의 <b>${CS.nonapt_pct}%</b>입니다 · ${CS.adong.join(' · ')} 기준.</p>`:''}` : ''}
+    ${top?`<p class="src" style="margin:2px 0 10px">이 동네에 있는 사람 10명 중
+      <b>${Math.round(top.pct/10)}명</b>이 <b>${top.label}</b>입니다${
+        cr.gender?` · 여성 ${cr.gender.female_pct}%`:''}.</p>`:''}
+    ${ages.length?'<h3 style="margin:16px 0 4px;font:600 13.5px var(--ff)">나이대 — 이 동네에 있는 사람</h3>':''}
+    ${ages.map(a=>`<div class="agebar"><span>${a.label}</span>
+      <span class="tk"><i style="width:${a.pct/mx*100}%;background:${a===top?'var(--ink)':'var(--faint)'}"></i></span>
+      <span class="pc">${a.pct}%</span><span class="rl"></span></div>`).join('')}
+    ${WK.ok?`<div class="ovs" style="margin-top:14px">
+      <span><i>여기서 일하는 사람</i><b>${_n(WK.total)}명</b></span>
+      <span><i>가장 많은 나이</i><b>${WK.top_age||'—'}</b></span>
+      <span><i>서울에서</i><b>상위 ${(100-WK.seoul_pct_rank)||1}%</b></span>
+      <span><i>남성 비중</i><b>${WK.male_pct==null?'—':WK.male_pct+'%'}</b></span></div>`:''}
+    <p class="src">아래 막대는 <b>생활인구</b>(그 시간에 이 동네에 있는 사람)의 나이 분포입니다 —
+      사는 사람과 일하러 온 사람이 섞여 있습니다. 위 가구 구성은
+      <b>${CS.ok?CS.source:'통계청 인구주택총조사'}</b>이고 ${CS.ok?CS.caveat:''}.
+      ${cr.caveat||''}</p></section>`;
+}
 
 function peopleSec(d, dg){
   const cr=d.crowd||{}, FT=d.foot||{}, WK=d.work||{}, FC=d.fclty||{};
@@ -1201,7 +1279,12 @@ function peopleSec(d, dg){
     <div id="dongMap" class="dmap"></div>
     <div class="legend" id="dongMapLegend"></div>
     <p class="src">주소를 넣지 않은 화면이라 «찾으시는 곳» 핀은 없습니다 — 동 중심을 등대로 찍었습니다.
-      점선 원은 구역 <b>면적</b>을 원으로 그린 것이라 실제 경계가 아닙니다.</p>
+      점선 원은 구역 <b>면적</b>을 원으로 그린 것이라 실제 경계가 아닙니다.<br>
+      ${(d.redev_zones && (Array.isArray(d.redev_zones)?d.redev_zones.length:1))
+        ? `이 동에 <b>정비사업 구역</b>이 있습니다 — 지도에 표시했습니다.`
+        : `🔴 <b>이 동에는 서울시 정비사업(재개발·재건축) 구역이 없습니다.</b>
+           지도가 비어 보이는 것은 자료가 없어서가 아니라 <b>구역이 없어서</b>입니다
+           (서울 전체 183곳 중 이 동 0곳).`}</p>
     ${shop}${chips}${bars}</section>`;
 }
 
@@ -1226,6 +1309,9 @@ function renderHead(){
   const bi=document.getElementById('budIn');
   if(bi) bi.addEventListener('change', ()=>{ const v=parseFloat(bi.value);
     if(v>0&&v<100000){ _BUD=v; renderHead(); } else { bi.value=_BUD; } });
+  const si=document.getElementById('spyIn');
+  if(si) si.addEventListener('change', ()=>{ const v=parseFloat(si.value);
+    if(v>0&&v<3000){ _SPY=v; renderHead(); } else { si.value=_SPY; } });
 }
 
 let _MAP=null;
@@ -1289,7 +1375,7 @@ function foldSections(){
     det.className='secfold';
     if(sec.dataset.open==='1') det.open=true;
     const sum=document.createElement('summary');
-    sum.appendChild(h2);                     // 제목을 그대로 손잡이로 쓴다
+    sum.appendChild(h2);
     det.appendChild(sum);
     while(sec.firstChild) det.appendChild(sec.firstChild);
     sec.appendChild(det);
@@ -1303,7 +1389,7 @@ function setMode(m){
   document.querySelectorAll('.modeseg button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.m === m)));
   const t=document.getElementById('pgTitle'); if(t) t.textContent = PG_TITLE[m] || t.textContent;
-  renderHead();          // 머리 답은 모드마다 «묻는 것»이 다르다
+  renderHead();
   applyMode();
 }
 function applyMode(){
@@ -1314,16 +1400,16 @@ async function runDong(){
   const gu=$('gu').value, dg=$('dg').value;
   if(!gu||!dg){ return; }
   const my=++_seq;
-  _KINDS=null; _ALLIND=null; _PICK=null; _IND='';   // 동이 바뀌면 부수 자료도 버린다
+  _KINDS=null; _ALLIND=null; _PICK=null; _IND='';
   $('out2').className=''; $('out2').innerHTML='<div class="empty">불러오는 중…</div>';
   let d=null;
   try{ const _r=await fetch(`/api/b2c/dong-brief?sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`);
        if(_r.status===401){ location.href='https://hicce.co.kr/b2c/login?next='+encodeURIComponent(location.pathname+location.hash); return; }
        d=await _r.json(); }catch(_){}
-  if(my!==_seq) return;                    // 더 새 요청이 이미 떠났다 — 이건 버린다
+  if(my!==_seq) return;
   if(!d||!d.ok){ $('out2').innerHTML=`<div class="empty">${dg} 은 아직 자료가 얇습니다 — 다른 동을 골라보세요.</div>`; return; }
 
-  _D=d; _GU=gu; _DG=dg;          // 머리 답이 입력값으로 다시 그릴 때 쓴다
+  _D=d; _GU=gu; _DG=dg;
   const ST=d.standing||{}; const PV=ST.pct||{};
   const rk=(ax)=>{const v=PV[ax]; if(v==null) return '';
     const c=v>=70?'hi':(v<=30?'lo':''); const t=v>=97?'서울 최상위':v<=3?'서울 최하위':(v>=50?`서울 상위 ${100-v}%`:`서울 하위 ${v}%`);
@@ -1343,13 +1429,11 @@ async function runDong(){
   if(_isSample) html='<div class="empty" style="margin:0 0 14px;padding:8px 12px;border:1px dashed var(--rule);border-radius:6px">'
     +'<b>예시</b> — 마포구 서교동입니다. 위에서 동네를 고르면 그 동네로 바뀝니다.</div>'+html;
   const PE=d.price_effect;
-  if(PE && PE.ok){ _PE=PE; html+='<section class="sec" data-mode="home" id="peSec">'
-      +'<h2>📐 층·크기가 값을 얼마나 가르나 <small>이 동네 매매 실거래로 본 차이</small></h2>'
-      +'<div id="peBody"></div></section>'; }
+  html += floorSec();
 
-  html+=`<section class="sec" data-mode="shop" data-open="1" id="ovSec"><h2>📊 이 동네 가게, 한눈에
+  html+=`<section class="sec" data-mode="shop" data-open="1" id="ovSec" data-needs="api:dong-pick"><h2>📊 이 동네 가게, 한눈에
       <small>업종별 매출·개폐업으로 본 결론</small></h2><p class="src">계산 중…</p></section>`;
-  html+=`<section class="sec" data-mode="shop" id="pickSec"><h2>🏪 이 동네에 아직 부족한 가게
+  html+=`<section class="sec" data-mode="shop" id="pickSec" data-needs="api:dong-pick"><h2>🏪 이 동네에 아직 부족한 가게
       <small>닮은 동네엔 있는데 여기엔 없는 것</small></h2><p class="src">계산 중…</p></section>`;
   html+=`<section class="sec" data-mode="shop"><h2>📈 업종별로 자세히 <small>카드 추정 매출 · 가게가 얼마를 버는지</small></h2>
     <div id="salesBody"><p class="src">불러오는 중…</p></div></section>`;
@@ -1408,11 +1492,12 @@ async function runDong(){
       <p class="empty">${(c&&c.reason)||'이 동네는 상가 자료가 얇습니다'}</p></section>`;
   }
 
+  html += whoSec();
   html += peopleSec(d, dg);
-  html += '<div id="alertHost"></div>';   // 알림 받기 — 접이 밖(정본 맨 아래 검은 띠)
+  html += '<div id="alertHost" data-needs="api-post:b2c-alert"></div>';
 
   if(ST.ok && (ST.top||[]).length){
-    html+=`<section class="sec"><h2>🗺 서울에서 이 동네는 <small>336개 동 중 자리</small></h2>
+    html+=`<section class="sec" data-mode="shop"><h2>🗺 서울에서 이 동네는 <small>336개 동 중 자리</small></h2>
       <p class="lead" style="font-size:12.5px;color:var(--soft);margin:2px 0 2px">
         가장 튀는 축 <b>${ST.top.length}개</b>입니다 — 이 동네에서 무엇이 갈리는지를 먼저 봅니다.${
           ST.top.length<3?' <span style="color:var(--warn)">이 동네는 잴 수 있는 축이 적습니다 — 생활인구·상가 자료가 없습니다.</span>':''}</p>`
@@ -1435,7 +1520,7 @@ async function runDong(){
   }
 
   $('out2').innerHTML=html;
-  renderHead();  // 머리 답 — 입력 한 칸이 큰 숫자를 만든다(정본 §1-1·1-3·1-4)
+  renderHead();
   if(window.hicceAlert) hicceAlert('alertHost', {
     head: '이 동네에 맞는 매물이 올라오면 알려드릴까요?',
     sub : '연락처는 중개사에게 공개되지 않습니다 · 마케팅 수신은 선택입니다',
@@ -1443,12 +1528,11 @@ async function runDong(){
     optLabel: '이 동네 시세가 움직이면 같이 알려주세요',
     cond: () => ({ sigungu: gu, dong: dg })
   });
-  loadSide(gu, dg, my);   // 집 종류마다 · 업종 목록 — 늦게 와도 머리 답만 다시 그린다
-  renderPE();    // 층·평수 절 (축 토글이 있어 따로 그린다)
+  loadSide(gu, dg, my);
   renderSales(gu, dg);
   renderDongMap(gu, dg, d);
   foldSections();
-  applyMode();   // 고른 모드(집/가게)만 남긴다 — 그린 직후에 건다
+  applyMode();
   renderPick(gu, dg, my);
 }
 
