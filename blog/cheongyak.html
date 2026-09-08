@@ -1,223 +1,703 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>청약 커버리지 툴 — 내 가점이면 어떤 문이 열렸었나 | Lambency</title>
-<meta name="description" content="가점을 넣으면 최근 12개월 서울 민영 아파트 모집단위 전수 기준으로, 내 점수가 커트라인을 넘겼던 모집이 몇 %였는지와 실제로 열렸던 단지·타입 목록을 보여줍니다. 무순위 경쟁률 실측까지 — 커버리지는 사후 대조이며 당첨 확률이 아닙니다.">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Lambency">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:url" content="https://lambency-data.github.io/blog/cheongyak.html">
-<meta property="og:title" content="청약 커버리지 툴 — 내 가점이면 어떤 문이 열렸었나 | Lambency">
-<meta property="og:description" content="최근 12개월 서울 청약 커트라인 전수. 가점을 넣으면 열렸던 문의 비율과 목록이 나옵니다. 사후 대조이며 당첨 확률이 아닙니다.">
-<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
-<meta name="twitter:card" content="summary_large_image">
+<!-- baked-from-b2c-cheongyak: 38ffa8eec6c9a910 -->
+<!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
+     소스: airbnb_investment/property_pricer/web/static/b2c-cheongyak.html
+     생성: scripts/bake_cheongyak_page.py  (야간 배치가 소스 변경을 감시한다)
+     데이터: scripts/bake_cheongyak_data.py 가 매일 따로 굽는다 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>청약 — hicce 미리보기 | Lambency</title>
+<meta name="description" content="서울·경기·인천에서 지금 접수 중이거나 곧 열리는 청약 공고를 한 화면에 폅니다. 커트라인이 발표된 곳은 그 값을, 아직인 곳은 «—» 로 둡니다 — 없는 값을 지어내지 않습니다.">
 <link rel="canonical" href="https://lambency-data.github.io/blog/cheongyak.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA4MCA4MCc+PHJlY3QgeD0nNCcgeT0nNCcgd2lkdGg9JzcyJyBoZWlnaHQ9JzcyJyByeD0nMjAnIGZpbGw9JyMxNDMyNTQnLz48ZyBmaWxsPSdub25lJyBzdHJva2U9JyNkOWI0NWMnIHN0cm9rZS13aWR0aD0nNCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJz48cGF0aCBkPSdNMzEgNjIgTDM2IDMxIEw0NCAzMSBMNDkgNjIgWicvPjxwYXRoIGQ9J00yNiA2MiBMNTQgNjInLz48cGF0aCBkPSdNMzUgMzEgTDQ1IDMxJy8+PHBhdGggZD0nTTM0IDIxIEw0MCAxMyBMNDYgMjEgWicvPjxyZWN0IHg9JzM1JyB5PScyMScgd2lkdGg9JzEwJyBoZWlnaHQ9JzknLz48L2c+PGcgc3Ryb2tlPScjZDliNDVjJyBzdHJva2Utd2lkdGg9JzMnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCc+PHBhdGggZD0nTTQwIDEyIEwzMiA2Jy8+PHBhdGggZD0nTTQwIDEyIEw0OSA4Jy8+PC9nPjxjaXJjbGUgY3g9JzQwJyBjeT0nMTAnIHI9JzMnIGZpbGw9JyNmMmQ5OGEnLz48L3N2Zz4K">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/blog/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-/* 청약 커버리지 — style.css 토큰만 쓴다(색·서체를 새로 만들지 않는다) */
-.tool{margin:8px 0 26px;padding:26px 0 0;border-top:1px solid var(--hairline)}
-.pick{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px}
-.pick label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-faint);display:block;margin-bottom:8px}
-.pick input[type=number]{background:var(--bg-2);color:var(--ink);border:1px solid var(--hairline);
-  border-radius:2px;padding:11px 13px;font-family:var(--mono);font-size:18px;width:110px}
-.pick input[type=number]:focus{outline:none;border-color:var(--amber-deep)}
-.preset{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 20px}
-.preset button{background:var(--bg-2);color:var(--soft);border:1px solid var(--hairline);
-  border-radius:100px;padding:7px 14px;font-family:var(--kr);font-size:13px;cursor:pointer}
-.preset button:hover{border-color:var(--amber-deep);color:var(--ink)}
-.hint{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin:14px 0 22px;line-height:1.7}
-.big{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0 6px}
-.big .cell b{display:block;font-family:var(--serif);font-size:44px;font-weight:500;
-  color:var(--amber-hi);line-height:1.1}
-.big .cell span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint)}
-.bar{height:10px;background:var(--bg-2);border:1px solid var(--hairline);border-radius:100px;
-  overflow:hidden;margin:12px 0 4px}
-.bar i{display:block;height:100%;background:var(--amber);border-radius:100px}
-.verdict{font-family:var(--kr);font-size:15.5px;line-height:1.85;margin:16px 0 6px}
-.warn{border-left:2px solid var(--amber-deep);padding:2px 0 2px 14px;margin:20px 0;
-  color:var(--soft);font-size:14px;line-height:1.8}
-.tw{overflow-x:auto;margin:18px 0}
-table{border-collapse:collapse;width:100%;font-size:13.5px}
-th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-faint);text-align:left;padding:8px 14px 8px 0;border-bottom:1px solid var(--hairline)}
-td{padding:8px 14px 8px 0;border-bottom:1px solid var(--hairline);color:var(--soft)}
-td.s{font-family:var(--mono);color:var(--amber-hi)}
-.src{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.8;margin-top:26px}
+
+:root{
+  --paper:#FAF9F6; --ink:#1D232B; --soft:#6B7480; --faint:#98A0AA;
+  --rule:#E6E3DB; --field:#F1EFE9; --seal:#1F3A5F; --seal-wash:#EEF2F7;
+  --warn:#9C6B12; --warn-wash:#FBF3E0; --down:#B33A3A; --up:#1F6F45;
+  --gold:#CDA15F; --lamp:#E7CF8F; --glow:#F3C47C; --glow-in:#FFF6E0;
+  --ff:'Pretendard Variable',Pretendard,"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+  --fs:Newsreader,'Times New Roman',serif;          
+  
+  
+  --mk-ship: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2022%27%3E%3Cpath%20d%3D%27M13.4%203%20C17.6%206.4%2019.4%209.8%2019.8%2013%20L13.4%2013%20Z%27%20fill%3D%27%23D98A26%27%2F%3E%3Cpath%20d%3D%27M10.9%206%20C8.4%208.2%207.2%2010.6%206.8%2013%20L10.9%2013%20Z%27%20fill%3D%27%23D98A26%27%20fill-opacity%3D%27.65%27%2F%3E%3Cpath%20d%3D%27M3.4%2014.4%20H21.2%20C20%2017.6%2017.4%2019.4%2012.3%2019.4%20C7.2%2019.4%204.6%2017.6%203.4%2014.4%20Z%27%20fill%3D%27%23D98A26%27%2F%3E%3C%2Fsvg%3E");
+  
+  --mk-ship-ok: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2022%27%3E%3Cpath%20d%3D%27M13.4%203%20C17.6%206.4%2019.4%209.8%2019.8%2013%20L13.4%2013%20Z%27%20fill%3D%27%231F6F45%27%2F%3E%3Cpath%20d%3D%27M10.9%206%20C8.4%208.2%207.2%2010.6%206.8%2013%20L10.9%2013%20Z%27%20fill%3D%27%231F6F45%27%20fill-opacity%3D%27.65%27%2F%3E%3Cpath%20d%3D%27M3.4%2014.4%20H21.2%20C20%2017.6%2017.4%2019.4%2012.3%2019.4%20C7.2%2019.4%204.6%2017.6%203.4%2014.4%20Z%27%20fill%3D%27%231F6F45%27%2F%3E%3C%2Fsvg%3E");
+  --mk-ship-hot: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2022%27%3E%3Cpath%20d%3D%27M13.4%203%20C17.6%206.4%2019.4%209.8%2019.8%2013%20L13.4%2013%20Z%27%20fill%3D%27%23B33A3A%27%2F%3E%3Cpath%20d%3D%27M10.9%206%20C8.4%208.2%207.2%2010.6%206.8%2013%20L10.9%2013%20Z%27%20fill%3D%27%23B33A3A%27%20fill-opacity%3D%27.65%27%2F%3E%3Cpath%20d%3D%27M3.4%2014.4%20H21.2%20C20%2017.6%2017.4%2019.4%2012.3%2019.4%20C7.2%2019.4%204.6%2017.6%203.4%2014.4%20Z%27%20fill%3D%27%23B33A3A%27%2F%3E%3C%2Fsvg%3E");
+  --mk-house: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%2724%206%2032%2058%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%231D232B%27%20stroke-width%3D%274.5%27%20stroke-linejoin%3D%27round%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M31%2062%20L36%2031%20L44%2031%20L49%2062%20Z%27%2F%3E%3Cpath%20d%3D%27M26%2062%20L54%2062%27%2F%3E%3Cpath%20d%3D%27M35%2031%20L45%2031%27%2F%3E%3Cpath%20d%3D%27M34%2021%20L40%2013%20L46%2021%20Z%27%2F%3E%3Cpath%20d%3D%27M35%2021%20h10%20v9%20h-10%20Z%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%2710.5%27%20r%3D%273.4%27%20fill%3D%27%231D232B%27%2F%3E%3C%2Fsvg%3E");
+  --mk-house-soft: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%2724%206%2032%2058%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%2398A0AA%27%20stroke-width%3D%274.5%27%20stroke-linejoin%3D%27round%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M31%2062%20L36%2031%20L44%2031%20L49%2062%20Z%27%2F%3E%3Cpath%20d%3D%27M26%2062%20L54%2062%27%2F%3E%3Cpath%20d%3D%27M35%2031%20L45%2031%27%2F%3E%3Cpath%20d%3D%27M34%2021%20L40%2013%20L46%2021%20Z%27%2F%3E%3Cpath%20d%3D%27M35%2021%20h10%20v9%20h-10%20Z%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%2710.5%27%20r%3D%273.4%27%20fill%3D%27%2398A0AA%27%2F%3E%3C%2Fsvg%3E");
+}
+
+
+.mkship{background:var(--mk-ship) center/contain no-repeat!important;border:0!important;
+        border-radius:0!important;box-shadow:none!important}
+.mkhouse{background:var(--mk-house) center/contain no-repeat!important;border:0!important;
+         border-radius:0!important}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--ff);
+     -webkit-font-smoothing:antialiased;min-height:100svh;overflow-x:hidden}
+a{color:var(--warn);text-decoration:none}
+a:hover{color:#7A5310}
+
+
+.lockup{position:relative;display:flex;align-items:flex-end}
+.lockup .w{position:relative;display:inline-flex;align-items:flex-end}
+.lockup .t{font:500 var(--logo-size,34px)/1 var(--fs);letter-spacing:-.025em;color:var(--ink)}
+.lockup .lh{position:relative;display:block;width:calc(var(--logo-size,34px)*.42);
+            height:calc(var(--logo-size,34px)*1.08);margin:0 0 calc(var(--logo-size,34px)*.22)}
+.lockup .lh .halo{position:absolute;left:calc(50% - 15px);top:-13px;width:30px;height:30px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,246,224,.85) 0%,rgba(243,196,124,.34) 26%,rgba(230,175,124,0) 72%)}
+.lockup .lh svg{position:relative;width:100%;height:100%;display:block}
+.lockup .boat{position:relative;display:block;width:calc(var(--logo-size,34px)*.34);
+  height:calc(var(--logo-size,34px)*.31);margin:0 0 calc(var(--logo-size,34px)*.26) 5px;transform:rotate(-7deg)}
+.lockup .boat svg{width:100%;height:100%;display:block}
+
+
+.hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:clamp(14px,2.2vw,20px) clamp(18px,4vw,44px);border-bottom:1px solid #EFE7D8}
+.hd .left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hd .tag{padding-left:14px;border-left:1px solid var(--rule);font:400 12px/1.6 var(--ff);color:var(--ink)}
+.hd nav{display:flex;gap:clamp(12px,2vw,20px);font:500 12.5px var(--ff);color:var(--soft);flex-wrap:wrap}
+.hd nav a{color:var(--soft)}
+.hd nav a:hover,.hd nav a.on{color:var(--ink)}
+
+.ft{border-top:1px solid var(--rule)}
+.ft > div{max-width:var(--ftw,1040px);margin:0 auto;padding:14px clamp(18px,4vw,40px);
+          font:400 11.5px/1.6 var(--ff);color:var(--soft)}
+
+.hd.sub{padding:clamp(12px,2vw,16px) clamp(18px,4vw,44px);border-bottom:1px solid var(--rule)}
+
+.hd.mid{display:block;padding:0;border-bottom:1px solid var(--rule)}
+.hd.mid > .hdin{max-width:var(--hdw,760px);margin:0 auto;width:100%;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:clamp(12px,2vw,16px) clamp(18px,4vw,40px)}
+
+
+.eyebrow{font:500 11px/1 var(--fm);letter-spacing:.24em;color:var(--soft)}
+h1.big{font:300 clamp(32px,5.6vw,56px)/1.26 var(--ff);letter-spacing:-.05em;text-wrap:balance}
+h1.big b{font-weight:600}
+h1.pg{font:600 clamp(24px,3.4vw,32px)/1.3 var(--ff);letter-spacing:-.04em;text-wrap:balance}
+.lede{font:400 clamp(14px,1.5vw,15.5px)/1.85 var(--ff);color:var(--ink);max-width:540px}
+.num{font-family:var(--fm);font-variant-numeric:tabular-nums}
+
+
+.pill{padding:13px 26px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);
+      font:600 13.5px var(--ff);cursor:pointer;transition:background .15s}
+.pill:hover{background:#000}
+.pill.ghost{background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
+.pill.ghost:hover{background:var(--field)}
+.pill[disabled]{background:var(--field);color:var(--soft);cursor:not-allowed}
+
+
+.gdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--soft);
+      vertical-align:-1px;margin-right:7px;flex:none}
+.gdot.up{background:var(--up)} .gdot.warn{background:var(--warn)} .gdot.down{background:var(--down)}
+
+
+.wrap{max-width:760px;margin:0 auto;padding:clamp(26px,5vw,44px) clamp(18px,4vw,40px) 40px;width:100%}
+.wrap.wide{max-width:1040px}
+.wrap.narrow{max-width:420px}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%}
+th,td{word-break:keep-all}
+
+
+
+a.wordmark,.wordmark{position:relative;display:inline-flex;align-items:baseline;
+          font:500 var(--wm-size,30px)/1 var(--fs);letter-spacing:-.025em;color:var(--ink)}
+a.wordmark:hover,.wordmark:hover{color:var(--ink)}
+
+a.wordmark,.wordmark{white-space:nowrap;flex:none}
+a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
+
+.wordmark::before{content:"";position:absolute;left:.42em;top:-.52em;transform:translateX(-50%);
+  width:calc(var(--wm-size,30px) * .95);height:calc(var(--wm-size,30px) * .95);
+  border-radius:50%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(255,246,224,.75) 0%,rgba(243,196,124,.26) 42%,rgba(243,196,124,0) 70%)}
+.wordmark{isolation:isolate}
+
+
+.alertcta{margin:26px 0 0;padding:18px 20px;border-radius:12px;background:var(--ink);
+  color:var(--paper);display:flex;align-items:center;gap:14px 16px;flex-wrap:wrap}
+.alertcta .ac-l{flex:1 1 240px;min-width:0}
+.alertcta .ac-l b{display:block;font:600 15px var(--ff);letter-spacing:-.01em}
+.alertcta .ac-l span{display:block;margin-top:4px;font:400 11.5px/1.6 var(--ff);
+  color:rgba(250,249,246,.62)}
+
+.alertcta .ac-r{display:flex;align-items:center;gap:8px;flex:0 0 auto;flex-wrap:wrap}
+.alertcta input[type=text],.alertcta input[type=email]{height:40px;min-width:132px;flex:0 0 190px;
+  border:1px solid rgba(250,249,246,.22);border-radius:8px;padding:0 12px;
+  background:rgba(250,249,246,.08);color:var(--paper);font:400 13.5px var(--ff)}
+.alertcta input::placeholder{color:rgba(250,249,246,.42)}
+.alertcta input:focus{outline:none;border-color:var(--gold)}
+.alertcta button{height:40px;padding:0 18px;border-radius:999px;border:0;background:var(--paper);
+  color:var(--ink);font:600 13px var(--ff);cursor:pointer;white-space:nowrap}
+.alertcta button:hover{background:#fff}
+.alertcta button[disabled]{opacity:.55;cursor:default}
+
+.alertcta .ac-foot{flex:1 1 100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.alertcta .ac-opt{display:flex;align-items:center;gap:7px;cursor:pointer;
+  font:400 11.5px var(--ff);color:rgba(250,249,246,.66)}
+
+.alertcta .ac-opt input{width:15px;height:15px;min-width:0;flex:none;
+  accent-color:var(--gold);cursor:pointer}
+.alertcta .ac-msg{flex:1 1 100%;margin:0;font:500 12px/1.6 var(--ff);color:#A8D8BC}
+.alertcta .ac-msg.bad{color:#F0B4B4}
+.alertcta .ac-more{margin-left:auto;font:500 12px var(--ff);color:rgba(250,249,246,.72);
+  text-decoration:underline;text-underline-offset:3px}
+.alertcta .ac-more:hover{color:var(--paper)}
+@media (max-width:560px){
+  .alertcta .ac-r{width:100%}
+  .alertcta input[type=text],.alertcta input[type=email]{flex:1 1 auto}
+}
+
 </style>
-</head>
-<body>
+<style>
+  
+  main{max-width:760px;margin:0 auto;padding:clamp(26px,4vw,40px) clamp(18px,4vw,40px) clamp(40px,6vw,64px)}
+  .eyebrow{font:500 11px/1 var(--fm);letter-spacing:.24em;color:var(--soft)}
+  h1.pg{margin:14px 0 0;font:600 clamp(24px,3.4vw,32px)/1.25 var(--ff);letter-spacing:-.04em}
+  .lead{margin:10px 0 0;max-width:600px;font:400 14px/1.75 var(--ff);color:var(--ink)}
 
-<header>
-  <a class="brand" href="/index.html" aria-label="Lambency home">
-    <svg viewBox="0 0 132 132" aria-hidden="true">
-      <g transform="translate(66,66)">
-        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
-        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
-        <g transform="rotate(35)">
-          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
-          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
-        </g>
-        <circle r="4.4" fill="#fdf3d7"/>
-      </g>
-    </svg>
-    <span>LAMBENCY</span>
-  </a>
-  <nav>
-    <a href="/index.html#about">About</a>
-    <a href="/index.html#practice">Practice</a>
-    <a href="/index.html#method">Method</a>
-    <a href="/engagements.html">Engagements</a>
-    <a href="/index.html#work">Work</a>
-    <a href="/blog/index.html">Insights (DeepCaffein)</a>
-    <a href="/blog/cheongyak.html" aria-current="page">청약 커버리지</a>
-    <a href="/blog/where.html">동네 월세·상권</a>
-    <a href="/index.html#contact">Contact</a>
-  </nav>
+  .tabs{margin:24px 0 0;display:flex;gap:4px;border-bottom:1.5px solid var(--rule)}
+  .tabs button{background:none;border:0;border-bottom:2.5px solid transparent;border-radius:0;
+    margin-bottom:-1.5px;padding:.6rem .9rem;font:700 14px var(--ff);color:var(--faint);cursor:pointer}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 0}
+  .chips button{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--rule);
+    background:var(--paper);color:var(--soft);font:500 12.5px var(--ff);cursor:pointer}
+  .chips button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+  h2.sec{margin:26px 0 0;font:600 15px var(--ff)}
+  h2.sec small{margin-left:8px;font:400 11.5px var(--ff);color:var(--soft)}
+
+  
+  .row{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;
+       padding:16px 0;border-top:1px solid var(--rule)}
+  .row .l{flex:1 1 300px;min-width:0}
+  .row .nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+           font:600 15px var(--ff);letter-spacing:-.01em}
+  .dday{height:22px;display:inline-flex;align-items:center;padding:0 9px;border-radius:999px;
+        font:600 11px var(--ff)}
+  .dday.end{background:var(--field);color:var(--soft)}
+  .dday.soon{background:var(--warn-wash);color:var(--warn)}
+  .dday.open{background:var(--seal-wash);color:var(--seal)}
+  .row .meta{margin-top:5px;font:400 12.5px/1.7 var(--ff);color:var(--soft)}
+  .row .when{margin-top:3px;font:400 12.5px var(--ff);color:var(--ink)}
+  .row .r{flex:0 0 auto;text-align:right}
+  .row .r b{font:600 clamp(16px,2.4vw,20px) var(--fm)}
+  .row .r em{display:block;margin-top:3px;font:400 11.5px var(--ff);font-style:normal;color:var(--soft)}
+  .row .r button{margin-top:8px;height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--rule);
+    background:var(--paper);color:var(--ink);font:600 12px var(--ff);cursor:pointer}
+  .row .r button:hover{border-color:var(--ink)}
+
+  .pickrow{display:flex;align-items:center;gap:10px;margin:18px 0 0;flex-wrap:wrap}
+  .pickrow label{font:500 11px var(--fm);letter-spacing:.2em;color:var(--soft)}
+  .pickrow select{flex:1 1 260px;max-width:460px;height:44px;padding:0 12px;border-radius:9px;
+    border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);font:500 14px var(--ff)}
+  .pastfold{margin-top:14px}
+  .pastfold>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:10px;
+    padding:12px 0;border-top:1px solid var(--rule);font:600 13.5px var(--ff)}
+  .pastfold>summary::-webkit-details-marker{display:none}
+  .pastfold>summary span{font:400 11.5px var(--ff);color:var(--soft)}
+  .pastfold>summary::after{content:"펼치기 ▾";margin-left:auto;font:500 11.5px var(--ff);
+    color:var(--faint);border:1px solid var(--rule);border-radius:999px;padding:3px 10px;white-space:nowrap}
+  .pastfold[open]>summary::after{content:"접기 ▴"}
+  .src{margin-top:16px;font:400 11.5px/1.75 var(--ff);color:var(--faint)}
+  .panel{margin:22px 0 0;padding:16px 18px;border-radius:12px;background:var(--field)}
+  .panel h3{margin:0;font:600 14px var(--ff)}
+  .panel p{margin:6px 0 0;font:400 12.5px/1.75 var(--ff);color:var(--soft)}
+  .panel .lk{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  .panel .lk a{font:600 12.5px var(--ff);color:var(--warn)}
+
+  
+  .big{margin:12px 0 0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .big b{font:600 clamp(40px,8vw,72px)/1 var(--fm);letter-spacing:-.03em}
+  .big span{font:500 clamp(16px,2.4vw,22px) var(--ff)}
+  .pay{margin-top:16px}
+  .pay .r{display:grid;grid-template-columns:1fr 56px 110px;gap:10px;align-items:baseline;
+          padding:11px 0;border-top:1px solid var(--rule);font:400 13.5px var(--ff)}
+  .pay .r .p{text-align:center;font:400 13px var(--fm);color:var(--soft)}
+  .pay .r .v{text-align:right;font:600 16px var(--fm)}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:18px 0 0}
+  .facts > div{padding:12px 14px;border:1px solid var(--rule);border-radius:10px}
+  .facts .k{font:400 11.5px var(--ff);color:var(--soft)}
+  .facts .v{margin:3px 0 2px;font:600 16px var(--ff)}
+  .facts .v.non{color:var(--faint);font-weight:400}
+  .facts .v.warn{color:var(--warn)}
+  .facts .s{font:400 11px/1.5 var(--ff);color:var(--faint)}
+  .cmpbar{margin:14px 0 0}
+  .cmpbar .lab{display:flex;justify-content:space-between;font:400 12px var(--ff);color:var(--soft)}
+  .cmpbar .tk{position:relative;height:26px;margin-top:6px;border-radius:5px;background:var(--field)}
+  .cmpbar .tk i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ink)}
+  .cmpbar .tk .gold{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--gold);
+    box-shadow:0 0 0 1.5px var(--paper)}
+  .cmpbar .tk .mk{position:absolute;top:50%;width:20px;height:20px;transform:translate(-50%,-50%);
+    background:var(--mk-ship) center/contain no-repeat;
+    filter:drop-shadow(0 0 1.5px var(--paper)) drop-shadow(0 0 1.5px var(--paper))}
+
+  
+  .score{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0 0}
+  .score label{display:block;font:400 12.5px var(--ff);color:var(--soft)}
+  .score .box{display:flex;align-items:baseline;gap:6px;margin-top:6px;
+    border-bottom:1.5px solid var(--ink);padding-bottom:5px}
+  .score input{width:70px;border:0;background:transparent;font:600 20px var(--fm);color:var(--ink);
+    padding:0;text-align:center}
+  .score input:focus{outline:none}
+  .score .u{font:400 13px var(--ff);color:var(--soft)}
+  .score em{display:block;margin-top:6px;font:400 11px/1.5 var(--ff);font-style:normal;color:var(--faint)}
+  .verd{display:flex;align-items:center;gap:8px;margin:22px 0 0;font:600 15px var(--ff)}
+  .verd i{width:9px;height:9px;border-radius:50%;background:var(--warn)}
+  .verd.up i{background:var(--up)} .verd.dn i{background:var(--down)}
+  .sbar{display:grid;grid-template-columns:120px 1fr 74px;gap:10px;align-items:center;
+        padding:6px 0;font:400 12.5px var(--ff)}
+  .sbar .tk{height:14px;border-radius:3px;background:var(--field);overflow:hidden}
+  .sbar .tk i{display:block;height:100%;background:var(--ink)}
+  .sbar .n{text-align:right;font:600 12.5px var(--fm)}
+  .empty{padding:26px 0;color:var(--soft);font:400 13.5px var(--ff)}
+</style>
+<header class="hd sub">
+  <a class="wordmark" href="https://hicce.co.kr/b2c?from=blog-cheongyak" style="--wm-size:26px" aria-label="hicce 홈으로">hicce<span class="dot">.</span></a>
+  <nav><a href="https://hicce.co.kr/b2c/ask?from=blog-cheongyak">시세 브리핑</a><a href="https://hicce.co.kr/b2c/where?from=blog-cheongyak">동네 월세·상권</a><a href="https://hicce.co.kr/b2c/cheongyak?from=blog-cheongyak" class="on">청약</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-cheongyak">전세 안심</a><a href="https://hicce.co.kr/b2c/guide?from=blog-cheongyak">사용법</a></nav>
 </header>
+<main>
+  <div class="eyebrow">청약</div>
+  <h1 class="pg" id="pgTitle">이번 달, 어디에 청약을 넣을 수 있나요?</h1>
+  <p class="lead" id="pgLead">청약홈 공고를 한 줄로 정리했습니다. 분양가는 공고값이고 옵션은 빠져 있습니다 —
+    실제로 내는 돈은 «자세히»에서 다시 셉니다.</p>
 
-<main class="wrap" style="max-width:860px;margin:0 auto;padding:clamp(130px,17vw,170px) 20px 60px">
-  <h1 style="font-family:var(--kr);font-size:26px;margin:6px 0 10px">청약 커버리지 — 내 가점이면 어떤 문이 열렸었나</h1>
-  <p style="color:var(--soft);font-size:15px;line-height:1.85;margin:0 0 4px">
-    가점을 넣으면, 최근 12개월 서울 민영 아파트 모집단위 <b id="nunits" style="color:var(--ink)">…</b>개
-    전수 기준으로 <strong style="color:var(--ink)">내 점수가 커트라인을 넘겼던 모집</strong>의 비율과
-    실제 목록을 보여드립니다.</p>
-  <p class="hint">사후 대조이지 당첨 확률이 아닙니다 — 같은 점수라도 동점자·물량에 따라 갈리고,
-    다음 1년은 지난 1년과 같지 않습니다.</p>
-
-  <div class="tool">
-    <div class="pick">
-      <div><label for="score">내 청약 가점 (84점 만점)</label>
-        <input type="number" id="score" min="0" max="84" step="1" value="64" inputmode="numeric"></div>
-    </div>
-    <div class="preset" aria-label="가구별 만점 프리셋">
-      <button data-s="54">혼자 산다 → 만점 54</button>
-      <button data-s="59">둘이 산다 → 만점 59</button>
-      <button data-s="64">셋이 산다 → 만점 64</button>
-      <button data-s="69">넷이 산다 → 만점 69</button>
-    </div>
-    <p class="hint">내 가점을 모르면 <a href="https://www.applyhome.co.kr" target="_blank" rel="noopener"
-      style="color:var(--soft)">청약홈</a>의 가점 계산기로 확인하세요. 위 버튼은 무주택 15년·통장
-      15년을 다 채운 가구의 만점입니다.</p>
-
-    <div class="big">
-      <div class="cell"><b id="covpct">—</b><span>문이 열려 있던 모집</span></div>
-      <div class="cell"><b id="covn">—</b><span id="covnlab">모집단위 (전체 중)</span></div>
-    </div>
-    <div class="bar" aria-hidden="true"><i id="covbar" style="width:0%"></i></div>
-    <p class="verdict" id="verdict"></p>
-
-    <div class="warn" id="remndr"></div>
-
-    <div class="tw" id="listwrap" hidden>
-      <table>
-        <thead><tr><th>커트라인</th><th>단지</th><th>타입</th><th>구</th></tr></thead>
-        <tbody id="list"></tbody>
-      </table>
-    </div>
-    <p class="hint" id="listhint" hidden></p>
-
-    <p class="src" id="src"></p>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true"  onclick="setTab(0)">이번 달 일정</button>
+    <button role="tab" aria-selected="false" onclick="setTab(1)">단지 하나 보기</button>
+    <button role="tab" aria-selected="false" onclick="setTab(2)">내 점수 계산</button>
   </div>
 
-  <div style="margin-top:30px;padding-top:22px;border-top:1px solid var(--hairline);
-    font-size:14px;line-height:1.85;color:var(--soft)">
-    <p style="margin:0 0 10px">이 숫자들이 어떻게 나왔고 왜 커트라인의 마디가 가족 수인지는
-      분석 글에서 다룹니다 — <a id="postlink" href="/blog/index.html"
-      style="color:var(--amber-hi);text-decoration:none;border-bottom:1px solid var(--hairline);padding-bottom:2px">Insights에서 읽기 →</a></p>
-    <p style="margin:0">여기까지가 공개 데이터로 보이는 범위입니다. 실거래 기반 비아파트
-      시세·권리 진단은 <a href="https://hicce.co.kr/?from=blog-cheongyak" target="_blank" rel="noopener"
-      style="color:var(--soft)">hicce</a>에 있습니다.</p>
-  </div>
+  <div id="pane"><p class="empty">불러오는 중…</p></div>
+  <div id="alertHost" data-needs="api-post:b2c-alert"></div>
 </main>
+<footer class="ft" style="--ftw:760px"><div>청약 정보는 청약홈 공고를 옮긴 참고치이며,
+  신청 자격·일정은 반드시 <b>공고 원문</b>으로 확인하세요 · 경쟁률·당첨 최저 가점은 발표가 난 뒤에만 적습니다</div></footer>
 
 <script>
-var $=function(id){return document.getElementById(id)};
-var D=null;
+/* ── 블로그(정적) 어댑터 — scripts/bake_cheongyak_page.py 가 주입한다 ─────────
+   화면 코드는 hicce `web/static/b2c-cheongyak.html` 을 **한 줄도 고치지 않고** 그대로 쓴다.
+   서버 API 를 여기서 가로채 `data/cheongyak_board.json` 으로 답한다.
+   🔴 그 파일은 **API 응답을 그대로** 담는다(scripts/bake_cheongyak_data.py) — 변환이 없다.
+      변환이 없으면 갈릴 수도 없다. */
+(function(){
+  let _p=null;
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=16e268ed577e').then(r=>{
+    if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
+  const _fetch=window.fetch.bind(window);
+  window.fetch=async function(url, opt){
+    const u=String(url);
+    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
+    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
+    const q=new URLSearchParams(u.split('?')[1]||'');
+    try{
+      const D=await data();
+      if(u.indexOf('/api/b2c/cheongyak-board')===0) return J(D.board);
+      if(u.indexOf('/api/b2c/cheongyak-nearby')===0){
+        /* 🔴 서울 아파트 실거래만 있다 — sigungu 가 null 인 경기·인천 공고는 굽지 않았다.
+           화면이 그때 「서울 밖 단지는 비교하지 않습니다」로 적는다. */
+        const k=q.get('sigungu')+'|'+Number(q.get('area_m2')).toFixed(1);
+        const r=(D.nearby||{})[k];
+        return J(r || {ok:false, reason:'서울 밖이거나 표본이 얇습니다'});
+      }
+      if(u.indexOf('/api/b2c/cheongyak-remndr')===0) return J(D.remndr || {ok:false});
+      if(u.indexOf('/api/b2c/cheongyak')===0){
+        /* 🔴 **null 이어야 한다** — 화면은 `if(!CUT) return <안내>` 로 우아하게 빠지는데,
+           객체({error:…})를 주면 truthy 라 그 관문을 통과해 «지난 1년(undefined» 이
+           사용자에게 그대로 보인다(2026-09-08 렌더 실측). 없는 건 없다고 답한다. */
+        return J(D.summary || null);
+      }
+    }catch(e){ return J({ok:false, error:String(e)}); }
+    return J({ok:false});
+  };
+})();
+</script>
+(function(){
+  var RE_MAIL = /^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/;
+  var RE_TEL  = /^01[016789]-?\d{3,4}-?\d{4}$/;
 
-/* 🔴 «어느 가점을 봤나» 를 URL 경로로 남긴다 — CF Web Analytics 는 경로만 세고
-   해시·쿼리는 비콘이 잘라 버린다 (2026-08-30 실측, where·wolse 와 동일 규칙).
-   /blog/cheongyak/<가점> · 새로고침 진입은 루트 404.html 이 해시로 되돌려 준다. */
-function setPath(s){
-  if(s==null) return;
-  var np='/blog/cheongyak/'+s;
-  if(location.pathname!==np){ try{ history.replaceState({},'',np); }catch(_){} }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  window.hicceAlert = function(host, o){
+    var el = (typeof host === 'string') ? document.getElementById(host) : host;
+    if(!el) return;
+    if(el.dataset.acDone === '1') return;      // 이미 신청한 화면을 다시 그리지 않는다
+    el.innerHTML =
+      '<section class="alertcta">' +
+        '<div class="ac-l"><b>' + esc(o.head) + '</b><span>' + esc(o.sub) + '</span></div>' +
+        '<div class="ac-r">' +
+          '<input type="text" class="ac-contact" placeholder="이메일 또는 휴대폰" ' +
+                 'autocomplete="email" inputmode="email" aria-label="알림 받을 연락처">' +
+          '<button type="button" class="ac-btn">' + esc(o.btn) + '</button>' +
+        '</div>' +
+        '<div class="ac-foot">' +
+          (o.optKind ? '<label class="ac-opt"><input type="checkbox" class="ac-optbox"> ' +
+            esc(o.optLabel) + ' <span style="opacity:.72">(선택)</span></label>' : '') +
+          (o.more ? '<a class="ac-more" href="' + esc(o.more.href) + '">' + esc(o.more.label) + '</a>' : '') +
+        '</div>' +
+        '<p class="ac-msg"></p>' +
+      '</section>';
+
+    var inp = el.querySelector('.ac-contact'),
+        btn = el.querySelector('.ac-btn'),
+        msg = el.querySelector('.ac-msg'),
+        opt = el.querySelector('.ac-optbox');
+
+    function fail(t){ msg.textContent = t; msg.className = 'ac-msg bad'; }
+
+    btn.addEventListener('click', async function(){
+      msg.className = 'ac-msg';
+      var v = (inp.value || '').trim();
+      var tok = null; try{ tok = localStorage.getItem('hicce_b2c_token'); }catch(_){}
+      var tel = RE_TEL.test(v), mail = RE_MAIL.test(v);
+      if(!v && !tok){ fail('이메일 또는 휴대폰 번호를 넣어주세요.'); inp.focus(); return; }
+      if(v && !mail && !tel){
+        fail('이메일(you@example.com) 또는 휴대폰(010-1234-5678) 형식으로 넣어주세요.');
+        inp.focus(); return; }
+      var kinds = [o.kind || 'listing'];
+      if(opt && opt.checked && o.optKind) kinds.push(o.optKind);
+      var sid = null;
+      try{ sid = localStorage.getItem('hicce_sid') || sessionStorage.getItem('hicce_sid'); }catch(_){}
+      var body = { channel: tel ? 'sms' : 'email', contact: v || null, token: tok || null,
+                   kinds: kinds, sid: sid || null };
+      try{ var c = o.cond && o.cond(); if(c) for(var k in c) if(c[k] != null) body[k] = c[k]; }catch(_){}
+      btn.disabled = true; msg.textContent = '신청 중…';
+      try{
+        var r = await fetch('/api/b2c/alert', {method:'POST',
+          headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+        var d = await r.json();
+        if(!r.ok) throw new Error(d.detail || '신청하지 못했습니다');
+        el.dataset.acDone = '1';
+        var note = (kinds.indexOf('listing') >= 0)
+          ? (d.note || '맞는 매물이 올라오면 알려드립니다')
+          : '이 조건의 시세·판정이 움직이면 보내드립니다';
+        msg.textContent = '신청했습니다 — ' + note +
+                          ' · ' + (d.privacy || '연락처는 중개사에게 공개되지 않습니다');
+        inp.style.display = 'none'; btn.style.display = 'none';
+        var lab = el.querySelector('.ac-opt'); if(lab) lab.style.display = 'none';
+      }catch(ex){ fail(ex.message); btn.disabled = false; }
+    });
+    inp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); btn.click(); } });
+  };
+})();
+
+</script>
+<script>
+(function(){ var _f=window.fetch;
+  window.fetch=function(){ var a=arguments;
+    return _f.apply(this,a).then(function(r){
+      try{ var u=(typeof a[0]==='string')?a[0]:((a[0]&&a[0].url)||'');
+        if(r.status===401 && u.indexOf('/api/b2c/')>=0 && u.indexOf('/auth/')<0){
+          location.href='https://hicce.co.kr/b2c/login?next='+encodeURIComponent(location.pathname+location.search); }
+      }catch(_){}
+      return r; }); };
+})();
+</script>
+<script>
+const $=id=>document.getElementById(id);
+const eok=v=>v==null?'—':(v>=10000?(v/10000).toFixed(2)+'억':Math.round(v).toLocaleString()+'만');
+const num=v=>v==null?'—':Math.round(v).toLocaleString();
+const P2M=3.3058;
+let TAB=0, REGION='서울,경기,인천', BOARD=null, PICK=null, MDL=0, NEAR={};
+let CUT, CUTGU='', RMD;
+
+const TITLE=['이번 달, 어디에 청약을 넣을 수 있나요?','이 단지, 얼마를 언제 내나요?','내 가점은 몇 점인가요?'];
+const LEAD=[
+ '청약홈 공고를 한 줄로 정리했습니다. 분양가는 공고값이고 옵션은 빠져 있습니다 — 실제로 내는 돈은 «자세히»에서 다시 셉니다.',
+ '분양가 하나만 크게 보여드리고, 그 돈을 언제 얼마씩 내는지 나눠 적습니다. 이미 지어진 집과도 비교합니다.',
+ '민영주택 가점제(무주택 32 · 부양가족 35 · 통장 17 = 84점) 그대로 계산합니다. 특별공급·추첨제는 계산이 다릅니다.'];
+
+function setTab(i){
+  TAB=i;
+  document.querySelectorAll('.tabs button').forEach((b,k)=>b.setAttribute('aria-selected',String(k===i)));
+  $('pgTitle').textContent=TITLE[i]; $('pgLead').textContent=LEAD[i];
+  render();
 }
-function fromUrl(){
-  /* 🔴 해시가 경로보다 먼저다 — 404 폴백이 /blog/cheongyak/42 를 #42 로 되돌려 보내는데,
-     경로를 먼저 읽으면 직전 replaceState 경로가 이겨 복원이 죽는다 (2026-09-01 실측) */
+window.setTab=setTab;
+
+function dday(r){
+  const t=new Date(); t.setHours(0,0,0,0);
+  const bg=r.rcept_bgn?new Date(r.rcept_bgn):null, ed=r.rcept_end?new Date(r.rcept_end):null;
+  if(ed && ed < t) return {k:'end', t:'접수 마감'};
+  if(bg && bg <= t) return {k:'soon', t:'접수 중'};
+  if(!bg) return {k:'open', t:'일정 미정'};
+  const d=Math.round((bg-t)/864e5);
+  return {k:(d<=3?'soon':'open'), t:'D-'+d};
+}
+const md=s=>!s?'—':(s.slice(5,7).replace(/^0/,'')+'/'+s.slice(8,10).replace(/^0/,''));
+
+function tab1(){
+  const R=['서울','서울,경기,인천','경기','인천'];
+  const RL={'서울':'서울','서울,경기,인천':'수도권','경기':'경기','인천':'인천'};
+  let h=`<div class="chips">${R.map(x=>
+    `<button type="button" aria-selected="${x===REGION}" onclick="setRegion('${x}')">${RL[x]}</button>`).join('')}</div>`;
+  if(!BOARD || !BOARD.ok) return h+`<p class="empty">${(BOARD&&BOARD.reason)||'불러오는 중…'}</p>`;
+  const N=BOARD.notices||[];
+  const live=[], past=[];
+  N.forEach((r,i)=>{ (dday(r).k==='end' ? past : live).push([r,i]); });
+  h+=`<h2 class="sec">이번 달 접수하는 단지 <small>접수 중·예정 ${live.length}건 · 청약홈 실데이터</small></h2>`;
+  if(!N.length) return h+`<p class="empty">지금 이 지역에 접수 중이거나 예정된 공고가 없습니다.</p>`;
+  const rowHTML=([r,i])=>{
+    const d=dday(r), m=r.models[0];
+    return `<div class="row">
+      <div class="l">
+        <div class="nm">${r.name}<span class="dday ${d.k}">${d.t}</span></div>
+        <div class="meta">${r.sido}${r.sigungu?' '+r.sigungu:''} · 총 공급 ${num(r.total)}세대 ·
+          ${r.detail_kind||r.kind}${r.regulated?' · 규제지역':''}</div>
+        <div class="when">1순위 접수 <b>${md(r.rcept_bgn)}~${md(r.rcept_end)}</b>
+          · 당첨 발표 <b>${md(r.announce)}</b></div>
+      </div>
+      <div class="r"><b>${eok(m.price_man)}</b>
+        <em>전용 ${m.area_m2.toFixed(0)}㎡(${m.py.toFixed(0)}평) · 전용 평당 ${num(m.py_price_man)}만</em>
+        <button type="button" onclick="openOne(${i})">자세히 →</button></div>
+    </div>`;};
+  h += live.length ? live.map(rowHTML).join('')
+     : `<p class="empty">지금 접수 중이거나 예정된 공고가 없습니다 — 아래 지난 공고를 펼쳐 보세요.</p>`;
+  if(past.length) h+=`<details class="pastfold"><summary>지난 공고 ${past.length}건 보기
+    <span>접수가 끝났습니다 — 분양가·경쟁률을 견주는 데 씁니다</span></summary>
+    ${past.map(rowHTML).join('')}</details>`;
+  h+=`<p class="src">${BOARD.caveat} 자료: ${BOARD.source} · ${BOARD.as_of} 기준.</p>
+    <div class="panel"><h3>청약만 보면 놓치는 것</h3>
+      <p>같은 동네에 <b>이미 지어진 집</b>이 지금 얼마에 거래되는지 같이 보세요.
+        분양가가 주변 시세보다 높으면 «당첨이 곧 이득»이 아닙니다.</p>
+      <div class="lk"><a href="https://hicce.co.kr/b2c/ask?from=blog-cheongyak">이 동네 시세 보기 →</a><a href="https://hicce.co.kr/b2c/where?from=blog-cheongyak">동네 월세·상권 →</a></div></div>`;
+  return h;
+}
+window.setRegion=function(r){ REGION=r; PICK=null; load(); };
+window.openOne=function(i){ PICK=i; MDL=0; setTab(1); };
+
+function tab2(){
+  if(!BOARD || !BOARD.ok || !(BOARD.notices||[]).length)
+    return `<p class="empty">먼저 «이번 달 일정»에서 단지를 골라주세요.</p>`;
+  const N=BOARD.notices;
+  if(PICK==null){ const i=N.findIndex(x=>x.sigungu); PICK = i>=0 ? i : 0; }
+  const r=N[Math.min(PICK,N.length-1)];
+  const m=r.models[Math.min(MDL,r.models.length-1)];
+  let h=`<div class="pickrow"><label for="onePick">단지</label>
+    <select id="onePick" onchange="pickOne(this.selectedIndex)">${N.map((x,i)=>
+      `<option${i===PICK?' selected':''}>${x.sido} · ${x.name}</option>`).join('')}</select></div>`;
+  h+=`<h2 class="sec">${r.name} <small>${r.sido}${r.sigungu?' '+r.sigungu:''} · ${r.addr}</small></h2>`;
+  const dupArea = {};
+  r.models.forEach(x=>{ dupArea[x.area_m2.toFixed(0)] = (dupArea[x.area_m2.toFixed(0)]||0)+1; });
+  const mlabel = x => {
+    const sfx = (x.ty.match(/[A-Za-z]+$/)||[''])[0];
+    const base = `${x.area_m2.toFixed(0)}㎡ (${x.py.toFixed(0)}평)`;
+    return dupArea[x.area_m2.toFixed(0)] > 1 ? `${base} ${sfx||''} ${eok(x.price_man)}` : base;
+  };
+  h+=`<div class="chips">${r.models.map((x,i)=>
+    `<button type="button" aria-selected="${i===MDL}" onclick="pickMdl(${i})">${mlabel(x)}</button>`).join('')}</div>`;
+  h+=`<div class="big"><b>${(m.price_man/10000).toFixed(2)}</b>
+        <span>억 · 전용 ${m.area_m2.toFixed(0)}㎡ (${m.py.toFixed(0)}평)</span></div>
+     <p class="lead">공고에 적힌 <b>분양가 상한</b>입니다. 발코니 확장·옵션은 빠져 있고, 취득세·중개보수는 또 별도입니다.
+       전용 평당 <b>${num(m.py_price_man)}만</b>${m.households?` · 이 평형 공급 <b>${m.households}세대</b>`:''}.</p>`;
+  const p=m.price_man;
+  h+=`<h2 class="sec">이 돈을 언제 내나</h2><div class="pay">
+    <div class="r"><span>계약금 (계약할 때)</span><span class="p">20%</span><span class="v">${eok(p*0.2)}</span></div>
+    <div class="r"><span>중도금 1~6회 (공사 중)</span><span class="p">60%</span><span class="v">${eok(p*0.6)}</span></div>
+    <div class="r"><span>잔금 (입주할 때)</span><span class="p">20%</span><span class="v">${eok(p*0.2)}</span></div>
+    </div>
+    <p class="src">중도금은 보통 <b>집단대출</b>로 냅니다 · 잔금 때 한 번에 큰 돈이 나갑니다 —
+      그때 팔 집이 있으면 시기를 맞춰야 합니다. 비율은 일반적인 분양 관행이고 단지마다 다릅니다(공고 원문 확인).</p>`;
+  h+=`<div class="facts">
+    <div><div class="k">입주 예정</div><div class="v${r.movein_ym?'':' non'}">${r.movein_ym||'—'}</div>
+      <div class="s">${r.movein_ym?'공고 기준 · 늦어질 수 있습니다':'공고에 적혀 있지 않습니다'}</div></div>
+    <div><div class="k">전매 제한</div><div class="v non">—</div>
+      <div class="s">청약홈이 내려주지 않는 값입니다 — 공고 원문에서 확인하세요</div></div>
+    <div><div class="k">실거주 의무</div><div class="v non">—</div>
+      <div class="s">공고 원문에서 확인하세요</div></div>
+    <div><div class="k">경쟁률</div><div class="v non">—</div>
+      <div class="s">발표 전에는 적지 않습니다</div></div></div>`;
+  const nk=r.sigungu?`${r.sigungu}|${m.area_m2.toFixed(0)}`:null;
+  const nb=nk?NEAR[nk]:null;
+  h+=`<h2 class="sec">이미 지어진 집과 비교하면</h2>`;
+  if(nb===undefined && nk){ h+=`<p class="src">불러오는 중…</p>`; }
+  else if(!nb || !nb.median_man){
+    h+=`<p class="src">${r.sigungu?`${r.sigungu}에 이 크기 아파트 실거래가 충분하지 않아 비교하지 않습니다`
+      :'서울 밖 단지는 아파트 실거래를 갖고 있지 않아 비교하지 않습니다'} — 없는 값은 지어내지 않습니다.</p>`;
+  } else {
+    const mx=Math.max(p, nb.median_man)*1.15;
+    const gap=p-nb.median_man;
+    h+=`<div class="cmpbar">
+      <div class="lab"><span>분양가 ${eok(p)}</span><span>주변 같은 크기 ${eok(nb.median_man)}</span></div>
+      <div class="tk"><i style="width:${p/mx*100}%"></i>
+        <span class="gold" style="left:${nb.median_man/mx*100}%"></span>
+        <span class="mk" style="left:${Math.min(97, Math.max(3, p/mx*100))}%"></span></div></div>
+      <p class="src">분양가가 주변 같은 크기보다 <b>${eok(Math.abs(gap))} ${gap>0?'비쌉니다':'쌉니다'}</b>${
+        gap>0?' — 당첨돼도 바로 이득이 되지 않을 수 있습니다.':' — 다만 옵션·확장비가 빠진 값입니다.'}
+        기준: ${nb.basis}. <b>500m 반경이 아니라 같은 구</b>입니다 — 단지 좌표가 없어 반경으로는 못 잽니다.</p>`;
+  }
+  h+=`<p class="src">${r.url?`<a href="${r.url}" target="_blank" rel="noopener">청약홈 공고 원문 열기 ↗</a> · `:''}${BOARD.caveat}</p>`;
+  return h;
+}
+window.pickOne=function(i){ PICK=i; MDL=0; render(); loadNear(); };
+window.pickMdl=function(i){ MDL=i; render(); loadNear(); };
+
+async function loadNear(){
+  if(!BOARD||!BOARD.ok) return;
+  const N=BOARD.notices; if(!N.length) return;
+  const r=N[Math.min(PICK||0,N.length-1)]; if(!r.sigungu) return;
+  const m=r.models[Math.min(MDL,r.models.length-1)];
+  const k=`${r.sigungu}|${m.area_m2.toFixed(0)}`;
+  if(k in NEAR) return;
+  NEAR[k]=undefined;
   try{
-    var h=(location.hash||'').replace(/^#/,'');
-    var m=location.pathname.match(/^\/blog\/cheongyak\/(\d{1,2})$/);
-    var v=parseInt(h!==''?h:(m?m[1]:''),10);
-    return (v>=0&&v<=84)?v:null;
-  }catch(_){ return null; }
+    const d=await (await fetch(`/api/b2c/cheongyak-nearby?sigungu=${encodeURIComponent(r.sigungu)}&area_m2=${m.area_m2}`)).json();
+    NEAR[k]=(d && d.median_man) ? d : null;
+  }catch(_){ NEAR[k]=null; }
+  if(TAB===1) render();
+}
+
+let S={no:0, fam:0, acct:0};
+function ptNoHouse(y){ if(!(y>0)) return 0; return Math.min(32, 2 + 2*Math.floor(y)); }
+function ptFamily(n){ if(!(n>=0)) return 0; return Math.min(35, 5 + 5*Math.floor(n)); }
+function ptAccount(y){ if(!(y>0)) return 1; if(y<1) return 2; return Math.min(17, 3 + Math.floor(y) - 1); }
+
+function tab3(){
+  const a=ptNoHouse(S.no), b=ptFamily(S.fam), c=ptAccount(S.acct);
+  const tot=a+b+c;
+  const v = tot>=64 ? {k:'up', t:'높은 편입니다'} : tot>=50 ? {k:'', t:'중간입니다'}
+          : {k:'dn', t:'낮은 편입니다 — 추첨제 물량을 노리는 쪽이 현실적입니다'};
+  const bar=(l,p,mx)=>`<div class="sbar"><span>${l}</span>
+    <span class="tk"><i style="width:${p/mx*100}%"></i></span><span class="n">${p} / ${mx}점</span></div>`;
+  return `<div class="score">
+      <div><label for="s_no">집 없이 지낸 기간</label>
+        <div class="box"><input id="s_no" inputmode="decimal" value="${S.no}"><span class="u">년</span></div>
+        <em>만 30세부터(혼인했으면 혼인일부터) · 최대 15년 = 32점</em></div>
+      <div><label for="s_fam">같이 사는 식구 (나 빼고)</label>
+        <div class="box"><input id="s_fam" inputmode="numeric" value="${S.fam}"><span class="u">명</span></div>
+        <em>배우자·자녀·같이 사는 부모 · 최대 6명 = 35점</em></div>
+      <div><label for="s_acct">청약통장 넣은 기간</label>
+        <div class="box"><input id="s_acct" inputmode="decimal" value="${S.acct}"><span class="u">년</span></div>
+        <em>최대 15년 = 17점</em></div>
+    </div>
+    <div class="verd ${v.k}"><i></i><span>${v.t}</span></div>
+    <div class="big"><b>${tot}</b><span>점 · 84점 만점</span></div>
+    <h2 class="sec">어디서 몇 점이 나왔나</h2>
+    ${bar('집 없이 지낸 기간', a, 32)}${bar('같이 사는 식구', b, 35)}${bar('청약통장 기간', c, 17)}
+    <p class="src">민영주택 <b>가점제</b> 배점(주택공급에 관한 규칙 별표1) 그대로입니다 ·
+      특별공급·추첨제는 계산이 다릅니다 · 30세 미만 미혼이면 무주택기간은 0점입니다.</p>
+    ${cutCard(tot)}${remndrCard(tot)}`;
+}
+function cutCard(tot){
+  if(CUT === undefined) return `<div class="panel" data-needs="api:cheongyak"><h3>이 점수로 되나요?</h3>
+    <p>지난 발표 자료를 불러오는 중입니다…</p></div>`;
+  if(!CUT) return `<div class="panel" data-needs="api:cheongyak"><h3>이 점수로 되나요?</h3>
+    <p>지난 당첨 가점 자료를 <b>지금 불러오지 못했습니다</b> — 없는 값을 지어내지 않습니다.
+      잠시 뒤 다시 열어보세요.</p></div>`;
+  const gus = Object.keys(CUT.by_gu||{}).sort();
+  if(!CUTGU && gus.length) CUTGU = gus[0];
+  const rows = ((CUT.by_gu||{})[CUTGU]||[]).filter(x=>x.min_cut!=null);
+  const guCut = rows.length ? Math.min.apply(null, rows.map(x=>x.min_cut)) : null;
+  const guCmp = rows.length ? Math.max.apply(null, rows.map(x=>x.cmpet||0)) || null : null;
+  const med = CUT.median_cut;
+  const gap = (med!=null) ? Math.round((tot-med)*10)/10 : null;
+  const tone = gap==null ? '' : gap>=0 ? 'up' : gap>=-6 ? 'warn' : 'dn';
+  return `<div class="panel"><h3>이 점수로 되나요?</h3>
+    <p>지난 1년(${CUT.window_from} 이후) 서울에서 <b>실제로 당첨된</b> 사람들의 최저 가점과 견준 값입니다.
+      단지·평형마다 달라 «되나 안 되나»의 답은 아니고, <b>어느 줄에 서 있는지</b>를 보는 것입니다.</p>
+    <div class="pickrow" style="margin-top:12px"><label for="cutGu">자치구</label>
+      <select id="cutGu" onchange="setCutGu(this.value)">${
+        gus.map(g=>`<option${g===CUTGU?' selected':''}>${g}</option>`).join('')}</select></div>
+    <div class="facts" style="margin-top:12px">
+      <div><div class="k">서울 지난 당첨 최저 (중위)</div>
+        <div class="v ${tone}">${med==null?'—':med+'점'}</div>
+        <div class="s">${CUT.n_units}개 평형 · ${CUT.window_from} 이후</div></div>
+      <div><div class="k">${CUTGU} 지난 당첨 최저</div>
+        <div class="v${guCut==null?' non':''}">${guCut==null?'—':guCut+'점'}</div>
+        <div class="s">${rows.length?rows.map(x=>x.nm).slice(0,2).join(' · '):'이 구는 지난 1년 발표가 없습니다'}</div></div>
+      <div><div class="k">${CUTGU} 최고 경쟁률</div>
+        <div class="v${guCmp==null?' non':''}">${guCmp==null?'—':guCmp.toFixed(1)+' : 1'}</div>
+        <div class="s">${guCmp==null?'발표된 공고가 없습니다':'같은 기간 · 1순위 기준'}</div></div>
+      <div><div class="k">추첨제 물량</div><div class="v non">—</div>
+        <div class="s">청약홈이 내려주지 않는 값입니다</div></div>
+    </div>
+    <p class="src" style="margin-top:10px">${gap==null?'' :
+      gap>=0 ? `내 점수 <b>${tot}점</b>은 서울 당첨 최저 중위(${med}점)보다 <b>${gap}점 높습니다</b> — 가점제로 노려볼 만합니다.`
+      : `내 점수 <b>${tot}점</b>은 서울 당첨 최저 중위(${med}점)보다 <b>${Math.abs(gap)}점 낮습니다</b>` +
+        (gap>=-6 ? ' — 단지·평형에 따라 닿는 곳이 있습니다.' : ' — 가점제보다 추첨제 물량 쪽이 현실적입니다.')}
+      자료: 청약홈 공표 당첨 가점·경쟁률(발표된 공고만).</p></div>`;
+}
+window.setCutGu=function(g){ CUTGU=g; render(); };
+
+function remndrCard(tot){
+  if(!RMD || !RMD.ok) return '';
+  const w=RMD.worst;
+  return `<div class="panel" style="margin-top:14px"><h3>가점이 낮으면 «무순위(줍줍)»는 어떤가</h3>
+    <p>청약통장도 가점도 필요 없어 <b>누구나 넣습니다</b> — 그래서 사람이 몰립니다.
+      «가점이 낮을 때의 대안»이지 <b>«쉬운 길»이 아닙니다.</b></p>
+    <div class="facts" style="margin-top:12px">
+      <div><div class="k">지난 1년 서울 무순위 경쟁률</div><div class="v dn">${RMD.rate.toLocaleString()} : 1</div>
+        <div class="s">공급 ${RMD.supply.toLocaleString()}가구에 ${RMD.applied.toLocaleString()}명 신청</div></div>
+      <div><div class="k">공고 수</div><div class="v">${RMD.n_notices}건</div>
+        <div class="s">${RMD.window_from} 이후 · 결과 나온 것만</div></div>
+      ${w?`<div><div class="k">가장 몰린 곳</div><div class="v dn">${w.req.toLocaleString()}명</div>
+        <div class="s">${w.name} · ${w.supply}가구 모집</div></div>`:''}
+      <div><div class="k">내 가점</div><div class="v">${tot}점</div>
+        <div class="s">무순위는 가점을 보지 않습니다</div></div>
+    </div>
+    <p class="src" style="margin-top:10px">${RMD.caveat} 자료: ${RMD.source}.</p></div>`;
+}
+
+function bindScore(){
+  [['s_no','no'],['s_fam','fam'],['s_acct','acct']].forEach(([id,k])=>{
+    const el=$(id); if(!el) return;
+    el.addEventListener('input', ()=>{
+      const v=parseFloat((el.value||'').replace(/[^\d.]/g,''));
+      S[k]=Number.isFinite(v)?Math.max(0,v):0;
+      const box=$('pane'); const pos=document.activeElement===el?el.selectionStart:null;
+      render(); const n=$(id); if(n){ n.focus(); if(pos!=null) try{n.setSelectionRange(pos,pos);}catch(_){} }
+    });
+  });
 }
 
 function render(){
-  if(!D) return;
-  var s=Math.max(0,Math.min(84,parseInt($('score').value,10)||0));
-  var open=D.units.filter(function(u){return u.s<=s});
-  var pct=Math.round(open.length/D.units.length*100);
-  $('covpct').textContent=pct+'%';
-  $('covn').textContent=open.length;
-  $('covnlab').textContent='모집단위 ('+D.units.length+'개 중)';
-  $('covbar').style.width=pct+'%';
-  var fam=null;
-  for(var k in D.family_max) if(D.family_max[k]===s) fam=k;
-  var v='<strong style="color:var(--ink)">'+s+'점</strong>'+(fam?' — '+fam+' 가구가 무주택 15년·통장 15년을 다 채운 만점입니다.':'')+
-    ' 지난 12개월 서울에서 이 점수로 커트라인을 넘겼던 모집이 <strong style="color:var(--ink)">'+
-    open.length+'곳('+pct+'%)</strong>'+(pct<25?'뿐이었습니다.':'이었습니다.');
-  if(pct<25) v+=' 이 점수대의 현실적인 문은 가점 줄이 아니라, 가점을 안 보는 추첨 물량과 자격이 되는 특별공급입니다.';
-  else if(pct<70) v+=' 남들이 안 노리는 크기(아주 큰 집·아주 작은 집)를 고르면 문이 더 열립니다 — 실제로 최저 컷들은 전부 그런 타입이었습니다.';
-  else v+=' 웬만한 곳은 열립니다. 단, 커트라인 상위권은 사실상 서초 이야기입니다.';
-  $('verdict').innerHTML=v;
-  var R=D.remndr;
-  $('remndr').innerHTML='<b style="color:var(--ink)">무순위(줍줍)는 계획에 넣지 마세요.</b> 같은 12개월 서울 무순위는 공급 '+
-    R.supply.toLocaleString()+'가구에 신청 '+R.requests.toLocaleString()+'명 — 전체 <b style="color:var(--ink)">'+
-    R.overall+':1</b>, 최고는 1가구에 '+R.max.toLocaleString()+'명이 몰렸습니다. 전략이 아니라 복권입니다.';
-  var tb=$('list'); tb.innerHTML='';
-  if(open.length){
-    var shown=open.slice(-40).reverse();   // 내 점수에 가까운(높은 컷) 순
-    shown.forEach(function(u){
-      var tr=document.createElement('tr');
-      tr.innerHTML='<td class="s">'+u.s+'점</td><td style="color:var(--ink)">'+u.n+'</td><td>'+u.t+'</td><td>'+u.g+'</td>';
-      tb.appendChild(tr);
-    });
-    $('listwrap').hidden=false;
-    $('listhint').hidden=false;
-    $('listhint').textContent=(open.length>40?'열렸던 '+open.length+'곳 중 커트라인이 높은 40곳만 표시. ':'열렸던 모집 전부입니다. ')+
-      '커트라인이 내 점수에 가까울수록 아슬아슬했던 문입니다.';
-  }else{
-    $('listwrap').hidden=true; $('listhint').hidden=false;
-    $('listhint').textContent='이 점수로 열렸던 일반공급 모집이 없습니다 — 아래 무순위 항목과 추첨 물량을 보세요.';
-  }
-  setPath(s);
+  $('pane').innerHTML = TAB===0 ? tab1() : TAB===1 ? tab2() : tab3();
+  if(TAB===2) bindScore();
+  if(TAB===1) loadNear();
 }
 
-fetch('/blog/data/cheongyak.json').then(function(r){return r.json()}).then(function(j){
-  D=j;
-  $('nunits').textContent=j.meta.n_units;
-  $('src').textContent='출처: '+j.meta.source+' · 창 '+j.meta.window[0]+'~'+j.meta.window[1]+
-    ' · 기준 '+j.meta.baked_at+' · '+j.meta.caveat;
-  var u=fromUrl();
-  if(u!=null) $('score').value=u;
+async function load(){
+  $('pane').innerHTML='<p class="empty">청약홈 공고를 불러오는 중…</p>';
+  try{ BOARD=await (await fetch('/api/b2c/cheongyak-board?region='+encodeURIComponent(REGION))).json(); }
+  catch(_){ BOARD={ok:false, reason:'공고를 불러오지 못했습니다'}; }
   render();
-}).catch(function(){ $('verdict').textContent='자료를 불러오지 못했습니다.'; });
-
-$('score').addEventListener('input',render);
-document.querySelectorAll('.preset button').forEach(function(b){
-  b.addEventListener('click',function(){ $('score').value=b.dataset.s; render(); });
-});
-window.addEventListener('popstate',function(){ var u=fromUrl(); if(u!=null){ $('score').value=u; render(); } });
-window.addEventListener('hashchange',function(){ var u=fromUrl(); if(u!=null){ $('score').value=u; render(); } });
+  const grab = async (u, ok) => { try{
+      const r=await fetch(u); const d=await r.json();
+      return (r.ok && d && ok(d)) ? d : null;
+    }catch(_){ return null; } };
+  CUT = await grab('/api/b2c/cheongyak', d => d.median_cut!=null || d.by_gu);
+  if(TAB===2) render();
+  RMD = await grab('/api/b2c/cheongyak-remndr?region=서울', d => d.ok && d.rate);
+  if(TAB===2) render();
+  if(window.hicceAlert) hicceAlert('alertHost', {
+    head:'이 조건에 맞는 공고가 뜨면 알려드릴까요?',
+    sub :'연락처는 중개사에게 공개되지 않습니다 · 마케팅 수신은 선택입니다',
+    btn :'알림 받기', kind:'listing', optKind:'price',
+    optLabel:'이 동네 시세가 움직이면 같이 알려주세요',
+    cond: () => ({})
+  });
+}
+load();
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
-</body>
-</html>
+<script>(function(){try{
+  var k='hicce_sid', s=localStorage.getItem(k);
+  if(!s){ s='a'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(k,s); }
+  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||null});
+  if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/b2c/pv', new Blob([b],{type:'application/json'})); }
+}catch(e){}})();
+</script>

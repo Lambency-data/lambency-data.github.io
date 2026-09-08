@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 7f42338c8369d400 -->
+<!-- baked-from-b2c-where: a11793f173e78312 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -619,7 +619,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=606af516e2d0').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=900d01fbffd5').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -850,12 +850,23 @@ async function renderPick(gu, dg, seq){
       <td class="n">${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</td></tr>${c.hint?`<tr class="pkhr"><td colspan="6" class="pkhint">⚠ ${c.hint}</td></tr>`:''}`;
   sec.innerHTML=`<h2>🏪 이 동네에 아직 부족한 가게 <small>닮은 동네엔 있는데 여기엔 없는 것</small></h2>
     <p class="cap" style="margin:0 0 8px">${dg}${((dg.charCodeAt(dg.length-1)-0xAC00)%28)?'과':'와'} 닮은 동네 ${p.peers.length}곳 — ${p.peers.map(x=>x.dong).join(' · ')} — 의 업종 구성대로면
-      «있어야 할 수»를 재고, 가게당 월매출·월세 부담률(1층 ${p.area_m2}㎡ 월세 ${man(p.rent_man)}만 기준)·전년 대비·폐업률로 골랐습니다.</p>
+      «있어야 할 수»를 재고, 가게당 월매출·${p.rent_man
+        ? `월세 부담률(1층 ${p.area_m2}㎡ 월세 ${man(p.rent_man)}만 기준)·`
+        : '<b>월세 부담률은 이 동네 상권 임대료가 없어 빼고</b> '}전년 대비·폐업률로 골랐습니다.</p>
     <div class="tw" style="overflow-x:auto"><table class="pk">
       <thead><tr><th>업종 · 어느 층</th><th>여기 / 있어야 할 수</th><th>가게당 월매출</th><th>월세 부담률</th><th>전년 대비</th><th>분기 폐업률</th></tr></thead>
       <tbody>${p.top.map(row).join('')}</tbody></table></div>
-    ${p.avoid&&p.avoid.length?`<p class="cap" style="margin-top:10px"><b>피할 것</b> — ${p.avoid.map(c=>`${c.industry}(${c.yoy_pct!=null?'전년 '+pc(c.yoy_pct):''}${c.burden_pct!=null?' · 부담률 '+c.burden_pct+'%':''})`).join(' · ')}</p>`:''}
-    <p class="src">${p.caveat} 자료: 카드 추정매출 ${p.quarter?String(p.quarter).slice(0,4)+'년 '+String(p.quarter).slice(4)+'분기':''} · 소상공인 상가업소 · 부동산원 «${p.sangkwon||''}» 임대료.</p>`;
+    ${p.avoid&&p.avoid.length?`<p class="cap" style="margin-top:10px"><b>피할 것</b> — ${p.avoid.map(c=>{
+        const rs=[];
+        if(c.burden_pct!=null && c.burden_pct>=30) rs.push('월세가 매출의 '+c.burden_pct+'%');
+        if(c.yoy_pct!=null && c.yoy_pct<-10) rs.push('작년보다 '+pc(c.yoy_pct));
+        if(c.close_rate_pct!=null && c.close_rate_pct>=5) rs.push('문 닫는 비율 '+c.close_rate_pct+'%');
+        if(!rs.length && c.expected!=null && c.stores>c.expected) rs.push('이미 '+c.stores+'곳 — 닮은 동네보다 많음');
+        return c.industry + (rs.length?`(${rs.join(' · ')})`:'');
+      }).join(' · ')}</p>
+      <p class="src" style="margin-top:4px">«피할 것» 은 <b>매출이 낮게 잡히거나 이미 많다</b>는 뜻이지
+        «망한다» 가 아닙니다 — 폐업률은 매출과 관계가 없었습니다.</p>`:''}
+    <p class="src">${p.caveat} 자료: 카드 추정매출 ${p.quarter?String(p.quarter).slice(0,4)+'년 '+String(p.quarter).slice(4)+'분기':''} · 소상공인 상가업소${p.sangkwon?` · 부동산원 «${p.sangkwon}» 임대료`:' · 상권 임대료 없음'}.</p>`;
   refold(sec);
   foldSections(); applyMode();
 }
@@ -938,9 +949,11 @@ function homeHead(){
   const upto=rows.filter(r=>cur.hi!=null&&r.hi!=null&&r.hi<=cur.hi).reduce((a,r)=>a+(r.n_monthly||0),0);
   const shr=(tot&&cur.hi!=null)?Math.round(upto/tot*100):null;
 
-  let h=`<div class="ansq"><i></i><span>찾는 크기가
+  let h=`<div class="ansq${thin?' warn':''}"><i></i><span>찾는 크기가
       <input class="numin" id="pyIn" inputmode="decimal" value="${_PY}"> 평(${Math.round(m2)}㎡)이면</span></div>
-    <div class="bigans"><b>${_n(cur.monthly_man)}만</b><span>이 적당합니다 · ${bandLab(cur).replace(/\(.*\)/,'').trim()}</span></div>`;
+    <div class="bigans">${thin
+      ? `<b>—</b><span>이 크기는 계약이 ${n}건뿐이라 값을 내지 않았습니다</span>`
+      : `<b>${_n(cur.monthly_man)}만</b><span>이 적당합니다 · ${bandLab(cur).replace(/\(.*\)/,'').trim()}</span>`}</div>`;
 
   h+=`<p class="ansnote">${thin
     ? `이 크기는 <b>월세 계약이 ${n}건</b>뿐이라 값을 참고만 하세요 — 없는 값은 지어내지 않습니다.`
@@ -951,10 +964,11 @@ function homeHead(){
   h+=`<div class="szc">`+rows.map(r=>{
       const rn=r.n_monthly||0;
       const th=rn<30;
-      return `<div class="${r===cur?'on':''}"${th&&r!==cur?' style="opacity:.55"':''}><em>${bandLab(r)}</em>
-        <b>${_n(r.monthly_man)}만</b><i>${th?'—':_n(rn)+'건'}</i></div>`;
+      return `<div class="${r===cur?'on':''}"${th&&r!==cur?' style="opacity:.5"':''}><em>${bandLab(r)}</em>
+        <b>${th?'—':_n(r.monthly_man)+'만'}</b><i>${th?(rn?_n(rn)+'건 · 적음':'거래 없음'):_n(rn)+'건'}</i></div>`;
     }).join('')+`</div>
-    <p class="src">칸 안의 건수는 <b>월세 계약</b> 수입니다 — 30건이 안 되는 칸은 «—» 로 둡니다.
+    <p class="src">칸 안의 건수는 <b>월세 계약</b> 수입니다 — <b>30건이 안 되는 칸은 값을 내지 않습니다</b>
+      (한두 계약에 휘둘려 «큰 집이 더 싸다» 같은 값이 나옵니다).
       보증금을 올리면 월세는 내려갑니다(그 관계는 연결 예정).</p>`;
 
   h+=`<div class="kndbox" data-needs="api:dong-rent-kinds"><h3>집 종류마다 — 같은 ${_PY}평이면</h3>`;
@@ -1035,14 +1049,25 @@ function livingSec(){
     <div class="lifec" id="lifeCards">${lifeCards()}</div>
     <p class="src">지하철만 <b>실제 거리</b>로 잽니다(도보 1분 = 80m) — 나머지는 <b>행정동 안의 개수</b>이고
       걸어서 몇 분인지는 연결 예정입니다. 가게 수는 서울 상권분석(카드 매출) 기준입니다.</p>
-    <h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">건물이 얼마나 낡았나
-      <span class="exflag">⚠ 예시 · 건축물대장 연결 예정</span></h3>
-    <p class="src" style="margin:4px 0 8px">이 동네 빌라를 지은 해로 나눈 그림입니다.
-      절반 넘게 20년이 넘었습니다 — 오래된 집이 싼 대신 수리비가 듭니다.</p>
-    ${AGEB.map(x=>`<div class="agebar"><span>${x[0]}</span>
-      <span class="tk"><i style="width:${x[1]/mx*100}%;background:${x[3]}"></i></span>
-      <span class="pc">${x[1]}%</span><span class="rl">${x[2]}</span></div>`).join('')}
-    <p class="src">🔴 위 네 칸은 <b>아직 예시 숫자</b>입니다 — 건축물대장을 동 단위로 붙이면 실측으로 바꿉니다.</p>
+    ${(()=>{
+      const BM=(_D&&_D.build_mix)||null;
+      if(!BM || !BM.ok) return `<h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">건물이 얼마나 낡았나</h3>
+        <p class="src" style="margin:4px 0 0">이 동네는 거래가 적어 준공연도 구성을 내지 않았습니다
+          — 없는 값은 지어내지 않습니다.</p>`;
+      const CL={'2015년 이후':'var(--up)','2005~2014년':'var(--ink)',
+                '1995~2004년':'var(--faint)','1994년 이전':'var(--warn)'};
+      const mx=Math.max.apply(null, BM.rows.map(r=>r.pct).concat([1]));
+      return `<h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">건물이 얼마나 낡았나
+          <span class="exflag" style="color:var(--soft)">실거래 ${_n(BM.n)}건</span></h3>
+        <p class="src" style="margin:4px 0 8px">이 동네에서 <b>거래된 집</b>을 지은 해로 나눈 것입니다.
+          ${BM.old20_pct>=50
+            ? `<b>${BM.old20_pct}%</b>가 20년이 넘었습니다 — 오래된 집이 싼 대신 수리비가 듭니다.`
+            : `20년 넘은 집이 <b>${BM.old20_pct}%</b>이고 새 집(2015년 이후)이 <b>${BM.new_pct}%</b>입니다.`}</p>
+        ${BM.rows.map(r=>`<div class="agebar"><span>${r.band}</span>
+          <span class="tk"><i style="width:${r.pct/mx*100}%;background:${CL[r.band]||'var(--ink)'}"></i></span>
+          <span class="pc">${r.pct}%</span><span class="rl">${r.note} · ${_n(r.n)}건</span></div>`).join('')}
+        <p class="src">가장 흔한 준공연도 <b>${BM.modal_year}년</b> · ${BM.basis.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')} · ${BM.source}</p>`;
+    })()}
     </section>`;
 }
 window.setAge=function(i){ _AGE=i;
@@ -1108,14 +1133,19 @@ function shopHead(){
         <div><div class="nl">가게당 한 달 매출</div><div class="nv">${eok(c.per_store_month_man)}</div>
           <div class="ns">카드 매출 추정</div></div>
         <div><div class="nl">월세 부담</div><div class="nv ${bk}">${b==null?'—':b+'%'}</div>
-          <div class="ns">1층 ${C.area_m2||'—'}㎡ 월세 ${_n(C.monthly_rent_man)||'—'}만 기준</div></div>
+          <div class="ns">${b!=null
+            ? `1층 ${C.area_m2}㎡ 월세 ${_n(C.monthly_rent_man)}만 기준`
+            : '이 동네는 상권 임대료 조사값이 없어 못 냅니다'}</div></div>
         <div><div class="nl">작년보다</div>
           <div class="nv ${c.yoy_pct==null?'non':(c.yoy_pct>0?'up':c.yoy_pct<-10?'dn':'wn')}">${
             c.yoy_pct==null?'—':(c.yoy_pct>0?'+':'')+c.yoy_pct+'%'}</div>
           <div class="ns">가게 수 변화 · 3개월간 문 닫은 비율 ${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</div></div>
       </div>
-      <p class="whyline">${c.hint?`⚠ ${c.hint} `:''}«월세 부담»은 이 동네 1층 보통 크기(${C.area_m2||'—'}㎡)
-        가게 월세 ${_n(C.monthly_rent_man)||'—'}만원이 그 업종 한 달 매출의 몇 %인지입니다 ·
+      <p class="whyline">${c.hint?`⚠ ${c.hint} `:''}${b!=null
+        ? `«월세 부담»은 이 동네 1층 보통 크기(${C.area_m2}㎡) 가게 월세 ${_n(C.monthly_rent_man)}만원이
+           그 업종 한 달 매출의 몇 %인지입니다 ·`
+        : `🔴 이 동네는 부동산원 상권 임대료 조사에 잡히지 않아 <b>월세 부담을 내지 못했습니다</b> —
+           가게 수·매출·폐업률만 실측입니다 ·`}
         ${hasExp ? '«비슷한 동네만큼이면»은 닮은 동네의 업종 구성비대로 셌을 때의 수입니다 — «있어야 한다»가 아닙니다.'
           : '이 동네는 닮은 동네를 고를 만큼 점포가 많지 않아 «비슷한 동네만큼이면»은 내지 않았습니다 — 나머지는 실측입니다.'}</p></div>`;
   }
@@ -1699,8 +1729,7 @@ if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()
   boot();
 })();
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
-</body>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script></body>
 </html>
 
 <script>(function(){try{
