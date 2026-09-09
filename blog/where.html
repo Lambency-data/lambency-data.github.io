@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 09872b8b8c5e81f7 -->
+<!-- baked-from-b2c-where: 375988510b16add8 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -422,7 +422,43 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .bar{margin-top:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
        border-bottom:1.5px solid var(--ink);padding-bottom:12px;max-width:560px}
   .bar select{flex:0 1 auto;min-width:120px;border:0;outline:0;background:transparent;
-       font:500 clamp(18px,2.2vw,22px) var(--ff);letter-spacing:-.03em;color:var(--ink);padding:0}
+       
+       font:500 clamp(16px,1.6vw,18px) var(--ff);letter-spacing:-.03em;color:var(--ink);padding:0}
+  
+  .selx{position:relative;display:inline-flex;vertical-align:middle}
+  .selx > select{position:absolute;inset:0;opacity:0;pointer-events:none;width:100%;height:100%}
+  .selx-btn{display:inline-flex;align-items:center;gap:.4em;cursor:pointer;text-align:left;
+    font-family:inherit;line-height:1.2;white-space:nowrap;transition:color .12s,border-color .12s}
+  .selx-btn:focus-visible{outline:2px solid var(--seal);outline-offset:3px;border-radius:6px}
+  .selx-btn .cv{flex:none;width:.62em;height:.62em;border-right:2px solid currentColor;
+    border-bottom:2px solid currentColor;transform:translateY(-.18em) rotate(45deg);
+    opacity:.5;transition:transform .18s cubic-bezier(.2,.8,.3,1),opacity .12s}
+  .selx[data-open="1"] .selx-btn{color:var(--seal)}
+  .selx[data-open="1"] .selx-btn .cv{transform:translateY(.06em) rotate(225deg);opacity:1}
+  .selx-pop{position:absolute;z-index:60;top:calc(100% + 8px);left:-8px;min-width:max(100%,190px);
+    max-height:min(46vh,360px);overflow:auto;overscroll-behavior:contain;
+    background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:6px;
+    box-shadow:0 18px 40px -14px rgba(29,35,43,.30),0 2px 8px rgba(29,35,43,.06);
+    opacity:0;transform:translateY(-4px);pointer-events:none;
+    transition:opacity .13s ease,transform .13s cubic-bezier(.2,.8,.3,1)}
+  .selx[data-open="1"] .selx-pop{opacity:1;transform:none;pointer-events:auto}
+  .selx-q{position:sticky;top:-6px;margin:-6px -6px 4px;padding:9px 12px 8px;background:var(--paper);
+    border-bottom:1px solid var(--rule);border-radius:14px 14px 0 0}
+  .selx-q input{all:unset;display:block;width:100%;font:500 12.5px var(--ff);color:var(--ink)}
+  .selx-q input::placeholder{color:var(--faint);font:400 11px var(--fm);letter-spacing:.06em}
+  .selx-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:9px 12px;border-radius:9px;font:500 14px var(--ff);color:var(--ink);cursor:pointer}
+  .selx-opt[aria-selected="true"]{color:var(--seal);font-weight:600}
+  .selx-opt.on{background:var(--seal-wash)}
+  .selx-opt[aria-selected="true"]::after{content:"";width:6px;height:6px;border-radius:50%;
+    background:var(--seal);flex:none}
+  .selx-none{padding:12px;font:400 12px var(--ff);color:var(--soft);text-align:center}
+  .selx-pop::-webkit-scrollbar{width:10px}
+  .selx-pop::-webkit-scrollbar-thumb{background:var(--rule);border-radius:9px;border:3px solid var(--paper)}
+  @media (prefers-reduced-motion:reduce){
+    .selx-pop,.selx-btn .cv{transition:none}
+  }
+  @media (max-width:640px){ .selx-opt{padding:12px} .selx-pop{max-height:52vh} }
   .bar button#go2{border:0;background:var(--ink);color:var(--paper);border-radius:8px;
        padding:9px 16px;font:600 12.5px var(--ff);cursor:pointer}
   .modeseg{display:inline-flex;padding:3px;border-radius:8px;background:var(--field);gap:2px;margin:0}
@@ -620,7 +656,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       변환이 없으면 갈릴 수도 없다. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=7d9471de97fe').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=b9c0225f593c').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -747,6 +783,94 @@ const man=v=>(v==null?'—':Math.round(v).toLocaleString());
 const eun=w=>{const c=String(w||'').trim().slice(-1).charCodeAt(0);
   return w+(c>=0xAC00&&c<=0xD7A3?((c-0xAC00)%28?'은':'는'):'은');};
 
+const SELX_FILTER_MIN = 12;
+function selxEnhance(sel){
+  if(!sel || sel.dataset.selx) return; sel.dataset.selx='1';
+  const wrap=document.createElement('span'); wrap.className='selx';
+  sel.parentNode.insertBefore(wrap, sel); wrap.appendChild(sel);
+  const btn=document.createElement('button'); btn.type='button'; btn.className='selx-btn';
+  btn.setAttribute('aria-haspopup','listbox'); btn.setAttribute('aria-expanded','false');
+  const lab=document.createElement('span'); const cv=document.createElement('i'); cv.className='cv';
+  btn.append(lab,cv); wrap.appendChild(btn);
+  const pop=document.createElement('div'); pop.className='selx-pop'; pop.setAttribute('role','listbox');
+  wrap.appendChild(pop);
+  let qIn=null, cur=-1;
+
+  const copyBox=()=>{
+    const c=getComputedStyle(sel);
+    ['font','color','letterSpacing','padding','border','borderRadius','background',
+     'height','minWidth'].forEach(k=>{ try{ btn.style[k]=c[k]; }catch(_){} });
+    btn.style.background = c.backgroundColor==='rgba(0, 0, 0, 0)' ? 'transparent' : c.background;
+  };
+  const opts=()=>[...sel.options].filter(o=>o.value!=='' || sel.selectedIndex<0);
+  const paint=()=>{
+    const o=sel.options[sel.selectedIndex];
+    lab.textContent=(o?o.textContent:'').trim() || (sel.options[0]?sel.options[0].textContent:'');
+  };
+  const build=(q)=>{
+    const list=opts().filter(o=>!q || o.textContent.replace(/\s/g,'').toLowerCase()
+                                     .includes(q.replace(/\s/g,'').toLowerCase()));
+    pop.innerHTML='';
+    if(sel.options.length>SELX_FILTER_MIN){
+      const box=document.createElement('div'); box.className='selx-q';
+      qIn=document.createElement('input'); qIn.type='text'; qIn.placeholder='이름 입력해 좁히기';
+      qIn.value=q||''; box.appendChild(qIn); pop.appendChild(box);
+      qIn.addEventListener('input',()=>{ const v=qIn.value; build(v); qIn.focus();
+        const p=pop.querySelector('.selx-q input'); if(p){p.value=v; p.setSelectionRange(v.length,v.length);} });
+      qIn.addEventListener('keydown',ev=>{ if(ev.key==='ArrowDown'||ev.key==='Enter'){ ev.preventDefault(); move(ev.key==='Enter'?0:1, true); } });
+    }
+    if(!list.length){ const n=document.createElement('div'); n.className='selx-none';
+      n.textContent='그런 이름이 없습니다'; pop.appendChild(n); cur=-1; return; }
+    list.forEach((o,i)=>{
+      const d=document.createElement('div'); d.className='selx-opt'; d.setAttribute('role','option');
+      d.setAttribute('aria-selected', String(o.selected)); d.textContent=o.textContent;
+      d.addEventListener('mouseenter',()=>mark(i));
+      d.addEventListener('click',()=>pick(o));
+      pop.appendChild(d);
+    });
+    cur = Math.max(0, list.findIndex(o=>o.selected)); mark(cur);
+  };
+  const rows=()=>[...pop.querySelectorAll('.selx-opt')];
+  const mark=i=>{ const r=rows(); r.forEach(x=>x.classList.remove('on'));
+    if(r[i]){ r[i].classList.add('on'); cur=i; r[i].scrollIntoView({block:'nearest'}); } };
+  const move=(d,from0)=>{ const r=rows(); if(!r.length) return;
+    if(from0 && d===0){ r[0].click(); return; }
+    mark((cur+d+r.length)%r.length); };
+  const pick=o=>{ if(sel.value!==o.value){ sel.value=o.value;
+      sel.dispatchEvent(new Event('change',{bubbles:true})); } paint(); close(); btn.focus(); };
+  const open=()=>{ copyBox(); build(''); wrap.dataset.open='1'; btn.setAttribute('aria-expanded','true');
+    if(qIn) qIn.focus(); };
+  const close=()=>{ wrap.dataset.open=''; btn.setAttribute('aria-expanded','false'); };
+  btn.addEventListener('click',()=>wrap.dataset.open==='1'?close():open());
+  btn.addEventListener('keydown',ev=>{
+    if(ev.key==='ArrowDown'||ev.key==='ArrowUp'||ev.key==='Enter'||ev.key===' '){ ev.preventDefault();
+      if(wrap.dataset.open!=='1') open(); else if(ev.key==='Enter'){ const r=rows(); if(r[cur]) r[cur].click(); }
+      else move(ev.key==='ArrowUp'?-1:1); }
+    else if(ev.key==='Escape') close(); });
+  pop.addEventListener('keydown',ev=>{
+    if(ev.key==='Escape'){ ev.preventDefault(); close(); btn.focus(); }
+    else if(ev.key==='ArrowDown'){ ev.preventDefault(); move(1); }
+    else if(ev.key==='ArrowUp'){ ev.preventDefault(); move(-1); }
+    else if(ev.key==='Enter'){ ev.preventDefault(); const r=rows(); if(r[cur]) r[cur].click(); } });
+  document.addEventListener('click',ev=>{ if(!wrap.contains(ev.target)) close(); });
+
+  new MutationObserver(()=>{ paint(); if(wrap.dataset.open==='1') build(qIn?qIn.value:''); })
+    .observe(sel,{childList:true,subtree:true});
+  const dsc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value');
+  Object.defineProperty(sel,'value',{configurable:true,
+    get(){ return dsc.get.call(sel); },
+    set(v){ dsc.set.call(sel,v); paint(); }});
+  sel.addEventListener('change',paint);
+  addEventListener('resize',()=>{ copyBox(); },{passive:true});
+  copyBox(); paint();
+}
+function selxAll(){ document.querySelectorAll('select:not([data-selx])').forEach(selxEnhance); }
+new MutationObserver(ms=>{ for(const m of ms) for(const nd of m.addedNodes){
+  if(nd.nodeType!==1) continue;
+  if(nd.tagName==='SELECT') selxEnhance(nd);
+  else if(nd.querySelectorAll) nd.querySelectorAll('select:not([data-selx])').forEach(selxEnhance);
+} }).observe(document.documentElement,{childList:true,subtree:true});
+
 function tab(which){
   const d=which==='dong';
   $('p-dong').hidden=!d; $('p-ind').hidden=d;
@@ -783,6 +907,7 @@ async function loadDongs(gu){
 $('gu').addEventListener('change',e=>{ loadDongs(e.target.value); });
 
 let _isSample=false;
+selxAll();
 (async()=>{
   const _q=new URLSearchParams(location.search), _h=new URLSearchParams(location.hash.slice(1));
   const _get=k=>_q.get(k)||_h.get(k);
