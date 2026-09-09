@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 5e73495fc4eeddcf -->
+<!-- baked-from-b2c-where: 07cc808db913ae34 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -435,13 +435,15 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     opacity:.5;transition:transform .18s cubic-bezier(.2,.8,.3,1),opacity .12s}
   .selx[data-open="1"] .selx-btn{color:var(--seal)}
   .selx[data-open="1"] .selx-btn .cv{transform:translateY(.06em) rotate(225deg);opacity:1}
+  
   .selx-pop{position:absolute;z-index:60;top:calc(100% + 8px);left:-8px;min-width:max(100%,190px);
+    max-width:calc(100vw - 24px);
     max-height:min(46vh,360px);overflow:auto;overscroll-behavior:contain;
     background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:6px;
     box-shadow:0 18px 40px -14px rgba(29,35,43,.30),0 2px 8px rgba(29,35,43,.06);
-    opacity:0;transform:translateY(-4px);pointer-events:none;
+    display:none;opacity:0;transform:translateY(-4px);pointer-events:none;
     transition:opacity .13s ease,transform .13s cubic-bezier(.2,.8,.3,1)}
-  .selx[data-open="1"] .selx-pop{opacity:1;transform:none;pointer-events:auto}
+  .selx[data-open="1"] .selx-pop{display:block;opacity:1;transform:none;pointer-events:auto}
   .selx-q{position:sticky;top:-6px;margin:-6px -6px 4px;padding:9px 12px 8px;background:var(--paper);
     border-bottom:1px solid var(--rule);border-radius:14px 14px 0 0}
   .selx-q input{all:unset;display:block;width:100%;font:500 12.5px var(--ff);color:var(--ink)}
@@ -506,12 +508,15 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .lifec .lv{margin:3px 0 2px;font:600 clamp(15px,2vw,18px) var(--ff)}
   .lifec .lv.non{color:var(--faint);font-weight:400}
   .lifec .ls{font:400 11.5px/1.5 var(--ff);color:var(--soft)}
-  .agebar{display:grid;grid-template-columns:92px 1fr 46px 66px;gap:9px;align-items:center;
+  
+  .agebar{display:grid;grid-template-columns:92px 1fr 46px 100px;gap:9px;align-items:center;
     padding:5px 0;font:400 12.5px var(--ff)}
+  @media (max-width:430px){ .agebar{grid-template-columns:80px 1fr 52px 88px;gap:6px} }
   .agebar .tk{height:14px;border-radius:3px;background:var(--field);overflow:hidden}
   .agebar .tk i{display:block;height:100%}
-  .agebar .pc{font:600 12.5px var(--fm);text-align:right}
-  .agebar .rl{font:400 11.5px var(--ff);color:var(--soft);text-align:right}
+  .agebar .pc{font:600 12.5px var(--fm);text-align:right;white-space:nowrap}
+  .agebar .rl{font:400 11.5px var(--ff);color:var(--soft);text-align:right;white-space:nowrap}
+  .agebar>span:first-child{word-break:keep-all}   
   .exflag{float:right;font:500 11px var(--ff);color:var(--warn)}
   .indbox{margin:24px 0 0;padding:16px 17px;border-radius:12px;background:var(--field)}
   .indbox h3{margin:0 0 10px;font:600 clamp(16px,2.2vw,19px) var(--ff);letter-spacing:-.02em}
@@ -839,6 +844,9 @@ function selxEnhance(sel){
   const pick=o=>{ if(sel.value!==o.value){ sel.value=o.value;
       sel.dispatchEvent(new Event('change',{bubbles:true})); } paint(); close(); btn.focus(); };
   const open=()=>{ copyBox(); build(''); wrap.dataset.open='1'; btn.setAttribute('aria-expanded','true');
+    pop.style.left='-8px'; pop.style.right='auto';
+    const r=pop.getBoundingClientRect();
+    if(r.right > innerWidth - 8){ pop.style.left='auto'; pop.style.right='-8px'; }
     if(qIn) qIn.focus(); };
   const close=()=>{ wrap.dataset.open=''; btn.setAttribute('aria-expanded','false'); };
   btn.addEventListener('click',()=>wrap.dataset.open==='1'?close():open());
@@ -1266,7 +1274,12 @@ function shopHead(){
         <div><div class="nl">작년보다</div>
           <div class="nv ${c.yoy_pct==null?'non':(c.yoy_pct>0?'up':c.yoy_pct<-10?'dn':'wn')}">${
             c.yoy_pct==null?'—':(c.yoy_pct>0?'+':'')+c.yoy_pct+'%'}</div>
-          <div class="ns">가게 수 변화 · 3개월간 문 닫은 비율 ${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</div></div>
+          <div class="ns">가게 수 변화</div></div>
+        
+        <div><div class="nl">문 닫은 비율</div>
+          <div class="nv ${c.close_rate_pct==null?'non':(c.close_rate_pct>=5?'dn':'')}">${
+            c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</div>
+          <div class="ns">최근 3개월</div></div>
       </div>
       <p class="whyline">${c.hint?`⚠ ${c.hint} `:''}${b!=null
         ? `«월세 부담»은 이 동네 1층 보통 크기(${C.area_m2}㎡) 가게 월세 ${_n(C.monthly_rent_man)}만원이
