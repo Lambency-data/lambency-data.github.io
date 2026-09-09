@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 63c5fb9714428994 -->
+<!-- baked-from-b2c-where: 09872b8b8c5e81f7 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -1149,6 +1149,27 @@ function shopHead(){
            가게 수·매출·폐업률만 실측입니다 ·`}
         ${hasExp ? '«비슷한 동네만큼이면»은 닮은 동네의 업종 구성비대로 셌을 때의 수입니다 — «있어야 한다»가 아닙니다.'
           : '이 동네는 닮은 동네를 고를 만큼 점포가 많지 않아 «비슷한 동네만큼이면»은 내지 않았습니다 — 나머지는 실측입니다.'}</p></div>`;
+  }
+
+  const SZ0=(_D&&_D.shop_size)||null;
+  if(SZ0 && SZ0.ok){
+    const mx=Math.max.apply(null, SZ0.rows.map(r=>r.pct).concat([1]));
+    const top=SZ0.rows.reduce((a,b)=>b.pct>a.pct?b:a);
+    h+=`<h3 style="margin:22px 0 4px;font:600 13.5px var(--ff)">이 동네 가게는 보통 몇 평인가
+        <span class="exflag" style="color:var(--soft)">1층 상가 실거래 ${_n(SZ0.n)}건</span></h3>
+      <p class="src" style="margin:0 0 8px">가장 흔한 크기는 <b>${top.band}</b>(${top.pct}%)이고,
+        가운데 값은 <b>${SZ0.median_py}평</b>입니다 — 열 곳 중 다섯이 <b>${SZ0.p25_py}~${SZ0.p75_py}평</b> 사이입니다.</p>
+      ${SZ0.rows.filter(r=>r.n>0).map(r=>`<div class="agebar"><span>${r.band}</span>
+        <span class="tk"><i style="width:${r.pct/mx*100}%;background:${r===top?'var(--ink)':'var(--faint)'}"></i></span>
+        <span class="pc">${r.pct}%</span>
+        <span class="rl">${r.rent_from_man==null ? _n(r.n)+'건'
+          : (!r.rent_from_man ? `월 ${_n(r.rent_to_man)}만 아래`
+             : r.rent_to_man==null ? `월 ${_n(r.rent_from_man)}만 위`
+             : `월 ${_n(r.rent_from_man)}~${_n(r.rent_to_man)}만`)}</span></div>`).join('')}
+      <p class="src">🔴 <b>업종별로는 못 가릅니다</b> — 상가 실거래에는 업종이 적히지 않고,
+        업종 자료(점포·매출)에는 면적이 없습니다. 두 자료를 잇는 열쇠가 없어 지어내지 않습니다.
+        위는 <b>이 동네 1층 상가 한 칸</b>의 크기 분포이고, 월세는 그 크기에
+        ${C.sangkwon} 상권 ㎡ 단가를 곱한 값입니다 · ${SZ0.source}</p>`;
   }
 
   const types=(C.reb_types||[]).slice().sort((a,b2)=>b2.per_m2_thousand-a.per_m2_thousand);
