@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 375988510b16add8 -->
+<!-- baked-from-b2c-where: 5e73495fc4eeddcf -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -887,7 +887,7 @@ $('sug2').addEventListener('click',e=>{
 function dongFail(msg){
   const o=$('out2'); o.className=''; o.innerHTML=`<div class="empty">${msg}</div>`;
 }
-fetch('/api/b2c/dong-names').then(r=>r.ok?r.json():Promise.reject(r.status)).then(d=>{
+const GUS_READY = fetch('/api/b2c/dong-names').then(r=>r.ok?r.json():Promise.reject(r.status)).then(d=>{
   const gus=(d&&d.sigungu)||[];
   if(!gus.length){ dongFail('자치구 목록이 비어 있습니다 — 데이터 준비 중입니다. 잠시 후 새로고침해 주세요.'); return; }
   $('gu').innerHTML='<option value="">자치구</option>'+gus.map(g=>`<option>${g}</option>`).join('');
@@ -914,6 +914,7 @@ selxAll();
   const _gu=_get('gu')||_get('sigungu'), _dg=_get('dong');
   const [g,d]=(_gu&&_dg) ? [_gu, _dg] : QUICK[0];
   _isSample=!(_gu&&_dg);
+  await GUS_READY;
   await loadDongs(g); $('gu').value=g; $('dg').value=d;
   await runDong();
   _isSample=false;
@@ -1575,7 +1576,11 @@ function applyMode(){
 }
 async function runDong(){
   const gu=$('gu').value, dg=$('dg').value;
-  if(!gu||!dg){ return; }
+  if(!gu||!dg){
+    const o=$('out2'); if(o){ o.className='';
+      o.innerHTML=`<div class="empty">${!gu?'자치구':'동'}를 골라 주세요.</div>`; }
+    return;
+  }
   const my=++_seq;
   _KINDS=null; _ALLIND=null; _PICK=null; _IND='';
   $('out2').className=''; $('out2').innerHTML='<div class="empty">불러오는 중…</div>';
