@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 5955e637147bbca3 -->
+<!-- baked-from-b2c-where: c2e38f79c50c8d6f -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -68,8 +68,20 @@ a:hover{color:#7A5310}
 .hd .left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .hd .tag{padding-left:14px;border-left:1px solid var(--rule);font:400 12px/1.6 var(--ff);color:var(--ink)}
 .hd nav{display:flex;gap:clamp(12px,2vw,20px);font:500 12.5px var(--ff);color:var(--soft);flex-wrap:wrap}
-.hd nav a{color:var(--soft)}
+.hd nav a{color:var(--soft);position:relative}
 .hd nav a:hover,.hd nav a.on{color:var(--ink)}
+
+@media (max-width:640px){
+  
+  .hd nav{gap:0;flex-wrap:nowrap;overflow-x:auto;font-size:13px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    margin-inline:calc(-1 * clamp(18px,4vw,44px));padding-inline:clamp(18px,4vw,44px)}
+  .hd nav::-webkit-scrollbar{display:none}
+  .hd nav a{padding:7px 12px;line-height:1.5;white-space:nowrap;flex:none}
+  .hd nav a + a::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:1px;height:11px;background:var(--rule);opacity:.7}
+  .hd nav a:first-child{padding-left:0}
+}
 
 .ft{border-top:1px solid var(--rule)}
 .ft > div{max-width:var(--ftw,1040px);margin:0 auto;padding:14px clamp(18px,4vw,40px);
