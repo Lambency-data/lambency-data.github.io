@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: c2e38f79c50c8d6f -->
+<!-- baked-from-b2c-where: 4d09b5dc4c465dd1 -->
 <!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
      소스: airbnb_investment/property_pricer/web/static/b2c-where.html
      생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
@@ -838,28 +838,37 @@ function selxEnhance(sel){
     const o=sel.options[sel.selectedIndex];
     lab.textContent=(o?o.textContent:'').trim() || (sel.options[0]?sel.options[0].textContent:'');
   };
-  const build=(q)=>{
+  let listBox=null;
+  const ensureQuery=()=>{
+    if(sel.options.length<=SELX_FILTER_MIN || qIn) return;
+    const box=document.createElement('div'); box.className='selx-q';
+    qIn=document.createElement('input'); qIn.type='text'; qIn.placeholder='이름 입력해 좁히기';
+    box.appendChild(qIn); pop.appendChild(box);
+    qIn.addEventListener('input',()=>renderList(qIn.value));
+    qIn.addEventListener('keydown',ev=>{
+      if(ev.isComposing || ev.keyCode===229) return;
+      if(ev.key==='ArrowDown'||ev.key==='Enter'){ ev.preventDefault(); move(ev.key==='Enter'?0:1, true); } });
+  };
+  const renderList=(q)=>{
     const list=opts().filter(o=>!q || o.textContent.replace(/\s/g,'').toLowerCase()
                                      .includes(q.replace(/\s/g,'').toLowerCase()));
-    pop.innerHTML='';
-    if(sel.options.length>SELX_FILTER_MIN){
-      const box=document.createElement('div'); box.className='selx-q';
-      qIn=document.createElement('input'); qIn.type='text'; qIn.placeholder='이름 입력해 좁히기';
-      qIn.value=q||''; box.appendChild(qIn); pop.appendChild(box);
-      qIn.addEventListener('input',()=>{ const v=qIn.value; build(v); qIn.focus();
-        const p=pop.querySelector('.selx-q input'); if(p){p.value=v; p.setSelectionRange(v.length,v.length);} });
-      qIn.addEventListener('keydown',ev=>{ if(ev.key==='ArrowDown'||ev.key==='Enter'){ ev.preventDefault(); move(ev.key==='Enter'?0:1, true); } });
-    }
+    if(!listBox){ listBox=document.createElement('div'); listBox.className='selx-list'; pop.appendChild(listBox); }
+    listBox.innerHTML='';
     if(!list.length){ const n=document.createElement('div'); n.className='selx-none';
-      n.textContent='그런 이름이 없습니다'; pop.appendChild(n); cur=-1; return; }
+      n.textContent='그런 이름이 없습니다'; listBox.appendChild(n); cur=-1; return; }
     list.forEach((o,i)=>{
       const d=document.createElement('div'); d.className='selx-opt'; d.setAttribute('role','option');
       d.setAttribute('aria-selected', String(o.selected)); d.textContent=o.textContent;
       d.addEventListener('mouseenter',()=>mark(i));
       d.addEventListener('click',()=>pick(o));
-      pop.appendChild(d);
+      listBox.appendChild(d);
     });
     cur = Math.max(0, list.findIndex(o=>o.selected)); mark(cur);
+  };
+  const build=(q)=>{
+    ensureQuery();
+    if(qIn && qIn.value!==(q||'')) qIn.value=q||'';
+    renderList(q);
   };
   const rows=()=>[...pop.querySelectorAll('.selx-opt')];
   const mark=i=>{ const r=rows(); r.forEach(x=>x.classList.remove('on'));
