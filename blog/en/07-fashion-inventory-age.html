@@ -610,7 +610,7 @@ and the cohort contains exactly that. The problem is that neither line yields an
 formula is below in full — it will be reproduced anyway. What is worth paying for is not the formula
 but the choices made while computing it.</p>
 
-  <p>### The measure</p>
+  <h3>The measure</h3>
 
   <p>Group every SKU received in the same week into one cohort. Track the cumulative share of that
 cohort sold <strong>at full price</strong> by week <em>t</em> after receipt. Call it
@@ -618,7 +618,7 @@ cohort sold <strong>at full price</strong> by week <em>t</em> after receipt. Cal
 
   <p>``` s_w(t) = (units from week-w cohort sold at full price within t weeks of receipt) ÷ (units received in week w) ```</p>
 
-  <p>### The threshold — your own cost ratio</p>
+  <h3>The threshold — your own cost ratio</h3>
 
   <p>An arbitrary threshold collapses under the first objection, so use a structural one: the
 <strong>cost-of-sales ratio</strong>. If cost is <em>c</em> of the full retail price, then selling
@@ -655,7 +655,7 @@ usually claw back.</p>
 below <em>c</em> at one season means the in-season markdown plan needs rewriting; the week-26 reading
 is what changes the next buy.</p>
 
-  <p>### The threshold, part two — how deep should the markdown be</p>
+  <h3>The threshold, part two — how deep should the markdown be</h3>
 
   <p>Everything above says <em>when</em> to act. The question buyers actually face daily is <em>how much
 to cut</em>, and that number need not be arbitrary either. It takes one input:
@@ -737,11 +737,11 @@ land on when the only remaining option is cash</strong>.</p>
 The formula is still useful there: it makes you decide <strong>how much you are choosing to lose</strong>
 with a number in front of you. That number is the 11.2 points between 58.8% and 70%.</p>
 
-  <p>### The decision rules — what actually changes</p>
+  <h3>The decision rules — what actually changes</h3>
 
   <p>1. <strong>Next season's buy quantity changes.</strong> For any cohort still below <em>c</em> at week 26, multiply next season's order for that category × price band × vendor combination by <code>s ÷ c</code>. That is an arithmetic instruction, not a suggestion to watch it closely. 2. <strong>Markdown timing moves off the calendar and onto the curve.</strong> Most brands start markdowns in fixed months. Start instead in the week when the slope of s(t) toward <em>c</em> flattens — which means different start dates for different cohorts inside the same season. 3. <strong>The allowance becomes a record of decisions.</strong> Accrue the valuation allowance by receipt cohort rather than as a year-end estimate on the total, and the number stops answering "how much did we write off" and starts answering <strong>"which buying decision was wrong."</strong> Today that figure lives in the close and never reaches the buying meeting.</p>
 
-  <p>### The choices — and why the alternatives fail</p>
+  <h3>The choices — and why the alternatives fail</h3>
 
   <div class="tw">
 <table>
@@ -778,7 +778,7 @@ to set the threshold at each company's own <strong>cost-of-sales ratio</strong>.
 week's intake cleared its cost at full price, and inventory stops being an asset balance and becomes
 a scorecard for last season's decisions.</p>
 
-  <p>### Where to start, depending on your seat</p>
+  <h3>Where to start, depending on your seat</h3>
 
   <div class="tw">
 <table>
@@ -819,6 +819,15 @@ with DART receipt numbers, are in <code>패션_코호트.csv</code>.</p>
 
   <p>Caff · August 2026</p>
 </div>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="Related reading">
+    <div class="lb">Related reading</div>
+    <a class="ritem" href="/blog/en/05-oliveyoung-shelf-adjacency.html"><span class="rno">05</span><span class="rtit">I counted the same shelf seven times.</span></a>
+    <a class="ritem" href="/blog/en/10-customer-ledger-split.html"><span class="rno">10</span><span class="rtit">The same customer is a different person</span></a>
+    <a class="ritem" href="/blog/en/09-rent-and-survival.html"><span class="rno">09</span><span class="rtit">The rent already knows</span></a>
+  </nav>
+  <!-- RELATED:END -->
 
   <div class="next">
     <div class="lb">Next · weekly</div>
