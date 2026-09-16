@@ -1,8 +1,85 @@
-<!-- baked-from-b2c-where: 4d09b5dc4c465dd1 -->
-<!-- 자동 생성물 — 직접 수정하지 말 것 -->
+<!-- baked-from-b2c-where: aeeeb7b6f6b7f4c8 -->
+<!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
+     소스: airbnb_investment/property_pricer/web/static/b2c-where.html
+     생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
+<script>
+/* ── 블로그(정적) 어댑터 — scripts/bake_where_page.py 가 주입한다 ──────────────
+   화면 코드는 hicce `web/static/b2c-where.html` 을 **한 줄도 고치지 않고** 그대로 쓴다.
+   서버 API 네 개만 여기서 가로채 `data/where.json` 으로 답한다.
+
+   🔴 그 파일은 **API 응답을 그대로** 담는다(scripts/bake_where_data.py) — 그래서 여기
+      변환 코드가 없다. 예전엔 압축본(dong_brief.json)을 되돌리려다 두 번 틀렸는데,
+      축약 규칙이 굽는 쪽에만 있어 «희재에서 고치면 블로그도 따라간다» 가 깨졌다.
+      변환이 없으면 갈릴 수도 없다. */
+(function(){
+  let _p=null, _ps=null;
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=b9c0225f593c').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
+     집 모드만 보는 사람에게 이걸 지우지 않는다. */
+  const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
+  const _fetch=window.fetch.bind(window);
+  window.fetch=async function(url, opt){
+    const u=String(url);
+    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
+    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
+    const q=new URLSearchParams(u.split('?')[1]||'');
+    try{
+      const D=await data();
+      if(u.indexOf('/api/b2c/dong-names')===0){
+        const gu=q.get('sigungu');
+        return J(gu ? {dongs:Object.keys(D.gu[gu]||{}).sort()} : {sigungu:Object.keys(D.gu).sort()});
+      }
+      if(u.indexOf('/api/b2c/dong-brief')===0){
+        const r=((D.gu||{})[q.get('sigungu')]||{})[q.get('dong')];
+        return J(r || {ok:false});
+      }
+      if(u.indexOf('/api/b2c/industry-names')===0){
+        return J({industries:Object.keys(D.industries).sort()});
+      }
+      if(u.indexOf('/api/b2c/where-for-industry')===0){
+        return J(D.industries[q.get('industry')] || {ok:false, rows:[]});
+      }
+      if(u.indexOf('/api/sales-intel')===0){
+        const S=await sales();
+        const rows=(((S.gu||{})[q.get('sigungu')]||{})[q.get('dong')])||[];
+        return J(rows.length ? {ok:true, rows:rows} : {ok:false, rows:[]});
+      }
+    }catch(e){ return J({ok:false, rows:[], error:String(e)}); }
+    return J({ok:false});
+  };
+})();
+</script>
+<script>
+(function () {
+  var KEY = 'hicce_b2c_token';
+  var tok = null;
+  try { tok = localStorage.getItem(KEY); } catch (_) { tok = null; }
+
+  if (tok && window.fetch) {
+    var _f = window.fetch.bind(window);
+    window.fetch = function (input, init) {
+      try {
+        var url = (typeof input === 'string') ? input : (input && input.url) || '';
+        var sameOrigin = url.indexOf('/') === 0 || url.indexOf(location.origin) === 0;
+        if (sameOrigin && url.indexOf('/api/') !== -1) {
+          init = init || {};
+          var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
+          if (!h.has('Authorization')) h.set('Authorization', 'Bearer ' + tok);
+          init.headers = h;
+          if (!init.credentials) init.credentials = 'same-origin';
+        }
+      } catch (_) { /* 가로채기 실패가 원래 호출을 막으면 안 된다 */ }
+      return _f(input, init);
+    };
+  }
+
+
+</script>
+
 <meta charset="UTF-8" />
 <link rel="canonical" href="https://lambency-data.github.io/blog/where.html">
 <title>동네 월세·상권 — hicce 미리보기 | Lambency</title>
@@ -674,46 +751,6 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 <footer class="ft" style="--ftw:760px"><div>서울 25개 구 · 상가는 상권 조사값으로 답합니다 · 모르는 건 모른다고 적습니다</div></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-/* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
-(function(){
-  let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=b9c0225f593c').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
-  /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
-     집 모드만 보는 사람에게 이걸 지우지 않는다. */
-  const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
-  const _fetch=window.fetch.bind(window);
-  window.fetch=async function(url, opt){
-    const u=String(url);
-    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
-    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
-    const q=new URLSearchParams(u.split('?')[1]||'');
-    try{
-      const D=await data();
-      if(u.indexOf('/api/b2c/dong-names')===0){
-        const gu=q.get('sigungu');
-        return J(gu ? {dongs:Object.keys(D.gu[gu]||{}).sort()} : {sigungu:Object.keys(D.gu).sort()});
-      }
-      if(u.indexOf('/api/b2c/dong-brief')===0){
-        const r=((D.gu||{})[q.get('sigungu')]||{})[q.get('dong')];
-        return J(r || {ok:false});
-      }
-      if(u.indexOf('/api/b2c/industry-names')===0){
-        return J({industries:Object.keys(D.industries).sort()});
-      }
-      if(u.indexOf('/api/b2c/where-for-industry')===0){
-        return J(D.industries[q.get('industry')] || {ok:false, rows:[]});
-      }
-      if(u.indexOf('/api/sales-intel')===0){
-        const S=await sales();
-        const rows=(((S.gu||{})[q.get('sigungu')]||{})[q.get('dong')])||[];
-        return J(rows.length ? {ok:true, rows:rows} : {ok:false, rows:[]});
-      }
-    }catch(e){ return J({ok:false, rows:[], error:String(e)}); }
-    return J({ok:false});
-  };
-})();
-</script>
 <script>
 (function(){
   var RE_MAIL = /^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/;
@@ -1866,6 +1903,82 @@ async function run(ind){
 }
 $('go').onclick=()=>run(); $('q').addEventListener('keydown',e=>{ if(e.key==='Enter') run(); });
 if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()) run(); });
+</script>
+
+<script>
+(function () {
+  var NOTICE = {
+    id: 'livingpop-250m-20260916',
+    title: '동네 사람 수 데이터가 새로 바뀌었습니다',
+    lede: '서울시가 「생활인구」를 세는 방식을 바꿨고, hicce도 새 방식으로 갈아끼웠습니다.',
+    good: [
+      '<b>빠지는 동네가 없어졌습니다.</b> 잡히는 행정동이 415곳 → <b>427곳(전부)</b> 으로 늘었습니다.',
+      '기준이 <b>250m 국가표준격자</b>로 통일돼, 앞으로 다른 지역·공공 통계와 맞대기 쉬워집니다.',
+      '<b>매일 갱신됩니다.</b> 현재 기준일은 <b>2026년 9월 11일</b>입니다.'
+    ],
+    changed: [
+      '세는 방식이 바뀌어 <b>숫자 자체가 달라졌습니다.</b> 서울 전체로 <b>약 +11%</b>, 동네에 따라 차이가 더 큽니다.',
+      '<b>사람이 가장 많은 시각</b>도 많은 동네에서 바뀌었습니다(오후가 더 무겁게 잡힙니다).'
+    ],
+    warn: '그래서 <b>이전에 보셨던 숫자와 지금 숫자를 직접 비교하지 마세요.</b> ' +
+          '사람이 늘거나 준 것이 아니라, <b>재는 자가 바뀐 것</b>입니다.',
+    src: '출처: 서울 열린데이터광장 「[내국인] 행정동별 서울 생활인구(250m)」 · KT 통신데이터 기반 추계'
+  };
+
+  var KEY = 'hicce_notice_' + NOTICE.id;
+  try { if (localStorage.getItem(KEY)) return; } catch (_) { return; }   // 저장 못 하는 브라우저면 안 띄운다(매번 뜨느니 낫다)
+
+  function li(a) { return a.map(function (t) { return '<li>' + t + '</li>'; }).join(''); }
+
+  function show() {
+    var w = document.createElement('div');
+    w.id = 'hicceNotice';
+    w.innerHTML =
+      '<style>' +
+      '#hicceNotice *{box-sizing:border-box;background:none;padding:0;margin:0}' +
+      '#hicceNotice{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;' +
+      'padding:18px;background:rgba(20,24,30,.42)}' +
+      '#hicceNotice .hn-bx{max-width:480px;width:100%;max-height:86vh;overflow:auto;background:#FAF9F6;' +
+      'border:1px solid #E3E0D8;border-radius:14px;padding:22px 22px 18px;' +
+      'box-shadow:0 18px 50px rgba(0,0,0,.18);font:400 13.5px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#1D232B}' +
+      '#hicceNotice h3{margin:0 0 4px;font:600 17px/1.4 inherit;color:#1D232B}' +
+      '#hicceNotice .hn-lede{margin:0 0 14px;color:#6B7480;font-size:13px}' +
+      '#hicceNotice h4{margin:14px 0 4px;font:600 13px/1.5 inherit}' +
+      '#hicceNotice ul{margin:0;padding-left:18px}' +
+      '#hicceNotice li{margin:4px 0}' +
+      '#hicceNotice .hn-warn{margin:14px 0 0;padding:11px 13px;border:1px solid #f0c36d;border-radius:9px;' +
+      'background:#fffaf0;color:#6b4b12;font-size:12.8px;line-height:1.7}' +
+      '#hicceNotice .hn-src{margin:13px 0 0;color:#98A0AA;font-size:11.5px;line-height:1.6}' +
+      '#hicceNotice .hn-go{margin-top:16px;width:100%;padding:11px 14px;border:0;border-radius:9px;' +
+      'background:#1D232B;color:#fff;font:600 14px inherit;cursor:pointer}' +
+      '</style>' +
+      '<div class="hn-bx" role="dialog" aria-modal="true" aria-labelledby="hicceNoticeT">' +
+      '<h3 id="hicceNoticeT">' + NOTICE.title + '</h3>' +
+      '<p class="hn-lede">' + NOTICE.lede + '</p>' +
+      '<h4>좋아진 것</h4><ul>' + li(NOTICE.good) + '</ul>' +
+      '<h4>달라진 것</h4><ul>' + li(NOTICE.changed) + '</ul>' +
+      '<p class="hn-warn">' + NOTICE.warn + '</p>' +
+      '<p class="hn-src">' + NOTICE.src + '</p>' +
+      '<button class="hn-go" id="hicceNoticeOk">알겠습니다</button>' +
+      '</div>';
+    document.body.appendChild(w);
+
+    function close() {
+      try { localStorage.setItem(KEY, new Date().toISOString().slice(0, 10)); } catch (_) {}
+      w.remove();
+      document.removeEventListener('keydown', esc);
+    }
+    function esc(e) { if (e.key === 'Escape') close(); }
+    document.getElementById('hicceNoticeOk').onclick = close;
+    w.addEventListener('click', function (e) { if (e.target === w) close(); });   // 바깥을 눌러도 닫힌다
+    document.addEventListener('keydown', esc);
+    document.getElementById('hicceNoticeOk').focus();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);
+  else show();
+})();
+
 </script>
 <div style="max-width:860px;margin:56px auto 0;padding:24px 20px 40px;
   border-top:1px solid var(--rule);font:14px/1.8 var(--ff);color:var(--soft)">

@@ -1,5 +1,8 @@
-<!-- baked-from-b2c-cheongyak: d05240583e79c770 -->
-<!-- 자동 생성물 — 직접 수정하지 말 것 -->
+<!-- baked-from-b2c-cheongyak: 265f7b41ec084a1a -->
+<!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
+     소스: airbnb_investment/property_pricer/web/static/b2c-cheongyak.html
+     생성: scripts/bake_cheongyak_page.py  (야간 배치가 소스 변경을 감시한다)
+     데이터: scripts/bake_cheongyak_data.py 가 매일 따로 굽는다 -->
 <!DOCTYPE html>
 <html lang="ko">
 <meta charset="utf-8">
@@ -314,6 +317,71 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 </div>
 
 <header class="hd sub">
+
+<script>
+/* ── 블로그(정적) 어댑터 — scripts/bake_cheongyak_page.py 가 주입한다 ─────────
+   화면 코드는 hicce `web/static/b2c-cheongyak.html` 을 **한 줄도 고치지 않고** 그대로 쓴다.
+   서버 API 를 여기서 가로채 `data/cheongyak_board.json` 으로 답한다.
+   🔴 그 파일은 **API 응답을 그대로** 담는다(scripts/bake_cheongyak_data.py) — 변환이 없다.
+      변환이 없으면 갈릴 수도 없다. */
+(function(){
+  let _p=null;
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=6d82c44a7a8b').then(r=>{
+    if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
+  const _fetch=window.fetch.bind(window);
+  window.fetch=async function(url, opt){
+    const u=String(url);
+    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
+    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
+    const q=new URLSearchParams(u.split('?')[1]||'');
+    try{
+      const D=await data();
+      if(u.indexOf('/api/b2c/cheongyak-board')===0) return J(D.board);
+      if(u.indexOf('/api/b2c/cheongyak-nearby')===0){
+        /* 🔴 서울 아파트 실거래만 있다 — sigungu 가 null 인 경기·인천 공고는 굽지 않았다.
+           화면이 그때 「서울 밖 단지는 비교하지 않습니다」로 적는다. */
+        const k=q.get('sigungu')+'|'+Number(q.get('area_m2')).toFixed(1);
+        const r=(D.nearby||{})[k];
+        return J(r || {ok:false, reason:'서울 밖이거나 표본이 얇습니다'});
+      }
+      if(u.indexOf('/api/b2c/cheongyak-remndr')===0) return J(D.remndr || {ok:false});
+      if(u.indexOf('/api/b2c/cheongyak')===0){
+        /* 🔴 **null 이어야 한다** — 화면은 `if(!CUT) return <안내>` 로 우아하게 빠지는데,
+           객체({error:…})를 주면 truthy 라 그 관문을 통과해 «지난 1년(undefined» 이
+           사용자에게 그대로 보인다(2026-09-08 렌더 실측). 없는 건 없다고 답한다. */
+        return J(D.summary || null);
+      }
+    }catch(e){ return J({ok:false, error:String(e)}); }
+    return J({ok:false});
+  };
+})();
+</script>
+(function () {
+  var KEY = 'hicce_b2c_token';
+  var tok = null;
+  try { tok = localStorage.getItem(KEY); } catch (_) { tok = null; }
+
+  if (tok && window.fetch) {
+    var _f = window.fetch.bind(window);
+    window.fetch = function (input, init) {
+      try {
+        var url = (typeof input === 'string') ? input : (input && input.url) || '';
+        var sameOrigin = url.indexOf('/') === 0 || url.indexOf(location.origin) === 0;
+        if (sameOrigin && url.indexOf('/api/') !== -1) {
+          init = init || {};
+          var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
+          if (!h.has('Authorization')) h.set('Authorization', 'Bearer ' + tok);
+          init.headers = h;
+          if (!init.credentials) init.credentials = 'same-origin';
+        }
+      } catch (_) { /* 가로채기 실패가 원래 호출을 막으면 안 된다 */ }
+      return _f(input, init);
+    };
+  }
+
+
+</script>
+
   <a class="wordmark" href="https://hicce.co.kr/b2c?from=blog-cheongyak" style="--wm-size:26px" aria-label="hicce 홈으로">hicce<span class="dot">.</span></a>
   <nav><a href="https://hicce.co.kr/b2c/ask?from=blog-cheongyak">시세 브리핑</a><a href="https://hicce.co.kr/b2c/where?from=blog-cheongyak">동네 월세·상권</a><a href="https://hicce.co.kr/b2c/cheongyak?from=blog-cheongyak" class="on">청약</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-cheongyak">전세 안심</a><a href="https://hicce.co.kr/b2c/guide?from=blog-cheongyak">사용법</a></nav>
 </header>
@@ -360,39 +428,6 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   신청 자격·일정은 반드시 <b>공고 원문</b>으로 확인하세요 · 경쟁률·당첨 최저 가점은 발표가 난 뒤에만 적습니다</div></footer>
 
 <script>
-/* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
-(function(){
-  let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=df6ceac90fb2').then(r=>{
-    if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
-  const _fetch=window.fetch.bind(window);
-  window.fetch=async function(url, opt){
-    const u=String(url);
-    if(u.indexOf('/api/')!==0) return _fetch(url, opt);
-    const J=(o)=>new Response(JSON.stringify(o),{status:200,headers:{'Content-Type':'application/json'}});
-    const q=new URLSearchParams(u.split('?')[1]||'');
-    try{
-      const D=await data();
-      if(u.indexOf('/api/b2c/cheongyak-board')===0) return J(D.board);
-      if(u.indexOf('/api/b2c/cheongyak-nearby')===0){
-        /* 🔴 서울 아파트 실거래만 있다 — sigungu 가 null 인 경기·인천 공고는 굽지 않았다.
-           화면이 그때 「서울 밖 단지는 비교하지 않습니다」로 적는다. */
-        const k=q.get('sigungu')+'|'+Number(q.get('area_m2')).toFixed(1);
-        const r=(D.nearby||{})[k];
-        return J(r || {ok:false, reason:'서울 밖이거나 표본이 얇습니다'});
-      }
-      if(u.indexOf('/api/b2c/cheongyak-remndr')===0) return J(D.remndr || {ok:false});
-      if(u.indexOf('/api/b2c/cheongyak')===0){
-        /* 🔴 **null 이어야 한다** — 화면은 `if(!CUT) return <안내>` 로 우아하게 빠지는데,
-           객체({error:…})를 주면 truthy 라 그 관문을 통과해 «지난 1년(undefined» 이
-           사용자에게 그대로 보인다(2026-09-08 렌더 실측). 없는 건 없다고 답한다. */
-        return J(D.summary || null);
-      }
-    }catch(e){ return J({ok:false, error:String(e)}); }
-    return J({ok:false});
-  };
-})();
-</script>
 (function(){
   var RE_MAIL = /^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/;
   var RE_TEL  = /^01[016789]-?\d{3,4}-?\d{4}$/;
