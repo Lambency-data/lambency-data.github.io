@@ -1,20 +1,11 @@
 <!-- baked-from-b2c-where: aeeeb7b6f6b7f4c8 -->
-<!-- 🔴 자동 생성물이다. 여기를 고치지 말 것 — 다음 빌드에 덮인다.
-     소스: airbnb_investment/property_pricer/web/static/b2c-where.html
-     생성: scripts/bake_where_page.py  (야간 배치가 소스 변경을 감시한다) -->
+<!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 
 <script>
-/* ── 블로그(정적) 어댑터 — scripts/bake_where_page.py 가 주입한다 ──────────────
-   화면 코드는 hicce `web/static/b2c-where.html` 을 **한 줄도 고치지 않고** 그대로 쓴다.
-   서버 API 네 개만 여기서 가로채 `data/where.json` 으로 답한다.
-
-   🔴 그 파일은 **API 응답을 그대로** 담는다(scripts/bake_where_data.py) — 그래서 여기
-      변환 코드가 없다. 예전엔 압축본(dong_brief.json)을 되돌리려다 두 번 틀렸는데,
-      축약 규칙이 굽는 쪽에만 있어 «희재에서 고치면 블로그도 따라간다» 가 깨졌다.
-      변환이 없으면 갈릴 수도 없다. */
+/* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null, _ps=null;
   const data=()=>_p||(_p=fetch('/blog/data/where.json?v=b9c0225f593c').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
