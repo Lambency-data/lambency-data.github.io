@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Four in Five Survive — and What That Average Hides | Lambency</title>
+<meta name="description" content="A survival curve from Korea's full gym licensing register, 27,908 records. The industry's «18.4% five-year survival» had counted another sector; counted directly, it is 82.6%. The useful part came next: gyms under 100 m² survive at 77.5% and those over 400 m² at 91.0%, and the closure rate doubles from 2.5% in year one to 4.9% by year three. The risky gym is not the new one — it is the three-to-eight-year-old one.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/12-gym-survival.html">
+<meta property="og:title" content="Four in Five Survive — and What That Average Hides">
+<meta property="og:description" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four in Five Survive — and What That Average Hides">
+<meta name="twitter:description" content="A survival curve from Korea's full gym licensing register, 27,908 records. The industry's «18.4% five-year survival» had counted another sector; count">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/12-gym-survival.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/12-gym-survival.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/12-gym-survival.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/12-gym-survival.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/12-gym-survival.html#post",
+   "headline": "Four in Five Survive — and What That Average Hides",
+   "url": "https://lambency-data.github.io/blog/en/12-gym-survival.html",
+   "datePublished": "2026-09-21",
+   "dateModified": "2026-09-21",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, survival analysis, gym closure rate, public data, licensing data, fitness industry, Kaplan-Meier",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/12-gym-survival.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "A survival curve from Korea's full gym licensing register, 27,908 records. The industry's «18.4% five-year survival» had counted another sector; counted directly, it is 82.6%. The ",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../12-gym-survival.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 12 · Gyms</div>
+  <h1>Four in five survive.<br>And what that average hides
+    <span class="h1sub">Gyms (체력단련장업) · full licensing register, 27,908 records · survival analysis · public data</span>
+  </h1>
+  <div class="meta">
+    Caff · September 2026<br>
+    Data used — Ministry of the Interior local licensing data, category 체력단련장업, all 27,908 records as of 2026-09-03: licence date, closure date, floor area. Comparators: Statistics Korea business demography; MCST sports-facility census. <strong>Zero internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>When someone asks how often a business fails, I ask something first —
+<strong>what did that number count as one business?</strong> I ran into "four out
+of five gyms close within five years" while working on something else. It was
+widely quoted and the industry believed it. When I followed it to its source,
+<strong>it had not counted gyms.</strong> So I counted them: the full public
+licensing register, by the day each opened and the day it closed. The result was
+off from received wisdom by a factor of four. But the useful part turned out not
+to be that number — it was <strong>what that average had been hiding.</strong></p>
+  </div>
+
+  <h2><span class="num">01</span>What was measured</h2>
+
+  <p>Korea's Ministry of the Interior publishes a local-government licensing
+dataset. It holds <strong>27,908</strong> facilities registered under
+체력단련장업 — the licence category for gyms. Each row carries a licence date and,
+where applicable, a closure date. That is all a survival analysis needs: places
+still trading are censored at today, places that closed are events.
+Kaplan–Meier. As of 2026-09-03.</p>
+
+  <p><strong>Why not simply divide closures by the total?</strong> A gym that opened
+two years ago has no five-year outcome yet. Drop it and only old gyms remain, so eras
+get mixed; count it as alive and the rate inflates. Kaplan–Meier counts it only as
+"alive through year two" and removes it from the denominator after that. The formula
+is one line — survival(t) = ∏ (1 − closures that day ÷ gyms alive that morning). It
+multiplies each day's "probability of surviving today", so a two-year-old gym
+contributes its first two years and the five-year figure is set only by gyms that
+completed five. The "closure rate in that year" in §04 is the same fraction taken
+year by year instead of multiplied — multiplied, you get cumulative survival; taken
+separately, you see when the risk rises.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Elapsed</th><th>Survival</th></tr></thead>
+  <tbody><tr><td>1 year</td><td><strong>98.0%</strong></td></tr><tr><td>3 years</td><td><strong>90.6%</strong></td></tr><tr><td><strong>5 years</strong></td><td><strong>82.6%</strong></td></tr><tr><td>10 years</td><td><strong>63.1%</strong></td></tr><tr><td>Median survival</td><td><strong>14.3 years</strong> (17.4 counting filed closures only)</td></tr></tbody>
+</table>
+</div>
+
+  <p><strong>Four in five survive five years, not one in five.</strong> "Survive"
+here means <strong>the registration is still alive</strong> — no closure or revocation
+has been filed — not that the gym is necessarily trading (§05 takes up that gap). It
+takes a little over fourteen years for half of them to close. That median moves with
+what you count as a closure: including administrative revocations gives 14.3 years,
+filed closures alone give 17.4. The five-year rate shifts by only a point under that
+choice; the median shifts by three years. So the number this piece leans on is the
+<strong>five-year</strong> one.</p>
+
+  <h2><span class="num">02</span>I doubted my own number first</h2>
+
+  <p>When a result overturns received wisdom fourfold, suspect the calculation
+before the wisdom. Three checks.</p>
+
+  <p><strong>① Does a different method agree?</strong> Setting Kaplan–Meier aside,
+I simply counted, cohort by licence year, how many closed within five years.
+Across 22 cohorts (2000–2021) the median was <strong>81.4%</strong>, range
+76.6–85.7%. Stable across 22 years — not one period's artefact.</p>
+
+  <p><strong>② Does another agency agree?</strong> I reconstructed the "currently
+trading" count at a past date from the raw register and compared it with the
+Ministry of Culture, Sports and Tourism's facility census. End-2023:
+<strong>14,720</strong> reconstructed against <strong>14,773</strong> published —
+0.4% apart.</p>
+
+  <p><strong>③ The one that mattered most — had old closures been purged?</strong>
+If the register discards long-closed records, only survivors remain and the rate
+is inflated wholesale. No modelling fixes that; only the data can settle it.
+Cumulative closure by licence year does.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Licence year</th><th>Cumulative closed</th></tr></thead>
+  <tbody><tr><td>1990</td><td><strong>86.6%</strong></td></tr><tr><td>2000</td><td>83.3%</td></tr><tr><td>2010</td><td>52.7%</td></tr><tr><td>2020</td><td>18.7%</td></tr></tbody>
+</table>
+</div>
+
+  <p>Older cohorts sit higher and the decline is monotonic. <strong>The register
+holds twenty years of closures.</strong> Without this check the 82.6% would have
+been unusable.</p>
+
+  <div class="pull">
+  <p>When a result overturns received wisdom fourfold, suspect the calculation before the wisdom — I measured three times before I wrote the number down.</p>
+</div>
+
+  <h2><span class="num">03</span>So what did the 18.4% count?</h2>
+
+  <p>The figure the industry quotes comes from Statistics Korea's business
+demography series. It is not wrong. <strong>It counts something else.</strong></p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th></th><th>Business demography</th><th>This calculation</th></tr></thead>
+  <tbody><tr><td>Unit</td><td><strong>enterprise (taxpayer)</strong></td><td><strong>facility (licensed site)</strong></td></tr><tr><td>Scope</td><td><strong>arts, sports & recreation</strong>, whole division</td><td><strong>gyms</strong> only</td></tr><tr><td>Death</td><td>revenue and payroll disappear</td><td>closure filed</td></tr><tr><td>5-year survival</td><td>18.4%</td><td><strong>82.6%</strong></td></tr></tbody>
+</table>
+</div>
+
+  <p>The division mixes in sole traders and freelance instructors. A business started
+on a laptop and quietly abandoned does not trace the same curve as a site with a
+deposit, a fit-out, equipment and a filed licence. <strong>Both numbers are right.
+Attaching "gym" to the division-level figure is what is wrong.</strong> The figure
+returned by search matches the division value <strong>to the decimal</strong> —
+nobody re-measured a narrower population; a narrow label was fitted to a broad
+number. That is what makes it dangerous: it looks specific, so it is believed. To
+avoid repeating the error, this piece keeps the licence category name throughout.</p>
+
+  <h2><span class="num">04</span>What the 82.6% average hides</h2>
+
+  <p>Stopping here would make this a piece that corrected one number. The useful part
+is next — <strong>within the same licence category, who lives and who dies.</strong>
+I split it two ways.</p>
+
+  <p><strong>Size.</strong> 20,947 records carry a floor area. Four bands.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Floor area</th><th>n</th><th>5-year survival</th></tr></thead>
+  <tbody><tr><td>under 100 m²</td><td>1,657</td><td><strong>77.5%</strong></td></tr><tr><td>100–200 m²</td><td>5,777</td><td>81.9%</td></tr><tr><td>200–400 m²</td><td>7,862</td><td>86.9%</td></tr><tr><td>400 m² and over</td><td>5,651</td><td><strong>91.0%</strong></td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 720 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five-year survival by floor area">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<line x1="150" y1="40" x2="150" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="150" y="246" font-size="10" text-anchor="middle">70%</text>
+<line x1="252" y1="40" x2="252" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="252" y="246" font-size="10" text-anchor="middle">75%</text>
+<line x1="354" y1="40" x2="354" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="354" y="246" font-size="10" text-anchor="middle">80%</text>
+<line x1="456" y1="40" x2="456" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="456" y="246" font-size="10" text-anchor="middle">85%</text>
+<line x1="558" y1="40" x2="558" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="558" y="246" font-size="10" text-anchor="middle">90%</text>
+<line x1="660" y1="40" x2="660" y2="230" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="660" y="246" font-size="10" text-anchor="middle">95%</text>
+<text class="d" x="140" y="67.0" font-size="11.5" text-anchor="end">under 100</text>
+<rect x="150" y="46" width="153" height="34" fill="#f5d489" opacity="0.95"/>
+<text class="a" x="311" y="67.0" font-size="12.5" font-weight="bold" stroke="#0d0b08" stroke-width="4" paint-order="stroke">77.5%</text>
+<text class="t" x="361" y="67.0" font-size="9.5">n=1,657</text>
+<text class="d" x="140" y="113.0" font-size="11.5" text-anchor="end">100–200</text>
+<rect x="150" y="92" width="242" height="34" fill="#e8b458" opacity="0.6"/>
+<text class="a" x="400" y="113.0" font-size="12.5" font-weight="bold" stroke="#0d0b08" stroke-width="4" paint-order="stroke">81.9%</text>
+<text class="t" x="450" y="113.0" font-size="9.5">n=5,777</text>
+<text class="d" x="140" y="159.0" font-size="11.5" text-anchor="end">200–400</text>
+<rect x="150" y="138" width="346" height="34" fill="#e8b458" opacity="0.6"/>
+<text class="a" x="504" y="159.0" font-size="12.5" font-weight="bold" stroke="#0d0b08" stroke-width="4" paint-order="stroke">86.9%</text>
+<text class="t" x="554" y="159.0" font-size="9.5">n=7,862</text>
+<text class="d" x="140" y="205.0" font-size="11.5" text-anchor="end">400+</text>
+<rect x="150" y="184" width="428" height="34" fill="#f5d489" opacity="0.95"/>
+<text class="a" x="586" y="205.0" font-size="12.5" font-weight="bold" stroke="#0d0b08" stroke-width="4" paint-order="stroke">91.0%</text>
+<text class="t" x="636" y="205.0" font-size="9.5">n=5,651</text>
+<line x1="407" y1="40" x2="407" y2="230" stroke="#f5d489" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text class="a" x="411" y="36" font-size="10.5">overall 82.6%</text>
+<text class="t" x="10" y="280" font-size="10">Five-year survival · 20,947 records with floor area · dashed line = the 82.6% average, which describes no band</text>
+</svg>
+<p class="figcap">Figure 1 · Five-year survival by floor area — 13.5 points between the smallest and largest bands. Source: MOIS licensing data</p>
+</div>
+
+  <p>Monotonic. The smallest and largest bands sit <strong>13.5 points</strong> apart
+— <strong>the gap inside "gyms" is wider than the gap between gyms and the
+division.</strong> To rule out geography I re-ran it within Seoul alone: 79.9%
+against 92.7%, <strong>12.9 points</strong>. Gyeonggi 11.1, Busan 26.3. Size
+separates them in every region.</p>
+
+  <p><strong>Time.</strong> This was the opposite of what I expected. Received
+wisdom says new businesses are the risky ones. The share that close in a given year of life is lowest in year one.</p>
+
+  <p class="note">Conditional closure rate (year n) = gyms that closed in that year ÷ gyms
+alive at the start of that year × 100. Not cumulative — it is the share of survivors
+that close in that year, so it shows how risk moves year by year.</p>
+
+  <p> Because
+recent openings may not have filed closures yet, I counted only the 12,137 gyms
+licensed 2000–2017, each observed for eight years or more.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Year of life</th><th>Closed that year</th></tr></thead>
+  <tbody><tr><td>Year 1</td><td><strong>2.5%</strong></td></tr><tr><td>Year 2</td><td>4.1%</td></tr><tr><td>Year 3</td><td><strong>4.9%</strong></td></tr><tr><td>Years 4–8</td><td>4.9–5.5%</td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Closure rate by year of life">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<line x1="64" y1="236" x2="692" y2="236" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="239" font-size="10" text-anchor="end">0%</text>
+<line x1="64" y1="173" x2="692" y2="173" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="176" font-size="10" text-anchor="end">2%</text>
+<line x1="64" y1="109" x2="692" y2="109" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="112" font-size="10" text-anchor="end">4%</text>
+<line x1="64" y1="46" x2="692" y2="46" stroke="#2a2620" stroke-width="1"/>
+<text class="t" x="56" y="49" font-size="10" text-anchor="end">6%</text>
+<polyline points="64.0,156.7 153.7,104.9 243.4,81.6 333.1,82.2 422.9,75.3 512.6,62.8 602.3,79.6 692.0,70.0" fill="none" stroke="#e8b458" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="64" cy="157" r="5" fill="#f5d489"/>
+<text class="a" x="64" y="145" font-size="12" font-weight="bold" text-anchor="middle">2.5%</text>
+<text class="t" x="64" y="252" font-size="10" text-anchor="middle">1y</text>
+<circle cx="154" cy="105" r="3.5" fill="#e8b458"/>
+<text class="t" x="154" y="252" font-size="10" text-anchor="middle">2y</text>
+<circle cx="243" cy="82" r="5" fill="#f5d489"/>
+<text class="a" x="243" y="70" font-size="12" font-weight="bold" text-anchor="middle">4.9%</text>
+<text class="t" x="243" y="252" font-size="10" text-anchor="middle">3y</text>
+<circle cx="333" cy="82" r="3.5" fill="#e8b458"/>
+<text class="t" x="333" y="252" font-size="10" text-anchor="middle">4y</text>
+<circle cx="423" cy="75" r="3.5" fill="#e8b458"/>
+<text class="t" x="423" y="252" font-size="10" text-anchor="middle">5y</text>
+<circle cx="513" cy="63" r="3.5" fill="#e8b458"/>
+<text class="t" x="513" y="252" font-size="10" text-anchor="middle">6y</text>
+<circle cx="602" cy="80" r="3.5" fill="#e8b458"/>
+<text class="t" x="602" y="252" font-size="10" text-anchor="middle">7y</text>
+<circle cx="692" cy="70" r="3.5" fill="#e8b458"/>
+<text class="a" x="692" y="58" font-size="12" font-weight="bold" text-anchor="middle">5.2%</text>
+<text class="t" x="692" y="252" font-size="10" text-anchor="middle">8y</text>
+<text class="d" x="257" y="100" font-size="11">← doubles by year 3</text>
+<text class="d" x="64" y="32" font-size="10.5">Share closing that year (of those alive)</text>
+<text class="t" x="64" y="292" font-size="10">12,137 gyms licensed 2000–2017, each observed 8+ years — year one is safest; plateau from year three</text>
+</svg>
+<p class="figcap">Figure 2 · Conditional closure rate by year of life — 2.5% in year one doubles to 4.9% by year three and stays</p>
+</div>
+
+  <p>Year-one risk <strong>doubles</strong> by year three and never comes back down.
+<strong>The risky gym is not the new one — it is the three-to-eight-year-old
+one.</strong></p>
+
+  <p>The first explanation that comes to mind is the lease — if leases renew every two
+years, closures should pile up at 24 and 48 months. I recounted in six-month bins.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Since opening</th><th>Half-year closure rate</th></tr></thead>
+  <tbody><tr><td>0–6 months</td><td><strong>1.2%</strong></td></tr><tr><td>6–12 months</td><td>1.4%</td></tr><tr><td>12–18 months</td><td>1.8%</td></tr><tr><td>18–24 months</td><td><strong>2.4%</strong></td></tr><tr><td>24–96 months</td><td>flat, between 2.4% and 3.0%</td></tr></tbody>
+</table>
+</div>
+
+  <p>There is <strong>no spike</strong> at 24 or 48 months. It is not a contract
+calendar. The risk climbs twofold across the first two years and then stays at that
+height. That is as far as this register can go — the first two years are when the
+deposit and fit-out hold the door shut; once they are recovered, the gym is in a
+state where it <em>can</em> quit, and it stays in that state. Ageing equipment or a
+competitor next door are not in this data.</p>
+
+  <div class="pull">
+  <p>The risky gym is not the new one but the three-to-eight-year-old one — the alarm belongs at the end of year two, not at signup.</p>
+</div>
+
+  <p>Overlay the two and it sharpens. Gyms under 100 m² close at 4.5% a year from
+year one. Gyms of 400 m² and over start at 0.9% and climb <strong>gradually</strong>
+to 3.3% by year six. Small ones are risky from the start; large ones become risky
+with age.</p>
+
+  <h2><span class="num">05</span>What this number must not be used for</h2>
+
+  <p><strong>82.6% is close to an upper bound.</strong> A gym that stops trading
+without filing stays "open" in the register — an <strong>unfiled</strong> closure.
+I could not size that: of 16,853 currently open, <strong>1,605 (9.6%)</strong> are
+over twenty years old, and since these are physical sites many genuinely last that
+long. Still, the direction is upward. A further 114 records (0.41%) are marked
+closed with no date and enter as censored; substituting gives 82.5%.</p>
+
+  <p><strong>Pilates is not in here.</strong> It falls under separate categories.
+The label must be <strong>"gyms (체력단련장업)"</strong>, not "fitness".</p>
+
+  <p><strong>And there is an axis I threw away.</strong> The register has a
+"number of instructors" field, so I split on it, and gyms listing zero showed a
+strikingly low survival rate. A tidy story suggests itself at once — gyms without
+instructors fail. But opening those 352 records, <strong>97% had no floor area
+either, and their median licence year was 1996.</strong> They were not gyms without
+instructors; they were <strong>old records nobody had filled in.</strong> That axis
+is not used.</p>
+
+  <p>Floor area is blank for 25% as well — 6,941 records. And <strong>the blanks are
+not random.</strong> The median licence year of a blank record is 2003 (2019 for
+filled ones), and their five-year survival is <strong>73.7%</strong> against 86.0%
+for filled records — 12 points lower. Matched by era (opened 2000–2014) it is still
+66.4% against 89.0%. The gyms that closed are the ones with the empty cells. So the
+size table above is drawn on "the filled-in 75% that survives better", and its
+absolute values run above the overall 82.6%. What to read there is not the level but
+the <strong>gap</strong> — and the gap survives splitting by era (10.5 points for
+2000–2014 openings, 14.7 for 2015–2021).</p>
+
+  <h2><span class="num">06</span>What changes because of it</h2>
+
+  <p>For anyone selling to gyms — membership software, prepayment guarantees,
+equipment leasing — this data changes three things.</p>
+
+  <p><strong>First: if four in five closed, you would be selling against failure
+risk; if four in five survive, that story does not hold.</strong> Nobody
+underwrites a market that collapses. Guarantees become a business precisely
+because most survive. So the risk lives in the <strong>variance</strong>, not the
+average — and the variance, as shown above, opens <strong>twofold</strong> on size
+alone. Charge a 30-pyeong gym and a 120-pyeong gym the same rate and one of them
+costs you money while the other walks. In numbers: the average five-year loss rate
+is 17.4%. Under 100 m² it is 22.5%, <strong>1.3 times</strong> the average; 400 m² and
+over it is 9.0%, <strong>half</strong>. A rate set at the average under-collects by
+30% on the small gyms and charges the large ones double. The ones paying double notice
+first — what stays is the side you under-charged.</p>
+
+  <div class="pull">
+  <p>Nobody underwrites a market that collapses. Guarantees become a business because most survive — so the risk lives in the variance, not the average.</p>
+</div>
+
+  <p><strong>Second: the timing of risk is backwards.</strong> Effort usually goes
+into screening new accounts, but the data says year one is the safest. Of the 3,839
+gyms that closed within eight years, <strong>7.9%</strong> closed in year one, 20.7%
+within two years, and <strong>79.3%</strong> from year three on. Onboarding screening
+is aimed at 8% of the losses. Losses
+concentrate in <strong>existing accounts between years three and eight</strong>.
+A retention model should take tenure before it takes onboarding metrics, and the
+alarm should sound at the end of year two, not at signup.</p>
+
+  <p><strong>Third: to use any of this, you clean first.</strong> Floor area is 25%
+blank, and reading a blank instructor count as zero manufactures a risk that does
+not exist. Public data is not usable on download; it becomes usable only after you
+have sorted <strong>what is missing from what is a blank pretending to be
+zero</strong>. Count without sorting and the conclusions change — keep the recent
+openings in and year-one closure reads <strong>2.0%</strong> instead of 2.5%, safer
+than it is (their closures have not been filed yet); use "zero instructors" as it
+stands and you get a <strong>56.5%</strong> risk that does not exist; treat the blank
+floor areas as random and you read the size table as if it were the whole
+population. Every table above came after that sorting.</p>
+
+  <p>Turned into actions. The thresholds are read straight off the tables above; redraw
+them from your own data.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Signal</th><th>Threshold</th><th>What you do</th></tr></thead>
+  <tbody><tr><td>Size</td><td><strong>under 100 m²</strong> (77.5% at five years)</td><td>separate rate and limit — do not price it like 400 m²+ (91.0%)</td></tr><tr><td>Tenure</td><td><strong>end of year 2</strong> (4.1% → 4.9% in year 3)</td><td>sound the alarm here, not at signup · put tenure into the retention model before onboarding metrics</td></tr><tr><td>Size × tenure</td><td>under 100 m² runs 4.5% <strong>from year one</strong></td><td>screen small sites at onboarding, watch large sites from year three — not the same procedure</td></tr><tr><td>Blanks</td><td>floor area missing for <strong>25%</strong> · instructors "0"</td><td>never read as zero — flag as missing and leave that share out of the table. Blanks are not random (missing records survive 12 points worse)</td></tr></tbody>
+</table>
+</div>
+
+  <p>If you are deciding something on an industry statistic, ask these four.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Ask</th><th>Why</th></tr></thead>
+  <tbody><tr><td>What did it count <strong>as one</strong>?</td><td>enterprise or facility; division or single category</td></tr><tr><td>How did it declare <strong>death</strong>?</td><td>revenue disappearing or a closure filing — different dates</td></tr><tr><td>Inside the average, <strong>who lives and who dies</strong>?</td><td>when size or tenure alone splits it twofold, the average describes no one</td></tr><tr><td>Is any blank <strong>pretending to be zero</strong>?</td><td>"zero instructors" meant no entry, not no instructors</td></tr></tbody>
+</table>
+</div>
+
+  <h2><span class="num">07</span>What this piece is really saying</h2>
+
+  <p>Nothing here is a new model. <strong>It counted something public that nobody
+had counted, and split what had been lumped into a single average.</strong> The
+register is downloadable by anyone; the dates and floor areas were in it from the
+start. But no one had drawn the curve, so an industry spent years holding another
+sector's number as its own — and never saw the twofold gap inside itself.</p>
+
+  <p>Most of our work looks like this. Far more often than data being missing, the
+data that exists <strong>is not in a state that can answer.</strong> Repeat-purchase
+rate cannot be computed until you decide what counts as one purchase; survival stays
+a single average until you decide what counts as one business and which blanks are
+pretending to be zero. <strong>Settling that comes before the analysis, and it is
+usually the part that is actually hard.</strong></p>
+
+  <p>Getting data into a state where it can answer is what we do.</p>
+
+  <p>(Note — source: Ministry of the Interior local licensing data, category 체력단련장업, 27,908 records as of 2026-09-03. Kaplan–Meier; events are closures and revocations, trading and suspended are right-censored. Sensitivity with filed closures only: 83.7% at five years. Size bands use the 20,947 records (75%) with a floor area; 19 records listed at 10,000 m² or more were dropped as entry errors (one gym is recorded at 1,033,455 m²). Year-of-life closure rates use the 12,137 gyms licensed 2000–2017, observed eight years or more. Comparison: Statistics Korea business demography, arts/sports/recreation division, 2018 birth cohort. Zero internal data.)</p>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="Related reading">
+    <div class="lb">Related reading</div>
+    <a class="ritem" href="/blog/en/09-rent-and-survival.html"><span class="rno">09</span><span class="rtit">The rent already knows</span></a>
+    <a class="ritem" href="/blog/en/08-coffee-district-footfall.html"><span class="rno">08</span><span class="rtit">A friend said he'd open a café.</span></a>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+  </nav>
+  <!-- RELATED:END -->
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
