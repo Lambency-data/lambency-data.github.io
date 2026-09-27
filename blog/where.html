@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: aeeeb7b6f6b7f4c8 -->
+<!-- baked-from-b2c-where: 76f2e3548cc1f1eb -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -68,6 +68,33 @@
     };
   }
 
+
+  function paintChip() {
+    var chip = document.getElementById('authChip');
+    if (!chip || !window.fetch) return;
+    var here = location.pathname + location.search;
+    chip.href = 'https://hicce.co.kr/b2c/login?next=' + encodeURIComponent(here);
+    fetch('/api/b2c/me', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!(d && d.ok && d.user)) return;
+        chip.textContent = (d.user.name ? d.user.name + '님' : '내 계정') + ' · 로그아웃';
+        chip.href = '#';
+        chip.onclick = function (e) {
+          e.preventDefault();
+          fetch('/api/b2c/auth/logout', { method: 'POST' })
+            .catch(function () {})
+            .then(function () {
+              try { localStorage.removeItem(KEY); localStorage.removeItem('hicce_b2c_name'); } catch (_) {}
+              location.href = '/b2c';
+            });
+        };
+      })
+      .catch(function () { /* 판정 실패 시 「로그인」 그대로 — 틀린 «로그인됨» 보다 낫다 */ });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paintChip);
+  else paintChip();
+})();
 
 </script>
 

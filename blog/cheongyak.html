@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-cheongyak: 265f7b41ec084a1a -->
+<!-- baked-from-b2c-cheongyak: 87fff7671417b18c -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -319,7 +319,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 /* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=6d82c44a7a8b').then(r=>{
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=86ef308cb57e').then(r=>{
     if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){
@@ -372,6 +372,33 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     };
   }
 
+
+  function paintChip() {
+    var chip = document.getElementById('authChip');
+    if (!chip || !window.fetch) return;
+    var here = location.pathname + location.search;
+    chip.href = 'https://hicce.co.kr/b2c/login?next=' + encodeURIComponent(here);
+    fetch('/api/b2c/me', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!(d && d.ok && d.user)) return;
+        chip.textContent = (d.user.name ? d.user.name + '님' : '내 계정') + ' · 로그아웃';
+        chip.href = '#';
+        chip.onclick = function (e) {
+          e.preventDefault();
+          fetch('/api/b2c/auth/logout', { method: 'POST' })
+            .catch(function () {})
+            .then(function () {
+              try { localStorage.removeItem(KEY); localStorage.removeItem('hicce_b2c_name'); } catch (_) {}
+              location.href = '/b2c';
+            });
+        };
+      })
+      .catch(function () { /* 판정 실패 시 「로그인」 그대로 — 틀린 «로그인됨» 보다 낫다 */ });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paintChip);
+  else paintChip();
+})();
 
 </script>
 
