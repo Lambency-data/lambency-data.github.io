@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 76f2e3548cc1f1eb -->
+<!-- baked-from-b2c-where: 24bd03499b52b407 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1072,6 +1072,7 @@ async function renderPick(gu, dg, seq){
     <div class="tw" style="overflow-x:auto"><table class="pk">
       <thead><tr><th>업종 · 어느 층</th><th>여기 / 있어야 할 수</th><th>가게당 월매출</th><th>월세 부담률</th><th>전년 대비</th><th>분기 폐업률</th></tr></thead>
       <tbody>${p.top.map(row).join('')}</tbody></table></div>
+    ${p.top.length?'':`<p class="src" style="margin:4px 0 8px">닮은 동네 구성대로면 <b>이 동네에 빈 업종이 없습니다</b> — «있어야 할 수»보다 적은 업종이 없다는 뜻입니다(2026-09-29 부터 «이미 많은데 잘 되는» 업종은 여기 넣지 않습니다).</p>`}
     ${p.avoid&&p.avoid.length?`<p class="cap" style="margin-top:10px"><b>피할 것</b> — ${p.avoid.map(c=>{
         const rs=[];
         if(c.burden_pct!=null && c.burden_pct>=30) rs.push('월세가 매출의 '+c.burden_pct+'%');
