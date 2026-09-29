@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 24bd03499b52b407 -->
+<!-- baked-from-b2c-where: 92247276118c7a81 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1440,7 +1440,8 @@ function shopHead(){
         `<div class="r${t===main?'':' dim'}"><span>${t.type} 상가${t.vacancy_pct!=null?` · 빈 가게 ${t.vacancy_pct}%`:''}</span>
           <b>${(t.per_m2_thousand/10).toFixed(1)}만/㎡</b></div>`).join('')}
         <p class="src" style="margin-top:6px">같은 예산이라도 <b>건물 유형</b>에 따라 쓸 수 있는 크기가 달라집니다.</p></div>
-    </div>`;
+    </div>
+    <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">이 동네 <b>특정 상가</b> 시세가 궁금하시면 → hicce 시세 브리핑</a>`;
   return h;
 }
 window.setInd=function(v){ _IND=v; renderHead(); };
