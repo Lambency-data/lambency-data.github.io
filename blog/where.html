@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: e8beb09b734ea4d4 -->
+<!-- baked-from-b2c-where: 6f81bb2ad081d02c -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1371,6 +1371,9 @@ function shopHead(){
            가게 수·매출·폐업률만 실측입니다 ·`}
         ${hasExp ? '«비슷한 동네만큼이면»은 닮은 동네의 업종 구성비대로 셌을 때의 수입니다 — «있어야 한다»가 아닙니다.'
           : '이 동네는 닮은 동네를 고를 만큼 점포가 많지 않아 «비슷한 동네만큼이면»은 내지 않았습니다 — 나머지는 실측입니다.'}</p></div>`;
+    if(c.floor_mix){ const fm=c.floor_mix, order=['1층','2층','3층+','지하'];
+      h+=`<p class="src" style="margin:4px 0 0">이 업종은 <b>${fm.scope==='서울'?'서울에서':fm.scope+'에서'}</b> ${order.map(b=>`${b} <b>${fm.mix[b]}%</b>`).join(' · ')}
+        — 층이 적힌 점포 ${_n(fm.n_floor)}곳 기준(${fm.scope==='서울'?'이 구는 표본이 30곳 미만':'전체 '+_n(fm.n)+'곳 중'}).</p>`; }
   }
 
   const SZ0=(_D&&_D.shop_size)||null;
