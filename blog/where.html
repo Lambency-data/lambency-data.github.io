@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 92247276118c7a81 -->
+<!-- baked-from-b2c-where: e8beb09b734ea4d4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1133,6 +1133,7 @@ let _D=null, _GU='', _DG='';
 let _PY=10;            /* 집  — 찾는 크기(평) */
 let _BUD=150;          /* 가게 — 예산(월 만원) */
 let _SPY=10;           /* 가게 — 하고 싶은 크기(평). 예산과 **양방향**이다 */
+let _SPY_USER=false;   /* 사람이 직접 넣었나 — 아니면 동네 1층 가게 가운데 값을 기본으로 쓴다 (2026-09-29) */
 let _AGE=0;            /* 집  — 나이대 탭 */
 let _IND='';           /* 가게 — 고른 업종 */
 let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
@@ -1373,6 +1374,7 @@ function shopHead(){
   }
 
   const SZ0=(_D&&_D.shop_size)||null;
+  if(!_SPY_USER && SZ0 && SZ0.ok && SZ0.median_py>0) _SPY=Math.round(SZ0.median_py*10)/10;
   if(SZ0 && SZ0.ok){
     const mx=Math.max.apply(null, SZ0.rows.map(r=>r.pct).concat([1]));
     const top=SZ0.rows.reduce((a,b)=>b.pct>a.pct?b:a);
@@ -1413,6 +1415,9 @@ function shopHead(){
     <div class="ansq warn" style="margin-top:20px"><i></i><span>거꾸로 —
       <input class="numin" id="spyIn" inputmode="decimal" value="${_SPY}"> 평(${Math.round(_SPY*P2M)}㎡)을 하려면</span></div>
     <div class="bigans"><b>${_n(Math.round(_SPY*P2M*per))}만</b><span>이 듭니다 · 월세만</span></div>
+    ${(!_SPY_USER && SZ0 && SZ0.ok && SZ0.median_py>0)
+      ? `<p class="src" style="margin:-4px 0 8px">${_SPY}평은 <b>이 동네 1층 가게 가운데 값</b>(실거래 ${_n(SZ0.n)}건)입니다 — <b>업종별 크기는 자료에 없어</b> ${_IND||'그 업종'}에 맞는 크기는 위 칸에 직접 넣어 보세요.</p>`
+      : ''}
     <p class="ansnote">보증금·관리비·권리금은 빠진 값입니다. 같은 평수라도 <b>건물 유형</b>에 따라
       ${types.map(t=>`${t.type} <b>${_n(Math.round(_SPY*P2M*t.per_m2_thousand/10))}만</b>`).join(' · ')} 으로 갈립니다.</p>
     <div class="ftab hd"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">이 예산으로 되는 크기</span></div>`
@@ -1585,7 +1590,7 @@ function renderHead(){
     if(v>0&&v<100000){ _BUD=v; renderHead(); } else { bi.value=_BUD; } });
   const si=document.getElementById('spyIn');
   if(si) si.addEventListener('change', ()=>{ const v=parseFloat(si.value);
-    if(v>0&&v<3000){ _SPY=v; renderHead(); } else { si.value=_SPY; } });
+    if(v>0&&v<3000){ _SPY=v; _SPY_USER=true; renderHead(); } else { si.value=_SPY; } });
 }
 
 let _MAP=null;
