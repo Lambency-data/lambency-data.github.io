@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-cheongyak: 87fff7671417b18c -->
+<!-- baked-from-b2c-cheongyak: 7c327c247dad9978 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -319,7 +319,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 /* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=86ef308cb57e').then(r=>{
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=ee1bb0236f98').then(r=>{
     if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){
@@ -820,7 +820,7 @@ load();
 <script>(function(){try{
   var k='hicce_sid', s=localStorage.getItem(k);
   if(!s){ s='a'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(k,s); }
-  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||null});
+  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||null,utm:(function(q){var n=new URLSearchParams((q.get('next')||'').split('?')[1]||''),g=function(k){return q.get(k)||n.get(k)||''},u=g('utm_source');return u?[u,g('utm_campaign'),g('utm_content')].filter(Boolean).join('/').slice(0,120):null})(new URLSearchParams(location.search))});
   if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/b2c/pv', new Blob([b],{type:'application/json'})); }
 }catch(e){}})();
 </script>

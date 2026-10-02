@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 6f81bb2ad081d02c -->
+<!-- baked-from-b2c-where: 603815a38b6c9837 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1935,7 +1935,42 @@ if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()
 
 <script>
 (function () {
-  var NOTICE = {
+  var IS_PRO = /^\/pro(\/|$)/.test(location.pathname);
+  var NOTICE_USER = {
+    id: 'brief-violation-rent-20260930',
+    title: '시세 브리핑에 두 가지가 더 보입니다',
+    lede: '건축물대장의 위반건축물 표기와, 이 건물 세 이력의 보증금 변동을 더 정확히 보여드립니다.',
+    good: [
+      '<b>위반건축물 표시.</b> 건축물대장에 위반건축물로 등재된 건물은 브리핑 첫 줄에 <b>노란 딱지</b>로 표시합니다. 담보대출이 막히거나 한도가 줄 수 있는 사정이라 먼저 보셔야 합니다.',
+      '<b>이 건물에 지금 세가 이렇게 들어 있습니다</b> — 갱신 계약의 보증금이 종전보다 <b>올랐으면 ↑, 내렸으면 ↓</b>로 크기와 함께 적습니다.',
+      '동네 화면의 <b>유동인구</b>가 매일 갱신되고, 업종마다 <b>보통 몇 층을 쓰는지</b>가 함께 보입니다.'
+    ],
+    changed: [
+      '보증금이 <b>내려간</b> 갱신 계약이 «↑-4,000만» 처럼 보이던 표기를 고쳤습니다. 이전에 보신 표와 화살표가 다르다면 그 때문입니다.'
+    ],
+    warn: '위반건축물 표시는 <b>건축물대장에 적힌 것만</b> 잡습니다. 대장에 표기되지 않은 위반은 보지 못합니다 — 현장 확인을 대신하지 않습니다.',
+    src: '출처: 국토교통부 건축물대장(V-World GIS건물통합정보) · 국토교통부 전월세 실거래'
+  };
+  var NOTICE_PRO = {
+    id: 'console-premium-violation-20260930',
+    title: '매물장과 시세 화면이 이렇게 바뀌었습니다',
+    lede: '9월 중순 이후 콘솔에 들어간 것들입니다. 한 번만 뜹니다.',
+    good: [
+      '<b>위반건축물 노란 딱지.</b> 건축물대장에 등재된 매물은 목록의 주소 옆에 <b>⚠ 위반건축물</b>이 붙고, 확인·설명서의 「위반건축물 여부」 칸이 자동으로 채워집니다. 등록 때 대장에서 자동으로 읽습니다.',
+      '<b>상가·사무실은 권리금이 필수</b>입니다 — 등록·수정·체결 모두. 권리금이 없으면 <b>0</b>을 넣으세요(0 은 값, 빈칸은 모름).',
+      '<b>이 건물 임대 현황</b> — 갱신 계약의 보증금이 종전보다 올랐으면 ↑, 내렸으면 ↓로 크기와 함께 적습니다.',
+      '<b>엑셀(CSV) 양식</b>에 공급면적·임대인 이름·임차인 이름 칸이 생겼습니다. 내려받은 양식 그대로 채워 올리면 됩니다.',
+      '<b>시세 브리핑</b>은 주소를 넣으면 「건축물대장 — 찾음」 카드와 이 건물 임대 현황이 폼에서 바로 보입니다.'
+    ],
+    changed: [
+      '권리금 칸이 비어 있던 <b>기존 상가·사무실 매물</b>은 무엇이든 고쳐 저장하려면 <b>권리금부터</b> 넣어야 합니다.',
+      '보증금이 내려간 갱신 계약이 «↑-4,000만» 처럼 보이던 표기를 고쳤습니다.'
+    ],
+    warn: '위반건축물 표시는 <b>건축물대장에 적힌 것만</b> 잡습니다. 표기되지 않은 위반(미적발)은 보지 못합니다 — 현장 확인은 사장님 몫입니다.',
+    src: '출처: 국토교통부 건축물대장(V-World GIS건물통합정보) · 국토교통부 전월세 실거래 · 문의는 hicce 로'
+  };
+  var NOTICE = IS_PRO ? NOTICE_PRO : NOTICE_USER;
+  var NOTICE_OLD = {
     id: 'livingpop-250m-20260916',
     title: '동네 사람 수 데이터가 새로 바뀌었습니다',
     lede: '서울시가 「생활인구」를 세는 방식을 바꿨고, hicce도 새 방식으로 갈아끼웠습니다.',
@@ -2068,7 +2103,7 @@ if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()
   var k='hicce_sid', s=localStorage.getItem(k);
   if(!s){ s='a'+Math.random().toString(36).slice(2)+Date.now().toString(36); localStorage.setItem(k,s); }
   var u=new URLSearchParams(location.search).get('utm_source');
-  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||(u?'utm:'+u:null)});
+  var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||(u?'utm:'+u:null),utm:(function(q){var n=new URLSearchParams((q.get('next')||'').split('?')[1]||''),g=function(k){return q.get(k)||n.get(k)||''},u=g('utm_source');return u?[u,g('utm_campaign'),g('utm_content')].filter(Boolean).join('/').slice(0,120):null})(new URLSearchParams(location.search))});
   if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/b2c/pv', new Blob([b],{type:'application/json'})); }
   else{ Promise.resolve() && fetch('/api/b2c/pv',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true}).catch(function(){}); }
 }catch(e){}})();
