@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>같은 AI에게 한국인과 미국인을 연기시켰다 — 합성 패널 실측기 | Lambency</title>
+<meta name="description" content="같은 AI에게 한국 유권자와 미국 유권자를 연기시켰다. 한국 페르소나는 12번 중 12번 응답을 회피했고, 미국 페르소나는 근거 없이도 8번 모두 같은 답을 고집했다 — 실패의 방향이 정반대다. 「당신은 지난 대선에서 ○○를 찍었다」 한 줄이 문을 열었고, 6·3 지방선거 백테스트에서 접전지 오차 2.65%p까지 왔다. 모델은 누구나 같은 것을 쓴다 — 갈리는 것은 주입하는 데이터의 설계다. 이 규칙은 CRM 메시지 테스트에 그대로 이식된다.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<!-- Open Graph / 링크 공유 미리보기 -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://lambency-data.github.io/blog/14-synthetic-audience.html">
+<meta property="og:title" content="같은 AI에게 한국인과 미국인을 연기시켰다 — 합성 패널 실측기">
+<meta property="og:description" content="같은 AI에게 한국 유권자와 미국 유권자를 연기시켰다. 한국 페르소나는 12번 중 12번 응답을 회피했고, 미국 페르소나는 근거 없이도 8번 모두 같은 답을 고집했다 — 실패의 방향이 정반대다. 「당신은 지난 대선에서 ○○를 찍었다」 한 줄이 문을 열었고, 6·3 지방">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="같은 AI에게 한국인과 미국인을 연기시켰다 — 합성 패널 실측기">
+<meta name="twitter:description" content="같은 AI에게 한국 유권자와 미국 유권자를 연기시켰다. 한국 페르소나는 12번 중 12번 응답을 회피했고, 미국 페르소나는 근거 없이도 8번 모두 같은 답을 고집했다 — 실패의 방향이 정반대다. 「당신은 지난 대선에서 ○○를 찍었다」 한 줄이 문을 열었고, 6·3 지방">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-default.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/14-synthetic-audience.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/14-synthetic-audience.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="keywords" content="데이터 컨설팅, 데이터 분석, 그로스 애널리틱스, CRM 분석, 고객 데이터 분석, 실험 설계, A/B 테스트, 인과추론, 증분 측정, 마케팅 성과 측정, RFM 분석, LTV 예측, 리텐션 분석, 고객 세그먼테이션, 데이터 인프라, CDP, 데이터 파이프라인, LLM 에이전트, 응용 AI, AI 컨설팅, 합성 패널, 합성 오디언스, AI 예측, 선거 예측, CRM 메시지 테스트, synthetic audience, calibration, 데이터 설계">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/14-synthetic-audience.html#post",
+   "headline": "같은 AI에게 한국인과 미국인을 연기시켰다 — 합성 패널 실측기",
+   "url": "https://lambency-data.github.io/blog/14-synthetic-audience.html",
+   "datePublished": "2026-10-05",
+   "dateModified": "2026-10-05",
+   "inLanguage": "ko",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-default.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "데이터 컨설팅, 데이터 분석, 그로스 애널리틱스, CRM 분석, 고객 데이터 분석, 실험 설계, A/B 테스트, 인과추론, 증분 측정, 마케팅 성과 측정, 합성 패널, AI 예측, 합성 오디언스, CRM 메시지 테스트, 선거 백테스트",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/14-synthetic-audience.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "서울의 1인 데이터·AI 컨설팅. 그로스·CRM 애널리틱스, 실험 설계와 인과추론, 프로덕션 LLM 에이전트, 데이터 인프라·CDP를 다룹니다.",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#practice">Practice</a>
+    <a href="../index.html#method">Method</a>
+    <a href="../engagements.html">Engagements</a>
+    <a href="../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="/blog/cheongyak.html">청약 커버리지</a>
+    <a href="where.html">동네 월세·상권</a>
+    <a href="../index.html#contact">Contact</a>
+    <a class="langlink" href="en/14-synthetic-audience.html">EN</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · 공개 데이터 시리즈 · 14 · 합성 패널</div>
+  <h1>같은 AI에게 한국인과<br>미국인을 연기시켰다
+    <span class="h1sub">합성 패널 · 한국 6·3 지선 백테스트 × 미국 중간선거 실측 · AI 예측 방법론</span>
+  </h1>
+  <div class="meta">
+    Caff · 2026년 10월<br>
+    사용 데이터 — 선관위 개표(전수)·인구통계·공표 여론조사(대조용)·미국 주별 개표. 본문의 모든 예측치는 여론조사가 아니라 AI 예측이며, 백테스트는 모델 지식 컷오프 이후 선거로만 검증했다. <strong>개인 단위 데이터 0건.</strong>
+  </div>
+
+  <div class="lede">
+    <p>CRM 메시지에는 관문이 다섯 개 있다. <strong>보냈다 → 열었다 → 읽었다 →
+클릭했다 → 샀다.</strong> 관문마다 허들이 다르지만, 내 경험으로 가장 높은 벽은
+가운데다 — 열게 만드는 것까지는 제목의 일이고, 사게 만드는 것은 상품의 일이다.
+<strong>읽고 클릭하게 만드는 것, 그게 메시지의 일이고 가장 어렵다.</strong></p>
+  </div>
+
+  <p>「누구에게 보낼 것인가」는 풀 수 있는 문제였다. 리테일 브랜드의 CRM을 맡아
+RFM 모델을 만들었을 때, 세그먼트를 가른 순서 그대로 클릭률도 매출도 줄을 섰다 —
+모델이 대단해서가 아니라 <strong>무엇을 한 번의 구매로 셀 것인가</strong>라는
+기준을 제대로 갈랐기 때문이다. 그런데 끝까지 안 풀리는 질문이 하나 남았다.
+<strong>「그래서, 어떤 메시지를 쓰는가?」</strong> 보내 보기 전에는 아무도
+모른다. 보내고 나면 이미 늦다.</p>
+
+  <p>그 답을 찾다 합성 오디언스(synthetic audience)에 닿았다 — AI 페르소나
+집단에게 메시지를 먼저 보여주고 반응 분포를 얻는 방법으로, 미국에서는 이미
+정치 캠페인 쪽에서 상업화가 진행 중이다. 믿기 전에 시험부터 하기로 했다.
+시험장은 선거로 골랐다 — <strong>정답(개표)이 공표되는, 세상에서 가장 투명한
+행동 데이터라서.</strong> 그렇게 같은 AI에게 한국 유권자와 미국 유권자를
+연기시켰고, 결과부터 말하면 — 한국 AI는 과묵했고, 미국 AI는 고집불통이었다.</p>
+
+  <h2><span class="num">01</span>한국 — AI가 답을 거부한다</h2>
+
+  <p>시작은 한국이었다. 실제 인구·투표 통계로 만든 페르소나에게 정치 질문을 던졌다. 서울 35세 남성: 지지 정당을 물으면 <strong>12번 중 12번 「지지 정당 없음」</strong>. 창의성을 최대로 올려도(temperature 1.0) 분산이 0이었다. 광주 45세 여성에게 대통령 국정 평가를 물으면 긍정이 <strong>10번 중 0번</strong> — 실제 광주의 긍정 평가는 79%인데. 대통령 이름을 과거 인물로 바꿔 물어도 같았다. 모르는 게 아니라, <strong>한국 정치라는 주제 자체를 회피하는 것이다.</strong></p>
+
+  <p>지역별 지지율 집계를 배경 정보로 쥐여줘도 소용없었다. 「강남 30.1%」 같은 중간 범위의 통계는 페르소나의 입을 열지 못했다 — AI는 집계 수치를 개인의 목소리로 번역하지 않는다.</p>
+
+  <h2><span class="num">02</span>돌파 — 통계가 아니라 이력을 줬다</h2>
+
+  <p>문을 연 것은 한 줄이었다. <strong>「당신은 지난 대선에서 ○○ 후보에게 투표했습니다.」</strong> 집계 통계가 아니라 <strong>개인의 과거 행동</strong>으로 주자, 같은 페르소나가 즉시 자연스러운 분포를 냈다 — 같은 정당 투표자 여덟이면 긍정 4·부정 2·유보 2처럼, 실제 여론조사에서 보이는 결이다.</p>
+
+  <p>과거 투표는 구별 실제 개표 비율(선관위 전수)로 배분했다. 그러자 구별 순서가 실제와 맞아 들어갔고(강남 15% < 노원 24%), 모델이 정답을 학습할 수 없는 최신 여론조사와 준-블라인드로 대조하자 <strong>서울 오차 +0.6%p</strong>까지 내려왔다.</p>
+
+  <p>여기서 얻은 규칙 하나. <strong>AI에게 통계를 읽어 주는 것은 소용없다. 통계를 개인의 이력으로 번역해 주어야 한다.</strong> 이 번역이 이 방법의 심장이다 — 기억해 두시라, 뒤에서 다시 쓴다.</p>
+
+  <h2><span class="num">03</span>미국 — 정반대의 실패</h2>
+
+  <p>같은 엔진을 미국에 이식했다. 이번엔 반대 문제가 터졌다. 미국 페르소나는 근거를 주지 않아도 완벽하게 갈렸다 — 텍사스 58세 백인 남성은 8번 모두 같은 쪽. 메인주에서는 현지에서 유명한 「공화당 상원의원에게 민주 성향 유권자가 넘어가는」 크로스오버 패턴을 <strong>프롬프트에 넣어주지 않았는데 스스로 재현</strong>했다. 영어 정치 데이터를 워낙 많이 학습해서, 페르소나가 아니라 사실상 정치 평론가다.</p>
+
+  <p>문제는 그 지식에 <strong>자체 성향이 붙어 있다는 것</strong>이다. 공화당이 크게 이기는 주에서도 모델은 민주당 우위를 뱉었고, 뉴스·후보 프로필 같은 부품을 끼워도 답이 거의 움직이지 않았다. 한국 AI는 비어 있어서 문제였고, <strong>미국 AI는 차 있어서 문제다.</strong></p>
+
+  <h2><span class="num">04</span>실패 모드가 정반대라는 것이 발견이다</h2>
+
+  <div class="fig">
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="한미 응답 분포 대비">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="d" x="60" y="46" font-size="12">한국 · 서울 35세 남성 — 지지 정당을 12번 물었다</text>
+<rect x="60" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="72.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="92" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="104.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="124" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="136.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="156" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="168.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="188" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="200.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="220" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="232.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="252" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="264.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="284" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="296.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="316" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="328.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="348" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="360.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="380" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="392.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="412" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="424.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<text class="a" x="60" y="112" font-size="11.5" font-weight="bold">12번 모두 「지지 정당 없음」 — 과묵</text>
+<text class="d" x="60" y="152" font-size="12">미국 · 텍사스 58세 백인 남성 — 지지 후보를 8번 물었다</text>
+<rect x="60" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="92" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="124" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="156" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="188" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="220" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="252" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="284" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="60" y="218" font-size="11.5" font-weight="bold">8번 모두 같은 후보 — 과신</text>
+<text class="t" x="60" y="242" font-size="10.5">temperature 1.0 — 무작위성을 최대로 열어도 분산이 0이었다</text>
+</svg>
+<p class="figcap">그림 2 · 같은 페르소나에게 같은 질문을 반복한 결과 — 실패의 방향이 정반대다</p>
+</div>
+
+  <div class="tw">
+<table>
+  <thead><tr><th></th><th>한국 페르소나</th><th>미국 페르소나</th></tr></thead>
+  <tbody><tr><td>실패 모드</td><td><strong>과묵</strong> — 응답을 회피한다</td><td><strong>과신</strong> — 자기 견해를 고집한다</td></tr><tr><td>원인</td><td>한국어 정치 데이터 부족</td><td>영어 정치 데이터 과잉</td></tr><tr><td>무엇을 하는가</td><td>근거를 <strong>설계해 주입</strong>한다 (과거 행동 이력)</td><td>통계 앵커로 <strong>눌러 잡는다</strong> (calibration)</td></tr></tbody>
+</table>
+</div>
+
+  <p>이 표가 말하는 것: 어느 쪽이든 「AI를 잘 시키는」 문제가 아니다. <strong>「무엇을 근거로 주고, 무엇을 통계로 잡을지 설계하는」 문제다.</strong></p>
+
+  <p>대학원에서 공부하던 시절, 구글의 데이터 사이언티스트 특강에서 들은 한마디가 아직도 남아 있다. 요지는 이랬다 — <strong>「어차피 모델은 있는 걸 가져다 쓴다. 중요한 건 어떤 데이터를, 어떻게 가공해서, 어떻게 전달하느냐다.」</strong> 그때는 LLM이라는 말도 없던 시절인데, 지금 와서 한 글자도 고칠 것이 없다. 모델은 누구나 같은 것을 쓴다 — 갈리는 것은 주입하는 데이터의 설계다. 한국 페르소나의 침묵과 미국 페르소나의 고집이 그 오래된 문장을 정확히 다시 증명하고 있었다.</p>
+
+  <h2><span class="num">05</span>성적표 — 정직하게</h2>
+
+  <p>이 방법이 어디까지 왔는지는 숫자로 적는 게 맞다. 한국 6·3 지방선거를 백테스트했다(모델의 지식 컷오프가 선거보다 앞서 정답을 학습할 수 없는 조건). 잣대는 하나로 통일한다 — 오차(MAE, %p) = Σ|예측 득표율 − 실제 개표 득표율| ÷ 지역 수. 낮을수록 좋다.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>단계</th><th>전체 오차(MAE)</th><th>접전 4곳</th></tr></thead>
+  <tbody><tr><td>배분 + AI만</td><td>12.45%p</td><td>4.74</td></tr><tr><td>+ 현직 프리미엄·과대마진 압축</td><td>6.89</td><td><strong>2.65</strong></td></tr><tr><td>+ 연고 크로스보팅</td><td><strong>4.08</strong></td><td>2.65</td></tr><tr><td>국내 경쟁 AI 예측 발표치</td><td>2.99</td><td>4.04</td></tr><tr><td>지상파 출구조사</td><td>2.68</td><td>—</td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="백테스트 오차 사다리">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="d" x="180" y="63.0" font-size="11" text-anchor="end">배분 + AI만</text>
+<rect x="190" y="44" width="450" height="30" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="648" y="63.0" font-size="12" font-weight="bold">12.45</text>
+<text class="d" x="180" y="103.0" font-size="11" text-anchor="end">+ 현직·압축 보정</text>
+<rect x="190" y="84" width="249" height="30" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="447" y="103.0" font-size="12" font-weight="bold">6.89</text>
+<text class="d" x="180" y="143.0" font-size="11" text-anchor="end">+ 연고 크로스보팅</text>
+<rect x="190" y="124" width="148" height="30" fill="#f5d489" opacity="0.9"/>
+<text class="a" x="346" y="143.0" font-size="12" font-weight="bold">4.08</text>
+<text class="d" x="180" y="183.0" font-size="11" text-anchor="end">국내 경쟁 AI</text>
+<rect x="190" y="164" width="108" height="30" fill="#5a5348" opacity="0.55"/>
+<text class="a" x="306" y="183.0" font-size="12" font-weight="bold">2.99</text>
+<text class="d" x="180" y="223.0" font-size="11" text-anchor="end">지상파 출구조사</text>
+<rect x="190" y="204" width="97" height="30" fill="#5a5348" opacity="0.55"/>
+<text class="a" x="295" y="223.0" font-size="12" font-weight="bold">2.68</text>
+<text class="t" x="10" y="250" font-size="10.5">전체 오차(MAE, %p) — 낮을수록 좋다. 위 셋이 우리 단계, 아래 둘이 비교선</text>
+</svg>
+<p class="figcap">그림 1 · 6·3 지방선거 백테스트 — 부품(현직 프리미엄·압축·크로스보팅)을 실측 계수로 끼울 때마다 오차가 내려간다. 정답을 아는 상태의 조립이다</p>
+</div>
+
+  <p>전체 오차로는 아직 경쟁 AI에 뒤진다(4.08 vs 2.99). 대신 <strong>승부가 갈리는 접전지에서는 앞선다</strong>(2.65 vs 4.04) — 출구조사 짝수 자리다. 그리고 이것은 정답을 아는 상태에서 부품을 조립한 백테스트다. 성능의 진짜 증명은 아직 없다 — 그건 아래 §07에서.</p>
+
+  <p>표에 없는 실험이 하나 있다 — 사실 저 계수들 전에, <strong>후보 개인의 미시 정보(현직 여부·출신·경력)를 페르소나에게 직접 주입</strong>해 봤다. 오차는 12.45에서 <strong>10.35</strong>로 내려왔다. 레버가 맞긴 맞는 것이다. 그런데 뜯어보니 모델은 「현직」이라는 단어에 일률 <strong>+5~9%p</strong>를 얹고 있었다 — 그게 정답 방향인 지역은 좋아졌지만, 아닌 지역은 오히려 나빠졌다. 실측된 현직 프리미엄은 <strong>+2.95%p</strong>다. 그래서 이 실험은 폐기가 아니라 교체됐다 — <strong>방향은 AI가 알지만, 크기는 AI에게 맡기면 안 된다.</strong> 미시 정보가 알려준 레버를 통계 계수로 다시 만든 것이 표의 두 번째 행이다.</p>
+
+  <p>연고 크로스보팅도 같은 방식이다. 2014년 대구에서 실측된 +22.3%p가 12년 뒤 같은 후보에게 +22.5%p로 그대로 반복됐다 — 계수는 전부 과거 선거 전수 실측에서 온다.</p>
+
+  <h2><span class="num">06</span>그래서 이 엔진은 무엇을 파는가</h2>
+
+  <p>서두의 질문으로 돌아가자 — 「어떤 메시지를 쓰는가」. 이 엔진이 파는 것은 두 가지다. 정치 쪽에는 <strong>접전지에서 출구조사급 정밀도를 내는 AI 예측</strong> — 승부가 갈리는 곳만 정확하면 되는 캠프의 수요와 정확히 겹친다. 그리고 커머스 쪽에는 <strong>보내기 전에 메시지를 시험하는 합성 고객 패널.</strong></p>
+
+  <p>§02의 규칙을 그대로 옮기면 된다. 유권자 페르소나가 「강남 30.1%」라는 집계에 입을 열지 않았듯, 고객 페르소나도 「우리 고객 재구매율 24%」로는 연기하지 못한다. 유권자에게 「당신은 지난 대선에서 ○○를 찍었다」를 줬듯, <strong>고객에게는 당신 회사의 주문 이력을 준다</strong> — 「당신은 지난 1년 이 브랜드를 세 번 샀고, 마지막은 할인 때였다」. 그 순간 페르소나는 신제품 컨셉에, 가격 인상에, 카피 A와 B에 답하기 시작한다.</p>
+
+  <p>관문마다 따로 물을 수 있다는 것이 이 방법의 다음 단계다. 다섯 관문은 각각 다른 질문이다 — 이 제목이면 <strong>여는가</strong>, 이 첫 줄이면 <strong>읽는가</strong>, 이 제안이면 <strong>누르는가</strong>. 실제 발송은 다섯 관문을 한 번에 통과해야 하지만, 합성 패널은 관문을 하나씩 떼어 시험할 수 있다. 우리가 지금 설계하고 있는 부분이다 — 아직 실측 전이므로, 여기까지는 설계이지 성능 주장이 아니다.</p>
+
+  <p>그리고 §03의 교훈이 경고로 붙는다. 모델은 소비 트렌드도 잔뜩 학습했다 — 놔두면 자기 견해를 말한다. 그래서 실측 통계로 눌러 잡는 calibration 층이 반드시 필요하고, <strong>그 층이 곧 상품이다.</strong> 모델은 누구나 쓴다. 당신 회사의 데이터를 페르소나가 연기할 수 있는 이력으로 바꾸는 설계는 누구나 못 한다.</p>
+
+  <h2><span class="num">07</span>이 방법이 틀렸다면, 그것도 공표한다</h2>
+
+  <p>지금 미국 중간선거(11월 3일)를 대상으로 예측을 진행 중이다. 방법론과 합격 기준(오차 4%p 이하)을 <strong>개표 전에 봉인</strong>했다 — 문서의 지문(해시)을 미리 공개해 사후에 고칠 수 없게 만들었고, <strong>실패하면 실패도 그대로 공표한다.</strong> 백테스트는 연습이었고, 그것이 첫 실전이다.</p>
+
+  <p>정확히 적어 둔다 — <strong>봉인한 숫자는 이 글의 AI 페르소나가 직접 낸 값이 아니다.</strong> 지지율에서 출발한 통계 앵커다. 봉인 직전에 AI에 뉴스·후보 정보를 끼워 보니 한 주(조지아)에서만 17%p가 흔들렸고, 원인을 통제할 수 없었다. 그래서 AI의 직접 출력은 봉인치에서 뺐다. AI 엔진은 같은 날 <strong>진단으로 함께 채점</strong>되고, 그 성적도 따로 공표한다. §06에서 말한 그대로다 — AI만으로는 못 맞추고, 실측 통계로 눌러 잡는 층이 있어야 한다.</p>
+
+  <p>봉인을 준비하며 배운 것이 둘 있다. 하나 — <strong>예측 업계의 기본 장사는 선택 편향이다.</strong> 맞은 예측은 사후에 크게 걸리고, 틀린 예측은 조용히 사라진다. 개표 전에 봉인하면 그 장사가 불가능해진다. 우리가 봉인하는 이유는 정직해 보이려는 게 아니라, <strong>사후 선별이 불가능한 예측만이 다음 계약의 근거가 될 수 있어서다.</strong> 둘 — 가장 어려웠던 건 예측이 아니라 <strong>합격선을 미리 적는 일</strong>이었다. 「몇 %p면 성공인가」를 결과를 보기 전에 못 박아야 했는데, 그 기준을 정하는 순간 백테스트의 모든 숫자가 변명이 아니라 근거가 됐다.</p>
+
+  <p>그리고 이 구조는 선거에 갇힐 이유가 없다. <strong>CRM 캠페인에도 똑같이 쓸 수 있다</strong> — 발송 전에 합성 패널의 예측(어느 세그먼트가 어느 메시지에 반응할지)을 봉인하고, 발송 후 실측 클릭·매출과 대조해 같이 채점하는 것. 「우리 AI가 맞는지 결과로 확인하자」를 계약 구조로 만드는 방법이고, 우리가 다음으로 설계하는 것이 그것이다.</p>
+
+  <p><strong>11월 3일의 채점표가 궁금하다면, 아래에 이메일을 남겨 두시라.</strong> 개표가 끝나면 이 글의 후속으로 채점표를 쓰고, 그 글이 나올 때 보내드린다 — 맞았어도, 틀렸어도.</p>
+
+  <p class="note">방법론 — 합성 패널: 공표 집계자료(선관위 개표·인구통계)로
+grounding한 LLM 페르소나 집단의 응답 분포. 본문의 모든 예측치는 여론조사가
+아니라 <strong>AI 예측</strong>이다. 백테스트는 모델 지식 컷오프 이후 선거로만
+검증(정답 학습 차단). 개인 단위 유권자 프로파일링 없음 — 페르소나는 공표
+통계의 합성이다. 특정 정당·후보에 대한 논평이 아니라 방법론 기록이다.</p>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="같이 읽을 글">
+    <div class="lb">같이 읽을 글</div>
+    <a class="ritem" href="/blog/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">식품 106만 개의 명부에서 「생산종료」를 세어 봤다 — 0건이었다</span><span class="rsub">명부 106만 건 — 끝난 제품을 끝났다고 적는 칸이 비어 있었다</span></a>
+    <a class="ritem" href="/blog/12-gym-survival.html"><span class="rno">12</span><span class="rtit">다섯에 넷이 살아남는다 — 그리고 그 평균이 숨기는 것</span><span class="rsub">헬스장 전수 27,908건 — 평균 뒤에 규모와 업력이 숨어 있었다</span></a>
+    <a class="ritem" href="/blog/13-seoul-apartment-cutoffs.html"><span class="rno">13</span><span class="rtit">서울 청약, 몇 점이면 됩니까</span><span class="rsub">서울 청약 커트라인 전수 — 수요가 아니라 제도가 친 천장</span></a>
+  </nav>
+  <!-- RELATED:END -->
+
+  <div class="next">
+    <div class="lb">다음 편 · 매주 한 편</div>
+    <p>같은 방법을 다른 업종에 적용한다. 병목은 업종마다 다르고, 그 차이를 찾는 것이 이 시리즈가 하는 일이다.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · 매주 한 편</div>
+    <p>업종 하나의 병목을 공개 데이터로 짚습니다. 새 글이 나올 때만 보냅니다.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="이메일 주소" required>
+      <input type="text" name="entry.1612706788" placeholder="회사 또는 업종 (선택)">
+      <button type="submit">구독</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">등록됐습니다. 다음 글에서 뵙겠습니다.</div>
+  </div>
+
+  <div class="cta">
+    <p>여기까지가 공개 데이터로 보이는 것입니다. 재구매·증분·귀속 — <strong>결정을 바꾸는 숫자는 귀사 데이터 안에 있고, 그걸 세울 수 있는 상태로 만드는 것이 Lambency가 하는 일입니다.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>

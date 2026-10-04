@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Made the Same AI Play a Korean Voter and an American Voter | Lambency</title>
+<meta name="description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the same answer 8 times out of 8 with no evidence at all — opposite failure modes. One line opened the door: 'in the last election, you voted for X.' A Korean local-election backtest reached 2.65%p error in battlegrounds. Everyone uses the same models — what differs is the design of the data you inject. The same rule ports straight into CRM message testing.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+<meta property="og:title" content="I Made the Same AI Play a Korean Voter and an American Voter">
+<meta property="og:description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the sa">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="I Made the Same AI Play a Korean Voter and an American Voter">
+<meta name="twitter:description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the sa">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/14-synthetic-audience.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/14-synthetic-audience.html#post",
+   "headline": "I Made the Same AI Play a Korean Voter and an American Voter",
+   "url": "https://lambency-data.github.io/blog/en/14-synthetic-audience.html",
+   "datePublished": "2026-10-05",
+   "dateModified": "2026-10-05",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, synthetic panel, synthetic audience, AI prediction, election backtest, CRM message testing",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/14-synthetic-audience.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the same answer 8 times out of 8 wit",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../index.html#method">Method</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../14-synthetic-audience.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 14 · Synthetic Panels</div>
+  <h1>I made the same AI play<br>a Korean voter and an American voter
+    <span class="h1sub">Synthetic panels · a Korean local-election backtest × a live US midterm run · AI-prediction methodology</span>
+  </h1>
+  <div class="meta">
+    Caff · October 2026<br>
+    Data used — exhaustive election-commission counts, census statistics, published surveys (for comparison), US state counts. Every predictive figure is an AI prediction, not a poll; backtests use only elections after the model's knowledge cutoff. <strong>Zero individual-level data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>A CRM message has five gates. <strong>Sent → opened → read → clicked →
+bought.</strong> Each gate has its own hurdle, but in my experience the tallest
+wall is in the middle — getting it opened is the subject line's job, and
+getting it bought is the product's job. <strong>Getting it read and clicked is
+the message's job, and it is the hardest one.</strong></p>
+  </div>
+
+  <p>"Who to send to" turned out to be a solvable problem. When I built an RFM
+model for a retail brand's CRM, click rates and revenue lined up in the exact
+order the segments were cut — not because the model was clever, but because
+the criterion — <strong>what counts as one purchase</strong> — was cut
+properly. One question stayed unsolved: <strong>"so what message do we
+write?"</strong> Nobody knows before sending. After sending, it is too
+late.</p>
+
+  <p>Chasing that question led me to synthetic audiences — showing a message to
+a population of AI personas first and reading the response distribution.
+In the US it is already being commercialized, starting with political
+campaigns. I decided to test before believing, and picked elections as the
+test bench — <strong>the vote count is published, making it the most
+transparent behavioral data on earth.</strong> So I made the same AI play
+Korean voters and American voters. The short version: the Korean AI went
+silent, and the American AI wouldn't budge.</p>
+
+  <h2><span class="num">01</span>Korea — the AI refuses to answer</h2>
+
+  <p>Korea came first. We built personas from real census and voting statistics and asked them political questions. A 35-year-old Seoul man: asked his party preference, he answered "no party" <strong>twelve times out of twelve</strong> — at temperature 1.0, with randomness wide open, the variance was zero. A 45-year-old Gwangju woman rated the president positively <strong>zero times out of ten</strong> — in a city where actual approval runs 79%. Swapping in past presidents changed nothing. It isn't ignorance; <strong>the model avoids the topic of Korean politics itself.</strong></p>
+
+  <p>Handing the persona regional statistics didn't help either. Mid-level aggregates like "Gangnam 30.1%" never opened its mouth — an AI does not translate aggregate numbers into an individual's voice.</p>
+
+  <h2><span class="num">02</span>The breakthrough — history, not statistics</h2>
+
+  <p>One line opened the door: <strong>"In the last presidential election, you voted for candidate ○○."</strong> Given a <strong>personal past action</strong> instead of an aggregate, the same persona immediately produced a natural distribution — eight same-party voters splitting into approve 4 / disapprove 2 / undecided 2, the texture you see in real surveys.</p>
+
+  <p>Past votes were allocated by each district's actual counted ratios (election commission, exhaustive). District ordering fell into place (Gangnam 15% < Nowon 24%), and against the newest survey the model could not have memorized, the Seoul error came down to <strong>+0.6%p</strong>.</p>
+
+  <p>One rule came out of this. <strong>Reading statistics to an AI is useless. You must translate the statistics into a personal history.</strong> That translation is the heart of the method — remember it; we will use it again below.</p>
+
+  <h2><span class="num">03</span>America — the opposite failure</h2>
+
+  <p>We ported the same engine to the US, and the opposite problem appeared. The American personas split perfectly with no evidence at all — a 58-year-old white Texan man picked the same side <strong>eight times out of eight</strong>. In Maine, the personas reproduced the state's famous crossover pattern — Democratic leaners backing a Republican senator — <strong>without it ever being put in the prompt</strong>. The model has read so much English-language politics that it is less a persona than a pundit.</p>
+
+  <p>The problem is that this knowledge <strong>carries its own lean</strong>. Even in states the Republicans win comfortably, the model kept producing Democratic leads, and plugging in components — news, candidate profiles — barely moved it. The Korean AI failed because it was empty; <strong>the American AI fails because it is full.</strong></p>
+
+  <h2><span class="num">04</span>The discovery is that the failure modes are opposites</h2>
+
+  <div class="fig">
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KR vs US response contrast">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="d" x="60" y="46" font-size="12">Korea · Seoul male, 35 — asked party preference 12 times</text>
+<rect x="60" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="72.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="92" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="104.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="124" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="136.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="156" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="168.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="188" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="200.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="220" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="232.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="252" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="264.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="284" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="296.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="316" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="328.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="348" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="360.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="380" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="392.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<rect x="412" y="58" width="24" height="24" rx="3" fill="none" stroke="#6e6552" stroke-width="1.4"/>
+<text class="t" x="424.0" y="74.0" font-size="10" text-anchor="middle">—</text>
+<text class="a" x="60" y="112" font-size="11.5" font-weight="bold">All 12: "no party" — reticence</text>
+<text class="d" x="60" y="152" font-size="12">US · Texas white male, 58 — asked candidate preference 8 times</text>
+<rect x="60" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="92" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="124" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="156" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="188" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="220" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="252" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<rect x="284" y="164" width="24" height="24" rx="3" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="60" y="218" font-size="11.5" font-weight="bold">All 8: the same candidate — overconfidence</text>
+<text class="t" x="60" y="242" font-size="10.5">temperature 1.0 — maximum randomness, zero variance either way</text>
+</svg>
+<p class="figcap">Figure 2 · The same persona, the same question, repeated — the failures point in opposite directions</p>
+</div>
+
+  <div class="tw">
+<table>
+  <thead><tr><th></th><th>Korean personas</th><th>American personas</th></tr></thead>
+  <tbody><tr><td>Failure mode</td><td><strong>Reticence</strong> — avoids answering</td><td><strong>Overconfidence</strong> — insists on its own view</td></tr><tr><td>Cause</td><td>Too little Korean political data</td><td>Too much English political data</td></tr><tr><td>What you do</td><td><strong>Design and inject</strong> evidence (past behavior)</td><td><strong>Pin it down</strong> with statistical anchors (calibration)</td></tr></tbody>
+</table>
+</div>
+
+  <p>What the table says: either way, this is not a problem of "prompting the AI well." <strong>It is a problem of designing what to give as evidence and what to pin as statistics.</strong></p>
+
+  <p>Back in graduate school, one line from a guest lecture by a Google data scientist stuck with me. The gist: <strong>"You'll use an off-the-shelf model anyway. What matters is which data you feed it, how you process it, and how you deliver it."</strong> That was before anyone said "LLM," and today not a word of it needs changing. Everyone uses the same models — what differs is the design of the data you inject. The Korean persona's silence and the American persona's stubbornness were proving that old sentence all over again.</p>
+
+  <h2><span class="num">05</span>The scorecard — honestly</h2>
+
+  <p>Where the method stands should be written in numbers. We backtested Korea's June 3 local elections (the model's knowledge cutoff precedes the election, so it cannot have memorized the answer). One yardstick throughout — error (MAE, %p) = Σ|predicted vote share − actual counted share| ÷ number of regions. Lower is better.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Stage</th><th>Overall error (MAE)</th><th>4 battlegrounds</th></tr></thead>
+  <tbody><tr><td>Allocation + AI only</td><td>12.45%p</td><td>4.74</td></tr><tr><td>+ incumbency premium & margin compression</td><td>6.89</td><td><strong>2.65</strong></td></tr><tr><td>+ hometown cross-voting</td><td><strong>4.08</strong></td><td>2.65</td></tr><tr><td>Domestic rival AI, published</td><td>2.99</td><td>4.04</td></tr><tr><td>Broadcast exit poll</td><td>2.68</td><td>—</td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Backtest error ladder">
+<style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
+<text class="d" x="180" y="63.0" font-size="11" text-anchor="end">Allocation + AI only</text>
+<rect x="190" y="44" width="450" height="30" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="648" y="63.0" font-size="12" font-weight="bold">12.45</text>
+<text class="d" x="180" y="103.0" font-size="11" text-anchor="end">+ incumbency & compression</text>
+<rect x="190" y="84" width="249" height="30" fill="#e8b458" opacity="0.9"/>
+<text class="a" x="447" y="103.0" font-size="12" font-weight="bold">6.89</text>
+<text class="d" x="180" y="143.0" font-size="11" text-anchor="end">+ hometown cross-voting</text>
+<rect x="190" y="124" width="148" height="30" fill="#f5d489" opacity="0.9"/>
+<text class="a" x="346" y="143.0" font-size="12" font-weight="bold">4.08</text>
+<text class="d" x="180" y="183.0" font-size="11" text-anchor="end">domestic rival AI</text>
+<rect x="190" y="164" width="108" height="30" fill="#5a5348" opacity="0.55"/>
+<text class="a" x="306" y="183.0" font-size="12" font-weight="bold">2.99</text>
+<text class="d" x="180" y="223.0" font-size="11" text-anchor="end">broadcast exit poll</text>
+<rect x="190" y="204" width="97" height="30" fill="#5a5348" opacity="0.55"/>
+<text class="a" x="295" y="223.0" font-size="12" font-weight="bold">2.68</text>
+<text class="t" x="10" y="250" font-size="10.5">Overall error (MAE, %p) — lower is better. Top three: our stages; bottom two: reference lines</text>
+</svg>
+<p class="figcap">Figure 1 · June 3 local-election backtest — error falls as each measured coefficient is added. Assembled with the answer known</p>
+</div>
+
+  <p>On overall error we still trail the rival AI (4.08 vs 2.99). But <strong>in the battlegrounds where races are actually decided, we lead</strong> (2.65 vs 4.04) — exit-poll territory. And this is a backtest: parts assembled with the answer known. The real proof of performance does not exist yet — that is §07.</p>
+
+  <p>One experiment is missing from the table — before those coefficients, we tried <strong>injecting each candidate's micro-profile (incumbency, hometown, career) directly into the personas.</strong> The error fell from 12.45 to <strong>10.35</strong>. The lever is real. But inspection showed the model was adding a flat <strong>+5–9%p</strong> to the word "incumbent" — regions where that happened to be the right direction improved, and the others got worse. The measured incumbency premium is <strong>+2.95%p</strong>. So the experiment was not discarded but replaced — <strong>the AI knows the direction, but you must never let it set the size.</strong> The lever the micro-data revealed, rebuilt as a statistical coefficient, is the table's second row.</p>
+
+  <p>Hometown cross-voting works the same way: +22.3%p measured in Daegu in 2014 repeated twelve years later as +22.5%p for the same candidate — every coefficient comes from exhaustive counts of past elections.</p>
+
+  <h2><span class="num">06</span>So what does this engine sell</h2>
+
+  <p>Back to the opening question — "what message do we write?" The engine sells two things. To politics: <strong>AI predictions with exit-poll-grade precision in battlegrounds</strong> — exactly matching a campaign's need to be right only where races are decided. To commerce: <strong>a synthetic customer panel that tests the message before you send it.</strong></p>
+
+  <p>Carry over the rule from §02 verbatim. Just as a voter persona would not open its mouth for "Gangnam 30.1%," a customer persona cannot act on "our repeat rate is 24%." Just as we gave the voter "you voted for ○○," <strong>you give the customer your company's order history</strong> — "over the past year you bought this brand three times, most recently on discount." At that moment the persona starts answering: about the new concept, the price increase, copy A versus copy B.</p>
+
+  <p>The next step is that each gate can be asked separately. The five gates are five different questions — does this subject line make you <strong>open</strong>, does this first sentence make you <strong>read</strong>, does this offer make you <strong>click</strong>? A real send has to clear all five at once; a synthetic panel can test them one at a time. That is what we are designing now — not yet measured, so this paragraph is a design, not a performance claim.</p>
+
+  <p>And the lesson of §03 attaches as a warning. The model has read plenty of consumer trends too — left alone, it voices its own opinions. That is why a calibration layer pinned to measured statistics is mandatory, and <strong>that layer is the product.</strong> Everyone uses the same models. Turning your company's data into a history a persona can act from is what almost nobody does.</p>
+
+  <h2><span class="num">07</span>If the method is wrong, we publish that too</h2>
+
+  <p>A prediction for the US midterms (November 3) is in progress. The methodology and the pass bar (error ≤4%p) were <strong>sealed before the count</strong> — the document's fingerprint (hash) is public in advance, so nothing can be revised afterward, and <strong>if it fails, the failure is published as is.</strong> The backtest was practice; this is the first live round.</p>
+
+  <p>To be precise — <strong>the sealed numbers are not what this post's AI personas produced directly.</strong> They are a statistical anchor built from approval ratings. Just before sealing, feeding the AI news and candidate information moved one state (Georgia) by 17 points, and the cause could not be controlled, so the AI's direct output was removed from the sealed figures. The AI engine is <strong>scored alongside as a diagnostic</strong> on the same day, and its result is published separately. It is exactly what §06 says — the AI alone does not get there; it needs a layer pinned down by measured statistics.</p>
+
+  <p>Preparing the seal taught us two things. One — <strong>the prediction industry's default business is selection bias.</strong> Hits get framed after the fact; misses disappear quietly. Sealing before the count makes that business impossible. We seal not to look honest, but because <strong>only a prediction that cannot be cherry-picked afterward can serve as the basis for the next contract.</strong> Two — the hardest part was not predicting but <strong>writing the pass bar in advance.</strong> "How many points of error counts as success" had to be nailed down before seeing the result — and the moment that bar was set, every backtest number turned from an excuse into a basis.</p>
+
+  <p>Nothing confines this structure to elections. <strong>It works for CRM campaigns too</strong> — seal the panel's prediction (which segment responds to which message) before the send, then score it together against measured clicks and revenue. It turns "let's verify our AI against outcomes" into a contract structure, and that is what we are designing next.</p>
+
+  <p><strong>If you want the November 3 scorecard, leave your email below.</strong> When the count is in, we will write the follow-up scoring piece and send it when it publishes — whether we were right or wrong.</p>
+
+  <p class="note">Method — synthetic panel: response distributions from a
+population of LLM personas grounded in published aggregate data (election
+commission counts, census). Every predictive figure in this piece is an
+<strong>AI prediction</strong>, not a poll. Backtests use only elections after
+the model's knowledge cutoff (no answer leakage). No individual-level voter
+profiling — personas are syntheses of published statistics. This is a record
+of methodology, not commentary on any party or candidate.</p>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="Related reading">
+    <div class="lb">Related reading</div>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+    <a class="ritem" href="/blog/en/12-gym-survival.html"><span class="rno">12</span><span class="rtit">Four in Five Survive</span></a>
+    <a class="ritem" href="/blog/en/13-seoul-apartment-cutoffs.html"><span class="rno">13</span><span class="rtit">What score do you need?</span></a>
+  </nav>
+  <!-- RELATED:END -->
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
