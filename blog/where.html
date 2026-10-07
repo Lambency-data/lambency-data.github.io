@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 1433fe10cde26093 -->
+<!-- baked-from-b2c-where: b338c0cfa76b3443 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -469,6 +469,14 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .slsmore{margin-top:10px;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--field);
            font:500 12.5px var(--ff);color:var(--ink);cursor:pointer}
   .selx-grp{padding:9px 10px 3px;font:500 10.5px var(--fm);letter-spacing:.08em;color:var(--faint)}
+  .slsg .nm .subt{margin-left:4px;padding:0 5px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);
+                  font:500 10px var(--fm);color:var(--soft);cursor:pointer;vertical-align:1px}
+  .slsg .nm .subt[aria-expanded="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .slsg .subrow{display:flex;flex-wrap:wrap;gap:4px 12px;padding:6px 0 10px 8px;font:400 11.5px var(--ff);color:var(--soft)}
+  .slsg .subrow b{font-family:var(--fm);font-weight:500;color:var(--ink)}
+  .slsg .g.sohd{margin-top:14px}
+  .slsg .sonote{margin:2px 0 4px}
+  .slsg .g.so .bar b{font-size:10px}
   .slsg .g{display:grid;grid-template-columns:88px 1fr 66px 74px;gap:10px;align-items:center;
     padding:7px 0;border-top:1px solid var(--rule);font-size:12.5px}
   .slsg .g.hd{border-top:0;font-size:10.5px;color:var(--faint)}
@@ -1117,7 +1125,8 @@ async function renderPick(gu, dg, seq){
 const SALES_GROUPS = ['음식점','카페·주점','학원·교육','병원·의료','사무실·전문직',
                       '미용·관리','소매·판매','생활서비스','여가·오락','숙박'];
 const SALES_LIMIT = 12;
-let SALESG = '전체', SALESQ = '', SALES_MORE = false, _SALES_ROWS = [], _SALES_SEQ = 0;
+let SALESG = '전체', SALESQ = '', SALES_MORE = false, _SALES_ROWS = [], _SALES_SO = [], _SALES_SUB = {},
+    _SALES_OPEN = new Set(), _SALES_SEQ = 0;
 window.pickSalesG = function(g){ SALESG = g; SALES_MORE = false;
   const q = document.getElementById('slsQ'); if(q && q.value){ q.value = ''; SALESQ = ''; }
   renderSalesView(); };
@@ -1132,10 +1141,13 @@ async function renderSales(gu, dg){
   box.innerHTML = '<p class="src">불러오는 중…</p>';
   let d = null;
   try{ d = await (await fetch('/api/sales-intel?sigungu=' + encodeURIComponent(c.gu)
-        + '&dong=' + encodeURIComponent(c.dg) + '&top=200')).json(); }
+        + '&dong=' + encodeURIComponent(c.dg) + '&top=200&sub=1')).json(); }
   catch(_){ }
   if(seq !== _SALES_SEQ) return;
   _SALES_ROWS = (d && d.ok) ? (d.rows || []) : [];
+  _SALES_SO = (d && d.ok) ? (d.store_only || []) : [];
+  _SALES_SUB = (d && d.ok) ? (d.sub || {}) : {};
+  _SALES_OPEN = new Set();
   SALESG = '전체'; SALESQ = ''; SALES_MORE = false;
   if(!_SALES_ROWS.length){
     box.innerHTML = `<p class="src">${(d && d.reason) || '이 동네는 카드 추정매출이 없습니다 — 지어내지 않습니다.'}</p>`;
@@ -1146,34 +1158,49 @@ async function renderSales(gu, dg){
     + '<div class="slsq"><input type="search" id="slsQ" placeholder="업종 찾기 — 예: 미용실" aria-label="업종 이름으로 찾기"></div>'
     + '<div class="slsg" id="slsList"></div><div id="slsMore"></div>'
     + `<p class="src">${(d && d.source) || '서울 열린데이터광장 상권분석(서울신용보증재단)'} · `
-    + `«${(d && d.scope_name) || c.dg}» 기준. ${cav}</p>`;
+    + `«${(d && d.scope_name) || c.dg}» 기준. ${cav}</p>`
+    + (Object.keys(_SALES_SUB).length && d.sub_source
+        ? `<p class="src">«세부» 가게 수 — ${_hs(d.sub_source)}. 상권분석(행정동·분기)과 세는 단위가 달라 합이 맞지 않을 수 있습니다.</p>` : '');
   const q = document.getElementById('slsQ');
   q.addEventListener('input', () => { SALESQ = q.value.trim(); SALES_MORE = false; renderSalesView(); });
+  document.getElementById('slsList').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-sub]'); if(!b) return;
+    const nm = b.getAttribute('data-sub');
+    if(_SALES_OPEN.has(nm)) _SALES_OPEN.delete(nm); else _SALES_OPEN.add(nm);
+    renderSalesView();
+  });
   renderSalesView();
   foldSections();
 }
 function renderSalesView(){
-  const all = _SALES_ROWS || [];
+  const all = _SALES_ROWS || [], so = _SALES_SO || [];
   const chipsEl = document.getElementById('slsChips'), listEl = document.getElementById('slsList'),
         moreEl = document.getElementById('slsMore');
   if(!chipsEl || !listEl) return;
-  const cnt = {}; all.forEach(r => { const g = r.group || '기타'; cnt[g] = (cnt[g] || 0) + 1; });
+  const cnt = {}; all.concat(so).forEach(r => { const g = r.group || '기타'; cnt[g] = (cnt[g] || 0) + 1; });
   const gs = SALES_GROUPS.filter(g => cnt[g]).concat(cnt['기타'] ? ['기타'] : []);
   const chip = (g, n) => `<button type="button" aria-pressed="${g === SALESG && !SALESQ}" onclick="pickSalesG('${g}')">${g} <small>${n}</small></button>`;
-  chipsEl.innerHTML = chip('전체', all.length) + (gs.length > 1 ? gs.map(g => chip(g, cnt[g])).join('') : '');
+  chipsEl.innerHTML = chip('전체', all.length + so.length) + (gs.length > 1 ? gs.map(g => chip(g, cnt[g])).join('') : '');
   const norm = v => String(v || '').replace(/\s/g, '');
-  let rows = all;
-  if(SALESQ) rows = all.filter(r => norm(r.industry).includes(norm(SALESQ)));
-  else if(SALESG !== '전체') rows = all.filter(r => (r.group || '기타') === SALESG);
-  const cut = !SALESQ && SALESG === '전체' && !SALES_MORE && rows.length > SALES_LIMIT;
+  const pick = arr => SALESQ ? arr.filter(r => norm(r.industry).includes(norm(SALESQ)))
+                    : (SALESG !== '전체' ? arr.filter(r => (r.group || '기타') === SALESG) : arr);
+  const rows = pick(all), sorows = pick(so);
+  const cut = !SALESQ && SALESG === '전체' && !SALES_MORE && (rows.length > SALES_LIMIT || sorows.length);
   const shown = cut ? rows.slice(0, SALES_LIMIT) : rows;
-  if(moreEl) moreEl.innerHTML = cut
-    ? `<button type="button" class="slsmore" onclick="moreSales()">나머지 ${rows.length - SALES_LIMIT}개 업종 더 보기</button>` : '';
-  if(!shown.length){
-    listEl.innerHTML = `<p class="src">«${_hs(SALESQ)}» 에 맞는 업종이 이 동네 매출 자료에 없습니다 — 매출이 잡히는 업종만 있습니다.</p>`;
+  const hidden = (rows.length - shown.length) + (cut ? sorows.length : 0);
+  if(moreEl) moreEl.innerHTML = (cut && hidden)
+    ? `<button type="button" class="slsmore" onclick="moreSales()">나머지 ${hidden}개 업종 더 보기</button>` : '';
+  if(!shown.length && !(sorows.length && !cut)){
+    listEl.innerHTML = `<p class="src">«${_hs(SALESQ)}» 에 맞는 업종이 이 동네 자료에 없습니다.</p>`;
     return;
   }
   const tag = !!SALESQ || SALESG === '전체';
+  const subBtn = nm => { const n = (_SALES_SUB[nm] || []).length;
+    return n >= 2 ? `<button type="button" class="subt" data-sub="${_hs(nm)}" aria-expanded="${_SALES_OPEN.has(nm)}">세부 ${n}</button>` : ''; };
+  const subRow = nm => _SALES_OPEN.has(nm)
+    ? `<div class="subrow">${(_SALES_SUB[nm] || []).map(x => `<span>${_hs(x.name)} <b>${x.n}</b></span>`).join('')}</div>` : '';
+  const name = x => { const sb = subBtn(x.industry), gt = (tag && x.group) ? x.group : '';
+    return `<span class="nm" title="${x.industry}">${x.industry}${(gt || sb) ? `<small class="grp">${gt}${sb}</small>` : ''}</span>`; };
   const mx = Math.max(...shown.map(r => r.sales_month_man || 0), 1);
   const eok = v => v == null ? '—' : (v >= 10000 ? (v/10000).toFixed(v>=100000?0:1) + '억' : Math.round(v).toLocaleString() + '만');
   const body = shown.map(x => {
@@ -1183,12 +1210,22 @@ function renderSalesView(){
     const per = x.per_store_month_man
       ? `<span class="pv">${x.per_store_month_man.toLocaleString()}만</span>`
       : `<span class="pv non" title="${x.thin ? '이 동네에 이 업종 가게가 5곳 미만이라 한두 곳에 흔들립니다' : '가게 수가 실제보다 적게 잡혀 나눗셈이 부풀어 오릅니다'}">—</span>`;
-    return `<div class="g"><span class="nm" title="${x.industry}">${x.industry}${tag && x.group ? `<small class="grp">${x.group}</small>` : ''}</span>
+    return `<div class="g">${name(x)}
       <span class="bar"><i class="${cls}" style="width:${Math.round((x.sales_month_man||0)/mx*100)}%"></i><b>${eok(x.sales_month_man)}</b></span>
-      <span class="dl ${cls}">${arrow} ${y==null?'—':(y>0?'+':'')+y+'%'}</span>${per}</div>`;
+      <span class="dl ${cls}">${arrow} ${y==null?'—':(y>0?'+':'')+y+'%'}</span>${per}</div>${subRow(x.industry)}`;
   }).join('');
-  listEl.innerHTML = `<div class="g hd"><span>업종</span><span>업종 전체 월매출</span>`
-    + `<span style="text-align:right">전년 동기</span><span style="text-align:right">가게당 월</span></div>${body}`;
+  let html = shown.length ? `<div class="g hd"><span>업종</span><span>업종 전체 월매출</span>`
+    + `<span style="text-align:right">전년 동기</span><span style="text-align:right">가게당 월</span></div>${body}` : '';
+  if(sorows.length && !cut){
+    const smx = Math.max(...sorows.map(r => r.stores || 0), 1);
+    html += `<div class="g hd sohd"><span>매출 자료 없는 업종</span><span>가게 수 · 개업/폐업(분기)</span>`
+      + `<span style="text-align:right">폐업률</span><span></span></div>`
+      + `<p class="src sonote">상권분석이 가게는 세지만 매출은 내지 않는 업종입니다 — 매출 칸은 비워 둡니다.</p>`
+      + sorows.map(x => `<div class="g so">${name(x)}
+          <span class="bar"><i class="fl" style="width:${Math.round((x.stores||0)/smx*100)}%"></i><b>${(x.stores||0).toLocaleString()}곳${x.opened||x.closed ? ` · +${x.opened||0}/−${x.closed||0}` : ''}</b></span>
+          <span class="dl fl">${x.close_rate_pct == null ? '—' : x.close_rate_pct + '%'}</span><span class="pv non">—</span></div>${subRow(x.industry)}`).join('');
+  }
+  listEl.innerHTML = html;
 }
 
 const P2M = 3.3058;                        /* 1평 = 3.3058㎡ */
