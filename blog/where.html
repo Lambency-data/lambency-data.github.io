@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 603815a38b6c9837 -->
+<!-- baked-from-b2c-where: 825aa394e7e8f22a -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -766,7 +766,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   <p class="src" id="src"></p>
 </section>
 </main>
-<footer class="ft" style="--ftw:760px"><div>서울 25개 구 · 상가는 상권 조사값으로 답합니다 · 모르는 건 모른다고 적습니다</div></footer>
+<footer class="ft" style="--ftw:760px"><div><a href="https://hicce.co.kr/privacy" style="color:var(--ink);font-weight:700">개인정보 처리방침</a> · 서울 25개 구 · 상가는 상권 조사값으로 답합니다 · 모르는 건 모른다고 적습니다</div></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -789,6 +789,12 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
                  'autocomplete="email" inputmode="email" aria-label="알림 받을 연락처">' +
           '<button type="button" class="ac-btn">' + esc(o.btn) + '</button>' +
         '</div>' +
+        (o.needs ? '<div class="ac-needs" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:12.5px">' +
+          (o.askRent ? '<label>보증금 <input class="ac-dep" inputmode="numeric" placeholder="만원" style="width:72px"></label>' +
+                       '<label>월세 <input class="ac-rent" inputmode="numeric" placeholder="만원" style="width:60px"></label>' : '') +
+          '<label style="cursor:pointer"><input type="checkbox" class="ac-park"> 주차 필요</label>' +
+          '<label style="cursor:pointer"><input type="checkbox" class="ac-elev"> 엘리베이터 필요</label>' +
+          '</div>' : '') +
         '<div class="ac-foot">' +
           (o.optKind ? '<label class="ac-opt"><input type="checkbox" class="ac-optbox"> ' +
             esc(o.optLabel) + ' <span style="opacity:.72">(선택)</span></label>' : '') +
@@ -820,6 +826,14 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       var body = { channel: tel ? 'sms' : 'email', contact: v || null, token: tok || null,
                    kinds: kinds, sid: sid || null };
       try{ var c = o.cond && o.cond(); if(c) for(var k in c) if(c[k] != null) body[k] = c[k]; }catch(_){}
+      if(o.needs){
+        var _q = function(s){ return el.querySelector(s); }, _n = function(x){
+          var v = parseFloat(String((x && x.value) || '').replace(/[^\d.]/g, '')); return v > 0 ? v : null; };
+        body.need_parking = _q('.ac-park').checked ? 1 : 0;
+        body.need_elevator = _q('.ac-elev').checked ? 1 : 0;
+        if(o.askRent){ var dp = _n(_q('.ac-dep')), rt = _n(_q('.ac-rent'));
+          if(dp != null) body.deposit_man = dp; if(rt != null) body.rent_man = rt; }
+      }
       btn.disabled = true; msg.textContent = '신청 중…';
       try{
         var r = await fetch('/api/b2c/alert', {method:'POST',
@@ -1812,7 +1826,8 @@ async function runDong(){
     sub : '연락처는 중개사에게 공개되지 않습니다 · 마케팅 수신은 선택입니다',
     btn : '알림 받기', kind: 'listing', optKind: 'price',
     optLabel: '이 동네 시세가 움직이면 같이 알려주세요',
-    cond: () => ({ sigungu: gu, dong: dg })
+    needs: true, askRent: true,
+    cond: () => ({ sigungu: gu, dong: dg, deal_type: '월세' })
   });
   loadSide(gu, dg, my);
   renderSales(gu, dg);
