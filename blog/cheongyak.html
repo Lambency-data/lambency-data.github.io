@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-cheongyak: 4846f6d232246af0 -->
+<!-- baked-from-b2c-cheongyak: a7e445eb9e7a4b4a -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -319,7 +319,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 /* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null;
-  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=eee275b40144').then(r=>{
+  const data=()=>_p||(_p=fetch('/blog/data/cheongyak_board.json?v=3c69c9a25900').then(r=>{
     if(!r.ok) throw new Error('cheongyak_board.json'); return r.json(); }));
   const _fetch=window.fetch.bind(window);
   window.fetch=async function(url, opt){
@@ -408,8 +408,8 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 <main>
   <div class="eyebrow">청약</div>
   <h1 class="pg" id="pgTitle">이번 달, 어디에 청약을 넣을 수 있나요?</h1>
-  <p class="lead" id="pgLead">청약홈 공고를 한 줄로 정리했습니다. 분양가는 공고값이고 옵션은 빠져 있습니다 —
-    실제로 내는 돈은 «자세히»에서 다시 셉니다.</p>
+  <p class="lead" id="pgLead">청약홈 공고를 한 줄씩 정리했어요. 분양가는 옵션을 뺀 공고 금액이에요.
+    언제 얼마를 내는지는 자세히를 눌러 보세요.</p>
 
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true"  onclick="setTab(0)">이번 달 일정</button>
@@ -444,8 +444,8 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   }, true);
 })();
 </script><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
-<footer class="ft" style="--ftw:760px"><div><a href="https://hicce.co.kr/privacy" style="color:var(--ink);font-weight:700">개인정보 처리방침</a> · 청약 정보는 청약홈 공고를 옮긴 참고치이며,
-  신청 자격·일정은 반드시 <b>공고 원문</b>으로 확인하세요 · 경쟁률·당첨 최저 가점은 발표가 난 뒤에만 적습니다</div></footer>
+<footer class="ft" style="--ftw:760px"><div><a href="https://hicce.co.kr/privacy" style="color:var(--ink);font-weight:700">개인정보 처리방침</a> · 청약홈 공고를 옮긴 참고 정보예요.
+  신청 자격과 일정은 꼭 <b>공고 원문</b>으로 확인하세요. 경쟁률과 당첨 최저 가점은 발표가 난 뒤에만 보여 드려요.</div></footer>
 
 <script>
 (function(){
@@ -493,9 +493,9 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       var v = (inp.value || '').trim();
       var tok = null; try{ tok = localStorage.getItem('hicce_b2c_token'); }catch(_){}
       var tel = RE_TEL.test(v), mail = RE_MAIL.test(v);
-      if(!v && !tok){ fail('이메일 또는 휴대폰 번호를 넣어주세요.'); inp.focus(); return; }
+      if(!v && !tok){ fail('이메일이나 휴대폰 번호를 넣어 주세요.'); inp.focus(); return; }
       if(v && !mail && !tel){
-        fail('이메일(you@example.com) 또는 휴대폰(010-1234-5678) 형식으로 넣어주세요.');
+        fail('이메일은 you@example.com, 휴대폰은 010-1234-5678처럼 넣어 주세요.');
         inp.focus(); return; }
       var kinds = [o.kind || 'listing'];
       if(opt && opt.checked && o.optKind) kinds.push(o.optKind);
@@ -517,13 +517,12 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
         var r = await fetch('/api/b2c/alert', {method:'POST',
           headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
         var d = await r.json();
-        if(!r.ok) throw new Error(d.detail || '신청하지 못했습니다');
+        if(!r.ok) throw new Error(d.detail || '신청하지 못했어요. 잠시 뒤 다시 해 주세요.');
         el.dataset.acDone = '1';
         var note = (kinds.indexOf('listing') >= 0)
-          ? (d.note || '맞는 매물이 올라오면 알려드립니다')
-          : '이 조건의 시세·판정이 움직이면 보내드립니다';
-        msg.textContent = '신청했습니다 — ' + note +
-                          ' · ' + (d.privacy || '연락처는 중개사에게 공개되지 않습니다');
+          ? (d.note || '맞는 매물을 찾으면 연락드릴게요.')
+          : '시세나 판정이 크게 움직이면 확인해서 연락드릴게요.';
+        msg.textContent = '신청했어요. ' + note + ' ' + (d.privacy || '연락처는 중개사에게 공개되지 않아요.');
         inp.style.display = 'none'; btn.style.display = 'none';
         var lab = el.querySelector('.ac-opt'); if(lab) lab.style.display = 'none';
       }catch(ex){ fail(ex.message); btn.disabled = false; }
@@ -555,9 +554,9 @@ let CUT, CUTGU='', RMD;
 
 const TITLE=['이번 달, 어디에 청약을 넣을 수 있나요?','이 단지, 얼마를 언제 내나요?','내 가점은 몇 점인가요?'];
 const LEAD=[
- '청약홈 공고를 한 줄로 정리했습니다. 분양가는 공고값이고 옵션은 빠져 있습니다 — 실제로 내는 돈은 «자세히»에서 다시 셉니다.',
- '분양가 하나만 크게 보여드리고, 그 돈을 언제 얼마씩 내는지 나눠 적습니다. 이미 지어진 집과도 비교합니다.',
- '민영주택 가점제(무주택 32 · 부양가족 35 · 통장 17 = 84점) 그대로 계산합니다. 특별공급·추첨제는 계산이 다릅니다.'];
+ '청약홈 공고를 한 줄씩 정리했어요. 분양가는 옵션을 뺀 공고 금액이에요. 언제 얼마를 내는지는 자세히를 눌러 보세요.',
+ '분양가와 함께 그 돈을 언제 얼마씩 내는지 나눠 보여 드려요. 주변에 이미 지어진 집과도 비교해요.',
+ '민영주택 가점제로 계산해요. 무주택 기간 32점, 부양가족 35점, 청약통장 17점을 더해 84점 만점이에요.'];
 
 function setTab(i){
   TAB=i;
@@ -587,8 +586,8 @@ function tab1(){
   const N=BOARD.notices||[];
   const live=[], past=[];
   N.forEach((r,i)=>{ (dday(r).k==='end' ? past : live).push([r,i]); });
-  h+=`<h2 class="sec">이번 달 접수하는 단지 <small>접수 중·예정 ${live.length}건 · 청약홈 실데이터</small></h2>`;
-  if(!N.length) return h+`<p class="empty">지금 이 지역에 접수 중이거나 예정된 공고가 없습니다.</p>`;
+  h+=`<h2 class="sec">이번 달 접수하는 단지 <small>접수 중·예정 ${live.length}건 · 청약홈 기준</small></h2>`;
+  if(!N.length) return h+`<p class="empty">지금 이 지역에는 접수 중이거나 예정된 공고가 없어요.</p>`;
   const rowHTML=([r,i])=>{
     const d=dday(r), m=r.models[0];
     return `<div class="row">
@@ -604,14 +603,14 @@ function tab1(){
         <button type="button" onclick="openOne(${i})">자세히 →</button></div>
     </div>`;};
   h += live.length ? live.map(rowHTML).join('')
-     : `<p class="empty">지금 접수 중이거나 예정된 공고가 없습니다 — 아래 지난 공고를 펼쳐 보세요.</p>`;
+     : `<p class="empty">지금 접수 중이거나 예정된 공고가 없어요. 아래 지난 공고를 펼쳐 보세요.</p>`;
   if(past.length) h+=`<details class="pastfold"><summary>지난 공고 ${past.length}건 보기
-    <span>접수가 끝났습니다 — 분양가·경쟁률을 견주는 데 씁니다</span></summary>
+    <span>접수가 끝난 공고예요. 분양가와 경쟁률을 비교할 때 보세요.</span></summary>
     ${past.map(rowHTML).join('')}</details>`;
   h+=`<p class="src">${BOARD.caveat} 자료: ${BOARD.source} · ${BOARD.as_of} 기준.</p>
     <div class="panel"><h3>청약만 보면 놓치는 것</h3>
-      <p>같은 동네에 <b>이미 지어진 집</b>이 지금 얼마에 거래되는지 같이 보세요.
-        분양가가 주변 시세보다 높으면 «당첨이 곧 이득»이 아닙니다.</p>
+      <p>같은 동네에 <b>이미 지어진 집</b>이 지금 얼마에 거래되는지도 같이 보세요.
+        분양가가 주변 시세보다 높으면 당첨돼도 이득이 아닐 수 있어요.</p>
       <div class="lk"><a href="https://hicce.co.kr/b2c/ask?from=blog-cheongyak">이 동네 시세 보기 →</a><a href="https://hicce.co.kr/b2c/where?from=blog-cheongyak">동네 월세·상권 →</a></div></div>`;
   return h;
 }
@@ -620,7 +619,7 @@ window.openOne=function(i){ PICK=i; MDL=0; setTab(1); };
 
 function tab2(){
   if(!BOARD || !BOARD.ok || !(BOARD.notices||[]).length)
-    return `<p class="empty">먼저 «이번 달 일정»에서 단지를 골라주세요.</p>`;
+    return `<p class="empty">먼저 이번 달 일정 탭에서 단지를 골라 주세요.</p>`;
   const N=BOARD.notices;
   if(PICK==null){ const i=N.findIndex(x=>x.sigungu); PICK = i>=0 ? i : 0; }
   const r=N[Math.min(PICK,N.length-1)];
@@ -639,33 +638,33 @@ function tab2(){
   h+=`<div class="chips">${r.models.map((x,i)=>
     `<button type="button" aria-selected="${i===MDL}" onclick="pickMdl(${i})">${mlabel(x)}</button>`).join('')}</div>`;
   h+=`<div class="big"><b>${(m.price_man/10000).toFixed(2)}</b>
-        <span>억 · 전용 ${m.area_m2.toFixed(0)}㎡ (${m.py.toFixed(0)}평)</span></div>
-     <p class="lead">공고에 적힌 <b>분양가 상한</b>입니다. 발코니 확장·옵션은 빠져 있고, 취득세·중개보수는 또 별도입니다.
+        <span>억, 전용 ${m.area_m2.toFixed(0)}㎡ (${m.py.toFixed(0)}평)</span></div>
+     <p class="lead">공고에 적힌 <b>분양가 상한</b>이에요. 발코니 확장과 옵션은 빠져 있고, 취득세와 중개보수도 따로 들어요.
        전용 평당 <b>${num(m.py_price_man)}만</b>${m.households?` · 이 평형 공급 <b>${m.households}세대</b>`:''}.</p>`;
   const p=m.price_man;
-  h+=`<h2 class="sec">이 돈을 언제 내나</h2><div class="pay">
+  h+=`<h2 class="sec">이 돈은 언제 내나요</h2><div class="pay">
     <div class="r"><span>계약금 (계약할 때)</span><span class="p">20%</span><span class="v">${eok(p*0.2)}</span></div>
     <div class="r"><span>중도금 1~6회 (공사 중)</span><span class="p">60%</span><span class="v">${eok(p*0.6)}</span></div>
     <div class="r"><span>잔금 (입주할 때)</span><span class="p">20%</span><span class="v">${eok(p*0.2)}</span></div>
     </div>
-    <p class="src">중도금은 보통 <b>집단대출</b>로 냅니다 · 잔금 때 한 번에 큰 돈이 나갑니다 —
-      그때 팔 집이 있으면 시기를 맞춰야 합니다. 비율은 일반적인 분양 관행이고 단지마다 다릅니다(공고 원문 확인).</p>`;
+    <p class="src">중도금은 보통 <b>집단대출</b>로 내요. 잔금 때는 큰돈이 한 번에 나가요.
+      그때 팔 집이 있다면 시기를 맞춰 두세요. 비율은 흔한 분양 관행이라 단지마다 달라요. 공고 원문에서 확인하세요.</p>`;
   h+=`<div class="facts">
     <div><div class="k">입주 예정</div><div class="v${r.movein_ym?'':' non'}">${r.movein_ym||'—'}</div>
-      <div class="s">${r.movein_ym?'공고 기준 · 늦어질 수 있습니다':'공고에 적혀 있지 않습니다'}</div></div>
+      <div class="s">${r.movein_ym?'공고 기준이에요. 늦어질 수 있어요.':'공고에 적혀 있지 않아요'}</div></div>
     <div><div class="k">전매 제한</div><div class="v non">—</div>
-      <div class="s">청약홈이 내려주지 않는 값입니다 — 공고 원문에서 확인하세요</div></div>
+      <div class="s">청약홈 자료에 없어요. 공고 원문에서 확인하세요.</div></div>
     <div><div class="k">실거주 의무</div><div class="v non">—</div>
       <div class="s">공고 원문에서 확인하세요</div></div>
     <div><div class="k">경쟁률</div><div class="v non">—</div>
-      <div class="s">발표 전에는 적지 않습니다</div></div></div>`;
+      <div class="s">발표 전에는 비워 둬요</div></div></div>`;
   const nk=r.sigungu?`${r.sigungu}|${m.area_m2.toFixed(0)}`:null;
   const nb=nk?NEAR[nk]:null;
   h+=`<h2 class="sec">이미 지어진 집과 비교하면</h2>`;
   if(nb===undefined && nk){ h+=`<p class="src">불러오는 중…</p>`; }
   else if(!nb || !nb.median_man){
-    h+=`<p class="src">${r.sigungu?`${r.sigungu}에 이 크기 아파트 실거래가 충분하지 않아 비교하지 않습니다`
-      :'서울 밖 단지는 아파트 실거래를 갖고 있지 않아 비교하지 않습니다'} — 없는 값은 지어내지 않습니다.</p>`;
+    h+=`<p class="src">${r.sigungu?`${r.sigungu}에는 이 크기 아파트 실거래가 적어서 비교하지 않았어요.`
+      :'서울 밖 단지는 아파트 실거래 자료가 없어서 비교하지 않았어요.'}</p>`;
   } else {
     const mx=Math.max(p, nb.median_man)*1.15;
     const gap=p-nb.median_man;
@@ -674,9 +673,9 @@ function tab2(){
       <div class="tk"><i style="width:${p/mx*100}%"></i>
         <span class="gold" style="left:${nb.median_man/mx*100}%"></span>
         <span class="mk" style="left:${Math.min(97, Math.max(3, p/mx*100))}%"></span></div></div>
-      <p class="src">분양가가 주변 같은 크기보다 <b>${eok(Math.abs(gap))} ${gap>0?'비쌉니다':'쌉니다'}</b>${
-        gap>0?' — 당첨돼도 바로 이득이 되지 않을 수 있습니다.':' — 다만 옵션·확장비가 빠진 값입니다.'}
-        기준: ${nb.basis}. <b>500m 반경이 아니라 같은 구</b>입니다 — 단지 좌표가 없어 반경으로는 못 잽니다.</p>`;
+      <p class="src">분양가가 주변 같은 크기보다 <b>${eok(Math.abs(gap))} ${gap>0?'비싸요':'싸요'}</b>.${
+        gap>0?' 당첨돼도 바로 이득이 되지 않을 수 있어요.':' 다만 분양가는 옵션과 확장비가 빠진 값이에요.'}
+        기준: ${nb.basis}. 단지 좌표가 없어서 500m 반경 대신 <b>같은 구</b> 안에서 비교했어요.</p>`;
   }
   h+=`<p class="src">${r.url?`<a href="${r.url}" target="_blank" rel="noopener">청약홈 공고 원문 열기 ↗</a> · `:''}${BOARD.caveat}</p>`;
   return h;
@@ -707,35 +706,35 @@ function ptAccount(y){ if(!(y>0)) return 1; if(y<1) return 2; return Math.min(17
 function tab3(){
   const a=ptNoHouse(S.no), b=ptFamily(S.fam), c=ptAccount(S.acct);
   const tot=a+b+c;
-  const v = tot>=64 ? {k:'up', t:'높은 편입니다'} : tot>=50 ? {k:'', t:'중간입니다'}
-          : {k:'dn', t:'낮은 편입니다 — 추첨제 물량을 노리는 쪽이 현실적입니다'};
+  const v = tot>=64 ? {k:'up', t:'높은 편이에요'} : tot>=50 ? {k:'', t:'중간 정도예요'}
+          : {k:'dn', t:'낮은 편이에요. 추첨제 물량을 노리는 게 현실적이에요.'};
   const bar=(l,p,mx)=>`<div class="sbar"><span>${l}</span>
     <span class="tk"><i style="width:${p/mx*100}%"></i></span><span class="n">${p} / ${mx}점</span></div>`;
   return `<div class="score">
       <div><label for="s_no">집 없이 지낸 기간</label>
         <div class="box"><input id="s_no" inputmode="decimal" value="${S.no}"><span class="u">년</span></div>
-        <em>만 30세부터(혼인했으면 혼인일부터) · 최대 15년 = 32점</em></div>
+        <em>만 30세부터 계산해요. 그 전에 혼인했다면 혼인한 날부터예요. 15년 이상이면 32점이에요.</em></div>
       <div><label for="s_fam">같이 사는 식구 (나 빼고)</label>
         <div class="box"><input id="s_fam" inputmode="numeric" value="${S.fam}"><span class="u">명</span></div>
-        <em>배우자·자녀·같이 사는 부모 · 최대 6명 = 35점</em></div>
+        <em>배우자, 자녀, 같이 사는 부모님이 들어가요. 6명 이상이면 35점이에요.</em></div>
       <div><label for="s_acct">청약통장 넣은 기간</label>
         <div class="box"><input id="s_acct" inputmode="decimal" value="${S.acct}"><span class="u">년</span></div>
-        <em>최대 15년 = 17점</em></div>
+        <em>15년 이상이면 17점이에요.</em></div>
     </div>
     <div class="verd ${v.k}"><i></i><span>${v.t}</span></div>
     <div class="big"><b>${tot}</b><span>점 · 84점 만점</span></div>
-    <h2 class="sec">어디서 몇 점이 나왔나</h2>
+    <h2 class="sec">항목별 점수</h2>
     ${bar('집 없이 지낸 기간', a, 32)}${bar('같이 사는 식구', b, 35)}${bar('청약통장 기간', c, 17)}
-    <p class="src">민영주택 <b>가점제</b> 배점(주택공급에 관한 규칙 별표1) 그대로입니다 ·
-      특별공급·추첨제는 계산이 다릅니다 · 30세 미만 미혼이면 무주택기간은 0점입니다.</p>
+    <p class="src">주택공급에 관한 규칙 별표1의 민영주택 <b>가점제</b> 배점 그대로예요.
+      특별공급과 추첨제는 계산이 달라요. 30세 미만 미혼이면 무주택 기간은 0점이에요.</p>
     ${cutCard(tot)}${remndrCard(tot)}`;
 }
 function cutCard(tot){
   if(CUT === undefined) return `<div class="panel" data-needs="api:cheongyak"><h3>이 점수로 되나요?</h3>
-    <p>지난 발표 자료를 불러오는 중입니다…</p></div>`;
+    <p>지난 발표 자료를 불러오는 중이에요…</p></div>`;
   if(!CUT) return `<div class="panel" data-needs="api:cheongyak"><h3>이 점수로 되나요?</h3>
-    <p>지난 당첨 가점 자료를 <b>지금 불러오지 못했습니다</b> — 없는 값을 지어내지 않습니다.
-      잠시 뒤 다시 열어보세요.</p></div>`;
+    <p>지난 당첨 가점 자료를 <b>지금 불러오지 못했어요.</b>
+      잠시 뒤 다시 열어 보세요.</p></div>`;
   const gus = Object.keys(CUT.by_gu||{}).sort();
   if(!CUTGU && gus.length) CUTGU = gus[0];
   const rows = ((CUT.by_gu||{})[CUTGU]||[]).filter(x=>x.min_cut!=null);
@@ -745,28 +744,28 @@ function cutCard(tot){
   const gap = (med!=null) ? Math.round((tot-med)*10)/10 : null;
   const tone = gap==null ? '' : gap>=0 ? 'up' : gap>=-6 ? 'warn' : 'dn';
   return `<div class="panel"><h3>이 점수로 되나요?</h3>
-    <p>지난 1년(${CUT.window_from} 이후) 서울에서 <b>실제로 당첨된</b> 사람들의 최저 가점과 견준 값입니다.
-      단지·평형마다 달라 «되나 안 되나»의 답은 아니고, <b>어느 줄에 서 있는지</b>를 보는 것입니다.</p>
+    <p>지난 1년(${CUT.window_from} 이후) 서울에서 <b>실제로 당첨된</b> 사람들의 최저 가점과 비교했어요.
+      단지와 평형마다 달라서 당첨 여부를 알려 주진 않아요. <b>내가 어느 줄에 서 있는지</b> 보는 용도예요.</p>
     <div class="pickrow" style="margin-top:12px"><label for="cutGu">자치구</label>
       <select id="cutGu" onchange="setCutGu(this.value)">${
         gus.map(g=>`<option${g===CUTGU?' selected':''}>${g}</option>`).join('')}</select></div>
     <div class="facts" style="margin-top:12px">
-      <div><div class="k">서울 지난 당첨 최저 (중위)</div>
+      <div><div class="k">서울 당첨 최저 가점 중간값</div>
         <div class="v ${tone}">${med==null?'—':med+'점'}</div>
         <div class="s">${CUT.n_units}개 평형 · ${CUT.window_from} 이후</div></div>
       <div><div class="k">${CUTGU} 지난 당첨 최저</div>
         <div class="v${guCut==null?' non':''}">${guCut==null?'—':guCut+'점'}</div>
-        <div class="s">${rows.length?rows.map(x=>x.nm).slice(0,2).join(' · '):'이 구는 지난 1년 발표가 없습니다'}</div></div>
+        <div class="s">${rows.length?rows.map(x=>x.nm).slice(0,2).join(' · '):'이 구는 지난 1년 동안 발표가 없었어요'}</div></div>
       <div><div class="k">${CUTGU} 최고 경쟁률</div>
         <div class="v${guCmp==null?' non':''}">${guCmp==null?'—':guCmp.toFixed(1)+' : 1'}</div>
-        <div class="s">${guCmp==null?'발표된 공고가 없습니다':'같은 기간 · 1순위 기준'}</div></div>
+        <div class="s">${guCmp==null?'발표된 공고가 없어요':'같은 기간 · 1순위 기준'}</div></div>
       <div><div class="k">추첨제 물량</div><div class="v non">—</div>
-        <div class="s">청약홈이 내려주지 않는 값입니다</div></div>
+        <div class="s">청약홈 자료에 없어요</div></div>
     </div>
     <p class="src" style="margin-top:10px">${gap==null?'' :
-      gap>=0 ? `내 점수 <b>${tot}점</b>은 서울 당첨 최저 중위(${med}점)보다 <b>${gap}점 높습니다</b> — 가점제로 노려볼 만합니다.`
-      : `내 점수 <b>${tot}점</b>은 서울 당첨 최저 중위(${med}점)보다 <b>${Math.abs(gap)}점 낮습니다</b>` +
-        (gap>=-6 ? ' — 단지·평형에 따라 닿는 곳이 있습니다.' : ' — 가점제보다 추첨제 물량 쪽이 현실적입니다.')}
+      gap>=0 ? `내 점수 <b>${tot}점</b>은 서울 당첨 최저 가점의 중간값(${med}점)보다 <b>${gap}점 높아요.</b> 가점제로 노려볼 만해요.`
+      : `내 점수 <b>${tot}점</b>은 서울 당첨 최저 가점의 중간값(${med}점)보다 <b>${Math.abs(gap)}점 낮아요.</b>` +
+        (gap>=-6 ? ' 단지와 평형에 따라 닿는 곳이 있어요.' : ' 가점제보다 추첨제 물량을 노리는 게 현실적이에요.')}
       자료: 청약홈 공표 당첨 가점·경쟁률(발표된 공고만).</p></div>`;
 }
 window.setCutGu=function(g){ CUTGU=g; render(); };
@@ -774,18 +773,18 @@ window.setCutGu=function(g){ CUTGU=g; render(); };
 function remndrCard(tot){
   if(!RMD || !RMD.ok) return '';
   const w=RMD.worst;
-  return `<div class="panel" style="margin-top:14px"><h3>가점이 낮으면 «무순위(줍줍)»는 어떤가</h3>
-    <p>청약통장도 가점도 필요 없어 <b>누구나 넣습니다</b> — 그래서 사람이 몰립니다.
-      «가점이 낮을 때의 대안»이지 <b>«쉬운 길»이 아닙니다.</b></p>
+  return `<div class="panel" style="margin-top:14px"><h3>가점이 낮다면 무순위(줍줍)는 어떨까요</h3>
+    <p>청약통장도 가점도 필요 없어서 <b>누구나 넣을 수 있어요.</b> 그래서 사람이 많이 몰려요.
+      가점이 낮을 때 해 볼 만한 길이지만 <b>쉬운 길은 아니에요.</b></p>
     <div class="facts" style="margin-top:12px">
       <div><div class="k">지난 1년 서울 무순위 경쟁률</div><div class="v dn">${RMD.rate.toLocaleString()} : 1</div>
         <div class="s">공급 ${RMD.supply.toLocaleString()}가구에 ${RMD.applied.toLocaleString()}명 신청</div></div>
       <div><div class="k">공고 수</div><div class="v">${RMD.n_notices}건</div>
-        <div class="s">${RMD.window_from} 이후 · 결과 나온 것만</div></div>
+        <div class="s">${RMD.window_from} 이후, 결과가 나온 것만</div></div>
       ${w?`<div><div class="k">가장 몰린 곳</div><div class="v dn">${w.req.toLocaleString()}명</div>
         <div class="s">${w.name} · ${w.supply}가구 모집</div></div>`:''}
       <div><div class="k">내 가점</div><div class="v">${tot}점</div>
-        <div class="s">무순위는 가점을 보지 않습니다</div></div>
+        <div class="s">무순위는 가점을 보지 않아요</div></div>
     </div>
     <p class="src" style="margin-top:10px">${RMD.caveat} 자료: ${RMD.source}.</p></div>`;
 }
@@ -811,7 +810,7 @@ function render(){
 async function load(){
   $('pane').innerHTML='<p class="empty">청약홈 공고를 불러오는 중…</p>';
   try{ BOARD=await (await fetch('/api/b2c/cheongyak-board?region='+encodeURIComponent(REGION))).json(); }
-  catch(_){ BOARD={ok:false, reason:'공고를 불러오지 못했습니다'}; }
+  catch(_){ BOARD={ok:false, reason:'공고를 불러오지 못했어요'}; }
   render();
   const grab = async (u, ok) => { try{
       const r=await fetch(u); const d=await r.json();
@@ -823,7 +822,7 @@ async function load(){
   if(TAB===2) render();
   if(window.hicceAlert) hicceAlert('alertHost', {
     head:'이 조건에 맞는 공고가 뜨면 알려드릴까요?',
-    sub :'연락처는 중개사에게 공개되지 않습니다 · 마케팅 수신은 선택입니다',
+    sub :'연락처는 중개사에게 공개되지 않아요. 마케팅 수신은 선택이에요.',
     btn :'알림 받기', kind:'listing', optKind:'price',
     optLabel:'이 동네 시세가 움직이면 같이 알려주세요',
     cond: () => ({})
