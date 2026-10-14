@@ -376,7 +376,7 @@ footer img{width:108px;height:18px;object-fit:contain}
 .proof{background:#111418 !important;color:#fff;padding-block:84px !important}
 .proof .pk{font-size:18px;color:#B9C1B0}
 .proof .big{font-family:'Pretendard',sans-serif;font-weight:800;font-size:clamp(72px,13vw,150px);line-height:1;letter-spacing:-.03em;color:var(--lime);margin-top:10px}
-.proof .big span{font-size:clamp(26px,3.6vw,42px);letter-spacing:0;color:#fff;margin-left:10px;font-weight:700}
+.proof .big span{display:block;text-wrap:balance;font-size:clamp(26px,3.6vw,42px);letter-spacing:0;color:#fff;margin-top:10px;font-weight:700}
 .proof .psmall{font-size:15px;color:#9AA391;margin-top:14px;max-width:40em}
 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px;border-top:1px solid #2A2F33;padding-top:28px}
 .trio b{display:block;font-size:clamp(40px,6vw,64px);line-height:1;font-weight:800;color:#fff}
@@ -428,17 +428,18 @@ footer img{width:108px;height:18px;object-fit:contain}
 }
 
 /* 2026-10-14 카프 «C 는 좋아 · 식약처보다 먼저는 별로 · 15,009쪽도 넣어» — 담뱃갑 경고 상자 + 쉬운 행동(4.9만 원, 이틀) */
+/* 2026-10-14 17시 카프 «15009쪽을 읽었는데 1232밖에 없다? 이런 식으로 읽히는 거 같은데» → A안: 49.8%(브랜드 10곳 검진)를 먼저, 15,009쪽(읽는 규모)은 아래로 떼고 «그중» 을 뺐다 */
 .hero h1 .red{color:#D9381E}
 .warn{background:#0B0C0D;color:#fff;border:3px solid #fff;outline:3px solid #0B0C0D;border-radius:4px;padding:14px 16px;margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;max-width:560px}
 .warn .wl{grid-row:span 2;background:#fff;color:#0B0C0D;font-weight:900;font-size:15px;letter-spacing:.12em;padding:4px 8px;border-radius:2px;align-self:start}
 .warn p{font-weight:800;font-size:19px;line-height:1.35}
 .warn small{font-size:12.5px;color:#C9CDC3;line-height:1.45}
 .hero .ctas{margin-top:22px}
-.read{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #2A2F33}
+.read{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-top:22px;margin-top:26px;margin-bottom:26px;border-top:1px solid #2A2F33}
 .read b{font-size:clamp(40px,6vw,64px);line-height:1;font-weight:800;color:#fff}
 .read span{color:#B9C1B0;font-size:17px;display:flex;flex-direction:column}
 .read small{font-size:12.5px;color:#7D8678;margin-top:2px}
-@media (max-width:640px){.warn p{font-size:17px}.read{gap:10px;padding-bottom:16px;margin-bottom:16px}.read b{font-size:40px}.read span{font-size:15px}}
+@media (max-width:640px){.warn p{font-size:17px}.read{gap:10px;padding-top:16px;margin-top:20px;margin-bottom:20px}.read b{font-size:40px}.read span{font-size:15px}}
 
 .more-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .more-top .h2{margin-top:0}
@@ -492,10 +493,10 @@ footer img{width:108px;height:18px;object-fit:contain}
 </section>
 <section class="proof">
   <div class="wrap">
-    <div class="read"><b class="num">15,009쪽</b><span>지금까지 읽은 판매 페이지<small>2026년 9월 21일~10월 13일 · 가격비교 페이지 제외</small></span></div>
-    <p class="pk">그중 화장품 브랜드 10곳, 1,232쪽을 정밀 검진했더니</p>
-    <p class="big num">49.8%<span>에서 이상 소견</span></p>
-    <p class="psmall">근거 자료 확인이 필요한 광고 문구가 나온 페이지 비율입니다. 위반 판정은 아니고, 시험 자료나 보고번호가 있으면 문제없습니다.</p>
+    <p class="pk">화장품 브랜드 10곳을 검진했더니</p>
+    <p class="big num">49.8%<span>판매 페이지 절반 가까이에서 이상&nbsp;소견</span></p>
+    <p class="psmall">10곳 판매 페이지 1,232쪽 기준. 근거 자료 확인이 필요한 광고 문구가 나온 페이지 비율입니다. 위반 판정은 아니고, 시험 자료나 보고번호가 있으면 문제없습니다.</p>
+    <div class="read"><b class="num">15,009쪽</b><span>지금까지 읽은 판매 페이지, 지금도 계속 읽고 있습니다<small>2026년 9월 21일~10월 13일 · 가격비교 페이지 제외</small></span></div>
     <div class="trio num">
       <div><b>16곳</b><span>찾아낸 판매처</span></div>
       <div><b>89쪽</b><span>글과 사진 속 글자까지 대조</span></div>
