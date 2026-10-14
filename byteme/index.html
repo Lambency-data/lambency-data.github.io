@@ -714,8 +714,10 @@ footer img{width:108px;height:18px;object-fit:contain}
   function text(v, min, obj, subj){
     if (!v) return obj + " 적어 주세요.";
     if (v.length < min) return subj + " 너무 짧습니다.";
-    if (JAMO.test(v)) return "자음·모음만으로는 받을 수 없습니다.";
-    if (SAME.test(v.replace(/\s/g, ""))) return "같은 글자가 반복됩니다. 다시 확인해 주세요.";
+    if (JAMO.test(v) && /[ㄱ-ㅎㅏ-ㅣ]/.test(v)) return "자음·모음만으로는 받을 수 없습니다.";
+    var c = v.replace(/\s/g, "");
+    if (SAME.test(c) || /^(.)\1+$/.test(c)) return "같은 글자가 반복됩니다. 다시 확인해 주세요.";
+    if (/^(test|tester|asdf|asdfg|qwer|qwerty|zxcv|abc|abcd|aaa|xxx|ddd|테스트|없음|모름|아무거나)$/i.test(c)) return "실제 " + obj + " 적어 주세요.";
     if (!/[가-힣A-Za-z0-9]/.test(v)) return "기호만으로는 받을 수 없습니다.";
     return "";
   }
