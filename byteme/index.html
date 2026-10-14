@@ -439,6 +439,13 @@ footer img{width:108px;height:18px;object-fit:contain}
 .read span{color:#B9C1B0;font-size:17px;display:flex;flex-direction:column}
 .read small{font-size:12.5px;color:#7D8678;margin-top:2px}
 @media (max-width:640px){.warn p{font-size:17px}.read{gap:10px;padding-bottom:16px;margin-bottom:16px}.read b{font-size:40px}.read span{font-size:15px}}
+
+.more-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.more-top .h2{margin-top:0}
+.more-top .btn{padding:10px 18px;font-size:15px;min-height:44px}
+.more-sub{color:var(--ink2);font-size:16px;margin-top:8px}
+.more-list{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.more-list .fold{scroll-margin-top:72px}
 </style>
 </head>
 <body>
@@ -661,10 +668,12 @@ footer img{width:108px;height:18px;object-fit:contain}
     <p class="note">화장품 브랜드 10곳 감사(2026년 10월). 브랜드 A는 위 결과표의 브랜드입니다. 이상 소견은 위반 판정이 아니라, 시험 자료나 보고번호가 있으면 문제없는 "확인 필요" 단계입니다. 처분 사례는 코스인코리아 보도.</p>
   </div>
 </section>
-<section class="more-head"><div class="wrap"><p class="eyebrow">더 알아보기</p><p class="mh">검사 항목, 하는 일, 진행 순서, 채널은 눌러서 펼쳐 보세요</p></div></section>
-<section id="check" class="folded">
+<section id="more" class="morebox">
   <div class="wrap">
-    <details class="fold"><summary><span class="fe">검사 항목</span><span class="ft">페이지의 말, 문구, 성분을 공식 자료와 맞춰 봅니다</span></summary>
+    <div class="more-top"><h2 class="h2">더 알아보기</h2><button type="button" class="btn btn-ghost" id="openAll" aria-expanded="false">모두 펼치기</button></div>
+    <p class="more-sub">검사 항목, 하는 일, 진행 순서, 채널을 눌러서 펼쳐 보세요</p>
+    <div class="more-list">
+      <details class="fold" id="check"><summary><span class="fe">검사 항목</span><span class="ft">페이지의 말, 문구, 성분을 공식 자료와 맞춰 봅니다</span></summary>
     <div class="tbl">
       <div class="tr"><div>확인하는 것</div><div>무엇과 맞춰 보나</div><div>실제로 나온 예</div></div>
       <div class="tr"><div><b>말</b> · 광고한 효능(미백, 주름, 자외선)이 식약처에 등록된 것인가</div><div>식약처 기능성 화장품 보고·심사 목록</div><div>바디케어 제품이 미백 효과를 내세웠는데 미백 기능성 보고는 없었습니다</div></div>
@@ -675,11 +684,7 @@ footer img{width:108px;height:18px;object-fit:contain}
     <p class="lead">결과는 네 가지로만 적습니다: <b>맞음, 다름, 확인 필요, 판정 불가</b>. 사진에서 읽은 것은 읽기 오류가 있을 수 있어 한 단계 낮춰 적습니다.</p>
     <p class="note">디퓨저, 장난감, 영유아식, 건강기능식품도 같은 방식입니다. 맞춰 보는 명부와 금지 표현만 그 품목 것으로 바뀝니다.</p>
       </details>
-  </div>
-</section>
-<section id="how" class="folded">
-  <div class="wrap">
-    <details class="fold"><summary><span class="fe">무엇을 하나</span><span class="ft">공식 자료에서 시작해 판매 페이지를 전부 읽고, 고칠 수 있게 만듭니다</span></summary>
+      <details class="fold" id="how"><summary><span class="fe">무엇을 하나</span><span class="ft">공식 자료에서 시작해 판매 페이지를 전부 읽고, 고칠 수 있게 만듭니다</span></summary>
     <div class="how-grid">
       <div class="card how blue"><p class="t"><b>1</b>공식 명부</p><p>식약처 기능성 보고, 환경부 신고, 식품 품목보고에서 그 브랜드의 등록 제품을 꺼냅니다</p></div>
       <div class="card how"><p class="t"><b>2</b>제품 목록</p><p>등록된 제품과 자사몰 제품을 한 목록으로 묶고, 제품마다 번호를 붙입니다</p></div>
@@ -690,11 +695,7 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="card how dk"><p class="t"><b>7</b>결과표와 판매처별 수정 요청문</p><p>무엇이 어디서 틀렸고 누가 어떻게 고치는지 적습니다. 요청문에는 판매처 연락처까지 붙어 있어 복사해서 보내면 됩니다</p></div>
     </div>
       </details>
-  </div>
-</section>
-<section id="process" class="folded">
-  <div class="wrap">
-    <details class="fold"><summary><span class="fe">진행 순서</span><span class="ft">이틀 안에 결과표, 2주 뒤 재검</span></summary>
+      <details class="fold" id="process"><summary><span class="fe">진행 순서</span><span class="ft">이틀 안에 결과표, 2주 뒤 재검</span></summary>
     <div class="proc">
       <div class="card"><p class="d">1일차</p><p class="t">브랜드 확인</p><p>책임판매업자명, 자사몰 주소, 제품 목록을 받고 식약처 보고 품목과 맞춰 봅니다</p></div>
       <div class="card"><p class="d">1일차</p><p class="t">ByteMe 스캔</p><p>모든 채널에서 판매 페이지를 모으고 글과 사진을 읽습니다. 판매처 수를 세어 범위를 알려 드립니다</p></div>
@@ -708,11 +709,7 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
     <p class="note">종합·정밀 검진 기준입니다. 간단 검진은 사람 검수 전 결과를 이틀 안에 메일로 드립니다.</p>
       </details>
-  </div>
-</section>
-<section id="channel" class="folded">
-  <div class="wrap">
-    <details class="fold"><summary><span class="fe">기준이 다른 숫자 · 사람이 확정한 "고쳐야 할 것" · 화장품 브랜드 4곳</span><span class="ft">고칠 것으로 보면 올리브영이 가장 적고, 오픈마켓과 자사몰에 몰려 있습니다</span></summary>
+      <details class="fold" id="channel"><summary><span class="fe">기준이 다른 숫자 · 사람이 확정한 "고쳐야 할 것" · 화장품 브랜드 4곳</span><span class="ft">고칠 것으로 보면 올리브영이 가장 적고, 오픈마켓과 자사몰에 몰려 있습니다</span></summary>
     <div class="chb">
       <div class="card bars num">
         <div class="head"><span>확인한 페이지 중 고쳐야 할 페이지 비율</span></div>
@@ -736,11 +733,7 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
     <p class="note">2026년 10월 4일과 5일, 화장품 브랜드 4곳 감사(판매 페이지 636개). 브랜드 이름은 가렸습니다.</p>
       </details>
-  </div>
-</section>
-<section id="channels" class="folded">
-  <div class="wrap">
-    <details class="fold"><summary><span class="fe">확인하는 채널</span><span class="ft">지금 확인되는 곳, 권한 주시면 되는 곳, 확인이 불가능한 곳</span></summary>
+      <details class="fold" id="channels"><summary><span class="fe">확인하는 채널</span><span class="ft">지금 확인되는 곳, 권한 주시면 되는 곳, 확인이 불가능한 곳</span></summary>
     <p class="lead">못 본 곳은 결과표에 "못 봄"으로 적지, "없음"으로 적지 않습니다. 로그인 · 봇 차단 · 캡차는 우회하지 않습니다. 우회해서 읽은 건 근거로 쓸 수 없기 때문입니다.</p>
     <details class="more"><summary>채널별로 어디까지 보는지 펼쳐 보기</summary>
     <div class="ch3">
@@ -750,6 +743,7 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
     </details>
       </details>
+    </div>
   </div>
 </section>
 <section id="faq">
@@ -981,6 +975,15 @@ footer img{width:108px;height:18px;object-fit:contain}
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fix);
     window.addEventListener("load", fix);
   }
+  // 더 알아보기 — 모두 펼치기/접기
+  var oa = document.getElementById("openAll");
+  if (oa) oa.addEventListener("click", function(){
+    var ds = document.querySelectorAll("#more details.fold"), open = oa.getAttribute("aria-expanded") !== "true";
+    ds.forEach(function(d){ d.open = open; });
+    oa.setAttribute("aria-expanded", open ? "true" : "false"); oa.textContent = open ? "모두 접기" : "모두 펼치기";
+  });
+  // 주소에 #check 같은 칸 이름이 있으면 그 칸을 펼친다
+  if (location.hash) { var t0 = document.querySelector(location.hash); if (t0 && t0.tagName === "DETAILS") t0.open = true; }
   // 폰: 아래 고정 신청 버튼 — 첫 화면을 지나면 나오고, 신청 칸이 보이면 숨긴다
   var bar = document.getElementById("mbar");
   if (bar && "IntersectionObserver" in window) {
