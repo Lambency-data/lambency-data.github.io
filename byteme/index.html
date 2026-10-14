@@ -25,6 +25,7 @@
   color-scheme: light;
 }
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
 h1,h2,h3,p{margin:0}
@@ -250,6 +251,92 @@ main > section:nth-of-type(even) + section{padding-top:88px !important}
 footer{background:var(--mint);color:var(--ink2);font-size:14px;padding-block:36px;border-top:1px solid var(--line)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
 footer img{width:108px;height:18px;object-fit:contain}
+
+/* 신청 양식: 칸별 오류 · 검진 고르기 · 접수 완료 */
+.form .err{display:block;min-height:0;font-size:13px;font-weight:600;color:#B4271C;line-height:1.4}
+.form .err:empty{display:none}
+.form input[aria-invalid="true"]{border-color:#C9452A;background:#FFF6F2}
+.fixit{font:inherit;font-size:13px;font-weight:700;color:var(--green-ink);background:var(--lime);border:0;border-radius:999px;padding:4px 12px;margin-left:4px;cursor:pointer;min-height:32px}
+.tierpick{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:6px}
+.tierpick legend{font-size:14px;font-weight:700;padding:0;margin-bottom:6px}
+.tierpick .opt{font-weight:400;color:var(--ink3)}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chips label{position:relative;display:block !important}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:flex;align-items:center;justify-content:center;min-height:52px;border:1px solid #D6DCCB;border-radius:12px;background:#FBFDF7;font-size:15px;font-weight:600;color:var(--ink2)}
+.chips input:checked + span{background:var(--green);border-color:var(--green);color:#fff}
+.chips input:focus-visible + span{outline:3px solid var(--lime)}
+.hp{position:absolute !important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.done{margin-top:32px;background:#fff;color:var(--ink);border-radius:22px;padding:32px 28px;max-width:880px;box-shadow:0 20px 50px rgba(30,45,0,.25);outline:none}
+.done .jua{font-size:32px;color:var(--green)}
+.done p{margin-top:8px;font-size:17px}
+.done .small{font-size:14px;color:var(--ink2)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.swipe{display:none}
+.mbar{display:none}
+
+/* 폰 화면 (2026-10-14 카프 «핸드폰 최적화 화면까지 맞춰놔») */
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding-inline:18px}
+  section{padding-block:56px}
+  main > section:nth-of-type(even) + section{padding-top:56px !important}
+  .hero{padding-block:44px 40px}
+  .hero .ctas .btn{flex:1 1 0;padding:14px 12px;font-size:16px}
+  .h2{font-size:28px;line-height:1.3}
+  .lead{font-size:16px}
+  .stats{gap:10px;margin-top:32px}
+  .stats > div{display:grid;grid-template-columns:118px 1fr;align-items:center;gap:10px;padding:14px 16px}
+  .stats b{font-size:28px;white-space:nowrap}
+  .stats span{margin-top:0;font-size:14px;line-height:1.45}
+  .why-grid,.chb{margin-top:24px}
+  .bars{padding:20px 18px}
+  .bar{grid-template-columns:62px 1fr 40px;gap:10px;font-size:14px}
+  .chan,.case{padding:18px 20px}
+  .how-grid{gap:10px;margin-top:24px}
+  .how{padding:16px 18px}
+  .how p{font-size:14px;margin-top:4px}
+  .tr > div{font-size:14px}
+  .find-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:24px -18px 0;padding:4px 18px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .find-grid::-webkit-scrollbar{display:none}
+  .find{flex:0 0 84%;scroll-snap-align:center;padding:20px}
+  .box p{font-size:17px}
+  .swipe{display:block;margin-top:10px;font-size:14px;font-weight:700;color:var(--green-ink);text-align:right}
+  .kpi{gap:10px;margin-top:24px}
+  .kpi div{padding:14px}
+  .kpi div:last-child{grid-column:1/-1}
+  .kpi b{font-size:28px}
+  .kpi span{font-size:13px}
+  .steps{gap:8px}
+  .step{padding:14px}
+  .mail{padding:16px 18px}
+  .mail .row{grid-template-columns:72px 1fr;font-size:14px}
+  .mail p{font-size:14px}
+  .ch3,.proc,.price-grid,.extra,.two{gap:10px;margin-top:24px}
+  .ch3 > div{padding:18px 20px}
+  .proc > div{padding:14px 16px}
+  .tier{padding:22px 20px 18px}
+  .tier .pr{font-size:36px}
+  .extra > div,.two > div{padding:14px 16px}
+  .faq summary{font-size:16px}
+  .faq p{font-size:15px}
+  .form{padding:20px 16px;gap:14px;border-radius:18px;margin-top:24px}
+  .chips{grid-template-columns:repeat(2,1fr)}
+  .agree{min-height:44px;align-items:center !important;font-size:15px !important}
+  .agree input{width:22px;height:22px;margin-top:0}
+  .form .btn{width:100%;padding:16px;font-size:17px}
+  .done{padding:26px 20px;border-radius:18px}
+  .top .btn{padding:8px 16px;font-size:14px;min-height:40px}
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(17,20,24,.06);transform:translateY(110%);transition:transform .25s ease}
+  .mbar.on{transform:none}
+  .mbar b{display:block;font-size:15px}
+  .mbar span{display:block;font-size:12px;color:var(--ink3)}
+  .mbar .btn{padding:12px 22px;font-size:16px;flex:none}
+  footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mbar{transition:none}}
 </style>
 </head>
 <body>
@@ -376,6 +463,7 @@ footer img{width:108px;height:18px;object-fit:contain}
         <p class="who">관절 영양제 · 건강기능식품 브랜드 K<br>H&amp;B 스토어, 열흘 동안 그대로</p>
       </div>
     </div>
+    <p class="swipe" aria-hidden="true">옆으로 넘겨 보세요 →</p>
     <p class="note">제품 자체는 검사하지 않습니다. 판매 페이지의 글과 상세 사진 속 글자까지 읽고, 공식 자료와 다른 곳만 짚습니다. 위법인지는 판단하지 않습니다.</p>
   </div>
 </section>
@@ -541,23 +629,27 @@ footer img{width:108px;height:18px;object-fit:contain}
   <div class="wrap">
     <p class="eyebrow">간단 검진 신청</p>
     <h2 class="h2">제품 하나, 4.9만 원.<br>지금 우리 판매 페이지부터 보세요</h2>
-    <p class="lead">아래를 채우고 신청 버튼을 누르면 내용이 담긴 메일이 열립니다. 그대로 보내 주시면 확인 뒤 회신드립니다.</p>
+    <p class="lead">아래를 채우고 신청하기를 누르면 바로 접수됩니다. 확인 뒤 이틀 안에 메일로 회신드립니다.</p>
     <form class="form" id="applyForm" novalidate>
-      <label><span>브랜드명</span><input name="brand" required autocomplete="organization" placeholder="예: 브랜드 A"></label>
-      <label><span>회사명 (책임판매업자)</span><input name="company" required placeholder="예: 주식회사 OOO"></label>
-      <label class="full"><span>자사몰 주소</span><input name="site" type="text" required inputmode="url" autocomplete="url" placeholder="예: brand.co.kr"></label>
-      <label class="full"><span>검진받을 제품 하나</span><input name="product" required placeholder="예: OO 토너 패드 70매"></label>
-      <label><span>담당자 이름</span><input name="person" required autocomplete="name"></label>
-      <label><span>이메일</span><input name="email" type="email" required autocomplete="email" inputmode="email"></label>
-      <label><span>전화 <span class="opt">(선택)</span></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
-      <label><span>관심 있는 검진 <span class="opt">(선택)</span></span><input name="tier" placeholder="간단 검진 / 종합 / 정밀"></label>
-      <label class="full"><span>남길 말 <span class="opt">(선택)</span></span><textarea name="memo" rows="3" placeholder="판매처가 많은 채널, 걱정되는 문구 등"></textarea></label>
+      <label><span>브랜드명</span><input name="brand" required maxlength="40" autocomplete="organization" placeholder="예: 브랜드 A" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label><span>회사명 (책임판매업자)</span><input name="company" required maxlength="60" placeholder="예: 주식회사 OOO" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label class="full"><span>자사몰 주소</span><input name="site" type="text" required maxlength="200" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="예: brand.co.kr" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label class="full"><span>검진받을 제품 하나</span><input name="product" required maxlength="80" placeholder="예: OO 토너 패드 70매" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label><span>담당자 이름</span><input name="person" required maxlength="40" autocomplete="name" placeholder="예: 김민지" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label><span>이메일</span><input name="email" type="email" required maxlength="100" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="name@company.com" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <label><span>전화 <span class="opt">(선택)</span></span><input name="phone" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" enterkeyhint="next"><small class="err" aria-live="polite"></small></label>
+      <fieldset class="tierpick"><legend>관심 있는 검진 <span class="opt">(선택)</span></legend>
+        <div class="chips"><label><input type="radio" name="tier" value="간단 검진"><span>간단</span></label><label><input type="radio" name="tier" value="종합 검진"><span>종합</span></label><label><input type="radio" name="tier" value="정밀 검진"><span>정밀</span></label><label><input type="radio" name="tier" value="잘 모르겠음"><span>모르겠음</span></label></div>
+      </fieldset>
+      <label class="full"><span>남길 말 <span class="opt">(선택)</span></span><textarea name="memo" rows="3" maxlength="1000" placeholder="판매처가 많은 채널, 걱정되는 문구 등"></textarea></label>
+      <label class="hp" aria-hidden="true">홈페이지<input name="homepage" tabindex="-1" autocomplete="off"></label>
       <details class="privacy full">
         <summary>개인정보 수집·이용 안내</summary>
         <ul>
           <li>수집 항목: 브랜드명, 회사명, 자사몰 주소, 제품명, 담당자 이름, 이메일, (선택) 전화번호·남길 말, 이 페이지에 들어온 경로(예: 소개 자료 QR)</li>
           <li>목적: 간단 검진 진행과 결과 전달, 결제·일정 안내. (선택에 동의하신 경우에만) 새 검진 사례와 소식 안내</li>
           <li>보유 기간: 신청일로부터 1년. 요청하시면 바로 지웁니다</li>
+          <li>보관: 구글 설문지와 스프레드시트(Google LLC, 해외 서버 포함)에 저장합니다</li>
           <li>제3자 제공: 하지 않습니다</li>
           <li>동의하지 않을 수 있으며, 이 경우 신청을 받을 수 없습니다</li>
           <li>개인정보 보호책임자: 이충우 (caffrey.w.lee@gmail.com)</li>
@@ -565,14 +657,19 @@ footer img{width:108px;height:18px;object-fit:contain}
       </details>
       <label class="agree full"><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다</label>
       <label class="agree full"><input type="checkbox" name="news"> (선택) 새 검진 사례와 소식을 메일로 받겠습니다</label>
-      <button class="btn btn-gold full" type="submit">신청 메일 보내기</button>
+      <button class="btn btn-gold full" type="submit" id="sendBtn">신청하기</button>
       <p class="full" id="formMsg" role="status" style="font-size:14px;color:#B4271C;display:none"></p>
       <div class="after" id="after">
-        <b>메일 앱이 열렸나요?</b> 안 열렸다면 아래 내용을 복사해 <span class="mailaddr">caffrey.w.lee@gmail.com</span> 으로 보내 주세요.
+        <b>접수가 안 됐을 수 있습니다.</b> 아래 내용을 복사해 <span class="mailaddr">caffrey.w.lee@gmail.com</span> 으로 보내 주세요.
         <textarea id="afterText" readonly></textarea>
-        <div class="acts"><button type="button" class="btn btn-dark" id="copyText">내용 복사</button><button type="button" class="btn btn-dark" id="copyAddr">주소 복사</button></div>
+        <div class="acts"><button type="button" class="btn btn-dark" id="copyText">내용 복사</button><button type="button" class="btn btn-dark" id="copyAddr">주소 복사</button><a class="btn btn-dark" id="mailLink" href="#">메일 앱으로 보내기</a></div>
       </div>
     </form>
+    <div class="done" id="done" hidden tabindex="-1">
+      <p class="jua">신청이 접수됐습니다</p>
+      <p id="doneText">확인 뒤 이틀 안에 메일로 회신드립니다.</p>
+      <p class="small">회신이 없으면 <span class="mailaddr">caffrey.w.lee@gmail.com</span> 으로 알려 주세요.</p>
+    </div>
   </div>
 </section>
 
@@ -586,49 +683,160 @@ footer img{width:108px;height:18px;object-fit:contain}
   </div>
 </footer>
 
+<div class="mbar" id="mbar"><div><b>간단 검진 4.9만 원</b><span>제품 하나, 이틀 안에 결과표</span></div><a class="btn btn-gold" href="#apply">신청하기</a></div>
+
 <script>
 (function(){
   var TO = "caffrey.w.lee@gmail.com";
+  // 신청은 구글 폼(카프 개인 계정, 응답 → 시트)으로 바로 들어간다. 칸 번호는 공개 폼에서 읽은 값(2026-10-14).
+  var GF = "https://docs.google.com/forms/d/e/1FAIpQLScTMyjoc6ZWAxFSfUOP7sJVKJ68sYE5n9rUPOuHYE4Xjc-Pjg/formResponse";
+  var ENTRY = {brand:"entry.1226832157", company:"entry.698980768", site:"entry.611724413", product:"entry.998460303",
+    person:"entry.1467119484", email:"entry.345113731", phone:"entry.1575589368", tier:"entry.1507301824",
+    memo:"entry.1911419381", from:"entry.1742870524", news:"entry.663162790", agree:"entry.1713755655"};
+  var NEWS_OPT = "새 검진 사례와 서비스 소식을 이메일로 받겠습니다", AGREE_OPT = "동의합니다";
   // 들어온 경로 — 덱 QR 주소의 ?from=(d5-cover · d5-last · d18-cover · d18-last), 없으면 앞 페이지 주소 또는 «직접»
   var FROM = (function(){ try { var q = new URLSearchParams(location.search).get("from"); if (q) return q.slice(0, 40);
     if (document.referrer) return "링크: " + new URL(document.referrer).hostname; } catch (e) {} return "직접"; })();
   var f = document.getElementById("applyForm"), msg = document.getElementById("formMsg");
   var after = document.getElementById("after"), txt = document.getElementById("afterText");
+  var btn = document.getElementById("sendBtn"), done = document.getElementById("done");
   var LABEL = {brand:"브랜드명", company:"회사명(책임판매업자)", site:"자사몰 주소", product:"검진받을 제품", person:"담당자 이름", email:"이메일", phone:"전화", tier:"관심 있는 검진", memo:"남길 말"};
+
+  // ── 입력 검사: 이상한 값은 보내기 전에 막는다(구글 폼은 응답을 못 돌려주므로 여기가 관문) ──
+  var JAMO = /^[\sㄱ-ㅎㅏ-ㅣ.~!?^]+$/;                    // ㅋㅋㅋ · ㅎㅇ 같은 자모만
+  var SAME = /(.)\1{3,}/;                                  // 같은 글자 4번 이상(aaaa · 1111)
+  var FAKE_NAME = /^(홍길동|아무개|테스트|test|tester|asdf|qwer|qwerty|abc|admin|none|없음|무명|이름)$/i;
+  var DISPOSABLE = /@(mailinator\.com|guerrillamail\.(com|net|org)|10minutemail\.(com|net)|yopmail\.(com|fr)|temp-?mail\.(org|com)|sharklasers\.com|trashmail\.(com|de)|getnada\.com|dispostable\.com|maildrop\.cc|throwawaymail\.com|example\.(com|org|net)|test\.com)$/i;
+  var TYPO = {"gmail.co":"gmail.com","gmail.con":"gmail.com","gmial.com":"gmail.com","gamil.com":"gmail.com","gmai.com":"gmail.com","gmali.com":"gmail.com","gnail.com":"gmail.com",
+    "naver.co":"naver.com","naver.con":"naver.com","nvaer.com":"naver.com","navr.com":"naver.com","naver.cm":"naver.com",
+    "hanmail.ne":"hanmail.net","hanmail.con":"hanmail.net","hanmail.com":"hanmail.net","hamail.net":"hanmail.net",
+    "daum.ne":"daum.net","daum.com":"daum.net","nate.con":"nate.com","nate.co":"nate.com","kakao.co":"kakao.com","kakao.con":"kakao.com"};
+  function text(v, min, obj, subj){
+    if (!v) return obj + " 적어 주세요.";
+    if (v.length < min) return subj + " 너무 짧습니다.";
+    if (JAMO.test(v)) return "자음·모음만으로는 받을 수 없습니다.";
+    if (SAME.test(v.replace(/\s/g, ""))) return "같은 글자가 반복됩니다. 다시 확인해 주세요.";
+    if (!/[가-힣A-Za-z0-9]/.test(v)) return "기호만으로는 받을 수 없습니다.";
+    return "";
+  }
+  function phoneDigits(v){ var d = v.replace(/[\s\-().]/g, ""); if (/^\+?82/.test(d)) d = "0" + d.replace(/^\+?82/, "").replace(/^0/, ""); return d; }
+  function phoneFormat(d){
+    if (/^02/.test(d)) return d.replace(/^(02)(\d{3,4})(\d{4})$/, "$1-$2-$3");
+    if (/^1[5-9]\d{6}$/.test(d)) return d.replace(/^(\d{4})(\d{4})$/, "$1-$2");
+    return d.replace(/^(0\d{2})(\d{3,4})(\d{4})$/, "$1-$2-$3");
+  }
+  var CHECK = {
+    brand: function(v){ return text(v, 1, "브랜드명을", "브랜드명이"); },
+    company: function(v){ return text(v, 2, "회사명을", "회사명이"); },
+    product: function(v){ return text(v, 2, "제품명을", "제품명이"); },
+    site: function(v){
+      if (!v) return "자사몰 주소를 적어 주세요.";
+      var u = v.replace(/^https?:\/\//i, "").replace(/^www\./i, "");
+      return /^([a-z0-9가-힣]([a-z0-9가-힣-]*[a-z0-9가-힣])?\.)+[a-z가-힣]{2,}(:\d+)?(\/\S*)?$/i.test(u) ? "" : "주소 형식이 아닙니다. 예: brand.co.kr";
+    },
+    person: function(v){
+      if (!v) return "담당자 이름을 적어 주세요.";
+      if (/\d/.test(v)) return "이름에 숫자가 들어 있습니다.";
+      if (FAKE_NAME.test(v.replace(/\s/g, ""))) return "실제 담당자 이름을 적어 주세요.";
+      if (/^[가-힣]+( [가-힣]+)?$/.test(v)) { var k = v.replace(/\s/g, ""); return k.length < 2 || k.length > 10 ? "이름 글자 수를 확인해 주세요." : (/(.)\1\1/.test(k) ? "같은 글자가 반복됩니다." : ""); }
+      if (/^[A-Za-z][A-Za-z .'-]{1,39}$/.test(v) && /[A-Za-z]{2}/.test(v) && !SAME.test(v)) return "";
+      return JAMO.test(v) ? "자음·모음만으로는 받을 수 없습니다." : "이름은 한글 또는 영문으로 적어 주세요.";
+    },
+    email: function(v){
+      if (!v) return "이메일을 적어 주세요.";
+      if (!/^[A-Za-z0-9](?:[A-Za-z0-9._%+-]*[A-Za-z0-9_%+-])?@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/.test(v) || /\.\./.test(v)) return "이메일 형식이 아닙니다. 예: name@company.com";
+      var dom = v.split("@")[1].toLowerCase();
+      if (TYPO[dom]) return {msg: "혹시 " + v.split("@")[0] + "@" + TYPO[dom] + " 인가요?", fix: v.split("@")[0] + "@" + TYPO[dom]};
+      if (DISPOSABLE.test(v)) return "임시·예시 메일 주소로는 받을 수 없습니다. 회신받을 주소를 적어 주세요.";
+      return "";
+    },
+    phone: function(v){
+      if (!v) return "";
+      if (/[^\d\s\-+().]/.test(v)) return "숫자와 - 만 적어 주세요.";
+      var d = phoneDigits(v);
+      var ok = /^010\d{8}$/.test(d) || /^01[16789]\d{7,8}$/.test(d) || /^02\d{7,8}$/.test(d) ||
+        /^0(3[1-3]|4[1-4]|5[1-5]|6[1-4])\d{7,8}$/.test(d) || /^070\d{8}$/.test(d) || /^050\d{8,9}$/.test(d) || /^1[5-9]\d{6}$/.test(d);
+      if (!ok) return "전화번호 형식이 아닙니다. 예: 010-1234-5678";
+      var sub = d.replace(/^(01\d|02|0\d{2}|070|050\d?)/, "");
+      if (/^(\d)\1+$/.test(sub) || /^(12345678|1234567)$/.test(sub)) return "실제 연락받을 번호를 적어 주세요.";
+      return "";
+    }
+  };
+  function errBox(name){ var el = f.elements[name]; return el && el.parentNode.querySelector(".err"); }
+  function show(name){
+    var el = f.elements[name], box = errBox(name); if (!el || !box) return "";
+    var r = CHECK[name]((el.value || "").trim()), m = typeof r === "string" ? r : r.msg;
+    box.textContent = m; el.setAttribute("aria-invalid", m ? "true" : "false");
+    if (r && r.fix) { var b = document.createElement("button"); b.type = "button"; b.className = "fixit"; b.textContent = "이걸로 고치기";
+      b.addEventListener("click", function(){ el.value = r.fix; show(name); }); box.appendChild(document.createTextNode(" ")); box.appendChild(b); }
+    return m;
+  }
+  Object.keys(CHECK).forEach(function(k){
+    var el = f.elements[k];
+    el.addEventListener("blur", function(){ if (k === "phone" && !show(k) && el.value.trim()) el.value = phoneFormat(phoneDigits(el.value)); else show(k); });
+    el.addEventListener("input", function(){ if (el.getAttribute("aria-invalid") === "true") show(k); });
+  });
+
+  function val(k){ var el = f.elements[k]; if (!el) return ""; if (el instanceof RadioNodeList || (el.length && el[0] && el[0].type === "radio")) { var c = f.querySelector('input[name="' + k + '"]:checked'); return c ? c.value : ""; } return (el.value || "").trim(); }
   function body(){
     var lines = ["간단 검진 신청", ""];
-    Object.keys(LABEL).forEach(function(k){ var v = (f.elements[k].value || "").trim(); lines.push(LABEL[k] + ": " + (v || "-")); });
+    Object.keys(LABEL).forEach(function(k){ lines.push(LABEL[k] + ": " + (val(k) || "-")); });
     lines.push("", "개인정보 수집·이용 동의: 예", "새 소식 메일 수신(선택): " + (f.elements.news.checked ? "예" : "아니오"), "들어온 경로: " + FROM);
     return lines.join("\n");
   }
   f.addEventListener("submit", function(e){
     e.preventDefault();
-    msg.style.display = "none";
-    if (!f.checkValidity()) {
-      var bad = f.querySelector(":invalid");
-      msg.textContent = bad && bad.name === "agree" ? "개인정보 수집·이용에 동의해 주세요." : "빈 칸이나 형식이 맞지 않는 칸이 있습니다. 표시된 칸을 확인해 주세요.";
-      msg.style.display = "block";
-      if (bad) bad.focus();
-      return;
+    msg.style.display = "none"; after.classList.remove("show");
+    var first = null;
+    Object.keys(CHECK).forEach(function(k){ if (show(k) && !first) first = f.elements[k]; });
+    if (!first && !f.elements.agree.checked) first = f.elements.agree;
+    if (first) {
+      msg.textContent = first.name === "agree" ? "개인정보 수집·이용에 동의해 주세요." : "표시된 칸을 확인해 주세요.";
+      msg.style.display = "block"; first.focus(); return;
     }
-    var subject = "[간단 검진 신청] " + f.elements.brand.value.trim();
-    var b = body();
-    txt.value = "받는 사람: " + TO + "\n제목: " + subject + "\n\n" + b;
-    after.classList.add("show");
-    window.location.href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(b);
+    if (f.elements.phone.value.trim()) f.elements.phone.value = phoneFormat(phoneDigits(f.elements.phone.value));
+    if (val("homepage")) { finish(); return; }              // 숨은 칸이 채워졌으면 봇 — 접수한 척만 한다
+    var data = new URLSearchParams();
+    ["brand","company","site","product","person","email","phone","tier","memo"].forEach(function(k){ var v = val(k); if (v) data.append(ENTRY[k], v); });
+    data.append(ENTRY.from, FROM);
+    if (f.elements.news.checked) data.append(ENTRY.news, NEWS_OPT);
+    data.append(ENTRY.agree, AGREE_OPT);
+    btn.disabled = true; btn.textContent = "보내는 중…";
+    var t = setTimeout(function(){ fail(); }, 12000);
+    fetch(GF, {method: "POST", mode: "no-cors", body: data}).then(function(){ clearTimeout(t); finish(); }, function(){ clearTimeout(t); fail(); });
   });
+  function finish(){
+    document.getElementById("doneText").textContent = (val("person") ? val("person") + "님, " : "") + "확인 뒤 이틀 안에 " + (val("email") || "메일") + " 로 회신드립니다.";
+    f.hidden = true; done.hidden = false; done.focus({preventScroll: true});
+    done.scrollIntoView({block: "center"});
+  }
+  function fail(){
+    btn.disabled = false; btn.textContent = "신청하기";
+    var subject = "[간단 검진 신청] " + val("brand"), b = body();
+    txt.value = "받는 사람: " + TO + "\n제목: " + subject + "\n\n" + b;
+    document.getElementById("mailLink").href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(b);
+    after.classList.add("show");
+  }
   function copy(s, btn){
-    var done = function(){ var o = btn.textContent; btn.textContent = "복사됨"; setTimeout(function(){ btn.textContent = o; }, 1500); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(done, function(){ txt.select(); });
+    var ok = function(){ var o = btn.textContent; btn.textContent = "복사됨"; setTimeout(function(){ btn.textContent = o; }, 1500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(ok, function(){ txt.select(); });
     else { txt.select(); }
   }
   document.getElementById("copyText").addEventListener("click", function(){ copy(txt.value, this); });
+  document.getElementById("copyAddr").addEventListener("click", function(){ copy(TO, this); });
   if (location.hash) {
     var fix = function(){ var t = document.querySelector(location.hash); if (t) t.scrollIntoView(); };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fix);
     window.addEventListener("load", fix);
   }
-  document.getElementById("copyAddr").addEventListener("click", function(){ copy(TO, this); });
+  // 폰: 아래 고정 신청 버튼 — 첫 화면을 지나면 나오고, 신청 칸이 보이면 숨긴다
+  var bar = document.getElementById("mbar");
+  if (bar && "IntersectionObserver" in window) {
+    var seen = {hero: true, apply: false};
+    var io = new IntersectionObserver(function(es){ es.forEach(function(x){ seen[x.target.id === "apply" ? "apply" : "hero"] = x.isIntersecting; });
+      bar.classList.toggle("on", !seen.hero && !seen.apply); }, {threshold: 0});
+    io.observe(document.querySelector(".hero")); io.observe(document.getElementById("apply"));
+  }
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
