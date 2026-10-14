@@ -218,10 +218,10 @@ main > section:nth-of-type(even) + section{padding-top:88px !important}
 /* 자주 묻는 것 */
 .faq{margin-top:28px;display:flex;flex-direction:column;gap:10px}
 .faq h3{font-size:15px;color:var(--green-ink);margin-top:18px;letter-spacing:.04em}
-.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 20px}
 .faq details[open]{border-color:var(--green)}
-.faq summary{cursor:pointer;font-weight:700;font-size:17px}
-.faq p{margin-top:10px;color:var(--ink2);font-size:16px}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;padding:8px 0;min-height:44px;display:flex;align-items:center;gap:8px}
+.faq p{margin:4px 0 10px;color:var(--ink2);font-size:16px}
 
 /* 신청 */
 .apply{background:linear-gradient(150deg,#6E9600 0%, var(--green) 50%, var(--green-d) 100%) !important;color:#fff}
@@ -237,7 +237,7 @@ main > section:nth-of-type(even) + section{padding-top:88px !important}
 .agree{display:flex !important;flex-direction:row !important;gap:10px;align-items:flex-start;font-weight:400 !important;font-size:14px !important}
 .agree input{width:18px;height:18px;margin-top:3px;flex:none;accent-color:var(--green)}
 .privacy{font-size:13px;color:var(--ink2);background:var(--mint);border-radius:12px;padding:12px 16px}
-.privacy summary{cursor:pointer;font-weight:700}
+.privacy summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
 .privacy ul{margin:8px 0 0;padding-left:18px}
 .form .btn{justify-self:start}
 .after{grid-column:1/-1;display:none;background:var(--mint);border-radius:12px;padding:16px 18px;font-size:14px}
@@ -555,15 +555,16 @@ footer img{width:108px;height:18px;object-fit:contain}
       <details class="privacy full">
         <summary>개인정보 수집·이용 안내</summary>
         <ul>
-          <li>수집 항목: 브랜드명, 회사명, 자사몰 주소, 제품명, 담당자 이름, 이메일, (선택) 전화번호·남길 말</li>
-          <li>목적: 간단 검진 진행과 결과 전달, 결제·일정 안내</li>
+          <li>수집 항목: 브랜드명, 회사명, 자사몰 주소, 제품명, 담당자 이름, 이메일, (선택) 전화번호·남길 말, 이 페이지에 들어온 경로(예: 소개 자료 QR)</li>
+          <li>목적: 간단 검진 진행과 결과 전달, 결제·일정 안내. (선택에 동의하신 경우에만) 새 검진 사례와 소식 안내</li>
           <li>보유 기간: 신청일로부터 1년. 요청하시면 바로 지웁니다</li>
           <li>제3자 제공: 하지 않습니다</li>
           <li>동의하지 않을 수 있으며, 이 경우 신청을 받을 수 없습니다</li>
           <li>개인정보 보호책임자: 이충우 (caffrey.w.lee@gmail.com)</li>
         </ul>
       </details>
-      <label class="agree full"><input type="checkbox" name="agree" required> 개인정보 수집·이용에 동의합니다</label>
+      <label class="agree full"><input type="checkbox" name="agree" required> (필수) 개인정보 수집·이용에 동의합니다</label>
+      <label class="agree full"><input type="checkbox" name="news"> (선택) 새 검진 사례와 소식을 메일로 받겠습니다</label>
       <button class="btn btn-gold full" type="submit">신청 메일 보내기</button>
       <p class="full" id="formMsg" role="status" style="font-size:14px;color:#B4271C;display:none"></p>
       <div class="after" id="after">
@@ -588,13 +589,16 @@ footer img{width:108px;height:18px;object-fit:contain}
 <script>
 (function(){
   var TO = "caffrey.w.lee@gmail.com";
+  // 들어온 경로 — 덱 QR 주소의 ?from=(d5-cover · d5-last · d18-cover · d18-last), 없으면 앞 페이지 주소 또는 «직접»
+  var FROM = (function(){ try { var q = new URLSearchParams(location.search).get("from"); if (q) return q.slice(0, 40);
+    if (document.referrer) return "링크: " + new URL(document.referrer).hostname; } catch (e) {} return "직접"; })();
   var f = document.getElementById("applyForm"), msg = document.getElementById("formMsg");
   var after = document.getElementById("after"), txt = document.getElementById("afterText");
   var LABEL = {brand:"브랜드명", company:"회사명(책임판매업자)", site:"자사몰 주소", product:"검진받을 제품", person:"담당자 이름", email:"이메일", phone:"전화", tier:"관심 있는 검진", memo:"남길 말"};
   function body(){
     var lines = ["간단 검진 신청", ""];
     Object.keys(LABEL).forEach(function(k){ var v = (f.elements[k].value || "").trim(); lines.push(LABEL[k] + ": " + (v || "-")); });
-    lines.push("", "개인정보 수집·이용 동의: 예");
+    lines.push("", "개인정보 수집·이용 동의: 예", "새 소식 메일 수신(선택): " + (f.elements.news.checked ? "예" : "아니오"), "들어온 경로: " + FROM);
     return lines.join("\n");
   }
   f.addEventListener("submit", function(e){
@@ -619,6 +623,11 @@ footer img{width:108px;height:18px;object-fit:contain}
     else { txt.select(); }
   }
   document.getElementById("copyText").addEventListener("click", function(){ copy(txt.value, this); });
+  if (location.hash) {
+    var fix = function(){ var t = document.querySelector(location.hash); if (t) t.scrollIntoView(); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fix);
+    window.addEventListener("load", fix);
+  }
   document.getElementById("copyAddr").addEventListener("click", function(){ copy(TO, this); });
 })();
 </script>
