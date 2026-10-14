@@ -348,6 +348,84 @@ footer img{width:108px;height:18px;object-fit:contain}
   footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mbar{transition:none}}
+
+/* 첫 두 화면 — 2026-10-14 카프 «핸드폰 스크롤 두 번 안에 결정 · 예전 애플 웹사이트처럼» */
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.hero-grid h1{font-size:clamp(40px,5vw,66px)}
+.fold-in{margin-top:22px;border-top:1px solid var(--line);padding-top:6px}
+.fold-in summary{cursor:pointer;font-weight:700;color:var(--green-ink);min-height:44px;display:flex;align-items:center}
+.fold-in .steps{margin-top:8px}
+.hero-text{min-width:0}
+.scan{margin:0;position:relative;display:flex;flex-direction:column;gap:12px;min-width:0}
+.page{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px 22px;box-shadow:0 24px 60px rgba(30,45,0,.12);display:flex;flex-direction:column;gap:9px}
+.pbar{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.pbar i{width:9px;height:9px;border-radius:50%;background:#E3E7DC}
+.pbar em{font-style:normal;font-size:12px;color:var(--ink3);margin-left:auto}
+.pt{font-weight:800;font-size:19px}
+.ln{display:block;height:9px;border-radius:5px;background:#EEF1EA}
+.claim{font-size:18px;font-weight:700;line-height:1.4}
+.claim mark{background:linear-gradient(transparent 55%, var(--coral-l) 55%);color:var(--ink);padding:0 3px;animation:hit 3.6s ease-in-out infinite}
+.beam{position:absolute;left:0;right:0;top:-30%;height:28%;background:linear-gradient(180deg,rgba(201,234,110,0) 0%,rgba(201,234,110,.55) 50%,rgba(201,234,110,0) 100%);animation:beam 3.6s ease-in-out infinite;pointer-events:none}
+@keyframes beam{0%{top:-30%}55%{top:105%}100%{top:105%}}
+@keyframes hit{0%,30%{background:linear-gradient(transparent 55%, var(--coral-l) 55%)}38%,100%{background:linear-gradient(transparent 55%, var(--coral-m) 55%)}}
+.verdict{background:var(--ink);color:#fff;border-radius:18px;padding:16px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;margin:-34px 0 0 34px;position:relative;box-shadow:0 18px 40px rgba(17,20,24,.25)}
+.verdict .k{font-size:12px;color:#A9B1A0;white-space:nowrap}
+.verdict .v{font-size:16px;font-weight:700}
+.verdict .v.bad{color:var(--coral-m)}
+.scan figcaption{font-size:13px;color:var(--ink3);text-align:right}
+.proof{background:#111418 !important;color:#fff;padding-block:84px !important}
+.proof .pk{font-size:18px;color:#B9C1B0}
+.proof .big{font-family:'Pretendard',sans-serif;font-weight:800;font-size:clamp(72px,13vw,150px);line-height:1;letter-spacing:-.03em;color:var(--lime);margin-top:10px}
+.proof .big span{font-size:clamp(26px,3.6vw,42px);letter-spacing:0;color:#fff;margin-left:10px;font-weight:700}
+.proof .psmall{font-size:15px;color:#9AA391;margin-top:14px;max-width:40em}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px;border-top:1px solid #2A2F33;padding-top:28px}
+.trio b{display:block;font-size:clamp(40px,6vw,64px);line-height:1;font-weight:800;color:#fff}
+.trio span{display:block;color:#B9C1B0;font-size:15px;margin-top:8px}
+.trio-note{font-size:13px;color:#7D8678;margin-top:14px}
+.buy{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:#1C2126;border-radius:18px;padding:20px 24px}
+.buy p{font-size:18px}
+.buy p b{font-size:28px;color:var(--lime);margin-right:4px}
+.btn-lime{background:var(--lime);color:#111418}
+.btn-lime:hover{background:#D7F28A}
+.more-head{padding-block:56px 8px !important}
+.more-head .mh{font-size:17px;color:var(--ink2);margin-top:10px}
+.folded{padding-block:10px !important}
+.fold{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 22px}
+.fold[open]{border-color:var(--green);padding-bottom:22px}
+.fold summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:2px;padding:14px 0;min-height:44px}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::after{content:"+";position:absolute;right:22px;font-size:24px;color:var(--green);line-height:1}
+.fold{position:relative}
+.fold[open] summary::after{content:"–"}
+.fe{font-size:13px;font-weight:700;color:var(--green-ink);letter-spacing:.04em}
+.ft{font-family:'Jua','Pretendard',sans-serif;font-size:22px;line-height:1.3;padding-right:28px}
+@media (prefers-reduced-motion:reduce){.beam{display:none}.claim mark{animation:none;background:linear-gradient(transparent 55%, var(--coral-m) 55%)}}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+@media (max-width:640px){
+  .hero{padding-block:28px 32px}
+  .hero h1{font-size:38px}
+  .hero p.sub{font-size:17px;margin-top:14px}
+  .hero .ctas{margin-top:20px}
+  .page{padding:14px 16px 18px;gap:7px;border-radius:16px}
+  .pt{font-size:16px}.claim{font-size:16px}.ln{height:8px}
+  .verdict{margin:-26px 0 0 18px;padding:12px 16px;gap:4px 10px}
+  .verdict .v{font-size:14px}
+  .proof{padding-block:44px !important}
+  .proof .pk{font-size:15px}
+  .proof .big{font-size:76px}
+  .proof .big span{display:block;margin:6px 0 0;font-size:26px}
+  .proof .psmall{font-size:13.5px}
+  .trio{margin-top:26px;padding-top:20px;gap:8px}
+  .trio b{font-size:36px}
+  .trio span{font-size:13px}
+  .buy{margin-top:24px;padding:16px 18px}
+  .buy p{font-size:15px}.buy p b{font-size:22px}
+  .buy .btn{width:100%}
+  .ft{font-size:19px}
+  .fold{padding:4px 16px}
+  .fold summary::after{right:16px}
+  .more-head{padding-block:40px 6px !important}
+}
 </style>
 </head>
 <body>
@@ -362,20 +440,50 @@ footer img{width:108px;height:18px;object-fit:contain}
 <main>
 
 <section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">판매 페이지 건강검진 서비스</p>
+      <h1>우리 판매 페이지,<br><span class="hl">마지막 검진</span>이 언제였나요?</h1>
+      <p class="sub">판매처를 전부 찾아 식약처 자료와 한 줄씩 맞춰 보고, <b>고칠 곳과 요청문</b>까지 드립니다.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#apply">간단 검진 신청하기</a>
+        <a class="btn btn-ghost" href="#deliver">실제 결과표 보기</a>
+      </div>
+    </div>
+    <figure class="scan" aria-label="판매 페이지의 문구를 식약처 자료와 맞춰 보는 예시: 미백 효과라고 적혀 있지만 미백 기능성 보고번호가 없음">
+      <div class="page">
+        <div class="pbar"><i></i><i></i><i></i><em>판매처 페이지</em></div>
+        <p class="pt">바디 데오티슈</p>
+        <span class="ln" style="width:82%"></span><span class="ln" style="width:64%"></span>
+        <p class="claim"><mark>칙칙한 피부 톤 개선 미백 효과</mark></p>
+        <span class="ln" style="width:74%"></span><span class="ln" style="width:52%"></span><span class="ln" style="width:68%"></span>
+        <span class="beam" aria-hidden="true"></span>
+      </div>
+      <div class="verdict">
+        <p class="k">식약처 기능성 보고 명부</p>
+        <p class="v bad">미백 보고번호 없음</p>
+        <p class="k">처방</p>
+        <p class="v">보고번호 확인 뒤, 자사몰과 판매처 3곳 수정 요청</p>
+      </div>
+      <figcaption>실제 사례, 화장품 브랜드 F</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="proof">
   <div class="wrap">
-    <p class="eyebrow">판매 페이지 건강검진 서비스</p>
-    <h1>우리 판매 페이지,<br><span class="hl">마지막 검진</span>이 언제였나요?</h1>
-    <p class="sub">성분 하나, 광고 문구 한 줄까지 식약처 기준으로 검사하고 <b>누가 어떻게 고칠지</b> 처방까지 드립니다.</p>
-    <div class="ctas">
-      <a class="btn btn-gold" href="#apply">간단 검진 신청하기</a>
-      <a class="btn btn-ghost" href="#deliver">실제 결과표 보기</a>
+    <p class="pk">화장품 브랜드 10곳, 판매 페이지 1,232쪽을 검진했더니</p>
+    <p class="big num">49.8%<span>에서 이상 소견</span></p>
+    <p class="psmall">근거 자료 확인이 필요한 광고 문구가 나온 페이지 비율입니다. 위반 판정은 아니고, 시험 자료나 보고번호가 있으면 문제없습니다.</p>
+    <div class="trio num">
+      <div><b>16곳</b><span>찾아낸 판매처</span></div>
+      <div><b>89쪽</b><span>글과 사진 속 글자까지 대조</span></div>
+      <div><b>7통</b><span>판매처별 수정 요청문</span></div>
     </div>
-    <div class="stats num">
-      <div><b>1,232쪽</b><span>화장품 브랜드 10곳의 판매 페이지를 공식 자료와 대조했습니다</span></div>
-      <div><b class="risk">49.8%</b><span>근거 자료 확인이 필요한 광고 문구가 나온 페이지(614쪽). 근거가 없으면 광고 정지로 이어질 수 있습니다</span></div>
-      <div><b class="ok">69%</b><span>그 페이지 중 브랜드가 직접 고칠 수 없는 판매처 페이지</span></div>
+    <p class="trio-note">브랜드 A 한 곳이 받은 실제 결과, 2026년 10월</p>
+    <div class="buy">
+      <p><b class="num">4.9만 원</b>으로 대표 상품 하나 먼저 검진해 보세요</p>
+      <a class="btn btn-lime" href="#apply">간단 검진 신청하기</a>
     </div>
-    <p class="basis">페이지 단위로 셌습니다(2026년 10월). «확인 필요»는 위반 판정이 아닙니다. 시험 자료나 기능성 보고번호가 있으면 문제없는 단계입니다.</p>
   </div>
 </section>
 
@@ -389,6 +497,119 @@ footer img{width:108px;height:18px;object-fit:contain}
 
 
 
+
+
+
+
+
+
+
+
+
+
+<section id="deliver">
+  <div class="wrap">
+    <p class="eyebrow">받으시는 것 · 화장품 브랜드 A, 2026년 10월</p>
+    <h2 class="h2">판매처에 보낼 메일까지 써 드립니다.<br>복사해서 보내기만 하세요</h2>
+    <div class="deliver">
+      <div class="doc">
+        <p class="cap">결과표 첫 화면</p>
+        <div class="frame"><img src="assets/report_first.jpg" alt="결과표 첫 화면: 점검 범위, 수정 필요, 확인 필요와 제품별 문제 지도" width="900" height="1065"></div>
+      </div>
+      <div class="msg">
+        <p class="cap">판매처에 보내는 요청문</p>
+        <div class="mail">
+        <div class="row"><span>보내는 사람</span><span>브랜드 A (브랜드 이름으로 나갑니다)</span></div>
+        <div class="row"><span>받는 사람</span><span>S사 · 롯데ON 판매자 (공정위 공개 연락처)</span></div>
+        <div class="row"><span>제목</span><span><b>[수정 요청] 브랜드 A 제품 판매 페이지 표시 정보 확인 요청</b></span></div>
+        <hr>
+        <p>안녕하세요, 브랜드 A입니다. 귀사 롯데ON 페이지의 표시 정보가 공식 자료와 달라 수정을 요청드립니다.</p>
+        <p>1) '○○ 미스트' 고시 표의 '기능성 화장품 심사' 칸이 '해당없음'으로 돼 있습니다. 이 제품은 주름개선 기능성화장품으로 등록돼 있습니다.</p>
+        <p>· 바꿀 문구: "화장품법에 따른 기능성 화장품 심사(또는 보고)를 필함"<br>· 어디서: 스토어센터 &gt; 상품관리 &gt; 상품정보제공고시<br>· 확인 자료: 식약처 기능성화장품 보고 현황</p>
+        <div class="foot"><span class="pill">복사하기</span><span>판매자 7곳에 한 통씩, 그 판매처의 건은 한 통에 모아서</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">둘 다 실제 문서입니다(이름만 가림). 처방과 재검은 종합·정밀 검진에 들어 있습니다.</p>
+    <details class="fold-in"><summary>이 브랜드의 숫자 자세히 보기</summary>
+    <div class="steps num">
+      <div class="step card"><div class="n"><span class="jua">검진</span><b>89쪽</b></div><p>판매처 16곳, 글과 사진까지</p></div>
+      <div class="step card"><div class="n"><span class="jua">결과표</span><b>13건</b></div><p>판매자 8 · 브랜드 5</p></div>
+      <div class="step dk"><div class="n"><span class="jua">처방</span><b>7통</b></div><p>판매자마다 한 통</p></div>
+      <div class="step dk"><div class="n"><span class="jua">재검</span><b>2주 뒤</b></div><p>고쳐졌는지 전과 후</p></div>
+    </div>
+    <div class="kpi num">
+      <div><b>89</b><span>확인한 판매 페이지 · 채널 4개, 판매처 16곳, 제품 12개</span></div>
+      <div><b>61</b><span>문제 후보가 나온 페이지 · ByteMe 스캔이 먼저 거른 숫자</span></div>
+      <div class="hl"><b>13건</b><span>지금 고쳐야 할 것 · 판매자에게 8건, 브랜드가 직접 5건</span></div>
+      <div><b>15개</b><span>브랜드가 답해야 할 질문 · 답에 따라 판매처 최대 9곳</span></div>
+      <div><b>22건</b><span>검수에서 제외 · 경미한 것 22건, 오탐 0건</span></div>
+    </div>
+    <p class="lead">"건"은 판매처 하나, 제품 하나, 문제 하나를 묶은 단위입니다. 요청문 한 통이 한 건이라 이 숫자가 그대로 일의 양입니다. 자사몰 밖 페이지가 83%였고, 고칠 13건 중 8건이 리셀러 페이지에 있었습니다.</p>
+    </details>
+  </div>
+</section>
+<section id="find">
+  <div class="wrap">
+    <p class="eyebrow">이런 걸 찾습니다 · 실제 사례</p>
+    <h2 class="h2">브랜드가 모르는 사이,<br>판매 페이지에 적혀 있던 말</h2>
+    <div class="find-grid">
+      <div class="card find">
+        <p class="k">등록 없이 효능을 말함</p>
+        <div class="box pg"><small>페이지에는</small><p>피부 톤을 밝힌다며 미백 효과를 내세움</p></div>
+        <div class="box of"><small>식약처 자료에는</small><p>미백 기능성 보고번호 없음</p><p class="src">기능성화장품 보고 명부, 2026년 10월 대조</p></div>
+        <div class="box rx"><small>처방</small><p>보고번호 확인 뒤 4곳 수정</p></div>
+        <p class="who">바디케어 제품 · 화장품 브랜드 F<br>자사몰과 판매처 3곳</p>
+      </div>
+      <div class="card find">
+        <p class="k">근거 자료가 있어야 쓰는 숫자</p>
+        <div class="box pg"><small>페이지에는</small><p>피부 고민을 몇 % 줄였다는 시험 수치</p></div>
+        <div class="box of"><small>기준</small><p>시험 자료가 있어야 쓸 수 있음</p><p class="src">화장품법 14조, 표시·광고 실증</p></div>
+        <div class="box rx"><small>처방</small><p>근거 확인 뒤 요청문 8통</p></div>
+        <p class="who">토너 패드 · 화장품 브랜드 A<br>자사몰과 판매처 8곳, 페이지 18개</p>
+      </div>
+      <div class="card find">
+        <p class="k">신고와 다른 기능을 적음</p>
+        <div class="box pg"><small>페이지 기능 칸에는</small><p>관절 원료 밑에 눈 건강 기능</p></div>
+        <div class="box of"><small>식약처 신고에는</small><p>관절·연골 건강 기능만</p><p class="src">건강기능식품 품목제조신고</p></div>
+        <div class="box rx"><small>처방</small><p>원본 고쳐 올리브영에 반영</p></div>
+        <p class="who">관절 영양제 · 건강기능식품 브랜드 K<br>H&amp;B 스토어, 열흘 동안 그대로</p>
+      </div>
+    </div>
+    <p class="swipe" aria-hidden="true">옆으로 넘겨 보세요 →</p>
+    <p class="note">제품 자체는 검사하지 않습니다. 판매 페이지의 글과 상세 사진 속 글자까지 읽고, 공식 자료와 다른 곳만 짚습니다. 위법인지는 판단하지 않습니다.</p>
+  </div>
+</section>
+<section id="price">
+  <div class="wrap">
+    <p class="eyebrow">가격 (VAT 별도)</p>
+    <h2 class="h2">4.9만 원으로 대표 상품 하나 먼저 검진해 보세요!<br>종합·정밀 검진을 신청하면 그 값은 빼 드립니다</h2>
+    <div class="price-grid">
+      <div class="card tier">
+        <p class="nm">간단 검진</p><p class="pr">4.9만 원</p><p class="sc">제품 1개, 판매처 페이지 수 제한 없음</p>
+        <ul><li>자동 검진 결과표(사람 검수 전): 근거와 누가 고칠지</li><li class="off">빠짐: 사람 검수, 판매처별 수정 요청문</li><li class="off">빠짐: 2주 뒤 재검</li></ul>
+        <a class="btn btn-dark" href="#apply" style="margin-top:14px">신청하기</a>
+      </div>
+      <div class="card tier dk">
+        <p class="nm">종합 검진</p><p class="pr">60만 원</p><p class="sc">제품 15개, 페이지 30개까지</p>
+        <ul><li>사람이 검수한 결과표</li><li>판매처별 수정 요청문과 연락처</li><li>2주 뒤 재검 1번</li></ul>
+        <a class="btn btn-gold" href="#apply" style="margin-top:14px">견적 문의</a>
+      </div>
+      <div class="card tier">
+        <p class="nm">정밀 검진</p><p class="pr">120만 원</p><p class="sc">제품 30개, 페이지 100개까지</p>
+        <ul><li>사람이 검수한 결과표 + 리셀러 전수(판매가까지)</li><li>판매처별 수정 요청문과 연락처</li><li>재검 2번 + 한 달 동안 새 판매처 알림</li></ul>
+        <a class="btn btn-dark" href="#apply" style="margin-top:14px">견적 문의</a>
+      </div>
+    </div>
+    <div class="extra">
+      <div class="card"><b>정밀 검진 초과</b><p>100쪽을 넘으면 페이지 50개마다 +40만 원. 검수를 시작하기 전에 쪽 수와 금액을 먼저 알려 드립니다</p></div>
+      <div class="card"><b>다시 받을 때</b><p>새 제품이 나오거나, 새 채널에 들어가거나, 문구를 바꿨을 때 직전 값의 60%입니다. 지난 기록이 있어 처음보다 쌉니다</p></div>
+      <div class="card"><b>첫 세 곳</b><p>종합 검진 50만 원 실험가. 대신 사례 공개에 동의해 주시는 조건입니다</p></div>
+      <div class="card"><b>요청문 발송 대행</b><p>요청문 발송과 회신 관리까지 맡기시는 건 따로 견적을 드립니다</p></div>
+    </div>
+    <p class="credit">간단 검진 뒤 종합·정밀 검진을 신청하시면 <b>4.9만 원을 빼 드립니다</b> (브랜드당 한 번). 종합·정밀 검진은 아래 양식에 남겨 주시면 견적을 드립니다.</p>
+  </div>
+</section>
 <section id="why">
   <div class="wrap">
     <p class="eyebrow">왜 필요한가</p>
@@ -422,87 +643,13 @@ footer img{width:108px;height:18px;object-fit:contain}
         </div>
       </div>
     </div>
-    <p class="note">화장품 브랜드 10곳 감사(2026년 10월). 브랜드 A는 아래 사례의 브랜드입니다. 이상 소견은 위반 판정이 아니라, 시험 자료나 보고번호가 있으면 문제없는 "확인 필요" 단계입니다. 처분 사례는 코스인코리아 보도.</p>
+    <p class="note">화장품 브랜드 10곳 감사(2026년 10월). 브랜드 A는 위 결과표의 브랜드입니다. 이상 소견은 위반 판정이 아니라, 시험 자료나 보고번호가 있으면 문제없는 "확인 필요" 단계입니다. 처분 사례는 코스인코리아 보도.</p>
   </div>
 </section>
-
-<section id="deliver">
+<section class="more-head"><div class="wrap"><p class="eyebrow">더 알아보기</p><p class="mh">검사 항목, 하는 일, 진행 순서, 채널은 눌러서 펼쳐 보세요</p></div></section>
+<section id="check" class="folded">
   <div class="wrap">
-    <p class="eyebrow">받으시는 것 · 화장품 브랜드 A, 2026년 10월</p>
-    <h2 class="h2">판매처에 보낼 메일까지 써 드립니다.<br>복사해서 보내기만 하세요</h2>
-    <div class="kpi num">
-      <div><b>89</b><span>확인한 판매 페이지 · 채널 4개, 판매처 16곳, 제품 12개</span></div>
-      <div><b>61</b><span>문제 후보가 나온 페이지 · ByteMe 스캔이 먼저 거른 숫자</span></div>
-      <div class="hl"><b>13건</b><span>지금 고쳐야 할 것 · 판매자에게 8건, 브랜드가 직접 5건</span></div>
-      <div><b>15개</b><span>브랜드가 답해야 할 질문 · 답에 따라 판매처 최대 9곳</span></div>
-      <div><b>22건</b><span>검수에서 제외 · 경미한 것 22건, 오탐 0건</span></div>
-    </div>
-    <p class="lead">"건"은 판매처 하나, 제품 하나, 문제 하나를 묶은 단위입니다. 요청문 한 통이 한 건이라 이 숫자가 그대로 일의 양입니다. 자사몰 밖 페이지가 83%였고, 고칠 13건 중 8건이 리셀러 페이지에 있었습니다.</p>
-    <div class="steps num">
-      <div class="step card"><div class="n"><span class="jua">검진</span><b>89쪽</b></div><p>판매처 16곳, 글과 사진까지</p></div>
-      <div class="step card"><div class="n"><span class="jua">결과표</span><b>13건</b></div><p>판매자 8 · 브랜드 5</p></div>
-      <div class="step dk"><div class="n"><span class="jua">처방</span><b>7통</b></div><p>판매자마다 한 통</p></div>
-      <div class="step dk"><div class="n"><span class="jua">재검</span><b>2주 뒤</b></div><p>고쳐졌는지 전과 후</p></div>
-    </div>
-    <div class="deliver">
-      <div class="doc">
-        <p class="cap">결과표 첫 화면</p>
-        <div class="frame"><img src="assets/report_first.jpg" alt="결과표 첫 화면: 점검 범위, 수정 필요, 확인 필요와 제품별 문제 지도" width="900" height="1065"></div>
-      </div>
-      <div class="msg">
-        <p class="cap">판매처에 보내는 요청문</p>
-        <div class="mail">
-        <div class="row"><span>보내는 사람</span><span>브랜드 A (브랜드 이름으로 나갑니다)</span></div>
-        <div class="row"><span>받는 사람</span><span>S사 · 롯데ON 판매자 (공정위 공개 연락처)</span></div>
-        <div class="row"><span>제목</span><span><b>[수정 요청] 브랜드 A 제품 판매 페이지 표시 정보 확인 요청</b></span></div>
-        <hr>
-        <p>안녕하세요, 브랜드 A입니다. 귀사 롯데ON 페이지의 표시 정보가 공식 자료와 달라 수정을 요청드립니다.</p>
-        <p>1) '○○ 미스트' 고시 표의 '기능성 화장품 심사' 칸이 '해당없음'으로 돼 있습니다. 이 제품은 주름개선 기능성화장품으로 등록돼 있습니다.</p>
-        <p>· 바꿀 문구: "화장품법에 따른 기능성 화장품 심사(또는 보고)를 필함"<br>· 어디서: 스토어센터 &gt; 상품관리 &gt; 상품정보제공고시<br>· 확인 자료: 식약처 기능성화장품 보고 현황</p>
-        <div class="foot"><span class="pill">복사하기</span><span>판매자 7곳에 한 통씩, 그 판매처의 건은 한 통에 모아서</span></div>
-        </div>
-      </div>
-    </div>
-    <p class="note">둘 다 실제 문서입니다(이름만 가림). 처방과 재검은 종합·정밀 검진에 들어 있습니다.</p>
-  </div>
-</section>
-
-<section id="find">
-  <div class="wrap">
-    <p class="eyebrow">이런 걸 찾습니다 · 실제 사례</p>
-    <h2 class="h2">브랜드가 모르는 사이,<br>판매 페이지에 적혀 있던 말</h2>
-    <div class="find-grid">
-      <div class="card find">
-        <p class="k">등록 없이 효능을 말함</p>
-        <div class="box pg"><small>페이지에는</small><p>피부 톤을 밝힌다며 미백 효과를 내세움</p></div>
-        <div class="box of"><small>식약처 자료에는</small><p>미백 기능성 보고번호 없음</p><p class="src">기능성화장품 보고 명부, 2026년 10월 대조</p></div>
-        <div class="box rx"><small>처방</small><p>보고번호 확인 뒤 4곳 수정</p></div>
-        <p class="who">바디케어 제품 · 화장품 브랜드 F<br>자사몰과 판매처 3곳</p>
-      </div>
-      <div class="card find">
-        <p class="k">근거 자료가 있어야 쓰는 숫자</p>
-        <div class="box pg"><small>페이지에는</small><p>피부 고민을 몇 % 줄였다는 시험 수치</p></div>
-        <div class="box of"><small>기준</small><p>시험 자료가 있어야 쓸 수 있음</p><p class="src">화장품법 14조, 표시·광고 실증</p></div>
-        <div class="box rx"><small>처방</small><p>근거 확인 뒤 요청문 8통</p></div>
-        <p class="who">토너 패드 · 화장품 브랜드 A<br>자사몰과 판매처 8곳, 페이지 18개</p>
-      </div>
-      <div class="card find">
-        <p class="k">신고와 다른 기능을 적음</p>
-        <div class="box pg"><small>페이지 기능 칸에는</small><p>관절 원료 밑에 눈 건강 기능</p></div>
-        <div class="box of"><small>식약처 신고에는</small><p>관절·연골 건강 기능만</p><p class="src">건강기능식품 품목제조신고</p></div>
-        <div class="box rx"><small>처방</small><p>원본 고쳐 올리브영에 반영</p></div>
-        <p class="who">관절 영양제 · 건강기능식품 브랜드 K<br>H&amp;B 스토어, 열흘 동안 그대로</p>
-      </div>
-    </div>
-    <p class="swipe" aria-hidden="true">옆으로 넘겨 보세요 →</p>
-    <p class="note">제품 자체는 검사하지 않습니다. 판매 페이지의 글과 상세 사진 속 글자까지 읽고, 공식 자료와 다른 곳만 짚습니다. 위법인지는 판단하지 않습니다.</p>
-  </div>
-</section>
-
-<section id="check">
-  <div class="wrap">
-    <p class="eyebrow">검사 항목</p>
-    <h2 class="h2">페이지의 말, 문구, 성분을<br>공식 자료와 맞춰 봅니다</h2>
+    <details class="fold"><summary><span class="fe">검사 항목</span><span class="ft">페이지의 말, 문구, 성분을 공식 자료와 맞춰 봅니다</span></summary>
     <div class="tbl">
       <div class="tr"><div>확인하는 것</div><div>무엇과 맞춰 보나</div><div>실제로 나온 예</div></div>
       <div class="tr"><div><b>말</b> · 광고한 효능(미백, 주름, 자외선)이 식약처에 등록된 것인가</div><div>식약처 기능성 화장품 보고·심사 목록</div><div>바디케어 제품이 미백 효과를 내세웠는데 미백 기능성 보고는 없었습니다</div></div>
@@ -512,13 +659,12 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
     <p class="lead">결과는 네 가지로만 적습니다: <b>맞음, 다름, 확인 필요, 판정 불가</b>. 사진에서 읽은 것은 읽기 오류가 있을 수 있어 한 단계 낮춰 적습니다.</p>
     <p class="note">디퓨저, 장난감, 영유아식, 건강기능식품도 같은 방식입니다. 맞춰 보는 명부와 금지 표현만 그 품목 것으로 바뀝니다.</p>
+      </details>
   </div>
 </section>
-
-<section id="how">
+<section id="how" class="folded">
   <div class="wrap">
-    <p class="eyebrow">무엇을 하나</p>
-    <h2 class="h2">공식 자료에서 시작해 판매 페이지를 전부 읽고,<br>고칠 수 있게 만듭니다</h2>
+    <details class="fold"><summary><span class="fe">무엇을 하나</span><span class="ft">공식 자료에서 시작해 판매 페이지를 전부 읽고, 고칠 수 있게 만듭니다</span></summary>
     <div class="how-grid">
       <div class="card how blue"><p class="t"><b>1</b>공식 명부</p><p>식약처 기능성 보고, 환경부 신고, 식품 품목보고에서 그 브랜드의 등록 제품을 꺼냅니다</p></div>
       <div class="card how"><p class="t"><b>2</b>제품 목록</p><p>등록된 제품과 자사몰 제품을 한 목록으로 묶고, 제품마다 번호를 붙입니다</p></div>
@@ -528,13 +674,12 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="card how amber"><p class="t"><b>6</b>오탐 줄이기</p><p>"없다"고 나온 건 한 번 더 전부 뒤지고, 스캔이 못 가리면 사람이 봅니다</p></div>
       <div class="card how dk"><p class="t"><b>7</b>결과표와 판매처별 수정 요청문</p><p>무엇이 어디서 틀렸고 누가 어떻게 고치는지 적습니다. 요청문에는 판매처 연락처까지 붙어 있어 복사해서 보내면 됩니다</p></div>
     </div>
+      </details>
   </div>
 </section>
-
-<section id="process">
+<section id="process" class="folded">
   <div class="wrap">
-    <p class="eyebrow">진행 순서</p>
-    <h2 class="h2">이틀 안에 결과표, 2주 뒤 재검</h2>
+    <details class="fold"><summary><span class="fe">진행 순서</span><span class="ft">이틀 안에 결과표, 2주 뒤 재검</span></summary>
     <div class="proc">
       <div class="card"><p class="d">1일차</p><p class="t">브랜드 확인</p><p>책임판매업자명, 자사몰 주소, 제품 목록을 받고 식약처 보고 품목과 맞춰 봅니다</p></div>
       <div class="card"><p class="d">1일차</p><p class="t">ByteMe 스캔</p><p>모든 채널에서 판매 페이지를 모으고 글과 사진을 읽습니다. 판매처 수를 세어 범위를 알려 드립니다</p></div>
@@ -547,44 +692,12 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="card"><b>데이터 권리</b><p>검진 결과와 증거는 그 브랜드의 것입니다. 동의 없이 어디에도 가지 않고, 사례 공개는 따로 동의를 받습니다</p></div>
     </div>
     <p class="note">종합·정밀 검진 기준입니다. 간단 검진은 사람 검수 전 결과를 이틀 안에 메일로 드립니다.</p>
+      </details>
   </div>
 </section>
-
-<section id="price">
+<section id="channel" class="folded">
   <div class="wrap">
-    <p class="eyebrow">가격 (VAT 별도)</p>
-    <h2 class="h2">4.9만 원으로 대표 상품 하나 먼저 검진해 보세요!<br>종합·정밀 검진을 신청하면 그 값은 빼 드립니다</h2>
-    <div class="price-grid">
-      <div class="card tier">
-        <p class="nm">간단 검진</p><p class="pr">4.9만 원</p><p class="sc">제품 1개, 판매처 페이지 수 제한 없음</p>
-        <ul><li>자동 검진 결과표(사람 검수 전): 근거와 누가 고칠지</li><li class="off">빠짐: 사람 검수, 판매처별 수정 요청문</li><li class="off">빠짐: 2주 뒤 재검</li></ul>
-        <a class="btn btn-dark" href="#apply" style="margin-top:14px">신청하기</a>
-      </div>
-      <div class="card tier dk">
-        <p class="nm">종합 검진</p><p class="pr">60만 원</p><p class="sc">제품 15개, 페이지 30개까지</p>
-        <ul><li>사람이 검수한 결과표</li><li>판매처별 수정 요청문과 연락처</li><li>2주 뒤 재검 1번</li></ul>
-        <a class="btn btn-gold" href="#apply" style="margin-top:14px">견적 문의</a>
-      </div>
-      <div class="card tier">
-        <p class="nm">정밀 검진</p><p class="pr">120만 원</p><p class="sc">제품 30개, 페이지 100개까지</p>
-        <ul><li>사람이 검수한 결과표 + 리셀러 전수(판매가까지)</li><li>판매처별 수정 요청문과 연락처</li><li>재검 2번 + 한 달 동안 새 판매처 알림</li></ul>
-        <a class="btn btn-dark" href="#apply" style="margin-top:14px">견적 문의</a>
-      </div>
-    </div>
-    <div class="extra">
-      <div class="card"><b>정밀 검진 초과</b><p>100쪽을 넘으면 페이지 50개마다 +40만 원. 검수를 시작하기 전에 쪽 수와 금액을 먼저 알려 드립니다</p></div>
-      <div class="card"><b>다시 받을 때</b><p>새 제품이 나오거나, 새 채널에 들어가거나, 문구를 바꿨을 때 직전 값의 60%입니다. 지난 기록이 있어 처음보다 쌉니다</p></div>
-      <div class="card"><b>첫 세 곳</b><p>종합 검진 50만 원 실험가. 대신 사례 공개에 동의해 주시는 조건입니다</p></div>
-      <div class="card"><b>요청문 발송 대행</b><p>요청문 발송과 회신 관리까지 맡기시는 건 따로 견적을 드립니다</p></div>
-    </div>
-    <p class="credit">간단 검진 뒤 종합·정밀 검진을 신청하시면 <b>4.9만 원을 빼 드립니다</b> (브랜드당 한 번). 종합·정밀 검진은 아래 양식에 남겨 주시면 견적을 드립니다.</p>
-  </div>
-</section>
-
-<section id="channel">
-  <div class="wrap">
-    <p class="eyebrow">기준이 다른 숫자 · 사람이 확정한 «고쳐야 할 것» · 화장품 브랜드 4곳</p>
-    <h2 class="h2">고칠 것으로 보면 올리브영이 가장 적고,<br>오픈마켓과 자사몰에 몰려 있습니다</h2>
+    <details class="fold"><summary><span class="fe">기준이 다른 숫자 · 사람이 확정한 "고쳐야 할 것" · 화장품 브랜드 4곳</span><span class="ft">고칠 것으로 보면 올리브영이 가장 적고, 오픈마켓과 자사몰에 몰려 있습니다</span></summary>
     <div class="chb">
       <div class="card bars num">
         <div class="head"><span>확인한 페이지 중 고쳐야 할 페이지 비율</span></div>
@@ -594,7 +707,7 @@ footer img{width:108px;height:18px;object-fit:contain}
         <div class="bar"><span class="lab">지그재그</span><span class="trk"><span class="fill mid" style="display:block;width:48%"></span></span><span class="v">48% (31/65쪽)</span></div>
         <div class="bar"><span class="lab">네이버 브랜드스토어</span><span class="trk"><span class="fill lo" style="display:block;width:23%"></span></span><span class="v">23% (18/80쪽)</span></div>
         <div class="bar"><span class="lab">올리브영</span><span class="trk"><span class="fill ok" style="display:block;width:14%"></span></span><span class="v">14% (7/49쪽)</span></div>
-        <p class="note" style="margin-top:14px">맨 위 49.8%와 브랜드 10곳 막대는 «근거 확인이 필요한 문구» 기준(10곳 · 1,232쪽)입니다. 이 막대는 사람이 확정한 «고쳐야 할 것» 기준(4곳 · 636쪽)이라 숫자가 다릅니다. 두 기준을 섞어 비교하지 마세요.</p>
+        <p class="note" style="margin-top:14px">맨 위 49.8%와 브랜드 10곳 막대는 "근거 확인이 필요한 문구" 기준(10곳 · 1,232쪽)입니다. 이 막대는 사람이 확정한 "고쳐야 할 것" 기준(4곳 · 636쪽)이라 숫자가 다릅니다. 두 기준을 섞어 비교하지 마세요.</p>
       </div>
       <div class="card" style="padding:24px 26px">
         <p style="font-weight:700;font-size:17px">올리브영 페이지에서도 나온 문제</p>
@@ -607,14 +720,13 @@ footer img{width:108px;height:18px;object-fit:contain}
       </div>
     </div>
     <p class="note">2026년 10월 4일과 5일, 화장품 브랜드 4곳 감사(판매 페이지 636개). 브랜드 이름은 가렸습니다.</p>
+      </details>
   </div>
 </section>
-
-<section id="channels">
+<section id="channels" class="folded">
   <div class="wrap">
-    <p class="eyebrow">확인하는 채널</p>
-    <h2 class="h2">지금 확인되는 곳, 권한 주시면 되는 곳,<br>확인이 불가능한 곳</h2>
-    <p class="lead">못 본 곳은 결과표에 «못 봄»으로 적지, «없음»으로 적지 않습니다. 로그인 · 봇 차단 · 캡차는 우회하지 않습니다. 우회해서 읽은 건 근거로 쓸 수 없기 때문입니다.</p>
+    <details class="fold"><summary><span class="fe">확인하는 채널</span><span class="ft">지금 확인되는 곳, 권한 주시면 되는 곳, 확인이 불가능한 곳</span></summary>
+    <p class="lead">못 본 곳은 결과표에 "못 봄"으로 적지, "없음"으로 적지 않습니다. 로그인 · 봇 차단 · 캡차는 우회하지 않습니다. 우회해서 읽은 건 근거로 쓸 수 없기 때문입니다.</p>
     <details class="more"><summary>채널별로 어디까지 보는지 펼쳐 보기</summary>
     <div class="ch3">
       <div class="ch-ok"><h3>지금 확인되는 곳 (10)</h3><ul><li>자사몰 (카페24, Shopify)</li><li>네이버 브랜드스토어</li><li>11번가 · 롯데ON</li><li>올리브영 · 컬리</li><li>지그재그, W컨셉, 에이블리</li><li>Meta 광고 라이브러리</li></ul></div>
@@ -622,9 +734,9 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="ch-no"><h3>권한을 줘도 확인이 불가능한 곳</h3><ul><li><b>쿠팡, G마켓의 리셀러 페이지</b>: 봇을 막아 둬서 우회하지 않고 가격만 봅니다</li><li><b>스마트스토어의 리셀러 페이지</b>: 남의 가게라 권한이 없습니다</li><li>아직 안 해 본 곳: 고도몰 자사몰, SSG, 무신사, 카카오 선물하기, 홈쇼핑 자사몰</li></ul><p>못 본 곳은 결과표에 "못 봄"으로 적지, "없음"으로 적지 않습니다.</p></div>
     </div>
     </details>
+      </details>
   </div>
 </section>
-
 <section id="faq">
   <div class="wrap">
     <p class="eyebrow">자주 묻는 것</p>
@@ -648,7 +760,6 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
   </div>
 </section>
-
 <section id="apply" class="apply">
   <div class="wrap">
     <p class="eyebrow">간단 검진 신청</p>
@@ -858,10 +969,10 @@ footer img{width:108px;height:18px;object-fit:contain}
   // 폰: 아래 고정 신청 버튼 — 첫 화면을 지나면 나오고, 신청 칸이 보이면 숨긴다
   var bar = document.getElementById("mbar");
   if (bar && "IntersectionObserver" in window) {
-    var seen = {hero: true, apply: false};
-    var io = new IntersectionObserver(function(es){ es.forEach(function(x){ seen[x.target.id === "apply" ? "apply" : "hero"] = x.isIntersecting; });
-      bar.classList.toggle("on", !seen.hero && !seen.apply); }, {threshold: 0});
-    io.observe(document.querySelector(".hero")); io.observe(document.getElementById("apply"));
+    var seen = {hero: true, apply: false, proof: false};   // 첫 화면 · 가격 띠(.proof, 같은 버튼이 있음) · 신청 칸이 보이면 숨긴다
+    var io = new IntersectionObserver(function(es){ es.forEach(function(x){ seen[x.target.id === "apply" ? "apply" : (x.target.classList.contains("proof") ? "proof" : "hero")] = x.isIntersecting; });
+      bar.classList.toggle("on", !seen.hero && !seen.apply && !seen.proof); }, {threshold: 0});
+    io.observe(document.querySelector(".hero")); io.observe(document.querySelector(".proof")); io.observe(document.getElementById("apply"));
   }
 })();
 </script>
