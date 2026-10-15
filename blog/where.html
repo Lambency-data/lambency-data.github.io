@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 02c23bd4a31735b1 -->
+<!-- baked-from-b2c-where: 09821933087397d0 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1037,6 +1037,8 @@ selxAll();
   const _gu=_get('gu')||_get('sigungu'), _dg=_get('dong');
   const [g,d]=(_gu&&_dg) ? [_gu, _dg] : QUICK[0];
   _isSample=!(_gu&&_dg);
+  const _m=_get('mode') || (_q.get('utm_source')==='threads' ? 'shop' : '');
+  if(_m==='shop'||_m==='home') setMode(_m);
   await GUS_READY;
   await loadDongs(g); $('gu').value=g; $('dg').value=d;
   await runDong();
