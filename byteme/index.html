@@ -111,6 +111,20 @@ main > section:nth-of-type(even) + section{padding-top:88px !important}
 
 /* 이런 걸 찾습니다 */
 .find-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+/* 셀프 체크 — 잽(방법은 공짜) 칸, 2026-10-15 카프 «저 잽들도 랜딩에 셀프체크 사항으로». #find 안에 넣어 섹션 줄무늬(짝수 민트)를 안 바꾼다 */
+.selfcheck{margin-top:44px;padding:30px 28px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.selfcheck h3{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:clamp(24px,3.2vw,32px);line-height:1.3;text-wrap:balance}
+.selfcheck .sub{color:var(--ink2);margin-top:8px}
+.selfcheck ol{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.selfcheck li{display:flex;gap:12px;align-items:flex-start;background:var(--mint);border-radius:14px;padding:14px 16px}
+.selfcheck li .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.selfcheck li b{display:block;font-size:16px;line-height:1.4}
+.selfcheck li span{display:block;font-size:15px;color:var(--ink2);margin-top:4px;line-height:1.5}
+.selfcheck .links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px;align-items:center}
+.selfcheck .links a.txt{color:var(--green-d);font-weight:700;font-size:16px}
+.top .blog{color:var(--ink2);font-size:15px;font-weight:600;text-decoration:none;margin-right:14px}
+.top .wrap > div:last-child{display:flex;align-items:center}
+@media (max-width:560px){.top .blog{display:none}.selfcheck{padding:22px 18px}}
 @media (max-width:900px){.find-grid{grid-template-columns:1fr}}
 .find{padding:24px;display:flex;flex-direction:column;gap:12px}
 @supports (grid-template-rows:subgrid){@media (min-width:901px){.find-grid{grid-template-rows:repeat(5,auto);row-gap:0}.find{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:12px}}}
@@ -454,7 +468,7 @@ footer img{width:108px;height:18px;object-fit:contain}
 <header class="top">
   <div class="wrap">
     <div class="left"><img src="assets/byteme_logo.png" alt="BYTEME" width="120" height="20"><span class="name">판매 페이지 건강검진 서비스</span></div>
-    <a class="btn btn-gold" href="#apply">간단 검진 신청</a>
+    <div><a class="blog" href="blog/">블로그</a><a class="btn btn-gold" href="#apply">간단 검진 신청</a></div>
   </div>
 </header>
 
@@ -533,7 +547,7 @@ footer img{width:108px;height:18px;object-fit:contain}
 <section id="deliver">
   <div class="wrap">
     <p class="eyebrow">받으시는 것 · 화장품 브랜드 A, 2026년 10월</p>
-    <h2 class="h2">판매처에 보낼 메일까지 써 드립니다.<br>복사해서 보내기만 하세요</h2>
+    <h2 class="h2">검진부터 처방까지 한번에!<br>메일까지 써 뒀습니다. 복사만&nbsp;하세요</h2>
     <div class="deliver">
       <div class="doc">
         <p class="cap">결과표 첫 화면</p>
@@ -559,7 +573,7 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="step card"><div class="n"><span class="jua">검진</span><b>89쪽</b></div><p>판매처 16곳, 글과 사진까지</p></div>
       <div class="step card"><div class="n"><span class="jua">결과표</span><b>13건</b></div><p>판매자 8 · 브랜드 5</p></div>
       <div class="step dk"><div class="n"><span class="jua">처방</span><b>7통</b></div><p>판매자마다 한 통</p></div>
-      <div class="step dk"><div class="n"><span class="jua">재검</span><b>2주 뒤</b></div><p>고쳐졌는지 전과 후</p></div>
+      <div class="step dk"><div class="n"><span class="jua">재검</span><b>2주 뒤</b></div><p>팔로업하고 알려드립니다</p></div>
     </div>
     <div class="kpi num">
       <div><b>89</b><span>확인한 판매 페이지 · 채널 4개, 판매처 16곳, 제품 12개</span></div>
@@ -601,6 +615,23 @@ footer img{width:108px;height:18px;object-fit:contain}
     </div>
     <p class="swipe" aria-hidden="true">옆으로 넘겨 보세요 →</p>
     <p class="note">제품 자체는 검사하지 않습니다. 판매 페이지의 글과 상세 사진 속 글자까지 읽고, 공식 자료와 다른 곳만 짚습니다. 위법인지는 판단하지 않습니다.</p>
+    <div class="selfcheck" id="selfcheck">
+      <p class="eyebrow">셀프 체크</p>
+      <h3>지금 우리 판매 페이지,<br>이 다섯 가지만 직접 보세요</h3>
+      <p class="sub">저희가 실제로 확인하는 기준입니다. 제품 하나, 페이지 하나라면 10분이면 됩니다.</p>
+      <ol>
+        <li><span class="n">1</span><div><b>효능 문구가 식약처에 등록됐나</b><span>미백, 주름개선, 자외선 차단은 기능성화장품으로 보고·심사된 제품만 씁니다. 의약품안전나라에서 제품명을 검색해 보세요.</span></div></li>
+        <li><span class="n">2</span><div><b>상품정보 표 11칸이 다 찼나</b><span>"상세페이지 참조"라고 적었다면, 상세 사진에 그 내용이 정말 있는지까지 보세요.</span></div></li>
+        <li><span class="n">3</span><div><b>전성분이 원본과 같나</b><span>자사몰과 판매처의 전성분을 나란히 놓고 보세요. 리뉴얼 전 목록이 남아 있는 경우가 있습니다.</span></div></li>
+        <li><span class="n">4</span><div><b>숫자 효능에 근거 자료가 있나</b><span>"만족도 99%", "몇 % 개선"은 시험 자료가 있어야 쓸 수 있습니다.</span></div></li>
+        <li><span class="n">5</span><div><b>화장품에 쓸 수 없는 말이 없나</b><span>가려움, 염증, 여드름 같은 증상과 효과를 같이 쓴 말, 의사·약사 추천. 공개된 화장품 광고 처분의 59%가 의약품처럼 보이는 말이었습니다.</span></div></li>
+      </ol>
+      <div class="links">
+        <a class="txt" href="blog/self-check.html">자세한 점검표 보기 →</a>
+        <a class="txt" href="blog/cosmetics-disposals-198.html">공개 처분 198건, 무엇이 걸렸나 →</a>
+      </div>
+      <p class="note">판매처가 여러 곳이면 이 점검을 판매처마다 다시 해야 합니다. 그 반복을 간단 검진이 대신합니다.</p>
+    </div>
   </div>
 </section>
 <section id="price">
@@ -702,7 +733,7 @@ footer img{width:108px;height:18px;object-fit:contain}
       <div class="card"><p class="d">1일차</p><p class="t">ByteMe 스캔</p><p>모든 채널에서 판매 페이지를 모으고 글과 사진을 읽습니다. 판매처 수를 세어 범위를 알려 드립니다</p></div>
       <div class="card"><p class="d">2일차</p><p class="t">내부 검수</p><p>스캔이 찾은 후보를 사람이 하나씩 봅니다. 오탐은 빼고, 브랜드만 답할 수 있는 건 질문으로 돌립니다</p></div>
       <div class="card dk"><p class="d">2일차 (200쪽 넘으면 3일차)</p><p class="t">결과 보고</p><p>결과표, 판매처별 요청문, 내부 수정 목록, 브랜드가 답할 질문을 한 묶음으로 드립니다</p></div>
-      <div class="card gr"><p class="d">+2주</p><p class="t">재검</p><p>같은 페이지를 다시 읽어 고쳐졌는지 전과 후로 보여 드립니다. 안 고쳐진 건 요청문을 다시 만듭니다</p></div>
+      <div class="card gr"><p class="d">+2주</p><p class="t">재검</p><p>같은 페이지를 다시 읽어 고쳐졌는지 팔로업하고 알려드립니다. 안 고쳐진 건 요청문을 다시 만듭니다</p></div>
     </div>
     <div class="two">
       <div class="card"><b>브랜드가 준비할 것</b><p>책임판매업자명, 자사몰 주소, 있으면 승인된 라벨과 전성분 원본. 원본이 있으면 "승인한 기준과 다르다"까지 말할 수 있습니다</p></div>
@@ -825,6 +856,7 @@ footer img{width:108px;height:18px;object-fit:contain}
     <img src="assets/byteme_logo.png" alt="BYTEME" width="108" height="18">
     <span>판매 페이지 건강검진 서비스 · 문의 <span class="mailaddr">caffrey.w.lee@gmail.com</span></span>
     <span>숫자는 2026년 10월 감사 기준이며, 브랜드와 판매자 이름은 가렸습니다</span>
+    <a href="blog/">블로그</a>
   </div>
 </footer>
 

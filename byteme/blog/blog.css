@@ -1,0 +1,45 @@
+/* BYTEME 블로그 — 랜딩(../index.html)과 같은 색 · 글꼴. 글 읽기에 맞춰 폭만 좁혔다 (2026-10-15) */
+:root{
+  --bg:#FFFFFF; --mint:#F2F8E8; --mint2:#E3F0CC; --lemon:#FFF4B8;
+  --ink:#111418; --ink2:#4A5058; --ink3:#7A8088; --line:#E4E9DC;
+  --green:#5F8200; --green-d:#476200; --green-ink:#3E5600; --coral:#E4572E; --coral-soft:#FFF0EA;
+  --shadow:0 1px 2px rgba(17,20,24,.04),0 8px 24px rgba(95,130,0,.06);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;line-height:1.75;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:var(--green-d)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.top a.home{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink2);font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:11px 20px;font-weight:700;font-size:15px;text-decoration:none;background:var(--ink);color:#fff;white-space:nowrap}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px}
+main{padding-block:36px 72px}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;color:var(--green-ink);background:var(--mint);border-radius:999px;padding:4px 12px}
+h1{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:clamp(30px,5.4vw,44px);line-height:1.25;margin:14px 0 10px;text-wrap:balance}
+.meta{font-size:14px;color:var(--ink3)}
+.lead{font-size:19px;color:var(--ink2);margin-top:18px}
+h2{font-size:21px;line-height:1.4;margin:40px 0 8px;text-wrap:balance}
+p{margin:12px 0}
+ul{padding-left:22px;margin:10px 0}
+li{margin:6px 0}
+.box{background:var(--mint);border-radius:16px;padding:18px 20px;margin:20px 0}
+.box b{color:var(--green-ink)}
+.warn{background:var(--coral-soft);border-radius:16px;padding:16px 20px;margin:20px 0;color:#7A2E16}
+.tbl{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{font-size:14px;color:var(--ink3);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.cta{margin:44px 0 0;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.cta h3{margin:0 0 6px;font-size:20px}
+.cta p{margin:6px 0 16px;color:var(--ink2)}
+.src{font-size:14px;color:var(--ink3);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}
+.cards{display:grid;gap:16px;margin-top:24px}
+.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow)}
+.card:hover{border-color:var(--green)}
+.card .t{font-size:20px;font-weight:700;line-height:1.4;margin:6px 0}
+.card .d{color:var(--ink2);font-size:16px}
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--ink3);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+@media (max-width:480px){body{font-size:16px}.lead{font-size:17px}.top a.home span{display:none}}
