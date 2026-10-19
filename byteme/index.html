@@ -387,6 +387,7 @@ footer img{width:108px;height:18px;object-fit:contain}
 .verdict .v{font-size:16px;font-weight:700}
 .verdict .v.bad{color:var(--coral-m)}
 .scan figcaption{font-size:13px;color:var(--ink3);text-align:right}
+.hv{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(30,45,0,.12)}
 .proof{background:#111418 !important;color:#fff;padding-block:84px !important}
 .proof .pk{font-size:18px;color:#B9C1B0}
 .proof .big{font-family:'Pretendard',sans-serif;font-weight:800;font-size:clamp(72px,13vw,150px);line-height:1;letter-spacing:-.03em;color:var(--lime);margin-top:10px}
@@ -486,22 +487,12 @@ footer img{width:108px;height:18px;object-fit:contain}
         <a class="btn btn-ghost" href="#deliver">실제 결과표 보기</a>
       </div>
     </div>
-    <figure class="scan" aria-label="판매 페이지의 문구를 식약처 자료와 맞춰 보는 예시: 미백 효과라고 적혀 있지만 미백 기능성 보고번호가 없음">
-      <div class="page">
-        <div class="pbar"><i></i><i></i><i></i><em>판매처 페이지</em></div>
-        <p class="pt">바디 데오티슈</p>
-        <span class="ln" style="width:82%"></span><span class="ln" style="width:64%"></span>
-        <p class="claim"><mark>칙칙한 피부 톤 개선 미백 효과</mark></p>
-        <span class="ln" style="width:74%"></span><span class="ln" style="width:52%"></span><span class="ln" style="width:68%"></span>
-        <span class="beam" aria-hidden="true"></span>
-      </div>
-      <div class="verdict">
-        <p class="k">식약처 기능성 보고 명부</p>
-        <p class="v bad">미백 보고번호 없음</p>
-        <p class="k">처방</p>
-        <p class="v">보고번호 확인 뒤, 자사몰과 판매처 3곳 수정 요청</p>
-      </div>
-      <figcaption>실제 사례, 화장품 브랜드 F</figcaption>
+    <figure class="scan hero-vid">
+      <video class="hv" autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg" width="1280" height="720"
+        aria-label="30초 영상: 판매 페이지의 '칙칙한 피부 톤 개선 미백 효과' 한 줄을 식약처 기능성 보고 명부와 맞춰 보니 미백 보고번호가 없습니다. 바이트미 스캔이 채널과 사진 속 글자까지 읽고, 결과표와 판매처에 보낼 요청문까지 만듭니다.">
+        <source src="assets/hero.mp4" type="video/mp4">
+      </video>
+      <figcaption>30초로 보는 판매 페이지 건강검진 · 실제 사례, 화장품 브랜드 F</figcaption>
     </figure>
   </div>
 </section>
@@ -1029,5 +1020,11 @@ footer img{width:108px;height:18px;object-fit:contain}
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+<script>
+/* 첫 화면 영상: 움직임 줄이기를 켠 사람에겐 첫 장면만 보여 주고, 직접 재생할 수 있게 조작 막대를 단다 */
+(function(){ var v = document.querySelector(".hv"); if (!v) return;
+  try { if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); v.controls = true; } } catch (e) {}
+})();
+</script>
 </body>
 </html>
