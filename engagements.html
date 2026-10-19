@@ -94,6 +94,9 @@ html[data-lang="ko"] .tier p{font-family:var(--kr)}
 .fig b{font-family:var(--serif);font-weight:500;font-size:clamp(26px,3vw,34px);color:var(--amber-hi);display:block;line-height:1}
 .fig span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-faint);text-transform:uppercase;margin-top:8px;display:block;max-width:26ch;line-height:1.6}
 html[data-lang="ko"] .fig span{font-family:var(--kr);letter-spacing:0}
+/* 2026-10-19 한글 라벨 자간 0 (홈과 같은 규칙, 카프 «다른 페이지들도 똑같이») */
+html[data-lang="ko"] .sec-label .t[lang="ko"],html[data-lang="ko"] .offer .code .t[lang="ko"],html[data-lang="ko"] .tier .tl .t[lang="ko"],
+html[data-lang="ko"] .cta a .t[lang="ko"],html[data-lang="ko"] .langtoggle{letter-spacing:0}
 .diff{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:16.5px;color:var(--ink);border-left:1px solid var(--amber);padding-left:18px}
 html[data-lang="ko"] .diff{font-family:var(--kr);font-style:normal}
 .note{margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--ink-faint);line-height:1.9;max-width:82ch}
