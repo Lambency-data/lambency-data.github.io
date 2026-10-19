@@ -148,7 +148,7 @@ table td:first-child{font-family:var(--mono);font-size:13px;color:var(--ink);whi
   <p>키는 <a href="https://www.data.go.kr" rel="noopener" target="_blank">data.go.kr</a> 에서 무료로 받아, 기능성화장품 <strong>보고품목</strong>(FtnltCosmRptPrdlstInfoService01)과 <strong>심사품목</strong>(FtnltCosmSrngPrdlstInfoService05) 두 서비스를 "활용신청"하면 된다. 키는 쓰는 사람 것이고, 오류 문구에도 찍히지 않는다.</p>
 <pre><code>git clone https://github.com/caffreywlee-decaff/bytemescan.git &amp;&amp; cd bytemescan
 pip install -e .                 <span class="c"># CLI 명령 bytemescan</span>
-pip install "mcp[cli]"           <span class="c"># MCP 서버도 쓸 때</span>
+pip install "mcp[cli]"           <span class="c"># MCP 서버도 쓸 때 (mcp 1.x · 2.x 둘 다 됩니다)</span>
 cp .env.example .env             <span class="c"># DATA_GO_KR_KEY 채우기</span>
 
 bytemescan lookup "선스틱"                                  <span class="c"># 후보 + report_no</span>
