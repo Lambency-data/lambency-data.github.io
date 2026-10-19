@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 09821933087397d0 -->
+<!-- baked-from-b2c-where: 49cdc1d5e9afcab4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -474,6 +474,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .slsg .nm .subt[aria-expanded="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .slsg .subrow{display:flex;flex-wrap:wrap;gap:4px 12px;padding:6px 0 10px 8px;font:400 11.5px var(--ff);color:var(--soft)}
   .slsg .subrow b{font-family:var(--fm);font-weight:500;color:var(--ink)}
+  .slsg .subrow .hit{color:var(--ink);font-weight:700;background:var(--wash,#F1EEE6);border-radius:4px;padding:0 4px}
   .slsg .g.sohd{margin-top:14px}
   .slsg .sonote{margin:2px 0 4px}
   .slsg .g.so .bar b{font-size:10px}
@@ -1129,7 +1130,7 @@ const SALES_GROUPS = ['음식점','카페·주점','학원·교육','병원·의
                       '미용·관리','소매·판매','생활서비스','여가·오락','숙박'];
 const SALES_LIMIT = 12;
 let SALESG = '전체', SALESQ = '', SALES_MORE = false, _SALES_ROWS = [], _SALES_SO = [], _SALES_SUB = {},
-    _SALES_OPEN = new Set(), _SALES_SEQ = 0;
+    _SALES_OPEN = new Set(), _SALES_SEQ = 0, _SUB_INDEX = {};
 window.pickSalesG = function(g){ SALESG = g; SALES_MORE = false;
   const q = document.getElementById('slsQ'); if(q && q.value){ q.value = ''; SALESQ = ''; }
   renderSalesView(); };
@@ -1150,6 +1151,7 @@ async function renderSales(gu, dg){
   _SALES_ROWS = (d && d.ok) ? (d.rows || []) : [];
   _SALES_SO = (d && d.ok) ? (d.store_only || []) : [];
   _SALES_SUB = (d && d.ok) ? (d.sub || {}) : {};
+  _SUB_INDEX = (d && d.ok) ? (d.sub_index || {}) : {};
   _SALES_OPEN = new Set();
   SALESG = '전체'; SALESQ = ''; SALES_MORE = false;
   if(!_SALES_ROWS.length){
@@ -1158,7 +1160,7 @@ async function renderSales(gu, dg){
   }
   const cav = String((d && d.caveat) || '').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
   box.innerHTML = '<div class="bizgrp" id="slsChips"></div>'
-    + '<div class="slsq"><input type="search" id="slsQ" placeholder="업종 찾기 (예: 미용실)" aria-label="업종 이름으로 찾기"></div>'
+    + '<div class="slsq"><input type="search" id="slsQ" placeholder="업종 찾기 (예: 피부과, 필라테스, 마라탕)" aria-label="업종 이름으로 찾기"></div>'
     + '<div class="slsg" id="slsList"></div><div id="slsMore"></div>'
     + `<p class="src">${(d && d.source) || '서울신용보증재단 상권분석, 서울 열린데이터광장'} · `
     + `${(d && d.scope_name) || c.dg} 기준. ${cav}</p>`
@@ -1185,7 +1187,11 @@ function renderSalesView(){
   const chip = (g, n) => `<button type="button" aria-pressed="${g === SALESG && !SALESQ}" onclick="pickSalesG('${g}')">${g} <small>${n}</small></button>`;
   chipsEl.innerHTML = chip('전체', all.length + so.length) + (gs.length > 1 ? gs.map(g => chip(g, cnt[g])).join('') : '');
   const norm = v => String(v || '').replace(/\s/g, '');
-  const pick = arr => SALESQ ? arr.filter(r => norm(r.industry).includes(norm(SALESQ)))
+  const ql = norm(SALESQ).toLowerCase();
+  const kwHit = nm => (ql.length < 2 ? [] : (_SUB_INDEX[nm] || [])
+    .filter(c => (c.kw || []).some(k => { k = String(k).toLowerCase(); return k.includes(ql) || (k.length >= 2 && ql.includes(k)); }))
+    .map(c => c.name));
+  const pick = arr => SALESQ ? arr.filter(r => norm(r.industry).includes(norm(SALESQ)) || kwHit(r.industry).length)
                     : (SALESG !== '전체' ? arr.filter(r => (r.group || '기타') === SALESG) : arr);
   const rows = pick(all), sorows = pick(so);
   const cut = !SALESQ && SALESG === '전체' && !SALES_MORE && (rows.length > SALES_LIMIT || sorows.length);
@@ -1199,9 +1205,12 @@ function renderSalesView(){
   }
   const tag = !!SALESQ || SALESG === '전체';
   const subBtn = nm => { const n = (_SALES_SUB[nm] || []).length;
-    return n >= 2 ? `<button type="button" class="subt" data-sub="${_hs(nm)}" aria-expanded="${_SALES_OPEN.has(nm)}">세부 ${n}</button>` : ''; };
-  const subRow = nm => _SALES_OPEN.has(nm)
-    ? `<div class="subrow">${(_SALES_SUB[nm] || []).map(x => `<span>${_hs(x.name)} <b>${x.n}</b></span>`).join('')}</div>` : '';
+    return n >= 2 ? `<button type="button" class="subt" data-sub="${_hs(nm)}" aria-expanded="${_SALES_OPEN.has(nm) || kwHit(nm).length > 0}">세부 ${n}</button>` : ''; };
+  const subRow = nm => {
+    const hit = new Set(kwHit(nm)), have = _SALES_SUB[nm] || [];
+    if(!_SALES_OPEN.has(nm) && !hit.size) return '';
+    const miss = [...hit].filter(h => !have.some(x => x.name === h)).map(h => ({name: h, n: 0}));
+    return `<div class="subrow">${have.concat(miss).map(x => `<span${hit.has(x.name) ? ' class="hit"' : ''}>${_hs(x.name)} <b>${x.n}</b></span>`).join('')}</div>`; };
   const name = x => { const sb = subBtn(x.industry), gt = (tag && x.group) ? x.group : '';
     return `<span class="nm" title="${x.industry}">${x.industry}${(gt || sb) ? `<small class="grp">${gt}${sb}</small>` : ''}</span>`; };
   const mx = Math.max(...shown.map(r => r.sales_month_man || 0), 1);
