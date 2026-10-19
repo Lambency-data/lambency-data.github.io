@@ -312,6 +312,16 @@ h2 em{font-style:italic;color:var(--amber-hi)}
   margin-top:34px;font-size:14px;line-height:1.9;color:var(--ink-faint);max-width:76ch;
 }
 .work-more b{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:500}
+/* 🔴 2026-10-19 카프 «이런거 좀 똑바로 해놔라»(폰 스크린샷: «그   외» 자간 벌어짐 + bytemescan 링크가 브라우저 기본 파랑).
+   ① 한글 라벨에 영문용 자간(.14~.22em)이 그대로 걸려 «그 외»·«· 소개»·«함께한 곳»·«바로 메일 주세요»·역할줄·히어로 킥커가 띄엄띄엄 나왔다.
+      한글엔 자간을 안 벌린다 — 라벨 전부 0 으로(영문 span 은 그대로).
+   ② «그 외» 는 카드 안 «범위»·«스택» 과 같은 꼴(본문 글꼴·굵게·자간 0)로 맞춘다.
+   ③ 본문 링크 스타일이 없어 <a> 가 파랑·밑줄 기본값이었다 — 블로그와 같은 앰버 + 얇은 밑선. */
+html[data-lang="ko"] .work-more b{font-family:var(--kr);font-size:13.5px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--amber-hi)}
+.work-more a{color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.4);padding-bottom:1px;transition:border-color .3s}
+.work-more a:hover{border-color:var(--amber-hi)}
+html[data-lang="ko"] .kicker .t[lang="ko"],html[data-lang="ko"] .sec-label .t[lang="ko"],html[data-lang="ko"] .brandwall-label .t[lang="ko"],
+html[data-lang="ko"] .mc-lb .t[lang="ko"],html[data-lang="ko"] .work-item .role.t[lang="ko"],html[data-lang="ko"] .stat span.t[lang="ko"]{letter-spacing:0}
 
 /* ── contact ───────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,6vw,100px);align-items:start}
@@ -387,7 +397,7 @@ footer .fm svg{width:18px;height:18px;opacity:.8}
         헤더는 좁은 화면에서만 흐름(static)으로 돌린다 — fixed 인 채로 세로로 쌓으면 본문을 덮는다. */
   html{overflow-x:clip}
   body{overflow-x:clip}
-  .orb{right:-18vw;max-width:70vw}
+  .orb{right:0;max-width:62vw}   /* 2026-10-19: -18vw 는 문서 폭을 390→462 로 늘렸다(스크롤은 clip 이 막지만 full-page 캡처·일부 브라우저 뷰포트 계산이 흔들린다) → 화면 안으로 */
   header{position:static;flex-direction:column;align-items:flex-start;gap:10px;
     padding:14px 20px 12px;background:rgba(13,11,8,.96)}
   .hnav{width:100%;flex-direction:column;align-items:flex-start;gap:9px}
