@@ -272,3 +272,7 @@ html[lang="ko"] nav a,html[lang="ko"] .kicker,html[lang="ko"] .masthead .kicker,
 html[lang="ko"] .note h3,html[lang="ko"] .method h3,html[lang="ko"] .related .lb,html[lang="ko"] .next .lb,html[lang="ko"] .subscribe .lb,
 html[lang="ko"] .cta a,html[lang="ko"] .tag,html[lang="ko"] .post .more,html[lang="ko"] .soon .st,html[lang="ko"] .subscribe button,
 html[lang="ko"] .cadence,html[lang="ko"] .h1sub,html[lang="ko"] footer p,html[lang="ko"] .rsub,html[lang="ko"] .rtit{letter-spacing:0}
+/* 🔴 2026-10-19 둘째 원인 — 자간을 0 으로 해도 «매주  한  편» 이 벌어져 보였다. 띄어쓰기 칸이 고정폭 글꼴(IBM Plex Mono) 것이라
+   0.6em 으로 한글 글꼴 띄어쓰기(약 0.25em)의 두 배다. 고정폭 글꼴로 쓰는 한글 라벨은 띄어쓰기를 0.3em 줄여 한글 폭에 맞춘다(영문판 그대로). */
+html[lang="ko"] :is(nav a,.kicker,.meta,th,.note h3,.method h3,.related .lb,.next .lb,.subscribe .lb,.cta a,.tag,.soon .st,.cadence,.h1sub,footer p,.rsub,.figcap,.fig .figcap,.eyebrow2){word-spacing:-.3em}
+html[lang="ko"] :is(.figcap,.fig .figcap){letter-spacing:0}

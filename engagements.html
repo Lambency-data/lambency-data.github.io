@@ -97,6 +97,7 @@ html[data-lang="ko"] .fig span{font-family:var(--kr);letter-spacing:0}
 /* 2026-10-19 한글 라벨 자간 0 (홈과 같은 규칙, 카프 «다른 페이지들도 똑같이») */
 html[data-lang="ko"] .sec-label .t[lang="ko"],html[data-lang="ko"] .offer .code .t[lang="ko"],html[data-lang="ko"] .tier .tl .t[lang="ko"],
 html[data-lang="ko"] .cta a .t[lang="ko"],html[data-lang="ko"] .langtoggle{letter-spacing:0}
+html[data-lang="ko"] :is(.sec-label i.t,.offer .code .t,.tier .tl .t,.cta a .t)[lang="ko"]{word-spacing:-.3em}   /* 고정폭 글꼴 띄어쓰기 0.6em → 한글 폭(2026-10-19) */
 .diff{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:16.5px;color:var(--ink);border-left:1px solid var(--amber);padding-left:18px}
 html[data-lang="ko"] .diff{font-family:var(--kr);font-style:normal}
 .note{margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--ink-faint);line-height:1.9;max-width:82ch}
