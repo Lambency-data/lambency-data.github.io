@@ -74,7 +74,7 @@ main > section:nth-of-type(even) + section{padding-top:88px !important}
 .hero h1{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:clamp(40px,7vw,84px);line-height:1.12;margin-top:18px;text-wrap:balance;color:var(--ink)}
 .hero h1 .hl{background:linear-gradient(transparent 62%, var(--lime) 62%);padding:0 4px}
 .hero p.sub{font-size:clamp(18px,2.2vw,24px);line-height:1.55;color:var(--ink2);margin-top:22px;max-width:34em}
-.hero p.sub b{color:var(--green-ink)}
+.hero p.sub b{color:var(--green-ink);white-space:nowrap}   /* «4.9만 / 원» 으로 갈라지지 않게(2026-10-19) */
 .hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
 .stats > div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:var(--shadow)}
@@ -490,6 +490,22 @@ footer img{width:108px;height:18px;object-fit:contain}
 .more-sub{color:var(--ink2);font-size:16px;margin-top:8px}
 .more-list{display:flex;flex-direction:column;gap:12px;margin-top:22px}
 .more-list .fold{scroll-margin-top:72px}
+
+/* 2026-10-19 카프 «폰에서 경고 상자도 첫 화면에 보이게 해» — 글은 그대로, 여백 · 글자 크기만 줄여 제목 → 설명 → 영상 → 버튼 → 경고 상자를
+   아이폰 사파리 첫 화면(390×664 · 375×635)에 넣는다. 스타일 맨 끝에 둬 위쪽 폰 규칙에 덮이지 않게. 버튼은 44px 이상 유지 */
+@media (max-width:640px){
+  .hero{padding-block:14px 28px}
+  .hero .eyebrow{font-size:12.5px;padding:4px 10px}
+  .hero .hero-text h1{font-size:34px;margin-top:8px;line-height:1.12}
+  .hero .hero-text .sub{font-size:16px;margin-top:8px;line-height:1.5}
+  .hero .hero-vid{margin-top:12px}
+  .hero .hero-text .ctas{margin-top:12px}
+  .hero .hero-text .ctas .btn{padding:11px 12px;font-size:15.5px}
+  .hero .hero-text .warn{margin-top:12px;padding:10px 12px;gap:3px 10px}
+  .hero .warn .wl{font-size:13px;padding:3px 7px}
+  .hero .warn p{font-size:16px;line-height:1.3}
+  .hero .warn small{font-size:12px;line-height:1.35}
+}
 </style>
 </head>
 <body>
