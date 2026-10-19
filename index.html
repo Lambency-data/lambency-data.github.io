@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-lang="en">
+<html lang="ko" data-lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lambency — Data &amp; AI Consulting</title>
-<meta name="description" content="Lambency is a one-person data & AI consultancy in Seoul. Growth and CRM analytics, experiment design, LLM agents in production, warehouse-first data infrastructure. Measured numbers only.">
+<title>Lambency | 데이터 컨설팅 · Data Consulting, Seoul</title>
+<meta name="description" content="Lambency는 서울의 데이터 컨설팅입니다. 흩어진 고객 데이터를 쓸 수 있게 정리하고, CRM 분석, 실험 설계와 성과 측정, 데이터 인프라, AI 에이전트로 무엇을 할지 정해 드립니다.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <!-- Open Graph / 링크 공유 미리보기 -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lambency">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/">
-<meta property="og:title" content="Lambency — Data & AI Consulting">
-<meta property="og:description" content="A one-person data and AI consultancy in Seoul. Growth and CRM analytics, experiment design, and LLM agents that run in production. Every number is traced to its source.">
+<meta property="og:title" content="Lambency | 데이터 컨설팅 · Data Consulting, Seoul">
+<meta property="og:description" content="Lambency는 서울의 데이터 컨설팅입니다. 흩어진 고객 데이터를 쓸 수 있게 정리하고, CRM 분석, 실험 설계와 성과 측정, 데이터 인프라, AI 에이전트로 무엇을 할지 정해 드립니다.">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lambency — Data & AI Consulting">
-<meta property="twitter:description" content="A one-person data and AI consultancy in Seoul. Growth and CRM analytics, experiment design, and LLM agents that run in production. Every number is traced to its source.">
+<meta name="twitter:title" content="Lambency | 데이터 컨설팅 · Data Consulting, Seoul">
+<meta property="twitter:description" content="Lambency는 서울의 데이터 컨설팅입니다. 흩어진 고객 데이터를 쓸 수 있게 정리하고, CRM 분석, 실험 설계와 성과 측정, 데이터 인프라, AI 에이전트로 무엇을 할지 정해 드립니다.">
 <meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
 <link rel="canonical" href="https://lambency-data.github.io/">
 
@@ -515,6 +515,46 @@ html[data-lang="ko"] blockquote{
   word-break: keep-all;
   overflow-wrap: break-word;   /* 한 어절이 폭보다 길면 그때만 강제로 끊는다 */
 }
+
+/* ── 2026-10-19 메인 개편 (카프 «말이 너무 많아. 그냥 데이터 컨설팅인거로 해서 나가면») ──
+   정의(lam·ben·cy)·모토·라틴어 섹션명·진행 방식·원칙·긴 소개·경력 목록·브랜드월을 뺐다.
+   남긴 것: 한 줄(데이터 컨설팅) → 숫자 넷 → 하는 일 넷 → 사례 여섯 → 문의. 문의 버튼은 폰 첫 화면 안. */
+.hero2 h1{font-size:clamp(52px,9vw,120px);line-height:1.05}
+html[data-lang="ko"] .hero2 h1 .t[lang="ko"]{font-weight:600;letter-spacing:-.02em}
+.hero-sub{margin-top:28px;max-width:640px;font-size:clamp(18px,2.1vw,22px);line-height:1.7;color:var(--ink-dim)}
+.hero-cta{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:100px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-decoration:none;transition:background .3s,color .3s,border-color .3s}
+.btn-main{background:var(--amber);color:#1a1408;font-weight:500}
+.btn-main:hover{background:var(--amber-hi)}
+.btn-ghost{border:1px solid rgba(232,180,88,.45);color:var(--amber-hi)}
+.btn-ghost:hover{border-color:var(--amber-hi)}
+html[data-lang="ko"] .btn .t[lang="ko"]{font-size:15px;font-weight:600;letter-spacing:0}
+.svc-row > p{grid-column:3}
+.more-link{margin-top:40px}
+.more-link a{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.4);padding-bottom:3px}
+html[data-lang="ko"] .more-link .t[lang="ko"]{font-size:15px;letter-spacing:0}
+.cases{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.case{border:1px solid var(--hairline-dim);border-radius:4px;padding:clamp(24px,3vw,34px);
+  background:linear-gradient(160deg,rgba(232,180,88,.03),transparent 40%);transition:border-color .4s}
+.case:hover{border-color:rgba(232,180,88,.35)}
+.case .ck{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+html[data-lang="ko"] .case .ck.t[lang="ko"]{font-size:13px;letter-spacing:0;font-weight:500}
+.case h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.3vw,26px);line-height:1.35;margin-bottom:10px;color:var(--ink)}
+html[data-lang="ko"] .case h3.t[lang="ko"]{font-weight:600;font-size:clamp(19px,2.1vw,23px)}
+.case p:not(.ck){color:var(--ink-dim);font-size:15px;line-height:1.85}
+.case a{color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.4)}
+.cases + .creed-quote{margin-top:56px}
+html[data-lang="ko"] .sec-label .t[lang="ko"]{font-size:15px;font-weight:500;color:var(--amber)}
+.contact2{max-width:760px}
+.contact2 .lead{font-size:17px;color:var(--ink-dim);margin-bottom:26px}
+.contact2 .who{margin-top:34px;font-size:14.5px;line-height:1.85;color:var(--ink-faint)}
+@media (max-width:820px){
+  .hero2{min-height:auto;padding-top:44px;padding-bottom:60px}
+  .hero2 .orb{top:38%}
+  .cases{grid-template-columns:1fr}
+  .svc-row > p{grid-column:auto}
+}
 </style>
 <meta name="keywords" content="데이터 컨설팅, 데이터 분석, 그로스 애널리틱스, CRM 분석, 고객 데이터 분석, 실험 설계, A/B 테스트, 인과추론, 증분 측정, 마케팅 성과 측정, RFM 분석, LTV 예측, 리텐션 분석, 고객 세그먼테이션, 데이터 인프라, CDP, 데이터 파이프라인, LLM 에이전트, 응용 AI, AI 컨설팅, data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP 구축, 고객 데이터 플랫폼, 데이터 클렌징, 데이터 정제, 데이터 전처리, 데이터 통합, 데이터 품질, 고객 데이터 통합, 데이터 웨어하우스, ETL 파이프라인, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
@@ -752,9 +792,7 @@ html[data-lang="ko"] blockquote{
   </a>
   <div class="hnav">
     <nav>
-      <a href="#about"><span class="t" lang="en">About</span><span class="t" lang="ko">소개</span></a>
-      <a href="#practice"><span class="t" lang="en">Practice</span><span class="t" lang="ko">분야</span></a>
-      <a href="#method"><span class="t" lang="en">Method</span><span class="t" lang="ko">방식</span></a>
+      <a href="#practice"><span class="t" lang="en">What we do</span><span class="t" lang="ko">하는 일</span></a>
       <a href="engagements.html"><span class="t" lang="en">Engagements</span><span class="t" lang="ko">서비스</span></a>
       <a href="#work"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></a>
       <a class="nav-insights" href="blog/index.html" title="매주 한 편 · 공개 데이터로 본 업종별 손익"><span class="dot"></span><span class="t" lang="en">Insights (DeepCaffein)</span><span class="t" lang="ko">인사이트 (DeepCaffein)</span></a>
@@ -768,24 +806,18 @@ html[data-lang="ko"] blockquote{
 
 <main id="top">
 
-  <!-- ═══ HERO ═══ -->
-  <section class="hero" style="padding-top:0;padding-bottom:0">
+  <!-- ═══ HERO (2026-10-19 카프 «말이 너무 많아. 그냥 데이터 컨설팅인거로») ═══ -->
+  <section class="hero hero2">
     <div class="orb" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="kicker rise d1"><span class="t" lang="en">Data &amp; AI Consulting · Seoul</span><span class="t" lang="ko">데이터·AI 컨설팅 · 서울</span></p>
-      <h1 class="rise d2">Lamben<em>cy</em></h1>
-      <div class="dict rise d3">
-        <p class="entry"><span class="word">lam·ben·cy</span><em class="pos">n.</em><span class="t" lang="en">— light that grazes a surface without burning it, and in passing, reveals its shape.</span><span class="t" lang="ko">— 태우지 않고 스치는 빛. 닿는 자리마다 형태가 드러난다.</span></p>
-        <p class="gloss"><span class="t" lang="en">Analysis should work the same way.</span><span class="t" lang="ko">분석도 그래야 합니다.</span></p>
-      </div>
-      <p class="motto rise d3" lang="la">Vires acquirit eundo</p>
-      <div class="meta rise d4">
-        <div><b><span class="t" lang="en">Principal</span><span class="t" lang="ko">대표</span></b>Caffrey Lee</div>
-        <div><b><span class="t" lang="en">Practice</span><span class="t" lang="ko">분야</span></b><span class="t" lang="en">Growth · Experiments · Applied AI</span><span class="t" lang="ko">그로스 · 실험설계 · 응용 AI</span></div>
-        <div><b><span class="t" lang="en">Base</span><span class="t" lang="ko">거점</span></b><span class="t" lang="en">Seoul, KR</span><span class="t" lang="ko">서울</span></div>
+      <p class="kicker rise d1"><span class="t" lang="en">Lambency · Seoul</span><span class="t" lang="ko">Lambency · 서울</span></p>
+      <h1 class="rise d2"><span class="t" lang="en">Data consulting</span><span class="t" lang="ko">데이터 컨설팅</span></h1>
+      <p class="hero-sub rise d3"><span class="t" lang="en">We make scattered data usable, then use it to decide what to do next.</span><span class="t" lang="ko">흩어진 데이터를 쓸 수 있게 정리하고, 그 데이터로 무엇을 할지 정해 드립니다.</span></p>
+      <div class="hero-cta rise d4">
+        <a class="btn btn-main" href="mailto:caffrey.w.lee@gmail.com"><span class="t" lang="en">Get in touch</span><span class="t" lang="ko">문의하기</span></a>
+        <a class="btn btn-ghost" href="#work"><span class="t" lang="en">See the work</span><span class="t" lang="ko">사례 보기</span></a>
       </div>
     </div>
-    <div class="scroll-cue" aria-hidden="true">SCROLL</div>
   </section>
 
   <!-- ═══ STATS ═══ -->
@@ -798,260 +830,108 @@ html[data-lang="ko"] blockquote{
     </div>
   </section>
 
-  <!-- ═══ ABOUT ═══ -->
-  <section id="about">
-    <div class="wrap">
-      <p class="sec-label reveal">01 — De Me <i><span class="t" lang="en">· About</span><span class="t" lang="ko">· 소개</span></i></p>
-      <div class="about-grid">
-        <div class="reveal">
-          <h2 class="t" lang="en">The deliverable is not a deck.<br><em>It runs.</em></h2>
-          <h2 class="t" lang="ko">보고서는 서랍으로,<br><em>시스템은 현장으로.</em></h2>
-          <p class="t" lang="en">A question changes a little every time it changes hands. The one who hears the problem, the one who writes the query, the one who builds the model, the one who explains it — by the fourth pair of hands, the answer often no longer fits the question. <strong>At Lambency, those four people are one person.</strong> The one who hears your problem writes the SQL, fits the model, ships the dashboard — and stands behind the number when it counts.</p>
-          <p class="t" lang="ko">질문은 손을 탈 때마다 조금씩 다른 질문이 됩니다. 문제를 들은 사람, 쿼리를 짜는 사람, 모델을 만드는 사람, 그걸 설명하는 사람 — 네 번째 손에 닿을 즈음이면, 답은 처음의 질문과 어긋나 있기 일쑤입니다. <strong>Lambency에서는 그 네 사람이 한 사람입니다.</strong> 문제를 들은 사람이 직접 SQL을 짜고, 모델을 세우고, 대시보드를 넘깁니다. 그리고 그 숫자가 시험대에 오르는 순간까지 책임집니다.</p>
-          <p class="t" lang="en">Numbers carry different weights. Some, when wrong, make a dashboard look slightly off; others move a P&amp;L, a city policy — sometimes a patient. <strong>The last ten years were spent with the second kind.</strong> Hospital operations data in Silicon Valley, COVID-era clinical studies and a cyclist-injury prediction model for the City Council in New York, 1.95M retail customers in Seoul, a Kyoto short-stay portfolio grown from 5 homes to 17. These days, LLM agents go into production pipelines, not demos. And two foundings left one conviction: an analysis that cannot answer <em>so what do we do</em> might as well not exist. So every engagement starts from the decision, and works backward.</p>
-          <p class="t" lang="ko">숫자에도 무게가 있습니다. 틀려도 대시보드가 조금 어색해지고 마는 숫자가 있고, 틀리면 손익이, 도시의 정책이 — 때로는 환자가 흔들리는 숫자가 있습니다. <strong>지난 10년은 후자의 자리에서 보냈습니다.</strong> 실리콘밸리의 병원 운영 데이터, 뉴욕의 COVID 임상연구와 시의회가 쓴 자전거 사고 예측 모델, 서울의 고객 195만 리테일, 그리고 5채에서 17채가 된 교토의 숙박 자산까지. 지금은 LLM 에이전트를 데모가 아니라 실제 파이프라인에 넣습니다. 그리고 두 번의 창업이 남긴 결론은 하나입니다. <em>그래서 뭘 해야 하나</em>에 답하지 못하는 분석은, 없는 것과 같습니다. 그래서 모든 일을 내려야 할 결정에서 거꾸로 시작합니다.</p>
-          <p class="t" lang="en">Measured numbers only. Where the data can't answer, you'll hear <em>I don't know</em> — along with what it would take to find out. <strong>An analysis that can admit what it doesn't know is the only kind worth trusting when it says it does.</strong></p>
-          <p class="t" lang="ko">실측한 숫자만 씁니다. 데이터가 답을 못 하는 자리에서는 <em>모른다</em>고 말씀드립니다 — 무엇을 확보하면 알 수 있는지까지 함께. <strong>모른다고 말할 수 있어야, 안다는 말도 믿을 수 있기 때문입니다.</strong></p>
-        </div>
-        <ul class="cred reveal">
-          <li class="t" lang="en"><b>Lambency</b>Founder &amp; Principal Consultant<span>present</span></li>
-          <li class="t" lang="ko"><b>Lambency</b>창업자 · 대표 컨설턴트<span>현재</span></li>
-          <li class="t" lang="en"><b>Vircle — Seoul</b>Data-hub lead · 1.95M customers, 256 brands<span>2024 — 2026</span></li>
-          <li class="t" lang="ko"><b>Vircle — 서울</b>데이터 허브 리드 · 고객 195만 · 브랜드 256<span>2024 — 2026</span></li>
-          <li class="t" lang="en"><b>Kyoto Family Office — Japan</b>Hospitality asset consultant · site selection to dynamic pricing · 5 → 17 homes<span>2023 — 2024</span></li>
-          <li class="t" lang="ko"><b>교토 패밀리 오피스 — 일본</b>숙박 자산 컨설턴트 · 입지 발굴부터 다이내믹 프라이싱까지 · 5 → 17채<span>2023 — 2024</span></li>
-          <li class="t" lang="en"><b>StudyPeak — Seoul</b>Adaptive-learning algorithms, education AI<span>2023 — 2024</span></li>
-          <li class="t" lang="ko"><b>StudyPeak — 서울</b>교육 AI · 적응형 학습 알고리즘 개발<span>2023 — 2024</span></li>
-          <li class="t" lang="en"><b>LeanTaaS — Silicon Valley</b>Sr. Data Analyst, healthcare operations AI<span>2020 — 2023</span></li>
-          <li class="t" lang="ko"><b>LeanTaaS — 실리콘밸리</b>시니어 데이터 애널리스트 · 헬스케어 운영 AI<span>2020 — 2023</span></li>
-          <li class="t" lang="en"><b>Richmond University Medical Center — New York</b>Statistical consultant, COVID-era clinical studies<span>2020 — 2021</span></li>
-          <li class="t" lang="ko"><b>리치몬드 대학교 메디컬 센터 — 뉴욕</b>통계 컨설턴트 · COVID 임상연구<span>2020 — 2021</span></li>
-          <li class="t" lang="en"><b>Open source</b>CRAN author — getDTeval (top-50), formulaic<span>R · research</span></li>
-          <li class="t" lang="ko"><b>오픈소스</b>CRAN 저자 — getDTeval (top-50), formulaic<span>R · 연구</span></li>
-          <li class="t" lang="en"><b>New York City Council · Vision Zero</b>Cyclist KSI-intersection prediction model, folded into road-safety policy<span>2020</span></li>
-          <li class="t" lang="ko"><b>뉴욕시의회 · Vision Zero</b>자전거 중상해 교차로 예측 모델 · 도로안전 정책 반영<span>2020</span></li>
-          <li class="t" lang="en"><b>Columbia University</b>M.S.<span>New York</span></li>
-          <li class="t" lang="ko"><b>컬럼비아 대학교</b>석사 (M.S.)<span>뉴욕</span></li>
-          <li class="t" lang="en"><b>University of Washington</b>B.S., Honors<span>Seattle</span></li>
-          <li class="t" lang="ko"><b>워싱턴 대학교</b>학사 (B.S.) · Honors<span>시애틀</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PRACTICE ═══ -->
+  <!-- ═══ WHAT WE DO ═══ -->
   <section id="practice">
     <div class="wrap">
-      <p class="sec-label reveal">02 — Opera <i><span class="t" lang="en">· Practice</span><span class="t" lang="ko">· 분야</span></i></p>
+      <p class="sec-label reveal"><span class="t" lang="en">What we do</span><span class="t" lang="ko">하는 일</span></p>
       <div class="svc reveal">
         <div class="svc-row">
-          <span class="no">P.01</span>
-          <h3><span class="t" lang="en">Growth &amp; CRM Analytics</span><span class="t" lang="ko">그로스 · CRM 분석</span></h3>
-          <div>
-            <p class="t" lang="en">Scattered customer data, joined until you can see where revenue actually comes from. RFM, behavioral segments, cohort LTV. LTV never arrives as a single number — a point estimate looks precise and can't be planned against. You get a range, with the uncertainty attached.</p>
-            <p class="t" lang="ko">흩어져 있는 고객 데이터를 하나로 붙여, 매출이 어디서 나오는지 보이게 만듭니다. RFM, 행동 세그먼트, 코호트 LTV까지. LTV는 “1인당 37만원”처럼 숫자 하나로 딱 잘라 드리지 않습니다. 정밀해 보이지만 그 숫자로는 계획을 못 세웁니다. 대신 오차를 붙인 범위로 드립니다.</p>
-            <div class="tags"><i>RFM</i><i>Cohort LTV</i><i>Segmentation</i><i>Retention</i></div>
-          </div>
+          <span class="no">01</span>
+          <h3><span class="t" lang="en">Customer data &amp; CRM analytics</span><span class="t" lang="ko">고객 데이터 · CRM 분석</span></h3>
+          <p class="t" lang="en">Scattered customer records joined into one person each, so you can see where revenue comes from. RFM, segments, cohort LTV.</p>
+          <p class="t" lang="ko">흩어진 고객 데이터를 한 사람 단위로 묶고, 매출이 어디서 나오는지 보이게 합니다. RFM, 세그먼트, 코호트 LTV.</p>
         </div>
         <div class="svc-row">
-          <span class="no">P.02</span>
-          <h3><span class="t" lang="en">Experiment Design &amp; Causal Inference</span><span class="t" lang="ko">실험설계 · 인과추론</span></h3>
-          <div>
-            <p class="t" lang="en">"Did that actually work?" — answered with statistics, not enthusiasm. Power calculated before launch, empirical-Bayes shrinkage when segments thin out, holdouts kept clean, and quasi-experimental designs when randomizing isn't on the table.</p>
-            <p class="t" lang="ko">“그래서 그게 효과가 있긴 했나요?” 이 질문에 느낌이 아니라 숫자로 답할 수 있게 만듭니다. 시작 전에 검정력부터 계산하고, 세그먼트가 얇아지면 empirical Bayes로 눌러주고, 홀드아웃이 오염되지 않게 지킵니다. 무작위 배정이 불가능한 상황이면 준실험으로 설계합니다.</p>
-            <div class="tags"><i>Power Analysis</i><i>Holdout</i><i>Empirical Bayes</i><i>Causal Inference</i></div>
-          </div>
+          <span class="no">02</span>
+          <h3><span class="t" lang="en">Experiments &amp; measurement</span><span class="t" lang="ko">실험 설계 · 성과 측정</span></h3>
+          <p class="t" lang="en">Whether ads and promotions actually drove revenue, measured against a control group, with the statistics to back it.</p>
+          <p class="t" lang="ko">광고와 프로모션이 매출을 실제로 만들었는지 대조군과 통계로 잽니다.</p>
         </div>
         <div class="svc-row">
-          <span class="no">P.03</span>
-          <h3><span class="t" lang="en">Applied AI &amp; LLM Agents</span><span class="t" lang="ko">응용 AI · LLM 에이전트</span></h3>
-          <div>
-            <p class="t" lang="en">Agents wired into the pipelines you already run, drafting the first pass of analysis so your team starts from a draft instead of a blank page. Shipped with an evaluation harness — "we tried it and it seemed fine" is not QA.</p>
-            <p class="t" lang="ko">이미 돌아가고 있는 파이프라인에 에이전트를 붙여 분석 초안을 뽑게 합니다. 팀이 빈 화면이 아니라 초안에서 시작하게 하는 게 목적입니다. 넘길 때는 평가 하네스를 같이 드립니다. “돌려보니 잘 되던데요”는 검증이 아니니까요.</p>
-            <div class="tags"><i>LLM Pipelines</i><i>Agents</i><i>Evals</i><i>RAG</i><i><a href="https://github.com/caffreywlee-decaff/bytemescan" rel="noopener" target="_blank" title="bytemescan — open-source MCP (GitHub)">MCP · bytemescan ↗</a></i></div>
-          </div>
+          <span class="no">03</span>
+          <h3><span class="t" lang="en">Data infrastructure</span><span class="t" lang="ko">데이터 인프라</span></h3>
+          <p class="t" lang="en">One warehouse, metrics defined once. No more two dashboards showing two revenue figures in the same meeting.</p>
+          <p class="t" lang="ko">데이터를 한 곳에 모으고 지표를 한 번만 정의합니다. 회의마다 매출 숫자가 달라지는 일이 없어집니다.</p>
         </div>
         <div class="svc-row">
-          <span class="no">P.04</span>
-          <h3><span class="t" lang="en">Data Infrastructure &amp; CDP</span><span class="t" lang="ko">데이터 인프라 · CDP</span></h3>
-          <div>
-            <p class="t" lang="en">The unglamorous layer everything above sits on. One warehouse, versioned transformations, metrics defined once and reused everywhere — so two dashboards never show different revenue in the same meeting again.</p>
-            <p class="t" lang="ko">눈에 잘 안 띄지만 위의 세 가지가 전부 여기에 얹힙니다. 데이터를 한 곳에 모으고, 변환 로직은 버전으로 관리하고, 지표는 한 번만 정의해 어디서든 같은 걸 쓰게 합니다. 회의에서 두 대시보드가 서로 다른 매출을 띄우는 일이 없어집니다.</p>
-            <div class="tags"><i>BigQuery</i><i>CDP</i><i>Metrics Layer</i><i>Pipelines</i></div>
-          </div>
+          <span class="no">04</span>
+          <h3><span class="t" lang="en">AI agents</span><span class="t" lang="ko">AI 에이전트</span></h3>
+          <p class="t" lang="en">LLM agents wired into the pipelines you already run, handed over with the tests that show they work.</p>
+          <p class="t" lang="ko">지금 쓰는 데이터 흐름에 LLM 에이전트를 붙이고, 잘 되는지 재는 기준까지 같이 넘깁니다.</p>
         </div>
       </div>
-      <p class="reveal" style="margin-top:44px;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase"><a href="engagements.html" style="color:var(--amber-hi);text-decoration:none;border-bottom:1px solid rgba(232,180,88,.4);padding-bottom:3px"><span class="t" lang="en">Engagements in detail →</span><span class="t" lang="ko">서비스 자세히 보기 →</span></a></p>
-    </div>
-  </section>
-
-  <!-- ═══ METHOD ═══ -->
-  <section id="method">
-    <div class="wrap">
-      <p class="sec-label reveal">03 — Modus <i><span class="t" lang="en">· A Typical Engagement</span><span class="t" lang="ko">· 진행 방식</span></i></p>
-      <div class="svc reveal">
-        <div class="svc-row">
-          <span class="no">Ph.I</span>
-          <h3><span class="t" lang="en">Diagnose</span><span class="t" lang="ko">진단</span><span class="wk"><span class="t" lang="en">Weeks 1–2</span><span class="t" lang="ko">1–2주차</span></span></h3>
-          <div>
-            <p class="t" lang="en">First, name the decision. Then audit the data that is supposed to support it. What can and cannot be answered at your current data quality is stated at the start, not at the end. The deliverable is a measurement plan, not a proposal deck.</p>
-            <p class="t" lang="ko">먼저 무슨 결정을 내려야 하는지부터 정합니다. 그다음 그 결정을 뒷받침한다는 데이터를 열어봅니다. 지금 상태로 답할 수 있는 것과 없는 것은 끝이 아니라 시작할 때 말씀드립니다. 나오는 건 제안서가 아니라 측정 계획입니다.</p>
-          </div>
-        </div>
-        <div class="svc-row">
-          <span class="no">Ph.II</span>
-          <h3><span class="t" lang="en">Build</span><span class="t" lang="ko">구축</span><span class="wk"><span class="t" lang="en">Weeks 3–8</span><span class="t" lang="ko">3–8주차</span></span></h3>
-          <div>
-            <p class="t" lang="en">Pipelines, models and experiments land in your repositories from the first week. Metrics are versioned, assumptions are written down, and estimates carry their intervals.</p>
-            <p class="t" lang="ko">파이프라인·모델·실험은 첫 주부터 고객사 저장소에 커밋합니다. 지표는 버전으로 관리하고, 가정은 빠짐없이 적어두고, 추정치에는 신뢰구간을 답니다.</p>
-          </div>
-        </div>
-        <div class="svc-row">
-          <span class="no">Ph.III</span>
-          <h3><span class="t" lang="en">Transfer</span><span class="t" lang="ko">이관</span><span class="wk"><span class="t" lang="en">Week 9 onward</span><span class="t" lang="ko">9주차부터</span></span></h3>
-          <div>
-            <p class="t" lang="en">We operate it together, then I hand it over: documentation, runbooks, and a team that can run it without me. Becoming unnecessary is part of the engagement, by design.</p>
-            <p class="t" lang="ko">한동안 같이 굴려본 다음 넘깁니다. 문서와 런북, 그리고 저 없이도 돌릴 수 있는 팀까지. 제가 없어도 돌아가게 만드는 것까지가 이 일의 결과물입니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PRINCIPLES ═══ -->
-  <section class="principles">
-    <div class="wrap">
-      <p class="sec-label reveal">04 — Principia <i><span class="t" lang="en">· How I Work</span><span class="t" lang="ko">· 일하는 방식</span></i></p>
-      <div class="pr-grid">
-        <article class="reveal">
-          <span class="pr-num">I.</span>
-          <h3 class="t" lang="en">Numbers carry provenance.</h3>
-          <h3 class="t" lang="ko">숫자에는 출처가 있다.</h3>
-          <p class="t" lang="en"><span class="tf">∴ </span>Every number ships with where it came from and when. If it can't be traced back, it doesn't ship — no matter how good it looks.</p>
-          <p class="t" lang="ko"><span class="tf">∴ </span>모든 숫자에는 출처와 날짜가 붙습니다. 어디서 나온 건지 되짚을 수 없는 숫자는, 아무리 좋아 보여도 내보내지 않습니다.</p>
-        </article>
-        <article class="reveal">
-          <span class="pr-num">II.</span>
-          <h3 class="t" lang="en">Uncertainty is part of the result.</h3>
-          <h3 class="t" lang="ko">불확실성도 결과의 일부다.</h3>
-          <p class="t" lang="en"><span class="tf">∴ </span>You hear the limits before the findings. "I don't know" is a legitimate answer — and it comes with what it would cost to find out.</p>
-          <p class="t" lang="ko"><span class="tf">∴ </span>결론보다 한계를 먼저 말씀드립니다. “모른다”도 답입니다. 다만 거기서 끝내지 않고, 알아내려면 무엇이 얼마나 필요한지까지 붙여서 드립니다.</p>
-        </article>
-        <article class="reveal">
-          <span class="pr-num">III.</span>
-          <h3 class="t" lang="en">What remains is running code.</h3>
-          <h3 class="t" lang="ko">남는 것은 돌아가는 코드다.</h3>
-          <p class="t" lang="en"><span class="tf">∴ </span>Recommendations arrive as code that runs, not slides that don't. The engagement ends; the pipelines, models and documentation stay with your team.</p>
-          <p class="t" lang="ko"><span class="tf">∴ </span>조언은 문서가 아니라 돌아가는 코드로 넘깁니다. 프로젝트가 끝나도 파이프라인·모델·문서는 그대로 남습니다. 전부 그쪽 자산입니다.</p>
-        </article>
-      </div>
-      <blockquote class="creed-quote reveal">
-        <p class="t" lang="en">Our team's data literacy has gone up.</p>
-        <p class="t" lang="ko">우리 팀의 데이터 리터러시가 확 올라갔어요.</p>
-        <cite class="t" lang="en">— a CRM client, a year into the engagement. Still the review that means the most.</cite>
-        <cite class="t" lang="ko">— 어느 CRM 클라이언트, 프로젝트 1년 차. 지금까지 들은 말 중에 제일 좋았습니다.</cite>
-      </blockquote>
+      <p class="more-link reveal"><a href="engagements.html"><span class="t" lang="en">Services and pricing →</span><span class="t" lang="ko">서비스와 비용 자세히 보기 →</span></a></p>
     </div>
   </section>
 
   <!-- ═══ WORK ═══ -->
   <section id="work">
     <div class="wrap">
-      <p class="sec-label reveal">05 — Acta <i><span class="t" lang="en">· Selected Work</span><span class="t" lang="ko">· 주요 사례</span></i></p>
-      <!-- ⚠ 브랜드 실명 노출은 2026-07-12 사용자 결정 — 계약상 문제 시 업종 표기로 롤백 -->
-      <div class="reveal">
-        <p class="brandwall-label"><span class="t" lang="en">Experience includes</span><span class="t" lang="ko">함께한 곳</span></p>
-        <div class="brandwall" aria-label="Organisations worked with — client engagements and research collaborations">
-          <span>GLOBAL EYEWEAR<i>KR · US · JP · AU</i></span>
-          <span>VIRCLE<i>retail CDP · KR</i></span>
-          <span>LIFESTYLE ACCESSORIES</span>
-          <span>KYOTO FAMILY OFFICE<i>hospitality · JP</i></span>
-          <span>NEW YORK CITY COUNCIL<i>research · Vision Zero</i></span>
-          <span>RICHMOND UNIVERSITY MEDICAL CENTER<i>research · clinical</i></span>
+      <p class="sec-label reveal"><span class="t" lang="en">Work</span><span class="t" lang="ko">사례</span></p>
+      <div class="cases">
+        <div class="case reveal">
+          <p class="ck t" lang="en">Global eyewear brand · CRM</p><p class="ck t" lang="ko">글로벌 아이웨어 브랜드 · CRM</p>
+          <h3 class="t" lang="en">CRM across four markets</h3><h3 class="t" lang="ko">4개국 CRM 모델</h3>
+          <p class="t" lang="en">Rebuilt from instrumentation to modeling across Korea, the U.S., Japan and Australia. Extended to sister brands and renewed every quarter for over a year.</p>
+          <p class="t" lang="ko">한국·미국·일본·호주의 계측부터 모델까지 다시 만들었습니다. 그룹 자매 브랜드로 확장됐고, 1년 넘게 분기마다 갱신됐습니다.</p>
+        </div>
+        <div class="case reveal">
+          <p class="ck t" lang="en">Retail data platform · Data hub</p><p class="ck t" lang="ko">리테일 데이터 플랫폼 · 데이터 허브</p>
+          <h3 class="t" lang="en">A data hub for 1.95M customers</h3><h3 class="t" lang="ko">고객 195만 명 데이터 허브</h3>
+          <p class="t" lang="en">Customer data across 256 brands joined into RFM segments, Customer360 and recommendations. Dashboards became the basis for decisions made in the meeting.</p>
+          <p class="t" lang="ko">브랜드 256개의 고객 데이터를 묶어 RFM 세그먼트, Customer360, 추천을 만들었습니다. 대시보드가 회의 중에 결정을 내리는 근거가 됐습니다.</p>
+        </div>
+        <div class="case reveal">
+          <p class="ck t" lang="en">Two D2C brands · Measurement</p><p class="ck t" lang="ko">D2C 브랜드 두 곳 · 성과 측정</p>
+          <h3 class="t" lang="en">Own-site revenue up 4.3× in six weeks</h3><h3 class="t" lang="ko">6주 만에 자사몰 매출 4.3배</h3>
+          <p class="t" lang="en">The F&amp;B brand's own-site revenue rose 4.3× in six weeks; the accessories brand hit 16.5% CTR on its first campaign. Both held up against a clean control group.</p>
+          <p class="t" lang="ko">식음료 브랜드는 6주 만에 자사몰 매출이 4.3배가 됐고, 잡화 브랜드는 첫 캠페인 CTR이 16.5%였습니다. 대조군을 따로 두고 통계로 검증했습니다.</p>
+        </div>
+        <div class="case reveal">
+          <p class="ck t" lang="en">New York City Council · Public sector</p><p class="ck t" lang="ko">뉴욕시의회 · 공공</p>
+          <h3 class="t" lang="en">Predicting cyclist-injury intersections</h3><h3 class="t" lang="ko">자전거 사고 교차로 예측</h3>
+          <p class="t" lang="en">A model of intersections where cyclists are killed or severely injured, built with Columbia University and folded into Vision Zero road-safety policy.</p>
+          <p class="t" lang="ko">자전거 사망·중상 교차로를 예측하는 모델을 컬럼비아 대학교와 함께 만들었고, Vision Zero 도로안전 정책에 반영됐습니다.</p>
+        </div>
+        <div class="case reveal">
+          <p class="ck t" lang="en">Kyoto family office · Hospitality</p><p class="ck t" lang="ko">교토 패밀리 오피스 · 숙박</p>
+          <h3 class="t" lang="en">Building the market data first</h3><h3 class="t" lang="ko">없던 시장 데이터부터 만들었습니다</h3>
+          <p class="t" lang="en">No market data existed to price against, so we built it from competitors' nightly rates and bookings, then priced every night. Over the engagement the portfolio grew from 5 homes to 17.</p>
+          <p class="t" lang="ko">기준으로 삼을 시장 데이터가 없어 경쟁 숙소의 요금과 예약을 모아 직접 만들었습니다. 그걸로 날짜별 1박 가격을 매겼고, 그동안 숙소는 5채에서 17채가 됐습니다.</p>
+        </div>
+        <div class="case reveal">
+          <p class="ck t" lang="en">Open source</p><p class="ck t" lang="ko">오픈소스</p>
+          <h3 class="t" lang="en">Tools anyone can use</h3><h3 class="t" lang="ko">누구나 쓰는 도구</h3>
+          <p class="t" lang="en">Two R packages on CRAN (getDTeval, formulaic), <a href="https://github.com/caffreywlee-decaff/bytemescan" rel="noopener" target="_blank">bytemescan</a> for checking cosmetic ad claims against the Korean MFDS registry, and the RFM calculator <a href="https://github.com/caffreywlee-decaff/lambency_rfm" rel="noopener" target="_blank">lambency_rfm</a>.</p>
+          <p class="t" lang="ko">CRAN에 올린 R 패키지 둘(getDTeval, formulaic), 화장품 광고를 식약처 명부와 맞춰 보는 <a href="https://github.com/caffreywlee-decaff/bytemescan" rel="noopener" target="_blank">bytemescan</a>, RFM 계산기 <a href="https://github.com/caffreywlee-decaff/lambency_rfm" rel="noopener" target="_blank">lambency_rfm</a>.</p>
         </div>
       </div>
-      <div class="work-item reveal">
-        <p class="role t" lang="en">Lambency Engagement</p>
-        <p class="role t" lang="ko">Lambency 프로젝트</p>
-        <h3 class="t" lang="en">Cross-Market CRM for a Global Eyewear Brand</h3>
-        <h3 class="t" lang="ko">글로벌 아이웨어 브랜드 CRM</h3>
-        <p class="t" lang="en">The metric this group's flagship brand actually needed was nowhere in its existing data. So we reframed the question together — data owners through decision-makers — and rebuilt the pipeline end to end, from instrumentation to modeling, across four markets: Korea, the U.S., Japan and Australia. It became a core CRM model and extended to the group's sister brands. The engagement was renewed every quarter for over a year.</p>
-        <p class="t" lang="ko">이 그룹의 대표 브랜드가 정작 필요한 지표를 기존 데이터로는 뽑을 수 없었습니다. 그래서 데이터 담당자부터 의사결정권자까지 함께 앉아 질문을 다시 세웠습니다. 한국·미국·일본·호주 네 시장에 걸쳐 계측부터 모델링까지 파이프라인을 처음부터 다시 만들었습니다. 핵심 CRM 모델로 자리 잡았고 그룹 자매 브랜드로 확장됐습니다. 이 프로젝트는 1년 넘게 분기마다 갱신됐습니다.</p>
-        <p class="clients t" lang="en"><b>Scope</b> — KR · US · JP · AU · multi-market lifecycle &amp; repurchase modeling</p>
-        <p class="clients t" lang="ko"><b>범위</b> — KR · US · JP · AU · 멀티마켓 라이프사이클 &amp; 재구매 모델링</p>
-      </div>
-      <div class="work-item reveal">
-        <p class="role t" lang="en">2024 — 2026 · Data Hub Lead</p>
-        <p class="role t" lang="ko">2024 — 2026 · 데이터 허브 리드</p>
-        <h3 class="t" lang="en">A Data Hub for 1.95M Customers</h3>
-        <h3 class="t" lang="ko">고객 195만 명을 위한 데이터 허브</h3>
-        <p class="t" lang="en">Ran the data hub inside a Series A customer-data platform — 1.95 million customers, 256 brands. RFM segments, collaborative filtering, Customer360, and a proprietary user–brand affinity index. LLM agents drafted the first pass of analysis. The most significant change was not technical: dashboards stopped being something reviewed before a meeting and became the basis for decisions made in it.</p>
-        <p class="t" lang="ko">고객 195만 명, 브랜드 256개가 들어오는 시리즈 A 고객 데이터 플랫폼에서 데이터 허브를 맡았습니다. RFM 세그먼트, 협업 필터링, Customer360, 그리고 사용자와 브랜드가 얼마나 맞는지 재는 지수를 직접 만들었습니다. 분석 초안은 LLM 에이전트가 뽑게 했습니다. 가장 크게 달라진 건 기술이 아니었습니다. 대시보드가 회의 전에 열어보는 자료에서, 회의 중에 결정을 내리는 근거로 바뀌었습니다.</p>
-        <p class="clients t" lang="en"><b>Stack</b> — BigQuery · Python · LLM agents · reverse ETL</p>
-        <p class="clients t" lang="ko"><b>스택</b> — BigQuery · Python · LLM 에이전트 · reverse ETL</p>
-      </div>
-      <div class="work-item reveal">
-        <p class="role t" lang="en">D2C F&amp;B · Retail · Measurement Showcase</p>
-        <p class="role t" lang="ko">D2C 식음료 · 리테일 · 측정 쇼케이스</p>
-        <h3 class="t" lang="en">The Multiple Isn't the Point</h3>
-        <h3 class="t" lang="ko">중요한 건 배수가 아니었다</h3>
-        <p class="t" lang="en">Two domestic D2C brands — one in food &amp; beverage, one in lifestyle accessories. Audiences built with RFM and clustering, then tested against both broad and purchase-based targeting. Two-proportion z-tests, bootstrap resampling, Beta-Binomial conversion models. The F&amp;B brand grew own-mall revenue 4.3× in six weeks; the accessories brand reached 16.5% CTR on its first campaign. Results of that magnitude invite the question of whether they were luck. The control group was held clean and the effect was tested against the statistics — and it survived.</p>
-        <p class="t" lang="ko">국내 D2C 브랜드 두 곳, 식음료와 라이프스타일 잡화였습니다. RFM과 클러스터링으로 오디언스를 뽑고, 광범위 타겟팅과 구매 기반 타겟팅 양쪽에 붙여 비교했습니다. 2비율 z-검정, 부트스트랩 리샘플링, Beta-Binomial 전환 모델까지 돌렸습니다. 식음료 브랜드는 6주 만에 자사몰 매출이 4.3배가 됐고, 잡화 브랜드는 첫 캠페인에서 CTR 16.5%가 나왔습니다. 이 정도 배수가 나오면 보통 운이 좋았나 싶어집니다. 그래서 대조군을 오염 없이 유지한 채 통계로 눌러봤고, 그러고도 남았습니다.</p>
-        <p class="clients t" lang="en"><b>Method</b> — z-test · bootstrap · Beta-Binomial CVR · holdout</p>
-        <p class="clients t" lang="ko"><b>방법</b> — z-검정 · 부트스트랩 · Beta-Binomial CVR · 홀드아웃</p>
-      </div>
-      <div class="work-item reveal">
-        <p class="role t" lang="en">Public Sector · Clinical Research</p>
-        <p class="role t" lang="ko">공공 · 임상 연구</p>
-        <h3 class="t" lang="en">Proof, in the Public Interest</h3>
-        <h3 class="t" lang="ko">공익을 위한 증명</h3>
-        <p class="t" lang="en">A predictive model of cyclist killed-or-severely-injured intersections, built with Columbia University for the New York City Council and folded into Vision Zero road-safety policy. Power analysis and validation protocols for COVID-era clinical studies at Richmond University Medical Center. The domains differ; the discipline doesn't. When a number decides policy or patient care, the bar for evidence only goes up.</p>
-        <p class="t" lang="ko">자전거 사망·중상 교차로를 예측하는 모델을 컬럼비아 대학교와 함께 뉴욕시의회를 위해 만들었고, Vision Zero 도로안전 정책에 반영됐습니다. 리치먼드 대학병원에서는 코로나 시기 임상 연구의 검정력 분석과 검증 프로토콜을 맡았습니다. 분야는 달라도 지켜야 하는 건 같습니다. 숫자가 정책이나 환자 치료를 좌우하는 자리에서는, 증거의 기준이 더 높아질 뿐입니다.</p>
-        <p class="clients t" lang="en"><b>Scope</b> — NYC Vision Zero · clinical statistics · trust &amp; safety</p>
-        <p class="clients t" lang="ko"><b>범위</b> — NYC Vision Zero · 임상 통계 · 신뢰·안전(T&amp;S)</p>
-      </div>
-      <div class="work-item reveal">
-        <p class="role t" lang="en">Hospitality · Kyoto — Family Office</p>
-        <p class="role t" lang="ko">호스피탈리티 · 교토 — 패밀리 오피스</p>
-        <h3 class="t" lang="en">First, Invent the Dataset</h3>
-        <h3 class="t" lang="ko">먼저, 데이터셋부터 만들었습니다</h3>
-        <p class="t" lang="en">A family office running short-stay properties in Kyoto wanted dynamic pricing. The market data to price against did not exist — no one held it. So the first task was to build the dataset: competitors' nightly rates and booking patterns, assembled into something the market itself lacked. That priced the calendar. It also answered a question no one had asked — which property configurations were not worth building at all.</p>
-        <p class="t" lang="ko">교토에서 단기 숙박을 운영하는 패밀리 오피스가 다이내믹 프라이싱을 하고 싶어 했습니다. 그런데 기준으로 삼을 시장 데이터가 없었습니다. 아무도 갖고 있지 않았습니다. 그래서 데이터를 만드는 일부터 했습니다. 경쟁 숙소의 1박 요금과 예약 상황을 모아, 시장에 존재하지 않던 데이터셋으로 엮었습니다. 그걸로 날짜별 단가를 매겼고, 아무도 묻지 않았던 답도 하나 나왔습니다. 어떤 구성의 집은 애초에 지을 가치가 없다는 것.</p>
-        <p class="clients t" lang="en"><b>Scope</b> — market construction · site selection · property design · dynamic pricing</p>
-        <p class="clients t" lang="ko"><b>범위</b> — 시장 데이터 구축 · 입지 발굴 · 숙소 설계 · 다이내믹 프라이싱</p>
-      </div>
-      <p class="work-more reveal t" lang="en"><b>Also</b> — two R packages on CRAN (getDTeval, a top-50 package; formulaic) · a comp-based real-estate pricing engine, in closed B2B beta · <a href="https://github.com/caffreywlee-decaff/bytemescan" rel="noopener" target="_blank">bytemescan</a>, an open-source MCP that checks a cosmetic's advertised function against the Korean MFDS public registry.</p>
-      <p class="work-more reveal t" lang="ko"><b>그 외</b> — CRAN에 등록한 R 패키지 둘 (getDTeval, top-50 · formulaic) · 비교사례 기반 부동산 가격 산정 엔진, B2B 클로즈드 베타 · 화장품의 광고 기능성을 식약처 공개 명부와 맞춰 보는 오픈소스 MCP <a href="https://github.com/caffreywlee-decaff/bytemescan" rel="noopener" target="_blank">bytemescan</a>.</p>
+      <blockquote class="creed-quote reveal">
+        <p class="t" lang="en">Our team's data literacy has gone up.</p>
+        <p class="t" lang="ko">우리 팀의 데이터 리터러시가 확 올라갔어요.</p>
+        <cite class="t" lang="en">A CRM client, a year into the engagement</cite>
+        <cite class="t" lang="ko">어느 CRM 클라이언트, 프로젝트 1년 차</cite>
+      </blockquote>
     </div>
   </section>
 
   <!-- ═══ CONTACT ═══ -->
   <section id="contact">
     <div class="wrap">
-      <p class="sec-label reveal">06 — Epistula <i><span class="t" lang="en">· Contact</span><span class="t" lang="ko">· 문의</span></i></p>
-      <div class="contact-grid">
-        <div class="reveal">
-          <h2 class="t" lang="en">The data piled up.<br><em>The answer didn't.</em></h2>
-          <h2 class="t" lang="ko">데이터는 쌓였는데,<br><em>답은 아직입니까.</em></h2>
-          <p class="lead t" lang="en">Tell me what you're trying to decide, and why you haven't been able to. You'll have a reply <strong>within two business days</strong> — from me, because there's no one else here.</p>
-          <p class="lead t" lang="ko">무엇을 정해야 하는지, 그리고 왜 아직 못 정하고 있는지 적어주세요. <strong>이틀&nbsp;안에</strong> 답장 드립니다. 여기는 저 혼자라 제가 직접 읽고 제가 씁니다.</p>
-          <p class="contact-direct">
-            <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
-          </p>
-          <p class="contact-direct" style="margin-top:16px">
-            <a href="https://linkedin.com/in/caffrey-lee/" target="_blank" rel="noopener">LinkedIn</a>
-            &nbsp;&nbsp;
-            <a href="https://github.com/decaff46" target="_blank" rel="noopener">GitHub</a>
-          </p>
-        </div>
-        <div class="reveal mailcard">
-          <p class="mc-lb"><span class="t" lang="en">Write directly</span><span class="t" lang="ko">바로 메일 주세요</span></p>
-          <a class="mc-mail" href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
-          <p class="mc-hint t" lang="en">Three things make the first reply far more useful: what you need to decide, what's blocking it, and by when.</p>
-          <p class="mc-hint t" lang="ko">이 세 가지가 있으면 첫 답장이 훨씬 쓸모 있어집니다. 정해야 할 것, 막고 있는 것, 그리고 언제까지인지.</p>
-          <p class="form-note t" lang="en">One person reads this. It goes nowhere else.</p>
-          <p class="form-note t" lang="ko">저 말고는 아무도 안 봅니다. 다른 용도로도 쓰지 않습니다.</p>
-        </div>
+      <p class="sec-label reveal"><span class="t" lang="en">Contact</span><span class="t" lang="ko">문의</span></p>
+      <div class="contact2 reveal">
+        <h2 class="t" lang="en">Tell me what you need to decide.</h2>
+        <h2 class="t" lang="ko">무엇을 정해야 하는지 알려 주세요.</h2>
+        <p class="lead t" lang="en">I reply within two business days, myself.</p>
+        <p class="lead t" lang="ko">이틀 안에 제가 직접 답장합니다.</p>
+        <a class="mc-mail" href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+        <p class="who t" lang="en">Caffrey Lee · ten years in data science, M.S. Columbia University. Healthcare AI in Silicon Valley, clinical research in New York, retail data in Seoul.</p>
+        <p class="who t" lang="ko">Caffrey Lee · 10년 차 데이터 사이언티스트, 컬럼비아 대학교 석사. 실리콘밸리 헬스케어 AI, 뉴욕 임상 연구, 서울 리테일 데이터를 거쳤습니다.</p>
+        <p class="contact-direct">
+          <a href="https://linkedin.com/in/caffrey-lee/" target="_blank" rel="noopener">LinkedIn</a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/decaff46" target="_blank" rel="noopener">GitHub</a>
+        </p>
       </div>
     </div>
   </section>
@@ -1072,7 +952,7 @@ html[data-lang="ko"] blockquote{
     </svg>
     <p><span class="t" lang="en">© MMXXVI Lambency. All rights reserved.</span><span class="t" lang="ko">© MMXXVI Lambency</span></p>
   </div>
-  <p><span class="t" lang="en">Data &amp; AI Consulting, Seoul</span><span class="t" lang="ko">데이터·AI 컨설팅, 서울</span> · <em lang="la">Vires acquirit eundo</em></p>
+  <p><span class="t" lang="en">Data consulting, Seoul</span><span class="t" lang="ko">데이터 컨설팅, 서울</span></p>
 </footer>
 
 <script>
@@ -1085,7 +965,7 @@ document.querySelectorAll('.reveal').forEach(el=>{
   else{io.observe(el)}
 });
 
-// language toggle (EN default; remembers choice)
+// language toggle (KO default since 2026-10-19; remembers choice)
 (function(){
   var root=document.documentElement, btn=document.getElementById('langtoggle');
   function apply(l){
@@ -1099,7 +979,7 @@ document.querySelectorAll('.reveal').forEach(el=>{
     try{localStorage.setItem('lam-lang',l)}catch(e){}
   }
   var saved=null;try{saved=localStorage.getItem('lam-lang')}catch(e){}
-  apply(saved==='ko'?'ko':'en');
+  apply(saved==='en'?'en':'ko');   // 2026-10-19 기본 한국어(검색 «데이터 컨설팅» · 고객이 한국 회사) — 옛: EN 기본
   if(btn)btn.addEventListener('click',function(){
     apply(root.getAttribute('data-lang')==='ko'?'en':'ko');
   });
