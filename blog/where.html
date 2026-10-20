@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 3de824acccaecc6e -->
+<!-- baked-from-b2c-where: 5dac108e16020c50 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -270,6 +270,40 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 .alertcta .ac-opt:hover{color:rgba(250,249,246,.86)}
 .alertcta .ac-msg{flex:1 1 100%;margin:0;font:500 12px/1.6 var(--ff);color:#A8D8BC}
 .alertcta .ac-msg.bad{color:#F0B4B4}
+
+
+.alertcta{flex-direction:column;align-items:stretch;gap:14px;padding:20px 20px 18px}
+.alertcta .ac-l{flex:none}
+.alertcta .ac-l b{font-size:16px;line-height:1.45;word-break:keep-all}
+.alertcta .ac-needs{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.alertcta .ac-cap{flex:1 1 100%;font:500 11px var(--ff);letter-spacing:.04em;color:rgba(250,249,246,.5)}
+.alertcta .ac-num,.alertcta .ac-chip span{box-sizing:border-box;height:40px;border-radius:999px;
+  border:1px solid rgba(250,249,246,.26);background:rgba(250,249,246,.06);
+  display:inline-flex;align-items:center;font:500 13px var(--ff);color:rgba(250,249,246,.78);
+  transition:background .12s,border-color .12s,color .12s}
+.alertcta .ac-num{gap:6px;padding:0 14px;cursor:text}
+.alertcta .ac-num input{all:unset;box-sizing:border-box;width:4.2em;text-align:right;
+  font:600 14px var(--fm);color:var(--paper)}
+.alertcta .ac-num input::placeholder{color:rgba(250,249,246,.32)}
+.alertcta .ac-num em{font-style:normal;color:rgba(250,249,246,.5)}
+.alertcta .ac-num:focus-within{border-color:var(--gold);background:rgba(250,249,246,.1)}
+.alertcta .ac-chip{position:relative;cursor:pointer}
+.alertcta .ac-chip input{all:unset;position:absolute;inset:0;opacity:0;cursor:pointer}
+.alertcta .ac-chip span{padding:0 15px;gap:6px}
+.alertcta .ac-chip span::before{content:"+";font:600 13px var(--fm);color:rgba(250,249,246,.45)}
+.alertcta .ac-chip:hover span{border-color:rgba(250,249,246,.5)}
+.alertcta .ac-chip input:checked + span{background:var(--gold);border-color:var(--gold);color:#1D232B;font-weight:600}
+.alertcta .ac-chip input:checked + span::before{content:"✓";color:#1D232B}
+.alertcta .ac-chip input:focus-visible + span{outline:2px solid var(--gold);outline-offset:2px}
+.alertcta .ac-r{flex:none;min-width:0;flex-wrap:nowrap;justify-content:stretch;gap:8px}
+.alertcta .ac-r input[type=text]{flex:1 1 auto;min-width:0;max-width:none;height:46px;border-radius:999px;padding:0 18px;font-size:15px}
+.alertcta .ac-r button{height:46px;padding:0 22px;font-size:14px;flex:none}
+.alertcta .ac-foot{flex:none}
+@media (max-width:420px){
+  .alertcta{padding:18px 16px 16px}
+  .alertcta .ac-num{flex:1 1 calc(50% - 4px);min-width:0;padding:0 12px}
+  .alertcta .ac-num input{flex:1 1 0;width:0;min-width:2.4em}
+}
 .alertcta .ac-more{margin-left:auto;font:500 12px var(--ff);color:rgba(250,249,246,.72);
   text-decoration:underline;text-underline-offset:3px}
 .alertcta .ac-more:hover{color:var(--paper)}
@@ -672,6 +706,21 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .n4 .nv.up{color:var(--up)} .n4 .nv.wn{color:var(--warn)} .n4 .nv.dn{color:var(--down)}
   .n4 .nv.non{color:var(--faint);font-weight:400}
   .n4 .ns{font:400 11px/1.5 var(--ff);color:var(--faint)}
+  
+  .indbox h4.grp{margin:16px 0 0;font:600 12px var(--ff);color:var(--soft);letter-spacing:.04em}
+  .indbox h4.grp + .n4{margin-top:6px}
+  .indbox .n4{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+  @media (max-width:560px){
+    .n4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}
+    .n4 .nv{font-size:18px}
+    
+    .indbox .n4{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 8px}
+    .indbox .n4 .nv{font-size:16px;letter-spacing:-.02em;white-space:nowrap}
+    .indbox .n4 .nl{font-size:11px;word-break:keep-all}
+  }
+  .rentmore{margin:16px 0 0}
+  .rentmore>summary h3{margin:0;font:600 13.5px var(--ff)}
+  .rentmore>summary h3 small{font:400 11.5px var(--ff);color:var(--soft);margin-left:4px}
   .whyline{margin:14px 0 0;font:400 12.5px/1.75 var(--ff);color:var(--soft)}
   .ftab{display:grid;grid-template-columns:1fr 100px 132px;gap:8px;align-items:baseline;
     padding:12px 0;border-top:1px solid var(--rule);font:400 13.5px var(--ff)}
@@ -801,17 +850,17 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     el.innerHTML =
       '<section class="alertcta">' +
         '<div class="ac-l"><b>' + esc(o.head) + '</b><span>' + esc(o.sub) + '</span></div>' +
+        (o.needs ? '<div class="ac-needs"><span class="ac-cap">원하는 조건 · 선택</span>' +
+          (o.askRent ? '<label class="ac-num"><span>보증금</span><input class="ac-dep" inputmode="numeric" placeholder="0" aria-label="보증금(만원)"><em>만원</em></label>' +
+                       '<label class="ac-num"><span>월세</span><input class="ac-rent" inputmode="numeric" placeholder="0" aria-label="월세(만원)"><em>만원</em></label>' : '') +
+          '<label class="ac-chip"><input type="checkbox" class="ac-park"><span>주차 필요</span></label>' +
+          '<label class="ac-chip"><input type="checkbox" class="ac-elev"><span>엘리베이터 필요</span></label>' +
+          '</div>' : '') +
         '<div class="ac-r">' +
           '<input type="text" class="ac-contact" placeholder="이메일 또는 휴대폰" ' +
                  'autocomplete="email" inputmode="email" aria-label="알림 받을 연락처">' +
           '<button type="button" class="ac-btn">' + esc(o.btn) + '</button>' +
         '</div>' +
-        (o.needs ? '<div class="ac-needs" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:12.5px">' +
-          (o.askRent ? '<label>보증금 <input class="ac-dep" inputmode="numeric" placeholder="만원" style="width:72px"></label>' +
-                       '<label>월세 <input class="ac-rent" inputmode="numeric" placeholder="만원" style="width:60px"></label>' : '') +
-          '<label style="cursor:pointer"><input type="checkbox" class="ac-park"> 주차 필요</label>' +
-          '<label style="cursor:pointer"><input type="checkbox" class="ac-elev"> 엘리베이터 필요</label>' +
-          '</div>' : '') +
         '<div class="ac-foot">' +
           (o.optKind ? '<label class="ac-opt"><input type="checkbox" class="ac-optbox"> ' +
             esc(o.optLabel) + ' <span style="opacity:.72">(선택)</span></label>' : '') +
@@ -1457,17 +1506,34 @@ function shopHead(){
     else                           v={k:(b!=null&&b<10)?'up':'',
                                       t:`이 동네에 <b>${c.stores}곳</b> 있고, ${b==null?'월세 부담은 자료가 없어요':`월세는 매출의 <b>${b}%</b>예요`}`};
     const bk=b==null?'non':(b<10?'up':b<30?'wn':'dn');
+    const FT=(_D&&_D.foot)||{}, WK=(_D&&_D.work)||{}, CS=(_D&&_D.census)||{};
+    const srk=p=>p==null?'':(p>=50?`서울 상위 ${Math.max(1,100-p)}%`:`서울 하위 ${Math.max(1,p)}%`);
     h+=`<div class="vdct ${v.k}"><i></i><span>${v.t}</span></div>
+      <h4 class="grp">돈</h4>
+      <div class="n4">
+        <div><div class="nl">월세</div><div class="nv${C.monthly_rent_man?'':' non'}">${C.monthly_rent_man?_n(C.monthly_rent_man)+'만':'—'}</div>
+          <div class="ns">${C.monthly_rent_man?`1층 ${C.area_m2}㎡ 보통 크기 가게`:'상권 임대료 조사에 없는 동네예요'}</div></div>
+        <div><div class="nl">가게당 월매출</div><div class="nv">${eok(c.per_store_month_man)}</div>
+          <div class="ns">카드 매출 추정</div></div>
+        <div><div class="nl">월세 부담</div><div class="nv ${bk}">${b==null?'—':b+'%'}</div>
+          <div class="ns">${b!=null ? '매출 중 월세 몫' : '월세 자료가 없어요'}</div></div>
+      </div>
+      <h4 class="grp">손님</h4>
+      <div class="n4">
+        <div><div class="nl">지나다니는 사람</div><div class="nv${FT.ok?'':' non'}">${FT.ok?_n(FT.day_avg)+'명':'—'}</div>
+          <div class="ns">${FT.ok?`하루 평균 · ${srk(FT.seoul_pct_rank)}`:'이 동네는 자료가 없어요'}</div></div>
+        <div><div class="nl">일하는 사람</div><div class="nv${WK.ok?'':' non'}">${WK.ok?_n(WK.total)+'명':'—'}</div>
+          <div class="ns">${WK.ok?`이 동네 직장 · ${srk(WK.seoul_pct_rank)}`:'이 동네는 자료가 없어요'}</div></div>
+        <div><div class="nl">사는 사람</div><div class="nv${CS.ok?'':' non'}">${CS.ok?_n(CS.pop)+'명':'—'}</div>
+          <div class="ns">${CS.ok?`${_n(CS.households)}가구 · 한 집에 ${CS.avg_household}명`:'이 동네는 자료가 없어요'}</div></div>
+      </div>
+      ${FT.ok&&FT.peak?`<p class="src" style="margin:6px 0 0">사람이 가장 많은 때는 <b>${FT.peak}</b>, 가장 많은 나이는 <b>${FT.top_age}</b>예요.${
+        FT.weekend_pct!=null?` 주말에 지나는 사람이 일주일의 <b>${FT.weekend_pct}%</b>예요.`:''}</p>`:''}
+      <h4 class="grp">경쟁</h4>
       <div class="n4">
         <div><div class="nl">지금 있는 가게</div><div class="nv">${c.stores}곳</div>
           <div class="ns">${hasExp ? `비슷한 동네만큼이면 ${Math.round(c.expected)}곳`
             : '<span style="opacity:.75">가게가 적어서 닮은 동네와 비교하기 어려워요</span>'}</div></div>
-        <div><div class="nl">가게당 한 달 매출</div><div class="nv">${eok(c.per_store_month_man)}</div>
-          <div class="ns">카드 매출 추정</div></div>
-        <div><div class="nl">월세 부담</div><div class="nv ${bk}">${b==null?'—':b+'%'}</div>
-          <div class="ns">${b!=null
-            ? `1층 ${C.area_m2}㎡ 월세 ${_n(C.monthly_rent_man)}만 기준`
-            : '이 동네는 상권 임대료 조사 자료가 없어요'}</div></div>
         <div><div class="nl">작년보다</div>
           <div class="nv ${c.yoy_pct==null?'non':(c.yoy_pct>0?'up':c.yoy_pct<-10?'dn':'wn')}">${
             c.yoy_pct==null?'—':(c.yoy_pct>0?'+':'')+c.yoy_pct+'%'}</div>
@@ -1492,10 +1558,11 @@ function shopHead(){
 
   const SZ0=(_D&&_D.shop_size)||null;
   if(!_SPY_USER && SZ0 && SZ0.ok && SZ0.median_py>0) _SPY=Math.round(SZ0.median_py*10)/10;
+  let szBlock='';
   if(SZ0 && SZ0.ok){
     const mx=Math.max.apply(null, SZ0.rows.map(r=>r.pct).concat([1]));
     const top=SZ0.rows.reduce((a,b)=>b.pct>a.pct?b:a);
-    h+=`<h3 style="margin:22px 0 4px;font:600 13.5px var(--ff)">이 동네 가게는 보통 몇 평인가
+    szBlock=`<h3 style="margin:18px 0 4px;font:600 13.5px var(--ff)">이 동네 가게는 보통 몇 평인가
         <span class="exflag" style="color:var(--soft)">1층 상가 실거래 ${_n(SZ0.n)}건</span></h3>
       <p class="src" style="margin:0 0 8px">가장 흔한 크기는 <b>${top.band}</b>(${top.pct}%)이고,
         가운데 값은 <b>${SZ0.median_py}평</b>이에요. 열 곳 중 다섯은 <b>${SZ0.p25_py}~${SZ0.p75_py}평</b> 사이예요.</p>
@@ -1519,6 +1586,7 @@ function shopHead(){
       <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만이면</span></div>`;
   if(!main){
     h+=`<p class="ansnote">이 동네는 부동산원 상권 임대료 자료가 없어서 크기를 계산하지 못했어요.</p>`;
+    if(szBlock) h+=`<details class="secfold rentmore"><summary><h3>월세 더 보기 <small>이 동네 가게 크기</small></h3></summary>${szBlock}</details>`;
     return h;
   }
   const per=main.per_m2_thousand/10;                 /* 만원/㎡ */
@@ -1536,7 +1604,9 @@ function shopHead(){
       : ''}
     <p class="ansnote">보증금·관리비·권리금은 빠진 값이에요. 같은 평수라도 <b>건물 유형</b>에 따라
       ${types.map(t=>`${t.type} <b>${_n(Math.round(_SPY*P2M*t.per_m2_thousand/10))}만</b>`).join(' · ')}으로 달라져요.</p>
-    <div class="ftab hd"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">이 예산으로 되는 크기</span></div>`
+    <details class="secfold rentmore"><summary><h3>월세 더 보기 <small>크기별 · 건물 유형별</small></h3></summary>
+    ${szBlock}
+    <div class="ftab hd" style="margin-top:14px"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">이 예산으로 되는 크기</span></div>`
     + types.map(t=>{
         const p2=t.per_m2_thousand/10, a=_BUD/p2;
         return `<div class="ftab${t===main?'':' dim'}"><span>${TYPEN[t.type]||t.type}</span>
@@ -1553,15 +1623,18 @@ function shopHead(){
   h+=`<div class="sz2">
       <div><h4>크기를 키우면 월세는</h4>${rowsz.map((r,i)=>{
         const inb = _SPY>=SZ[i][0] && _SPY<SZ[i][1];
-        return `<div class="r${r.man<=_BUD?'':' dim'}"${inb?' style="font-weight:600"':''}><span>${r.lab}${
+        return `<div class="r${(r.man<=_BUD||inb)?'':' dim'}"${inb?' style="font-weight:600"':''}><span>${r.lab}${
           inb?' <b style="color:var(--warn)">← 넣으신 크기</b>':''}</span><b>${_n(r.man)}만</b></div>`;}).join('')}
-        <p class="src" style="margin-top:6px">${fits?`이 예산이면 <b>${rowsz.filter(r=>r.man<=_BUD).slice(-1)[0].lab}</b>까지 돼요.`
+        <p class="src" style="margin-top:6px">${fits?`이 예산이면 <b>${rowsz.filter(r=>r.man<=_BUD).slice(-1)[0].lab}</b>까지 돼요.${
+            (()=>{const k=SZ.findIndex(x=>_SPY>=x[0]&&_SPY<x[1]); const r=k>=0?rowsz[k]:null;
+              return (r&&r.man>_BUD)?` 넣으신 <b>${r.lab}</b>는 <b>${_n(r.man)}만</b>이라 예산을 넘어요.`:'';})()}`
           :`지금 예산 ${_BUD}만으로는 <b>${rowsz[0].lab}(${_n(rowsz[0].man)}만)</b>도 어려워요. 예산을 올리거나 다른 동네를 보세요.`}</p></div>
       <div><h4>건물 유형마다 1㎡ 월세</h4>${types.map(t=>
         `<div class="r${t===main?'':' dim'}"><span>${t.type} 상가${t.vacancy_pct!=null?` · 빈 가게 ${t.vacancy_pct}%`:''}</span>
           <b>${(t.per_m2_thousand/10).toFixed(1)}만/㎡</b></div>`).join('')}
         <p class="src" style="margin-top:6px">같은 예산이라도 <b>건물 유형</b>에 따라 쓸 수 있는 크기가 달라져요.</p></div>
     </div>
+    </details>
     <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">이 동네 <b>특정 상가</b> 시세가 궁금하시면 → hicce 시세 브리핑</a>`;
   return h;
 }
