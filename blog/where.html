@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 5dac108e16020c50 -->
+<!-- baked-from-b2c-where: 0bb3da7b44c89f49 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -718,6 +718,12 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     .indbox .n4 .nv{font-size:16px;letter-spacing:-.02em;white-space:nowrap}
     .indbox .n4 .nl{font-size:11px;word-break:keep-all}
   }
+  .prs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:6px;margin:6px 0 0}
+  .prs .pr{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 8px;padding:8px 10px;
+    border-radius:9px;background:var(--paper);border:1px solid var(--rule)}
+  .prs .pr b{font:600 13px var(--ff);word-break:keep-all}
+  .prs .pr .rt{font:600 13px var(--fm);color:var(--warn)}
+  .prs .pr .hr{grid-column:1 / -1;font:400 11px var(--ff);color:var(--soft)}
   .rentmore{margin:16px 0 0}
   .rentmore>summary h3{margin:0;font:600 13.5px var(--ff)}
   .rentmore>summary h3 small{font:400 11.5px var(--ff);color:var(--soft);margin-left:4px}
@@ -1299,6 +1305,7 @@ let _IND='';           /* 가게 — 고른 업종 */
 let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
 let _PICK=null;        /* dong-pick — all 포함 */
 let _ALLIND=null;      /* sales-intel 업종 전체(60개) */
+let _PAIRS=null;       /* 업종 궁합 — 서울 전체(scripts/build_industry_pairs.py), 2026-10-21 */
 
 const _py = m2 => { const n = m2/P2M; return n>=10 ? Math.round(n) : Math.round(n*10)/10; };
 const _walk = m => (m==null ? null : Math.max(1, Math.round(m/80)));   /* 도보 1분 = 80m */
@@ -1544,6 +1551,7 @@ function shopHead(){
             c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</div>
           <div class="ns">최근 3개월</div></div>
       </div>
+      ${pairsLine(_IND)}
       <p class="whyline">${c.hint?`⚠ ${c.hint} `:''}${b!=null
         ? `월세 부담은 이 동네 1층 보통 크기(${C.area_m2}㎡) 가게 월세 ${_n(C.monthly_rent_man)}만 원이
            그 업종 한 달 매출에서 차지하는 비율이에요.`
@@ -1639,6 +1647,16 @@ function shopHead(){
   return h;
 }
 window.setInd=function(v){ _IND=v; renderHead(); };
+function pairsLine(ind){
+  const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
+  if(!P||!(P.partners||[]).length) return '';
+  const here=nm=>{ const r=(_ALLIND||[]).find(x=>x.industry===nm); return r&&r.stores>0?r.stores:0; };
+  return `<h4 class="grp">옆 가게</h4>
+    <div class="prs">${P.partners.map(x=>`<div class="pr"><b>${x.industry}</b><span class="rt">${x.ratio}배</span>
+      <span class="hr">이 동네 ${here(x.industry)?_n(here(x.industry))+'곳':'없음'}</span></div>`).join('')}</div>
+    <p class="src" style="margin:6px 0 0">서울에서 ${ind} 가게 바로 옆(${_PAIRS.radius_m||100}m)에는 이 업종들이
+      같은 동네 평균보다 위 배수만큼 더 많이 붙어 있어요. ${_PAIRS.caveat||''}</p>`;
+}
 
 function floorSec(){
   const F=(_D&&_D.rent_floor)||null;
@@ -1757,7 +1775,7 @@ async function loadSide(gu, dg, seq){
   const q = `sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`;
   const jobs = [
     fetch(`/api/b2c/dong-rent-kinds?${q}`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok) _KINDS=j; }).catch(()=>{}),
-    fetch(`/api/sales-intel?${q}&top=200`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok) _ALLIND=j.rows||[]; }).catch(()=>{})
+    fetch(`/api/sales-intel?${q}&top=200&pairs=1`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok){ _ALLIND=j.rows||[]; _PAIRS=(j.pairs&&j.pairs.ok)?j.pairs:null; } }).catch(()=>{})
   ];
   await Promise.all(jobs);
   if(seq!==_seq) return;
