@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: b6076bfdce28327c -->
+<!-- baked-from-b2c-where: b229e4da0243eb18 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -834,7 +834,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 </header>
 <main>
 <div class="eyebrow2">주소를 몰라도 돼요</div>
-<h1 class="pg2" id="pgTitle">이 동네, 월세는 얼마가 적당할까요?</h1>
+<h1 class="pg2" id="pgTitle">이 동네 월세, 얼마면 적당할까요?</h1>
 
 
 <div class="tabs viewtabs" role="tablist" style="display:none">
@@ -856,15 +856,13 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     <button id="go2">보기</button>
   </div>
   <div class="sug" id="sug2" style="display:none"></div>
-  <p class="scopenote2">이 화면은 <b>동네 전체</b>를 보여 드려요. 특정 집이나 건물 시세는
-    <a href="https://hicce.co.kr/b2c/ask?from=blog-where">hicce 시세 브리핑</a>에서 확인하세요.</p>
+  <p class="scopenote2">여기선 <b>동네 평균</b>만 나와요. 집이나 건물 하나하나의 값은 <a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a>에서 보세요.</p>
   <div id="out2" class="empty">동네를 고르는 중…</div>
 </section>
 
 
 <section class="pane" id="p-ind" hidden>
-  <p class="lead">업종을 넣으면 서울 행정동을 <b>가게당 월매출 순</b>으로 보여 드려요.
-    카드 매출·가게 수·개폐업·유동인구를 숫자대로 줄 세운 거라, 좋은 동네를 골라 주는 건 아니에요.</p>
+  <p class="lead">업종을 넣으면 서울 동네를 <b>가게당 매출 순</b>으로 줄 세워요. 숫자대로 세운 거지, 좋은 동네를 골라 주는 건 아니에요.</p>
   <div class="bar">
     <input id="q" list="inds" placeholder="업종 예: 커피-음료, 한식음식점, 미용실" autocomplete="off">
     <datalist id="inds"></datalist>
@@ -888,7 +886,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   <p class="src" id="src"></p>
 </section>
 </main>
-<footer class="ft" style="--ftw:760px"><div><a href="https://hicce.co.kr/privacy" style="color:var(--ink);font-weight:700">개인정보 처리방침</a> · 서울 25개 구 기준입니다. 상가 월세는 상권 평균이라 가게마다 다릅니다.<br><span class="biz" style="display:inline-block;margin-top:6px;font-size:11px;color:var(--muted,#8A7F72)">램번씨 · 대표 이충우 · 사업자등록번호 352-33-02004 · 충청북도 충주시 계명대로 17, 3층 1호(칠금동, 정암빌딩) · contact@hicce.co.kr</span></div></footer>
+<footer class="ft" style="--ftw:760px"><div><a href="https://hicce.co.kr/privacy" style="color:var(--ink);font-weight:700">개인정보 처리방침</a> · 서울 25개 구만 다뤄요. 상가 월세는 상권 평균이라 가게마다 달라요.<br><span class="biz" style="display:inline-block;margin-top:6px;font-size:11px;color:var(--muted,#8A7F72)">램번씨 · 대표 이충우 · 사업자등록번호 352-33-02004 · 충청북도 충주시 계명대로 17, 3층 1호(칠금동, 정암빌딩) · contact@hicce.co.kr</span></div></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -1118,9 +1116,12 @@ function dongFail(msg){
 const GUS_READY = fetch('/api/b2c/dong-names').then(r=>r.ok?r.json():Promise.reject(r.status)).then(d=>{
   const gus=(d&&d.sigungu)||[];
   if(!gus.length){ dongFail('자치구 목록을 준비하고 있어요. 잠시 뒤 새로고침해 주세요.'); return; }
+  const _prev=$('gu').value;
   $('gu').innerHTML='<option value="">자치구</option>'+gus.map(g=>`<option>${g}</option>`).join('');
+  if(_prev) $('gu').value=_prev;
 }).catch(()=>{ dongFail('동 목록을 불러오지 못했어요. 연결을 확인하고 새로고침해 주세요.'); });
 
+let _DONG_GU=null;
 async function loadDongs(gu){
   if(!gu){ $('dg').innerHTML='<option value="">동</option>'; return 0; }
   try{
@@ -1128,6 +1129,7 @@ async function loadDongs(gu){
     const d=r.ok?await r.json():null;
     const list=(d&&d.dongs)||[];
     $('dg').innerHTML='<option value="">동</option>'+list.map(x=>`<option>${x}</option>`).join('');
+    _DONG_GU=list.length?gu:null;
     if(!list.length) dongFail(`${gu}의 동 목록을 받지 못했어요. 자료가 없거나 잠깐 오류가 났을 수 있어요. 다른 구를 골라 보세요.`);
     return list.length;
   }catch(_){ dongFail('동 목록을 불러오지 못했어요. 연결을 확인하고 새로고침해 주세요.'); return 0; }
@@ -1172,10 +1174,10 @@ function overviewHTML(o, vacancy){
       ${cell('서울 평균보다 폐업이 많은 업종', list(o.riskier, r=>`<b>${r.industry}</b> ${r.close_rate_pct}% <i>vs ${r.seoul_pct}%</i>`), 'dn')}
     </div>
     <div class="ovs">
-      <span><i>가게당 월매출 가운데 값</i><b>${man(o.median_per_store_man)}원</b></span>
+      <span><i>한 가게 월매출 중간 값</i><b>${man(o.median_per_store_man)}원</b></span>
       <span><i>새로 연 가게</i><b>${o.median_open_pct==null?'—':o.median_open_pct+'%'}</b></span>
       <span><i>닫은 가게</i><b>${o.median_close_pct==null?'—':o.median_close_pct+'%'}</b></span>
-      <span><i>공실률</i><b>${vacancy==null?'—':vacancy+'%'}</b></span>
+      <span><i>빈 가게 비율</i><b>${vacancy==null?'—':vacancy+'%'}</b></span>
     </div>
     <p class="src">${o.note} · 업종 ${o.n_industries}개${o.quarter?` · ${String(o.quarter).slice(0,4)}년 ${String(o.quarter).slice(4)}분기`:''}</p></div>`;
 }
@@ -1206,8 +1208,7 @@ async function renderPick(gu, dg, seq){
       <td class="n" style="color:${col(c.yoy_pct)}">${pc(c.yoy_pct)}</td>
       <td class="n">${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</td></tr>${c.hint?`<tr class="pkhr"><td colspan="6" class="pkhint">⚠ ${c.hint}</td></tr>`:''}`;
   sec.innerHTML=`<h2>🏪 이 동네에 아직 부족한 가게 <small>닮은 동네엔 있는데 여기엔 없는 것</small></h2>
-    <p class="cap" style="margin:0 0 8px">${dg}${((dg.charCodeAt(dg.length-1)-0xAC00)%28)?'과':'와'} 닮은 동네 ${p.peers.length}곳(${p.peers.map(x=>x.dong).join(', ')})의 업종 구성을 기준으로
-      이 동네에 있어야 할 가게 수를 셌어요. 그다음 가게당 월매출, ${p.rent_man
+    <p class="cap" style="margin:0 0 8px">${dg}${((dg.charCodeAt(dg.length-1)-0xAC00)%28)?'과':'와'} 닮은 동네 ${p.peers.length}곳(${p.peers.map(x=>x.dong).join(', ')})에 어떤 가게가 얼마나 있는지 보고 이 동네에 있어야 할 수를 셌어요. 거기에 가게당 월매출, ${p.rent_man
         ? '월세 부담률, '
         : ''}전년 대비, 폐업률을 같이 보고 골랐어요.${p.rent_man
         ? ` 월세 부담률은 1층 ${p.area_m2}㎡ 월세 ${man(p.rent_man)}만 기준이에요.`
@@ -1396,8 +1397,8 @@ function homeHead(){
   let h=`<div class="indbox ans home">
     <h3>${jong}에서 <input class="numin" id="pyIn" inputmode="decimal" value="${_PY}"> 평 집을 구한다면?</h3><ol class="qa">`;
   if(!cur){
-    h+=row(1,'월세 얼마가 적당하나','월세 실거래가 적어요','', '',
-      `<p class="src">${(H.reason)||'이 동네는 월세 계약이 적어서 크기별 값을 정하지 못했어요.'} 다른 동을 골라 보세요.</p>`);
+    h+=row(1,'월세는 얼마면 되나','월세 계약이 별로 없어요','', '',
+      `<p class="src">${(H.reason)||'이 동네는 월세 계약이 적어서 크기별로 못 나눴어요.'} 다른 동을 골라 보세요.</p>`);
   } else {
     const tot=rows.reduce((a,r)=>a+(r.n_monthly||0),0);
     const upto=rows.filter(r=>cur.hi!=null&&r.hi!=null&&r.hi<=cur.hi).reduce((a,r)=>a+(r.n_monthly||0),0);
@@ -1405,21 +1406,20 @@ function homeHead(){
     const bl=bandLab(cur).replace(/\(.*\)/,'').trim();
     const jn=cur.n_jeonse||0, jOk=!!(cur.jeonse_man&&jn>=30);
     const det1=`<p class="src" style="margin:0 0 8px">${thin
-        ? `이 크기는 <b>월세 계약이 ${n}건</b>뿐이라 값을 정하지 않았어요.`
-        : `이 동네에서 이 크기로 실제 계약된 <b>${_n(n)}건</b>을 월세 순으로 줄 세웠을 때 <b>딱 가운데 값</b>이에요.`}
-      보증금 <b>${_n(cur.deposit_man)}만</b> 기준이에요. 이보다 높게 부르면 왜 높은지 물어보세요.${
-        shr!=null?` 이 동네 월세 계약의 <b>${shr}%</b>가 ${Math.round(cur.hi/P2M)}평(${cur.hi}㎡) 아래예요.`:''}${
-        jOk?` 전세로 가면 같은 크기 <b>${eok(cur.jeonse_man)}</b>이 가운데 값이에요. 전세 계약은 ${_n(jn)}건이에요.`:''}</p>
+        ? `이 크기는 <b>월세 계약이 ${n}건</b>뿐이라 값을 안 적었어요. 한두 건에 휘둘려서요.`
+        : `이 동네에서 이 크기로 실제 계약된 <b>${_n(n)}건</b>을 싼 순서로 세웠을 때 <b>딱 중간</b>이 이 값이에요.`}
+      보증금 <b>${_n(cur.deposit_man)}만</b>일 때 값이에요. 집주인이 이보다 높게 부르면 왜 그런지 물어보세요.${
+        shr!=null?` 이 동네 월세 계약 <b>${shr}%</b>는 ${Math.round(cur.hi/P2M)}평 아래예요.`:''}${
+        jOk?` 전세로 가면 같은 크기가 <b>${eok(cur.jeonse_man)}</b> 정도예요. 전세 계약 ${_n(jn)}건을 봤어요.`:''}</p>
       <div class="szc">`+rows.map(r=>{
         const rn=r.n_monthly||0, th=rn<30;
         return `<div class="${r===cur?'on':''}"${th&&r!==cur?' style="opacity:.5"':''}><em>${bandLab(r)}</em>
           <b>${th?'—':_n(r.monthly_man)+'만'}</b><i>${th?(rn?_n(rn)+'건 · 적음':'거래 없음'):_n(rn)+'건'}</i></div>`;
       }).join('')+`</div>
-      <p class="src">칸 안의 숫자는 <b>월세 계약</b> 건수예요. <b>30건이 안 되는 칸은 값을 비워 뒀어요.</b>
-        계약이 적으면 한두 건에 휘둘려 큰 집이 더 싸게 나오기도 해요. 보증금을 올리면 월세는 내려가는데, 그 차이는 아직 계산에 넣지 못했어요.</p>`;
-    h+=row(1,'월세 얼마가 적당하나', thin?'값을 정하기 어려워요':`월 ${_n(cur.monthly_man)}만`,
+      <p class="src">칸 안 숫자는 <b>계약 건수</b>예요. <b>30건이 안 되는 칸은 비워 뒀어요.</b> 몇 건 없으면 큰 집이 더 싸게 나오는 이상한 값이 나와서요. 보증금을 올리면 월세가 내려가는데 그건 아직 계산에 안 넣었어요.</p>`;
+    h+=row(1,'월세는 얼마면 되나', thin?'건수가 적어서 못 정해요':`월 ${_n(cur.monthly_man)}만`,
       thin?`이 크기는 계약 ${n}건뿐`:`보증금 ${_n(cur.deposit_man)}만 · ${bl}`,
-      (thin?pill('mid',`계약 ${n}건뿐이라 참고만`):pill('rk',`월세 계약 ${_n(n)}건의 가운데 값`))+(jOk?pill('rk',`전세면 ${eok(cur.jeonse_man)}`):''), det1);
+      (thin?pill('mid',`계약 ${n}건뿐이라 참고만`):pill('rk',`계약 ${_n(n)}건의 딱 중간`))+(jOk?pill('rk',`전세면 ${eok(cur.jeonse_man)}`):''), det1);
   }
   {
     let v='불러오는 중…', small=`${_PY}평 기준`, det2=`<p class="src">불러오는 중…</p>`;
@@ -1430,16 +1430,15 @@ function homeHead(){
         return {label:k.label, b, kn, why: b?(kn<30?'거래 적음':_n(kn)+'건'):(rr.length?'이 크기 없음':'이 동네 자료 없음')};
       });
       const good=ks.filter(k=>k.b&&k.kn>=30);
-      v = good.length ? good.map(k=>`${k.label} ${_n(k.b.monthly_man)}만`).join(' · ') : '이 크기는 종류별 자료가 적어요';
-      small = good.length ? `${_PY}평에서 종류마다 가운데 값` : `${_PY}평 기준`;
+      v = good.length ? good.map(k=>`${k.label} ${_n(k.b.monthly_man)}만`).join(' · ') : '이 크기는 종류별로 계약이 적어요';
+      small = good.length ? `${_PY}평 기준, 종류마다 중간 값` : `${_PY}평 기준`;
       det2=ks.map(k=>`<div class="kndrow${(!k.b||k.kn<30)?' dim':''}"><span class="kl">${k.label}</span>
           <span class="kv">${k.b?_n(k.b.monthly_man)+'만':'—'}</span><span class="kn">${k.why}</span></div>`).join('')
         +`<div class="kndrow dim"><span class="kl">도시형생활주택</span><span class="kv">—</span><span class="kn">준비 중</span></div>
-        <p class="src">종류마다 <b>이 크기 구간의 월세 가운데 값</b>이에요. 보증금 기준이 종류마다 달라서 옆의 건수와 함께 보세요.
-          30건이 안 되면 값을 비워 뒀어요. 도시형생활주택은 국토부 자료에 따로 나뉘어 있지 않아요.</p>`;
+        <p class="src">종류마다 이 크기대 월세의 <b>중간 값</b>이에요. 보증금이 종류마다 달라서 옆 건수도 같이 보세요. 30건이 안 되면 비워 뒀어요. 도시형생활주택은 국토부 자료에 따로 안 나와요.</p>`;
     }
     det2+=floorBody();
-    h+=row(2,'집 종류별로는', v, small, '', det2, false, 'data-needs="api:dong-rent-kinds"');
+    h+=row(2,'집 종류마다 다른가', v, small, '', det2, false, 'data-needs="api:dong-rent-kinds"');
   }
   {
     const TR=(_D&&_D.transit)||{}; const st=TR.ok?_walk(TR.dist_m):null;
@@ -1447,8 +1446,7 @@ function homeHead(){
     h+=row(3,'지하철 · 버스', TR.ok?`${TR.station} 걸어서 ${st}분`:'가까운 역을 찾지 못했어요',
       TR.ok?`${_n(TR.dist_m)}m${TR.n_stations_500m>0?` · 500m 안에 역 ${TR.n_stations_500m}곳`:''}`:'',
       bus!=null?pill('rk',`버스 정류장 ${_n(bus)}곳${bpr!=null?` · 서울 동네 중 ${rkS(bpr)}`:''}`):'',
-      `<p class="src">지하철은 동 중심에서 가장 가까운 역까지 <b>실제 거리</b>예요. 걸어서 1분은 80m로 잡았어요. 집마다 실제 거리는 달라요.
-        버스 정류장은 행정동 안의 <b>정류장 번호</b> 수예요. 길 양쪽 정류장이 따로 세어져서 숫자가 커요.${bmd!=null?` 서울 동네 가운데 값은 ${bmd}곳이에요.`:''}</p>`);
+      `<p class="src">동 한가운데서 제일 가까운 역까지 잰 거리예요. 1분에 80m 걷는다고 봤어요. 집이 어디냐에 따라 더 멀 수도 가까울 수도 있어요. 버스 정류장은 <b>정류장 번호</b>로 세서 길 양쪽이 따로 들어가요. 그래서 숫자가 커요.${bmd!=null?` 서울 동네 중간은 ${bmd}곳이에요.`:''}</p>`);
   }
   {
     const kg=_fc('유치원'), el=_fc('초등학교'), mid=_fc('중학교'), hi=_fc('고등학교'), emd=_fcm('초등학교');
@@ -1456,8 +1454,7 @@ function homeHead(){
     const v4 = FOK ? [['초등학교',el],['중학교',mid],['고등학교',hi]].map(([l,v])=>`${l} ${v==null?0:v}곳`).join(' · ') : '학교 자료가 없어요';
     const s4 = [FOK&&kg!=null?`유치원 ${kg}곳`:'', hag!=null?`학원 ${_n(hag)}곳`:''].filter(Boolean).join(' · ');
     h+=row(4,'학교는', v4, s4, (FOK&&emd!=null)?pill('rk',`서울 동네는 보통 초등학교 ${emd}곳`):'',
-      `<p class="src">행정동 안에 있는 학교 수예요. 학교는 옆 동에 있어도 배정될 수 있어서 0곳이라고 학교가 먼 건 아니에요.
-        학원은 서울 상권분석에 잡힌 예술·외국어·교습 학원 가게 수예요. 어린이집·소아과·학군 평판은 자료가 없어요. 배정 학교는 아래 "배정 학교" 에서 주소로 확인하세요.</p>`);
+      `<p class="src">이 행정동 안에 있는 학교 수예요. 옆 동 학교로 배정되기도 해서 0곳이어도 학교가 먼 건 아니에요. 학원은 상권분석에 잡힌 예술·외국어·교습 학원 수예요. 어린이집·소아과·학군 평판은 자료가 없어요. 어느 학교로 배정되는지는 아래 "배정 학교" 에서 주소로 보세요.</p>`);
   }
   {
     const cvs=_si('편의점'), sup=_si('슈퍼마켓'), clin=_sisum(['일반의원','치과의원','한의원']), phr=_fc('약국'), gen=_fc('종합병원'), bank=_fc('은행'), thr=_fc('극장');
@@ -1468,8 +1465,8 @@ function homeHead(){
     const det5=`<div class="n4">${cell('편의점 · 슈퍼마켓', mart==null?null:_n(mart)+'곳', `편의점 ${cvs==null?'—':cvs} · 슈퍼마켓 ${sup==null?'—':sup}`)}${
         cell('병원 · 약국', med==null?null:_n(med)+'곳', `의원·치과·한의원 ${clin==null?'—':_n(clin)} · 약국 ${phr==null?'—':phr}`)}${
         cell('저녁에 갈 곳', eat==null?null:_n(eat)+'곳', '음식점·카페·술집을 합친 수')}</div>
-      <p class="src">가게 수는 서울 상권분석(카드 매출) 기준이고, 약국·은행·극장·종합병원은 행정동 안에 있는 수예요. 공원·치안은 자료가 없어요.</p>`;
-    h+=row(5,'병원 · 마트 · 저녁', v5, s5, '', det5);
+      <p class="src">가게 수는 서울시 상권분석에서 센 거고, 약국·은행·극장·종합병원은 행정동 안에 있는 수예요. 공원·치안은 자료가 없어요.</p>`;
+    h+=row(5,'병원 · 마트 · 먹을 데', v5, s5, '', det5);
   }
   {
     const CS=(_D&&_D.census)||{}, cr=(_D&&_D.crowd)||{};
@@ -1505,20 +1502,20 @@ function homeHead(){
   {
     const zs=[].concat((_D&&_D.redev_zones)||[]).filter(Boolean), z0=zs[0];
     const lbl=z=>z.kind||z.type||'정비사업';
-    h+=row(8,'재개발 · 재건축', zs.length?`정비구역 ${zs.length}곳`:'정비구역 없음',
-      zs.length?`${z0.name||''}${z0.stage?` · ${z0.stage}`:''}`:'서울시가 고시한 183곳 기준', zs.length?pill('rk',lbl(z0)):'',
+    h+=row(8,'재개발 · 재건축', zs.length?`재개발 구역 ${zs.length}곳`:'재개발 구역 없음',
+      zs.length?`${z0.name||''}${z0.stage?` · ${z0.stage}`:''}`:'서울시가 정한 183곳 기준', zs.length?pill('rk',lbl(z0)):'',
       zs.length
-        ? `<p class="src" style="margin:0 0 6px">이 동에 있는 서울시 정비사업 구역이에요. 위치는 아래 지도에 점선 원으로 표시했어요.</p>${
+        ? `<p class="src" style="margin:0 0 6px">이 동에 있는 서울시 재개발·재건축 구역이에요. 아래 지도에 점선 원으로 표시했어요.</p>${
             zs.map(z=>`<div class="kndrow"><span class="kl">${z.name||'구역'}${z.address?`<br><small style="color:var(--soft)">${z.address}</small>`:''}</span>
               <span class="kv" style="flex:0 0 auto;font:600 12px var(--ff)">${lbl(z)}</span><span class="kn" style="flex:0 0 auto">${z.stage||''}</span></div>`).join('')}
-          <p class="src">정비구역 안의 집은 나중에 비워 줘야 할 수 있어요. 계약 전에 구역 단계와 이주 시기를 확인하세요.</p>`
-        : `<p class="src">서울시 재개발·재건축 구역 183곳 가운데 이 동에 있는 구역은 없어요. 서울시가 고시한 구역만 세어서 추진위원회 단계나 소문은 들어 있지 않아요.</p>`);
+          <p class="src">구역 안 집은 나중에 비워 줘야 할 수 있어요. 계약 전에 어느 단계인지, 이주는 언제인지 물어보세요.</p>`
+        : `<p class="src">서울시가 정한 재개발·재건축 구역 183곳 중에 이 동은 없어요. 고시된 것만 센 거라 추진위 단계나 소문은 빠져 있어요.</p>`);
   }
   h+=`</ol>`;
-  h+=`<div class="qa-check"><b>직접 확인할 것. hicce 자료로는 알 수 없어요</b>
-    <p>집마다 다른 건 서류와 눈으로 보세요. 등기부의 근저당과 먼저 들어온 보증금, 건축물대장의 위반 건축물 표시, 관리비, 곰팡이와 누수, 주차. 치안은 자료가 없으니 밤에 한 번 가서 골목이 어두운지 보세요. 전세면 보증금이 시세의 몇 %인지부터 보세요.</p>
+  h+=`<div class="qa-check"><b>이건 직접 확인하세요. 저희 자료엔 없어요</b>
+    <p>집마다 다른 건 서류하고 눈으로 봐야 해요. 등기부에 근저당이 얼마나 잡혀 있는지, 나보다 먼저 들어온 보증금이 있는지, 건축물대장에 위반 건축물 표시가 있는지, 관리비는 얼마인지, 곰팡이·누수·주차는 어떤지. 치안은 자료가 없으니 밤에 한 번 가서 골목이 어두운지 보세요. 전세면 보증금이 집값의 몇 %인지부터 보세요.</p>
     <div class="chips"><a href="https://www.iros.go.kr" target="_blank" rel="noopener">등기부등본 ↗</a><a href="https://cloud.eais.go.kr" target="_blank" rel="noopener">건축물대장 ↗</a><a href="https://schoolzone.edumac.kr" target="_blank" rel="noopener">배정 학교 ↗</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-where">전세 안심 진단</a><span>밤에 가 보기</span><span>관리비</span><span>주차</span><span>곰팡이 · 누수</span></div></div>
-    <a class="pill" href="https://hicce.co.kr/b2c/ask?from=blog-where">이 동네 <b>특정 집</b> 시세가 궁금하시면 → hicce 시세 브리핑</a></div>`;
+    <a class="pill" href="https://hicce.co.kr/b2c/ask?from=blog-where">찍어 둔 집이 있으면 → <b>그 집 시세</b> 보기</a></div>`;
   return h;
 }
 
@@ -1571,38 +1568,37 @@ function shopHead(){
     const hasExp=(c.expected!=null), gap=hasExp?Math.round(c.expected-(c.stores||0)):null, b=c.burden_pct;
     const few=(c.stores||0)<8;
     const spr=CB&&CB.sales_pr!=null?CB.sales_pr:null;
-    let det1=`<div class="n4">${cell('가게당 월매출',eok(c.per_store_month_man),'카드 매출 추정')}${cell('가게 수',(c.stores||0)+'곳',few?'8곳이 안 돼 참고만':'')}${
+    let det1=`<div class="n4">${cell('가게당 월매출',eok(c.per_store_month_man),'카드 매출로 추정')}${cell('가게 수',(c.stores||0)+'곳',few?'8곳이 안 돼 참고만':'')}${
       cell('서울 동네 중',spr==null?null:rkS(spr),CB&&CB.sales_n_dong?`${ind} 가게 3곳 이상 ${_n(CB.sales_n_dong)}개 동 중`:'')}</div>
-      <p class="src">카드 결제로 추정한 매출을 가게 수로 나눈 값이에요. 현금·계좌이체가 많은 가게는 실제보다 낮게 잡혀요.${
-        pr&&pr.peak_time?` ${ind} 매출은 <b>${pr.peak_time}</b>에 가장 많이 나오고${pr.weekend_pct!=null?`, 주말이 <b>${Math.round(pr.weekend_pct)}%</b>예요`:''}.`:''}</p>`;
-    h+=`<ol class="qa">`+row(1,'얼마 파나',`가게당 월 ${eok(c.per_store_month_man)}`,'카드 매출 추정',
+      <p class="src">카드로 결제된 매출을 가게 수로 나눈 값이에요. 현금 손님이 많은 가게는 실제보다 낮게 잡혀요.${
+        pr&&pr.peak_time?` ${ind}는 <b>${pr.peak_time}</b>에 제일 많이 팔리고${pr.weekend_pct!=null?`, 주말 매출이 <b>${Math.round(pr.weekend_pct)}%</b>예요`:''}.`:''}</p>`;
+    h+=`<ol class="qa">`+row(1,'한 달에 얼마 파나',`한 가게가 월 ${eok(c.per_store_month_man)}`,'카드 매출로 추정',
         (spr!=null?pill('rk',`${ind} 있는 서울 동네 중 ${rkS(spr)}`):'')+(few?pill('mid',`${c.stores}곳뿐이라 참고만`):''), det1);
     const bk=b==null?null:(b<10?'ok':b<30?'mid':'bad'), bt=b==null?'':(b<10?'여유':b<30?'보통':'버티기 어려움');
     let det2;
     if(b!=null){
       det2=`<div class="n4">${cell('이 동네 1층 월세',_n(C.monthly_rent_man)+'만',`${C.area_m2}㎡ 기준 · ${C.sangkwon} 상권`)}${cell('가게당 월매출',eok(c.per_store_month_man),'카드 추정')}${cell('월세 ÷ 매출',b+'%','',bk)}</div>
-        <p class="src"><b>월세는 가게마다 달라요.</b> 상가는 건물마다 실거래가 없어서 부동산원이 조사한 상권 평균을 썼어요. 보고 있는 자리가 있으면 아래 "이 동네 특정 상가 시세" 로 그 건물 값을 보세요.
-          여유·보통·어려움은 hicce 가 정한 눈금이에요. 10% 아래면 여유, 30%를 넘으면 버티기 어렵다고 봐요.</p>`;
+        <p class="src"><b>월세는 가게마다 달라요.</b> 상가는 집처럼 실거래가 안 잡혀서 부동산원이 조사한 상권 평균을 썼어요. 보고 있는 자리가 있으면 맨 아래 "그 건물 시세 보기" 로 가세요. 여유·보통·어려움은 저희가 정한 기준이에요. 월세가 매출의 10% 아래면 여유, 30%를 넘으면 버티기 어렵다고 봐요.</p>`;
     } else {
-      det2=`<p class="src">이 동네는 부동산원 상권 임대료 조사에 없어서 월세 부담은 계산하지 못했어요. 가게 수·매출·폐업률만 있어요.</p>`;
+      det2=`<p class="src">이 동네는 부동산원 임대료 조사에 안 들어 있어서 월세 부담은 못 냈어요. 가게 수·매출·폐업률만 있어요.</p>`;
     }
-    h+=row(2,'월세 감당되나', b!=null?`매출의 ${b}%가 월세`:'월세 자료가 없어요', b!=null?`1층 ${C.area_m2}㎡ ${_n(C.monthly_rent_man)}만`:'', b!=null?pill(bk,bt):'', det2);
+    h+=row(2,'월세는 감당되나', b!=null?`매출의 ${b}%가 월세`:'월세 자료가 없어요', b!=null?`1층 ${Math.round(C.area_m2)}㎡ 월세 ${_n(C.monthly_rent_man)}만`:'', b!=null?pill(bk,bt):'', det2);
     const s5=CB&&CB.s5!=null?CB.s5:null, s5s=M&&M.s5_seoul, dd=(s5!=null&&s5s!=null)?Math.round(s5-s5s):null;
     const sk=dd==null?'mid':(dd>=5?'ok':dd<=-5?'bad':'mid');
     let p3=''; if(hasExp) p3+= gap<=0?pill('bad','많이 몰림'):pill('ok',`자리 ${gap}곳 비어 있음`);
     if(s5!=null) p3+=pill(sk,`5년 뒤 ${Math.round(s5)}% 남음${s5s!=null?` · 서울 ${Math.round(s5s)}%`:''}`);
-    const det3=`<div class="n4">${cell('비슷한 동네만큼이면',hasExp?Math.round(c.expected)+'곳':null,hasExp?'닮은 동네 업종 비율':'가게가 적어 비교 못 함')}${
+    const det3=`<div class="n4">${cell('비슷한 동네만큼이면',hasExp?Math.round(c.expected)+'곳':null,hasExp?'닮은 동네 가게 비율로 계산':'가게가 적어 비교 못 함')}${
         cell('작년보다',c.yoy_pct==null?null:(c.yoy_pct>0?'+':'')+c.yoy_pct+'%','가게 수 변화',c.yoy_pct==null?'':(c.yoy_pct>0?'ok':c.yoy_pct<-10?'bad':'mid'))}${
         cell('최근 3개월 문 닫음',c.close_rate_pct==null?null:c.close_rate_pct+'%','',c.close_rate_pct!=null&&c.close_rate_pct>=5?'bad':'')}</div>
       ${survLine(ind)}${c.floor_mix?(()=>{const fm=c.floor_mix,order=['1층','2층','3층+','지하'];return `<p class="src">이 업종 가게가 있는 층은 <b>${fm.scope}</b> 기준 ${order.map(x=>`${x} <b>${fm.mix[x]}%</b>`).join(' · ')}예요. 층이 적힌 가게 ${_n(fm.n_floor)}곳 기준이에요.</p>`;})():''}
-      <p class="src">이 동네에 없는 업종은 아래 "동네 전체 보기" 의 "아직 부족한 가게" 에 있어요.</p>`;
-    h+=row(3,'경쟁 · 버티나',`${_n(c.stores)}곳`, hasExp?(gap<=0?`비슷한 동네보다 ${-gap}곳 많음`:`비슷한 동네보다 ${gap}곳 적음`):'', p3, det3);
+      <p class="src">이 동네에 아직 없는 업종은 아래 "동네 전체 보기" 안 "아직 부족한 가게" 에 있어요.</p>`;
+    h+=row(3,'가게가 많나, 버티나',`${_n(c.stores)}곳`, hasExp?(gap<=0?`비슷한 동네보다 ${-gap}곳 많음`:`비슷한 동네보다 ${gap}곳 적음`):'', p3, det3);
     h+=custRow(ind, pr, CB, FT, WK, CS, row, pill, cell, rkS);
     h+=pairsRow(ind, row, pill);
     h+=`</ol>`;
   }
-  h+=`<div class="qa-check"><b>직접 확인할 것. hicce 자료로는 알 수 없어요</b>
-    <p>이 자리에서 ${ind||'그 업종'}이 되는지는 건물 용도·정화조·업종 제한에 달려요. 계약 전에 꼭 보세요.</p>
+  h+=`<div class="qa-check"><b>이건 직접 확인하세요. 저희 자료엔 없어요</b>
+    <p>이 자리에서 ${ind||'그 업종'}을 할 수 있는지는 건물 용도, 정화조, 업종 제한에 달려 있어요. 계약하기 전에 꼭 보세요.</p>
     <div class="chips"><a href="https://cloud.eais.go.kr" target="_blank" rel="noopener">건축물대장 용도 ↗</a><a href="https://www.localdata.go.kr" target="_blank" rel="noopener">구청 인허가 ↗</a><span>권리금 특약</span><span>등기부 근저당</span><span>계약 기간·갱신</span></div></div>`;
 
   const SZ0=(_D&&_D.shop_size)||null;
@@ -1653,7 +1649,7 @@ function shopHead(){
       <p class="src"><span class="exflag" style="float:none;margin-right:6px">⚠ 층별은 준비 중</span>부동산원이 <b>1층만</b> 조사해서 2층이나 지하 차이는 아직 알 수 없어요.</p>
       ${szBlock}
     </div></div>
-    <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">이 동네 <b>특정 상가</b> 시세가 궁금하시면 → hicce 시세 브리핑</a>
+    <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">보고 있는 건물이 있으면 → <b>그 건물 시세</b> 보기</a>
     </div>`;
   return h;
 }
@@ -1670,30 +1666,30 @@ function custRow(ind, pr, CB, FT, WK, CS, row, pill, cell, rkS){
       cell('지나다니는 사람',FT.ok?_n(FT.day_avg)+'명':null,FT.ok?`하루 평균 · ${rk(FT.seoul_pct_rank)}`:'자료 없음')}${
       cell('사는 사람',CS.ok?_n(CS.pop)+'명':null,CS.ok?`${_n(CS.households)}가구 · 한 집에 ${CS.avg_household}명`:'자료 없음')}${
       cell('일하는 사람',WK.ok?_n(WK.total)+'명':null,WK.ok?`이 동네 직장 · ${rk(WK.seoul_pct_rank)}`:'자료 없음')}</div>${
-      FT.ok&&FT.peak?`<p class="src">사람이 가장 많은 때는 <b>${FT.peak}</b>, 가장 많은 나이는 <b>${FT.top_age}</b>예요.${FT.weekend_pct!=null?` 주말에 지나는 사람이 일주일의 <b>${FT.weekend_pct}%</b>예요.`:''}</p>`:''}`;
+      FT.ok&&FT.peak?`<p class="src">사람이 제일 많을 때는 <b>${FT.peak}</b>, 제일 많은 나이는 <b>${FT.top_age}</b>예요.${FT.weekend_pct!=null?` 주말에 지나는 사람이 일주일의 <b>${FT.weekend_pct}%</b>예요.`:''}</p>`:''}`;
   if(!pr){
-    return row(4,'손님이 누구냐', FT.ok?`${FT.top_age}가 가장 많이 지나다녀요`:'자료 없음', FT.ok?`하루 ${_n(FT.day_avg)}명`:'', '', dongCells);
+    return row(4,'손님은 누구냐', FT.ok?`${FT.top_age}가 가장 많이 지나다녀요`:'자료 없음', FT.ok?`하루 ${_n(FT.day_avg)}명`:'', '', dongCells);
   }
   const top=Object.entries(pr.age||{}).sort((a,b)=>b[1]-a[1]).slice(0,2), ages=top.map(x=>x[0]).join('·');
   const sex=pr.female_pct==null?'':(pr.female_pct>=60?' 여성':pr.female_pct<=40?' 남성':'');
   const peak=(pr.peak_time||'').replace(/\s.*$/,'');
   const who=`${ages}가 ${Math.round(top.reduce((a,x)=>a+x[1],0))}%${pr.female_pct!=null?` · 여성 ${Math.round(pr.female_pct)}%`:''}${pr.peak_time?` · ${pr.peak_time}에 가장 많이`:''}`;
-  let pills='', det=`<p class="src" style="margin:0 0 6px"><b>${ind} 손님</b>은 서울에서 ${who} 써요.</p>`;
+  let pills='', det=`<p class="src" style="margin:0 0 6px">서울에서 <b>${ind}에 돈 쓰는 사람</b>은 ${who} 써요.</p>`;
   if(CB&&CB.fit_ok){
     const fp=CB.cust_foot_pr;
     if(fp!=null) pills+= fp>=70?pill('ok',`이 동네에 ${ages} 손님 많음`):fp<=30?pill('bad',`이 동네에 ${ages} 손님 적음`):pill('mid',`이 동네에 ${ages} 손님 보통`);
-    const fitTxt = CB.fit==null?'' : (CB.fit>=1.1?`이 동네에서 돈 쓰는 사람도 이 손님층과 <b>잘 맞아요</b>. 서울 평균을 1로 보면 ${CB.fit}이에요.`
-                 : CB.fit<=0.9?`이 동네에서 돈 쓰는 사람은 이 손님층과 <b>덜 맞아요</b>. 서울 평균을 1로 보면 ${CB.fit}이에요.`:`이 동네에서 돈 쓰는 사람은 서울 평균만큼 이 손님층과 맞아요.`);
+    const fitTxt = CB.fit==null?'' : (CB.fit>=1.1?`이 동네에서 실제로 돈 쓰는 사람도 이 손님층하고 <b>잘 맞아요</b>. 서울 평균을 1로 보면 ${CB.fit}이에요.`
+                 : CB.fit<=0.9?`이 동네에서 실제로 돈 쓰는 사람은 이 손님층하고 <b>덜 맞아요</b>. 서울 평균을 1로 보면 ${CB.fit}이에요.`:`이 동네에서 돈 쓰는 사람은 딱 서울 평균만큼 이 손님층하고 맞아요.`);
     det+=`<p class="src" style="margin:0 0 4px"><b>이 동네에 ${ages} 손님이 얼마나 있나</b></p><div class="n4">${
       cell('지나다니는 사람',CB.cust_foot==null?null:_n(CB.cust_foot)+'명',`하루 평균 · ${rk(CB.cust_foot_pr)}`)}${
       cell('사는 사람',CB.cust_res==null?null:_n(CB.cust_res)+'명',`주민등록 · ${rk(CB.cust_res_pr)}`)}${
       cell('일하는 사람',CB.cust_work==null?null:_n(CB.cust_work)+'명',`이 동네 직장 · ${rk(CB.cust_work_pr)}`)}</div>
-      <p class="src">위 사람 수에서 ${ages}만 센 값이에요. ${fitTxt}</p>`;
+      <p class="src">위 숫자는 ${ages}만 센 거예요. ${fitTxt}</p>`;
   } else {
-    det+=`<p class="src" style="margin:0 0 8px">${ind}은 손님 나이대가 매출을 가르지 않는 업종이라 이 동네에 그 손님이 있는지는 판정하지 않아요.</p>`;
+    det+=`<p class="src" style="margin:0 0 8px">${ind}은 손님 나이대가 매출을 안 가르는 업종이라, 이 동네에 그 손님이 있는지는 따지지 않아요.</p>`;
   }
   det+=dongCells;
-  return row(4,'손님이 누구냐',`${ages}${sex}${peak?` · ${peak}`:''}`,`서울 ${ind} 손님`,pills,det);
+  return row(4,'손님은 누구냐',`${ages}${sex}${peak?` · ${peak}`:''}`,`서울 ${ind} 손님`,pills,det);
 }
 function pairsRow(ind, row, pill){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
@@ -1706,7 +1702,7 @@ function pairsRow(ind, row, pill){
   else if(bad.length){ v=`${bad[0].with} 옆이면 더 닫음`; small=pc(bad[0])+'%'; }
   else { v=`${P.partners.slice(0,2).map(x=>x.industry).join('·')}이 많이 붙어 있음`; small=P.partners.slice(0,2).map(x=>x.ratio+'배').join(' · '); }
   if(good.length && bad.length) pills=pill('bad',`${bad[0].with} 옆이면 더 닫음 ${pc(bad[0])}%`);
-  return row(5,'옆 가게', v, small, pills, pairsLine(ind));
+  return row(5,'옆에 뭐가 있으면 좋나', v, small, pills, pairsLine(ind));
 }
 window.setInd=function(v){ _IND=v; renderHead(); };
 function pairsLine(ind){
@@ -1717,15 +1713,14 @@ function pairsLine(ind){
   let h=`<h4 class="grp">옆 가게</h4>`;
   if(P&&(P.partners||[]).length) h+=`<div class="prs">${P.partners.map(x=>`<div class="pr"><b>${x.industry}</b><span class="rt">${x.ratio}배</span>
       <span class="hr">이 동네 ${here(x.industry)?_n(here(x.industry))+'곳':'없음'}</span></div>`).join('')}</div>
-    <p class="src" style="margin:6px 0 0">서울에서 ${ind} 가게 바로 옆(${_PAIRS.radius_m||100}m)에는 이 업종들이
-      같은 동네 평균보다 위 배수만큼 더 많이 붙어 있어요. ${_PAIRS.caveat||''}</p>`;
+    <p class="src" style="margin:6px 0 0">서울에서 ${ind} 가게 ${_PAIRS.radius_m||100}m 안에는 이 업종들이 같은 동네 평균보다 위 배수만큼 더 많이 붙어 있어요. ${_PAIRS.caveat||''}</p>`;
   const good=SV.filter(x=>x.hi<1).slice(0,4), bad=SV.filter(x=>x.lo>1).slice(0,3);
   const pc=x=>Math.round(Math.abs(1-x.rr)*100);
   if(good.length||bad.length){
     const chip=x=>`<span class="ch">${x.with} <em>${pc(x)}%</em></span>`;
     h+=`<div class="svl">${good.length?`<div><i class="up"></i><b>옆에 있으면 덜 닫아요</b>${good.map(chip).join('')}</div>`:''}
       ${bad.length?`<div><i class="dn"></i><b>옆에 있으면 더 닫아요</b>${bad.map(chip).join('')}</div>`:''}</div>
-      <p class="src" style="margin:4px 0 0">2010~2020년에 문 연 서울 ${ind} 가게를 5년 따라가, 문 연 날 100m 안에 그 가게가 있었는지로 나눠 같은 골목끼리 비교한 값이에요. 같이 있을 때 더 오래 버틴 가게가 많았다는 뜻이고, 그 가게 때문이라고까지는 말할 수 없어요.</p>`;
+      <p class="src" style="margin:4px 0 0">2010~2020년에 문 연 서울 ${ind} 가게를 5년 동안 따라가 봤어요. 문 열 때 100m 안에 그 가게가 있었는지로 나눠서 같은 골목끼리 비교한 값이에요. 옆에 있을 때 더 오래 버틴 가게가 많았다는 거지, 그 가게 덕분이라고까진 말 못 해요.</p>`;
   }
   return h;
 }
@@ -1734,7 +1729,7 @@ function survLine(ind){
   if(!C||C.s5==null) return '';
   const se=M&&M.s5_seoul; const d=se!=null?Math.round(C.s5-se):null;
   const verdict = d==null?'' : d>=5?`서울 평균보다 <b>${d}%p 많이</b> 남았어요` : d<=-5?`서울 평균보다 <b>${-d}%p 적게</b> 남았어요` : `서울 평균과 비슷해요`;
-  return `<p class="src" style="margin:8px 0 0"><b>5년 뒤 남은 가게</b> — ${_CUBE.adstrd||'이 동네'}에서 2010~2020년에 문 연 ${ind} ${_n(C.s5_n_open)}곳 중 <b>${C.s5}%</b>가 5년 뒤에도 영업 중이었어요.${se!=null?` 서울 전체는 ${se}%예요.`:''} ${verdict}</p>`;
+  return `<p class="src" style="margin:8px 0 0"><b>5년 뒤 남은 가게.</b> 2010~2020년에 ${_CUBE.adstrd||'이 동네'}에서 문 연 ${ind} ${_n(C.s5_n_open)}곳 중 <b>${C.s5}%</b>가 5년 뒤에도 하고 있었어요.${se!=null?` 서울 전체는 ${se}%예요.`:''} ${verdict}</p>`;
 }
 
 function floorBody(){
@@ -1792,8 +1787,7 @@ function whoBody(){
       <span><i>가장 많은 나이</i><b>${WK.top_age||'—'}</b></span>
       <span><i>서울에서</i><b>상위 ${(100-WK.seoul_pct_rank)||1}%</b></span>
       <span><i>남성 비중</i><b>${WK.male_pct==null?'—':WK.male_pct+'%'}</b></span></div>`:''}
-    <p class="src">나이대 막대는 <b>생활인구</b> 기준이에요. 그 시간에 이 동네에 있던 사람이라
-      사는 사람과 일하러 온 사람이 섞여 있어요. 가구 구성은
+    <p class="src">나이대는 <b>생활인구</b>로 봤어요. 그 시간에 동네에 있던 사람이라 사는 사람과 일하러 온 사람이 섞여 있어요. 가구는
       <b>${CS.ok?CS.source:'통계청 인구주택총조사'}</b> 자료예요. ${CS.ok?CS.caveat+'.':''}
       ${cr.caveat||''}</p>`;
 }
@@ -1841,8 +1835,7 @@ function peopleSec(d, dg){
       점선 원은 구역 <b>면적</b>만큼 그린 원이라 실제 경계와는 달라요.<br>
       ${(d.redev_zones && (Array.isArray(d.redev_zones)?d.redev_zones.length:1))
         ? `이 동에는 <b>정비사업 구역</b>이 있어요. 지도에 표시했어요.`
-        : `<b>이 동에는 서울시 재개발·재건축 구역이 없어요.</b>
-           서울 전체 183곳 중 이 동은 0곳이라 지도에 표시할 구역이 없어요.`}</p>
+        : `<b>이 동에는 서울시 재개발·재건축 구역이 없어요.</b> 183곳 중 0곳이라 지도에 표시할 게 없어요.`}</p>
     ${shop}${chips}${bars}</section>`;
 }
 
@@ -1940,7 +1933,7 @@ function foldSections(){
 }
 
 let MODE = 'home';
-const PG_TITLE={home:'이 동네, 월세는 얼마가 적당할까요?', shop:'이 동네, 어떤 가게가 잘 될까요?'};
+const PG_TITLE={home:'이 동네 월세, 얼마면 적당할까요?', shop:'이 동네에서 장사하면 얼마나 벌까요?'};
 function setMode(m){
   MODE = m;
   document.querySelectorAll('.modeseg button').forEach(b =>
@@ -1954,7 +1947,8 @@ function applyMode(){
     el.classList.toggle('hideMode', el.dataset.mode !== MODE));
 }
 async function runDong(){
-  const gu=$('gu').value, dg=$('dg').value;
+  let gu=$('gu').value; const dg=$('dg').value;
+  if(!gu && dg && _DONG_GU){ gu=_DONG_GU; $('gu').value=gu; }
   if(!gu||!dg){
     const o=$('out2'); if(o){ o.className='';
       o.innerHTML=`<div class="empty">${!gu?'자치구':'동'}를 골라 주세요.</div>`; }
@@ -1987,7 +1981,7 @@ async function runDong(){
   html += '<div id="headAns"></div>';
 
   if(_isSample) html='<div class="empty" style="margin:0 0 14px;padding:8px 12px;border:1px dashed var(--rule);border-radius:6px">'
-    +'<b>예시</b>로 마포구 서교동을 보여 드려요. 위에서 동네를 고르면 그 동네로 바뀌어요.</div>'+html;
+    +'<b>예시</b>로 마포구 서교동을 띄워 놨어요. 위에서 동네를 고르면 바뀌어요.</div>'+html;
   const PE=d.price_effect;
 
   html+=`<button type="button" class="dongall-btn" data-mode="shop" onclick="dongAllToggle(this)">동네 전체 보기 <small>매출표 · 늘고 줄고 · 없는 업종 · 재개발 · 서울 비교</small></button><div id="dongAll" class="dongall" data-mode="shop">`;
@@ -2069,8 +2063,7 @@ async function runDong(){
           ST.favor.length ? ST.favor.join(' · ') + (ST.n_favor>ST.favor.length?` <em>외 ${ST.n_favor-ST.favor.length}개</em>`:'') : '<em>눈에 띄는 업종이 없어요</em>'}</span></div>
         <div class="fa"><span class="lb b">불리한 업종</span><span class="li">${
           ST.avoid.length ? ST.avoid.join(' · ') + (ST.n_avoid>ST.avoid.length?` <em>외 ${ST.n_avoid-ST.avoid.length}개</em>`:'') : '<em>눈에 띄는 업종이 없어요</em>'}</span></div>
-        <p class="src" style="color:var(--warn)"><b>불리한 업종은 매출이 낮게 잡힌다는 뜻이에요.</b>
-          폐업률과 매출의 관계는 +0.04로 거의 없어서, 문을 닫을지는 이 숫자로 알 수 없어요.${
+        <p class="src" style="color:var(--warn)"><b>불리하다는 건 매출이 낮게 잡힌다는 뜻이에요.</b> 폐업률은 매출과 거의 관계가 없어서 문을 닫을지는 이 숫자로 못 봐요.${
           ST.n_mixed?` 방향이 엇갈리는 ${ST.n_mixed}개 업종은 어느 쪽에도 넣지 않았어요.`:''}</p>` : '')
       + `<p class="src">${ST.note||''}</p></section>`;
   }
@@ -2082,7 +2075,7 @@ async function runDong(){
   renderHead();
   if(window.hicceAlert) hicceAlert('alertHost', {
     head: '이 동네에 맞는 매물이 올라오면 알려드릴까요?',
-    sub : '연락처는 중개사에게 공개되지 않아요. 마케팅 수신은 선택이에요.',
+    sub : '연락처는 중개사한테 안 넘어가요. 마케팅 수신은 안 받아도 돼요.',
     btn : '알림 받기', kind: 'listing', optKind: 'price',
     optLabel: '이 동네 시세가 움직이면 같이 알려주세요',
     needs: true, askRent: true,
