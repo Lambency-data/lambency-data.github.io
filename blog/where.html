@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: f80890e2aced599e -->
+<!-- baked-from-b2c-where: b6076bfdce28327c -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1350,7 +1350,6 @@ let _PY=10;            /* 집  — 찾는 크기(평) */
 let _BUD=150;          /* 가게 — 예산(월 만원) */
 let _SPY=10;           /* 가게 — 하고 싶은 크기(평). 예산과 **양방향**이다 */
 let _SPY_USER=false;   /* 사람이 직접 넣었나 — 아니면 동네 1층 가게 가운데 값을 기본으로 쓴다 (2026-09-29) */
-let _AGE=0;            /* 집  — 나이대 탭 */
 let _IND='';           /* 가게 — 고른 업종 */
 let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
 let _PICK=null;        /* dong-pick — all 포함 */
@@ -1374,6 +1373,9 @@ const _fc = lab => { const it=(((_D||{}).fclty||{}).items||[]).find(x=>x.label==
 const _si = nm  => { const r=(_ALLIND||[]).find(x=>x.industry===nm); return r?r.stores:null; };
 const _sisum = names => { let s=null; names.forEach(nm=>{const v=_si(nm); if(v!=null) s=(s||0)+v;}); return s; };
 
+const qaRank=p=>p==null?'':(p>=50?`상위 ${Math.max(1,100-p)}%`:`하위 ${Math.max(1,p)}%`);
+const _fcp = lab => { const it=(((_D||{}).fclty||{}).items||[]).find(x=>x.label===lab); return it?it.pr:null; };
+const _fcm = lab => { const it=(((_D||{}).fclty||{}).items||[]).find(x=>x.label===lab); return it?it.md:null; };
 const qaPill=(k,t)=>`<span class="qp ${k}">${k==='rk'?'':'<i></i>'}${t}</span>`;
 const qaCell=(l,v,s,k)=>`<div><div class="nl">${l}</div><div class="nv${k?' '+k:''}${v==null?' non':''}">${v==null?'—':v}</div><div class="ns">${s||''}</div></div>`;
 const qaRow=(no,k,v,small,pills,det,open,attrs)=>`<li class="qa-row${open?' open':''}" data-q="${no}"${attrs?' '+attrs:''}><span class="qa-no">${no}</span>
@@ -1386,7 +1388,8 @@ function homeHead(){
   const H=(_D&&_D.housing)||{};
   const rows=(H.rows||[]).filter(r=>r.monthly_man);
   const jong=_DG?`<span class="dg">${_DG}</span>`:'';
-  const pill=qaPill, row=qaRow;
+  const pill=qaPill, row=qaRow, cell=qaCell, rkS=qaRank;
+  const FOK=!!(((_D||{}).fclty||{}).ok);
   const m2=_PY*P2M;
   const cur=rows.length?(bandOf(rows,m2)||rows[rows.length-1]):null;
   const n=cur?(cur.n_monthly||0):0, thin=!cur||n<30;
@@ -1435,22 +1438,57 @@ function homeHead(){
         <p class="src">종류마다 <b>이 크기 구간의 월세 가운데 값</b>이에요. 보증금 기준이 종류마다 달라서 옆의 건수와 함께 보세요.
           30건이 안 되면 값을 비워 뒀어요. 도시형생활주택은 국토부 자료에 따로 나뉘어 있지 않아요.</p>`;
     }
+    det2+=floorBody();
     h+=row(2,'집 종류별로는', v, small, '', det2, false, 'data-needs="api:dong-rent-kinds"');
   }
   {
-    const TR=(_D&&_D.transit)||{}; const st=TR.ok?_walk(TR.dist_m):null; const bus=_fc('버스정거장');
+    const TR=(_D&&_D.transit)||{}; const st=TR.ok?_walk(TR.dist_m):null;
+    const bus=_fc('버스정거장'), bpr=_fcp('버스정거장'), bmd=_fcm('버스정거장');
     h+=row(3,'지하철 · 버스', TR.ok?`${TR.station} 걸어서 ${st}분`:'가까운 역을 찾지 못했어요',
       TR.ok?`${_n(TR.dist_m)}m${TR.n_stations_500m>0?` · 500m 안에 역 ${TR.n_stations_500m}곳`:''}`:'',
-      bus!=null?pill('rk',`버스 정류장 ${_n(bus)}곳`):'',
-      `<p class="src">지하철은 동 중심에서 가장 가까운 역까지 <b>실제 거리</b>로 계산했어요. 걸어서 1분은 80m로 잡았어요.
-        집마다 실제 거리는 달라요. 버스 정류장은 행정동 안에 있는 수예요.</p>`);
+      bus!=null?pill('rk',`버스 정류장 ${_n(bus)}곳${bpr!=null?` · 서울 동네 중 ${rkS(bpr)}`:''}`):'',
+      `<p class="src">지하철은 동 중심에서 가장 가까운 역까지 <b>실제 거리</b>예요. 걸어서 1분은 80m로 잡았어요. 집마다 실제 거리는 달라요.
+        버스 정류장은 행정동 안의 <b>정류장 번호</b> 수예요. 길 양쪽 정류장이 따로 세어져서 숫자가 커요.${bmd!=null?` 서울 동네 가운데 값은 ${bmd}곳이에요.`:''}</p>`);
+  }
+  {
+    const kg=_fc('유치원'), el=_fc('초등학교'), mid=_fc('중학교'), hi=_fc('고등학교'), emd=_fcm('초등학교');
+    const hag=_sisum(['예술학원','외국어학원','일반교습학원']);
+    const v4 = FOK ? [['초등학교',el],['중학교',mid],['고등학교',hi]].map(([l,v])=>`${l} ${v==null?0:v}곳`).join(' · ') : '학교 자료가 없어요';
+    const s4 = [FOK&&kg!=null?`유치원 ${kg}곳`:'', hag!=null?`학원 ${_n(hag)}곳`:''].filter(Boolean).join(' · ');
+    h+=row(4,'학교는', v4, s4, (FOK&&emd!=null)?pill('rk',`서울 동네는 보통 초등학교 ${emd}곳`):'',
+      `<p class="src">행정동 안에 있는 학교 수예요. 학교는 옆 동에 있어도 배정될 수 있어서 0곳이라고 학교가 먼 건 아니에요.
+        학원은 서울 상권분석에 잡힌 예술·외국어·교습 학원 가게 수예요. 어린이집·소아과·학군 평판은 자료가 없어요. 배정 학교는 아래 "배정 학교" 에서 주소로 확인하세요.</p>`);
+  }
+  {
+    const cvs=_si('편의점'), sup=_si('슈퍼마켓'), clin=_sisum(['일반의원','치과의원','한의원']), phr=_fc('약국'), gen=_fc('종합병원'), bank=_fc('은행'), thr=_fc('극장');
+    const eat=_sisum(['한식음식점','일식음식점','중식음식점','양식음식점','분식전문점','패스트푸드점','치킨전문점','제과점','커피-음료','호프-간이주점']);
+    const mart=(cvs!=null||sup!=null)?(cvs||0)+(sup||0):null, med=(clin!=null||phr!=null)?(clin||0)+(phr||0):null;
+    const v5=(mart!=null||med!=null)?[mart!=null?`편의점·마트 ${_n(mart)}곳`:'', med!=null?`병원·약국 ${_n(med)}곳`:''].filter(Boolean).join(' · '):'가게 자료가 없어요';
+    const s5=[eat!=null?`저녁에 갈 곳 ${_n(eat)}곳`:'', gen?`종합병원 ${gen}곳`:'', bank!=null?`은행 ${bank}곳`:'', thr!=null?`극장 ${thr}곳`:''].filter(Boolean).join(' · ');
+    const det5=`<div class="n4">${cell('편의점 · 슈퍼마켓', mart==null?null:_n(mart)+'곳', `편의점 ${cvs==null?'—':cvs} · 슈퍼마켓 ${sup==null?'—':sup}`)}${
+        cell('병원 · 약국', med==null?null:_n(med)+'곳', `의원·치과·한의원 ${clin==null?'—':_n(clin)} · 약국 ${phr==null?'—':phr}`)}${
+        cell('저녁에 갈 곳', eat==null?null:_n(eat)+'곳', '음식점·카페·술집을 합친 수')}</div>
+      <p class="src">가게 수는 서울 상권분석(카드 매출) 기준이고, 약국·은행·극장·종합병원은 행정동 안에 있는 수예요. 공원·치안은 자료가 없어요.</p>`;
+    h+=row(5,'병원 · 마트 · 저녁', v5, s5, '', det5);
+  }
+  {
+    const CS=(_D&&_D.census)||{}, cr=(_D&&_D.crowd)||{};
+    const ages=cr.age||[], top=ages.length?ages.reduce((a,b)=>b.pct>a.pct?b:a):null;
+    if(CS.ok||top){
+      const v6=[CS.ok?`한 집에 평균 ${CS.avg_household}명`:'', top?`${top.label}가 가장 많음`:''].filter(Boolean).join(' · ');
+      const s6=CS.ok?`${_n(CS.households)}가구 · 비아파트 ${CS.nonapt_pct}%`:'';
+      const p6=CS.ok?pill('rk', CS.avg_household<1.8?'혼자 사는 집이 많은 동네':CS.avg_household<2.4?'1~2인 가구가 섞인 동네':'가족이 함께 사는 동네'):'';
+      h+=row(6,'누가 사나', v6, s6, p6, whoBody());
+    } else {
+      h+=row(6,'누가 사나','인구 자료가 없어요','', '', `<p class="src">이 동네는 총조사·생활인구 자료가 없어요.</p>`);
+    }
   }
   {
     const BM=(_D&&_D.build_mix)||null;
     if(BM && BM.ok){
       const CL={'2015년 이후':'var(--up)','2005~2014년':'var(--ink)','1995~2004년':'var(--faint)','1994년 이전':'var(--warn)'};
       const mx=Math.max.apply(null, BM.rows.map(r=>r.pct).concat([1]));
-      const det4=`<p class="src" style="margin:0 0 8px">이 동네에서 <b>거래된 집</b>을 지은 해별로 나눴어요.
+      const det7=`<p class="src" style="margin:0 0 8px">이 동네에서 <b>거래된 집</b>을 지은 해별로 나눴어요.
           ${BM.old20_pct>=50
             ? `<b>${BM.old20_pct}%</b>가 20년 넘은 집이에요. 오래된 집은 싼 대신 수리비가 들어요.`
             : `20년 넘은 집이 <b>${BM.old20_pct}%</b>, 2015년 이후 지은 새 집이 <b>${BM.new_pct}%</b>예요.`}</p>
@@ -1458,80 +1496,32 @@ function homeHead(){
           <span class="tk"><i style="width:${r.pct/mx*100}%;background:${CL[r.band]||'var(--ink)'}"></i></span>
           <span class="pc">${r.pct}%</span><span class="rl">${r.note} · ${_n(r.n)}건</span></div>`).join('')}
         <p class="src">가장 많은 건 <b>${BM.modal_year}년</b>에 지은 집이에요. ${BM.basis.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')} · ${BM.source}</p>`;
-      h+=row(4,'건물이 얼마나 낡았나', `20년 넘은 집 ${BM.old20_pct}%`, `2015년 이후 지은 집 ${BM.new_pct}% · 실거래 ${_n(BM.n)}건`,
-        BM.old20_pct>=50?pill('mid','오래된 집이 많아요'):pill('rk',`가장 많은 건 ${BM.modal_year}년에 지은 집`), det4);
+      h+=row(7,'건물이 얼마나 낡았나', `20년 넘은 집 ${BM.old20_pct}%`, `2015년 이후 지은 집 ${BM.new_pct}% · 실거래 ${_n(BM.n)}건`,
+        BM.old20_pct>=50?pill('mid','오래된 집이 많아요'):pill('rk',`가장 많은 건 ${BM.modal_year}년에 지은 집`), det7);
     } else {
-      h+=row(4,'건물이 얼마나 낡았나','거래가 적어 못 나눠요','', '', `<p class="src">이 동네는 거래가 적어서 지은 해별로 나누기 어려워요.</p>`);
+      h+=row(7,'건물이 얼마나 낡았나','거래가 적어 못 나눠요','', '', `<p class="src">이 동네는 거래가 적어서 지은 해별로 나누기 어려워요.</p>`);
     }
   }
   {
-    const eat=_sisum(['한식음식점','일식음식점','중식음식점','양식음식점','분식전문점','패스트푸드점','치킨전문점','제과점','커피-음료','호프-간이주점']);
-    const cvs=_si('편의점'), sup=_si('슈퍼마켓'), clin=_sisum(['일반의원','치과의원','한의원']), phr=_fc('약국'), el=_fc('초등학교');
-    const mart=(cvs!=null||sup!=null)?_n((cvs||0)+(sup||0)):null;
-    const v5 = eat!=null ? `저녁에 갈 곳 ${_n(eat)}곳` : (mart!=null ? `편의점·마트 ${mart}곳` : '가게 자료가 없어요');
-    const s5=[eat!=null&&mart!=null?`편의점·마트 ${mart}곳`:'', (clin!=null||phr!=null)?`병원·약국 ${_n((clin||0)+(phr||0))}곳`:'', el!=null?`초등학교 ${_n(el)}곳`:''].filter(Boolean).join(' · ');
-    const det5=`<div class="agetab" role="tablist">${AGE_TABS.map((t,i)=>
-        `<button type="button" role="tab" aria-selected="${i===_AGE}" onclick="setAge(${i})">${t}</button>`).join('')}</div>
-      <div class="lifec" id="lifeCards">${lifeCards()}</div>
-      <p class="src">음식점·카페·편의점은 서울 상권분석의 가게 수예요. 병원·학교·정류장은 행정동 안에 있는 수예요. 공원·치안·소아과는 아직 준비 중이에요.</p>`;
-    h+=row(5,'살기 편한가', v5, s5, '', det5);
+    const zs=[].concat((_D&&_D.redev_zones)||[]).filter(Boolean), z0=zs[0];
+    const lbl=z=>z.kind||z.type||'정비사업';
+    h+=row(8,'재개발 · 재건축', zs.length?`정비구역 ${zs.length}곳`:'정비구역 없음',
+      zs.length?`${z0.name||''}${z0.stage?` · ${z0.stage}`:''}`:'서울시가 고시한 183곳 기준', zs.length?pill('rk',lbl(z0)):'',
+      zs.length
+        ? `<p class="src" style="margin:0 0 6px">이 동에 있는 서울시 정비사업 구역이에요. 위치는 아래 지도에 점선 원으로 표시했어요.</p>${
+            zs.map(z=>`<div class="kndrow"><span class="kl">${z.name||'구역'}${z.address?`<br><small style="color:var(--soft)">${z.address}</small>`:''}</span>
+              <span class="kv" style="flex:0 0 auto;font:600 12px var(--ff)">${lbl(z)}</span><span class="kn" style="flex:0 0 auto">${z.stage||''}</span></div>`).join('')}
+          <p class="src">정비구역 안의 집은 나중에 비워 줘야 할 수 있어요. 계약 전에 구역 단계와 이주 시기를 확인하세요.</p>`
+        : `<p class="src">서울시 재개발·재건축 구역 183곳 가운데 이 동에 있는 구역은 없어요. 서울시가 고시한 구역만 세어서 추진위원회 단계나 소문은 들어 있지 않아요.</p>`);
   }
   h+=`</ol>`;
   h+=`<div class="qa-check"><b>직접 확인할 것. hicce 자료로는 알 수 없어요</b>
-    <p>집마다 다른 건 계약 전에 서류와 눈으로 보세요. 등기부의 근저당과 먼저 들어온 보증금, 건축물대장의 위반 건축물 표시, 관리비, 곰팡이와 누수예요. 전세면 보증금이 시세의 몇 %인지부터 보세요.</p>
-    <div class="chips"><a href="https://www.iros.go.kr" target="_blank" rel="noopener">등기부등본 ↗</a><a href="https://cloud.eais.go.kr" target="_blank" rel="noopener">건축물대장 ↗</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-where">전세 안심 진단</a><span>관리비</span><span>곰팡이 · 누수</span></div></div>
+    <p>집마다 다른 건 서류와 눈으로 보세요. 등기부의 근저당과 먼저 들어온 보증금, 건축물대장의 위반 건축물 표시, 관리비, 곰팡이와 누수, 주차. 치안은 자료가 없으니 밤에 한 번 가서 골목이 어두운지 보세요. 전세면 보증금이 시세의 몇 %인지부터 보세요.</p>
+    <div class="chips"><a href="https://www.iros.go.kr" target="_blank" rel="noopener">등기부등본 ↗</a><a href="https://cloud.eais.go.kr" target="_blank" rel="noopener">건축물대장 ↗</a><a href="https://schoolzone.edumac.kr" target="_blank" rel="noopener">배정 학교 ↗</a><a href="https://hicce.co.kr/b2c/jeonse?from=blog-where">전세 안심 진단</a><span>밤에 가 보기</span><span>관리비</span><span>주차</span><span>곰팡이 · 누수</span></div></div>
     <a class="pill" href="https://hicce.co.kr/b2c/ask?from=blog-where">이 동네 <b>특정 집</b> 시세가 궁금하시면 → hicce 시세 브리핑</a></div>`;
   return h;
 }
 
-const AGE_TABS=['20·30대','40·50대','아이 있는 집'];
-function lifeCards(){
-  const T=(_D&&_D.transit)||{};
-  const st=T.ok?_walk(T.dist_m):null;
-  const card=(l,v,s)=>`<div><div class="ll">${l}</div>
-    <div class="lv${v==null?' non':''}">${v==null?'—':v}</div><div class="ls">${s||''}</div></div>`;
-  const bus=_fc('버스정거장');
-  const subway = st!=null
-    ? card('지하철','걸어서 '+st+'분', `${T.station}${T.n_stations_500m>0?' · 500m 안에 역 '+T.n_stations_500m+'곳':''}`)
-    : card('지하철',null,'이 동네는 역 위치를 찾지 못했어요');
-  const busc = card('버스', bus!=null?('정류장 '+_n(bus)+'곳'):null, '행정동 안에 있는 정류장 수');
-  if(_AGE===0){
-    const eat=_sisum(['한식음식점','일식음식점','중식음식점','양식음식점','분식전문점',
-                      '패스트푸드점','치킨전문점','제과점','커피-음료','호프-간이주점']);
-    const cafe=_si('커피-음료'), cvs=_si('편의점'), sup=_si('슈퍼마켓');
-    const laun=_si('세탁소'), gym=_si('스포츠클럽');
-    return subway+busc
-      +card('저녁에 갈 곳', eat!=null?_n(eat)+'곳':null, '음식점·카페·술집을 합친 수')
-      +card('카페', cafe!=null?_n(cafe)+'곳':null, '커피·음료 가게')
-      +card('편의점·마트', (cvs!=null||sup!=null)?_n((cvs||0)+(sup||0))+'곳':null,
-            `편의점 ${cvs==null?'—':cvs} · 슈퍼마켓 ${sup==null?'—':sup}`)
-      +card('빨래·운동', (laun!=null||gym!=null)?_n((laun||0)+(gym||0))+'곳':null,
-            `세탁소 ${laun==null?'—':laun} · 헬스·스포츠클럽 ${gym==null?'—':gym}`);
-  }
-  if(_AGE===1){
-    const hos=_fc('병원'), gen=_fc('종합병원'), phr=_fc('약국');
-    const clin=_sisum(['일반의원','치과의원','한의원']);
-    const sup=_si('슈퍼마켓'), bank=_fc('은행');
-    return subway
-      +card('병원·약국', (clin!=null||phr!=null)?`병원 ${clin==null?'—':_n(clin)} · 약국 ${phr==null?'—':_n(phr)}`:null,
-            `병원은 의원·치과·한의원을 합친 수예요. 종합병원 ${gen==null?'없음':gen+'곳'}`)
-      +card('마트', sup!=null?_n(sup)+'곳':null, '슈퍼마켓 수예요. 대형마트는 따로 나누지 않았어요')
-      +busc
-      +card('은행', bank!=null?_n(bank)+'곳':null, '행정동 안에 있는 수')
-      +card('공원', null, '공원·산책로는 준비 중이에요');
-  }
-  const kg=_fc('유치원'), el=_fc('초등학교'), mid=_fc('중학교');
-  return card('유치원', kg!=null?_n(kg)+'곳':null, '어린이집은 준비 중이에요')
-    +card('초등학교', el!=null?_n(el)+'곳':null, mid!=null?`중학교 ${mid}곳`:'행정동 안에 있는 수')
-    +card('소아과', null, '소아과만 따로 세는 건 준비 중이에요')
-    +card('공원·놀이터', null, '준비 중이에요')
-    +card('치안', null, '준비 중이에요')
-    +busc;
-}
-window.setAge=function(i){ _AGE=i;
-  document.querySelectorAll('.agetab button').forEach((b,k)=>b.setAttribute('aria-selected',String(k===i)));
-  const box=document.getElementById('lifeCards'); if(box) box.innerHTML=lifeCards();
-};
 
 function indRow(nm){
   const p = (((_PICK||{}).all)||[]).find(x=>x.industry===nm);
@@ -1562,7 +1552,7 @@ function shopHead(){
   const ind=_IND;
   const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind], CB=_CUBE&&_CUBE.cells&&_CUBE.cells[ind], pr=M&&M.profile;
   const FT=(_D&&_D.foot)||{}, WK=(_D&&_D.work)||{}, CS=(_D&&_D.census)||{};
-  const rkS=p=>p==null?'':(p>=50?`상위 ${Math.max(1,100-p)}%`:`하위 ${Math.max(1,p)}%`);
+  const rkS=qaRank;
   const pill=qaPill, cell=qaCell, row=qaRow;
 
   let h=`<div class="indbox ans" data-needs="api:sales-intel">
@@ -1747,13 +1737,12 @@ function survLine(ind){
   return `<p class="src" style="margin:8px 0 0"><b>5년 뒤 남은 가게</b> — ${_CUBE.adstrd||'이 동네'}에서 2010~2020년에 문 연 ${ind} ${_n(C.s5_n_open)}곳 중 <b>${C.s5}%</b>가 5년 뒤에도 영업 중이었어요.${se!=null?` 서울 전체는 ${se}%예요.`:''} ${verdict}</p>`;
 }
 
-function floorSec(){
+function floorBody(){
   const F=(_D&&_D.rent_floor)||null;
   if(!F || !F.ok || !(F.rows||[]).length) return '';
   const mx=Math.max.apply(null, F.rows.map(r=>r.monthly_man).concat([1]));
   const tone=v=>v==null?'':(v>=8?'up':v<=-8?'dn':'');
-  return `<section class="sec" data-mode="home"><h2>🪜 층마다 월세가 얼마나 다른가
-      <small>이 동네 전월세 실거래 ${_n(F.n)}건</small></h2>
+  return `<h4 class="grp">층마다 월세는 얼마나 다른가 <small style="font-weight:400;color:var(--soft)">전월세 실거래 ${_n(F.n)}건</small></h4>
     <p class="src" style="margin:2px 0 8px">층과 상관없이 본 이 동네 보통 월세 <b>${_n(F.base_monthly_man)}만</b>과 비교했어요.
       ${F.note}</p>
     ${F.rows.map(r=>`<div class="agebar"><span>${r.band}</span>
@@ -1762,11 +1751,10 @@ function floorSec(){
       <span class="rl"><b class="${tone(r.vs_base_pct)}" style="font-weight:600">${
         r.vs_base_pct==null?'—':(r.vs_base_pct>0?'+':'')+r.vs_base_pct+'%'}</b> · ${_n(r.n)}건</span></div>`).join('')}
     <p class="src">칸마다 보통 집 크기가 ${F.rows.map(r=>`${r.band} ${r.area_m2}㎡`).join(' · ')}로 달라서
-      <b>층 차이에 크기 차이가 섞여 있어요.</b> 보증금 기준을 맞춘 새 계약만 셌어요. ${F.source}</p>
-    </section>`;
+      <b>층 차이에 크기 차이가 섞여 있어요.</b> 보증금 기준을 맞춘 새 계약만 셌어요. ${F.source}</p>`;
 }
 
-function whoSec(){
+function whoBody(){
   const cr=(_D&&_D.crowd)||{}, WK=(_D&&_D.work)||{};
   if(!cr.ok && !WK.ok) return '';
   const ages=(cr.age||[]);
@@ -1777,9 +1765,7 @@ function whoSec(){
   const hh = (CS.ok && CS.house_total) ? Object.keys(HK).map(k=>({
       k, lb:HK[k], n:CS.houses[k]||0, pct: Math.round((CS.houses[k]||0)/CS.house_total*1000)/10
     })).sort((a,b)=>b.n-a.n) : [];
-  return `<section class="sec" data-mode="home"><h2>👥 누가 사는가
-      <small>가구 구성 · 나이 · 일</small></h2>
-    ${CS.ok ? `<div class="ovs" style="margin:2px 0 14px">
+  return `${CS.ok ? `<div class="ovs" style="margin:2px 0 14px">
       <span><i>한 집에 사는 사람</i><b>평균 ${CS.avg_household}명</b></span>
       <span><i>가구 수</i><b>${_n(CS.households)}가구</b></span>
       <span><i>이 동네 집</i><b>비아파트 ${CS.nonapt_pct}%</b></span>
@@ -1809,7 +1795,7 @@ function whoSec(){
     <p class="src">나이대 막대는 <b>생활인구</b> 기준이에요. 그 시간에 이 동네에 있던 사람이라
       사는 사람과 일하러 온 사람이 섞여 있어요. 가구 구성은
       <b>${CS.ok?CS.source:'통계청 인구주택총조사'}</b> 자료예요. ${CS.ok?CS.caveat+'.':''}
-      ${cr.caveat||''}</p></section>`;
+      ${cr.caveat||''}</p>`;
 }
 
 function peopleSec(d, dg){
@@ -1869,7 +1855,6 @@ async function loadSide(gu, dg, seq){
   await Promise.all(jobs);
   if(seq!==_seq) return;
   renderHead();
-  const box=document.getElementById('lifeCards'); if(box) box.innerHTML=lifeCards();
 }
 
 function renderHead(){
@@ -1916,7 +1901,7 @@ async function renderDongMap(gu, dg, d){
       notes.push('<span><i style="background:#1A4FA0"></i>행정동 생활인구 · 원 크기 = 사람 수</span>');
     } else notes.push('<span style="color:var(--faint)">이 자치구는 생활인구 위치 자료가 없어요</span>');
   }catch(_){ notes.push('<span style="color:var(--faint)">생활인구를 불러오지 못했어요</span>'); }
-  const zs=d.redev_zones||[];
+  const zs=[].concat(d.redev_zones||[]).filter(Boolean);
   if(zs.length){
     zs.forEach(z=>{
       if(z.lat==null) return;
@@ -2090,10 +2075,6 @@ async function runDong(){
       + `<p class="src">${ST.note||''}</p></section>`;
   }
 
-  html += '</div>';
-  html+=`<button type="button" class="dongall-btn" data-mode="home" data-target="dongAllHome" onclick="dongAllToggle(this)">동네 전체 보기 <small>층마다 월세 · 누가 사는가</small></button><div id="dongAllHome" class="dongall" data-mode="home">`;
-  html += floorSec();
-  html += whoSec();
   html += '</div>';
   html += peopleSec(d, dg);
   html += '<div id="alertHost" data-needs="api-post:b2c-alert"></div>';
