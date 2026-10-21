@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: dcb285d4af0fa257 -->
+<!-- baked-from-b2c-where: 305009b26dc7875b -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1682,14 +1682,16 @@ function custLine(ind){
   const pr=M&&M.profile; if(!pr) return '';
   const top=Object.entries(pr.age||{}).sort((a,b)=>b[1]-a[1]).slice(0,2);
   const who=`${top.map(x=>x[0]).join('·')}가 ${Math.round(top.reduce((a,x)=>a+x[1],0))}%${pr.female_pct!=null?` · 여성 ${Math.round(pr.female_pct)}%`:''}${pr.peak_time?` · ${pr.peak_time}에 가장 많이`:''}`;
-  let h=`<p class="src" style="margin:8px 0 0"><b>${ind}에 돈을 쓰는 사람</b>은 서울에서 ${who} 써요.</p>`;
+  let h=`<p class="src" style="margin:8px 0 0"><b>${ind} 손님</b>은 서울에서 ${who} 써요.</p>`;
   if(!(C&&C.fit_ok)) return h;
-  const rk=p=>p==null?'':(p>=50?`서울 상위 ${Math.max(1,100-p)}%`:`서울 하위 ${Math.max(1,p)}%`);
-  const cell=(l,v,p)=>`<div><div class="nl">${l}</div><div class="nv${v==null?' non':''}">${v==null?'—':_n(v)+'명'}</div><div class="ns">${rk(p)}</div></div>`;
+  const ages=top.map(x=>x[0]).join('·');
+  const rk=p=>p==null?'':(p>=50?`서울 동네 중 상위 ${Math.max(1,100-p)}%`:`서울 동네 중 하위 ${Math.max(1,p)}%`);
+  const cell=(l,v,p,s)=>`<div><div class="nl">${l}</div><div class="nv${v==null?' non':''}">${v==null?'—':_n(v)+'명'}</div><div class="ns">${s} · ${rk(p)}</div></div>`;
+  h+=`<p class="src" style="margin:10px 0 0"><b>이 동네에 ${ages} 손님이 얼마나 있나</b></p>`;
   const fitTxt = C.fit==null?'' : (C.fit>=1.1?`이 동네에서 돈 쓰는 사람도 이 손님층과 <b>잘 맞아요</b>. 서울 평균을 1로 보면 ${C.fit}이에요.`
                  : C.fit<=0.9?`이 동네에서 돈 쓰는 사람은 이 손님층과 <b>덜 맞아요</b>. 서울 평균을 1로 보면 ${C.fit}이에요.`:`이 동네에서 돈 쓰는 사람은 서울 평균만큼 이 손님층과 맞아요.`);
-  h+=`<div class="n4" style="margin-top:8px">${cell('지나다니는 그 손님층',C.cust_foot,C.cust_foot_pr)}${cell('일하는 그 손님층',C.cust_work,C.cust_work_pr)}${cell('사는 그 손님층',C.cust_res,C.cust_res_pr)}</div>
-    <p class="src" style="margin:4px 0 0">이 동네 사람 수를 ${ind} 손님 나이대로 다시 센 값이에요. ${fitTxt}</p>`;
+  h+=`<div class="n4" style="margin-top:6px">${cell('지나다니는 사람',C.cust_foot,C.cust_foot_pr,'하루 평균')}${cell('사는 사람',C.cust_res,C.cust_res_pr,'주민등록')}${cell('일하는 사람',C.cust_work,C.cust_work_pr,'이 동네 직장')}</div>
+    <p class="src" style="margin:4px 0 0">위 손님 숫자에서 ${ages}만 센 값이에요. ${fitTxt}</p>`;
   return h;
 }
 function survLine(ind){
