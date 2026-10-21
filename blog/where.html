@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 0bb3da7b44c89f49 -->
+<!-- baked-from-b2c-where: dcb285d4af0fa257 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -724,6 +724,13 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .prs .pr b{font:600 13px var(--ff);word-break:keep-all}
   .prs .pr .rt{font:600 13px var(--fm);color:var(--warn)}
   .prs .pr .hr{grid-column:1 / -1;font:400 11px var(--ff);color:var(--soft)}
+  .svl{margin:8px 0 0;display:grid;gap:4px;font:400 12.5px/1.6 var(--ff)}
+  .svl > div{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .svl i{width:8px;height:8px;border-radius:50%;flex:none;align-self:center}
+  .svl i.up{background:var(--up)} .svl i.dn{background:var(--down)}
+  .svl b{flex:1 1 100%}
+  .svl .ch{display:inline-flex;align-items:baseline;gap:4px;padding:2px 9px;border-radius:999px;background:var(--paper);border:1px solid var(--rule);font-size:12px}
+  .svl em{font:600 12px var(--fm);font-style:normal;color:var(--ink)}
   .rentmore{margin:16px 0 0}
   .rentmore>summary h3{margin:0;font:600 13.5px var(--ff)}
   .rentmore>summary h3 small{font:400 11.5px var(--ff);color:var(--soft);margin-left:4px}
@@ -1306,6 +1313,7 @@ let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
 let _PICK=null;        /* dong-pick — all 포함 */
 let _ALLIND=null;      /* sales-intel 업종 전체(60개) */
 let _PAIRS=null;       /* 업종 궁합 — 서울 전체(scripts/build_industry_pairs.py), 2026-10-21 */
+let _CUBE=null;        /* 동네×업종 표 — 손님층·손님 나이대 인구·동네 생존·옆 가게 생존(dong_cube.for_dong), 2026-10-21 */
 
 const _py = m2 => { const n = m2/P2M; return n>=10 ? Math.round(n) : Math.round(n*10)/10; };
 const _walk = m => (m==null ? null : Math.max(1, Math.round(m/80)));   /* 도보 1분 = 80m */
@@ -1536,6 +1544,7 @@ function shopHead(){
       </div>
       ${FT.ok&&FT.peak?`<p class="src" style="margin:6px 0 0">사람이 가장 많은 때는 <b>${FT.peak}</b>, 가장 많은 나이는 <b>${FT.top_age}</b>예요.${
         FT.weekend_pct!=null?` 주말에 지나는 사람이 일주일의 <b>${FT.weekend_pct}%</b>예요.`:''}</p>`:''}
+      ${custLine(_IND)}
       <h4 class="grp">경쟁</h4>
       <div class="n4">
         <div><div class="nl">지금 있는 가게</div><div class="nv">${c.stores}곳</div>
@@ -1551,6 +1560,7 @@ function shopHead(){
             c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</div>
           <div class="ns">최근 3개월</div></div>
       </div>
+      ${survLine(_IND)}
       ${pairsLine(_IND)}
       <p class="whyline">${c.hint?`⚠ ${c.hint} `:''}${b!=null
         ? `월세 부담은 이 동네 1층 보통 크기(${C.area_m2}㎡) 가게 월세 ${_n(C.monthly_rent_man)}만 원이
@@ -1649,13 +1659,45 @@ function shopHead(){
 window.setInd=function(v){ _IND=v; renderHead(); };
 function pairsLine(ind){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
-  if(!P||!(P.partners||[]).length) return '';
+  const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=(M&&M.partner_survival)||[];
+  if((!P||!(P.partners||[]).length) && !SV.length) return '';
   const here=nm=>{ const r=(_ALLIND||[]).find(x=>x.industry===nm); return r&&r.stores>0?r.stores:0; };
-  return `<h4 class="grp">옆 가게</h4>
-    <div class="prs">${P.partners.map(x=>`<div class="pr"><b>${x.industry}</b><span class="rt">${x.ratio}배</span>
+  let h=`<h4 class="grp">옆 가게</h4>`;
+  if(P&&(P.partners||[]).length) h+=`<div class="prs">${P.partners.map(x=>`<div class="pr"><b>${x.industry}</b><span class="rt">${x.ratio}배</span>
       <span class="hr">이 동네 ${here(x.industry)?_n(here(x.industry))+'곳':'없음'}</span></div>`).join('')}</div>
     <p class="src" style="margin:6px 0 0">서울에서 ${ind} 가게 바로 옆(${_PAIRS.radius_m||100}m)에는 이 업종들이
       같은 동네 평균보다 위 배수만큼 더 많이 붙어 있어요. ${_PAIRS.caveat||''}</p>`;
+  const good=SV.filter(x=>x.hi<1).slice(0,4), bad=SV.filter(x=>x.lo>1).slice(0,3);
+  const pc=x=>Math.round(Math.abs(1-x.rr)*100);
+  if(good.length||bad.length){
+    const chip=x=>`<span class="ch">${x.with} <em>${pc(x)}%</em></span>`;
+    h+=`<div class="svl">${good.length?`<div><i class="up"></i><b>옆에 있으면 덜 닫아요</b>${good.map(chip).join('')}</div>`:''}
+      ${bad.length?`<div><i class="dn"></i><b>옆에 있으면 더 닫아요</b>${bad.map(chip).join('')}</div>`:''}</div>
+      <p class="src" style="margin:4px 0 0">2010~2020년에 문 연 서울 ${ind} 가게를 5년 따라가, 문 연 날 100m 안에 그 가게가 있었는지로 나눠 같은 골목끼리 비교한 값이에요. 같이 있을 때 더 오래 버틴 가게가 많았다는 뜻이고, 그 가게 때문이라고까지는 말할 수 없어요.</p>`;
+  }
+  return h;
+}
+function custLine(ind){
+  const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind], C=_CUBE&&_CUBE.cells&&_CUBE.cells[ind];
+  const pr=M&&M.profile; if(!pr) return '';
+  const top=Object.entries(pr.age||{}).sort((a,b)=>b[1]-a[1]).slice(0,2);
+  const who=`${top.map(x=>x[0]).join('·')}가 ${Math.round(top.reduce((a,x)=>a+x[1],0))}%${pr.female_pct!=null?` · 여성 ${Math.round(pr.female_pct)}%`:''}${pr.peak_time?` · ${pr.peak_time}에 가장 많이`:''}`;
+  let h=`<p class="src" style="margin:8px 0 0"><b>${ind}에 돈을 쓰는 사람</b>은 서울에서 ${who} 써요.</p>`;
+  if(!(C&&C.fit_ok)) return h;
+  const rk=p=>p==null?'':(p>=50?`서울 상위 ${Math.max(1,100-p)}%`:`서울 하위 ${Math.max(1,p)}%`);
+  const cell=(l,v,p)=>`<div><div class="nl">${l}</div><div class="nv${v==null?' non':''}">${v==null?'—':_n(v)+'명'}</div><div class="ns">${rk(p)}</div></div>`;
+  const fitTxt = C.fit==null?'' : (C.fit>=1.1?`이 동네에서 돈 쓰는 사람도 이 손님층과 <b>잘 맞아요</b>. 서울 평균을 1로 보면 ${C.fit}이에요.`
+                 : C.fit<=0.9?`이 동네에서 돈 쓰는 사람은 이 손님층과 <b>덜 맞아요</b>. 서울 평균을 1로 보면 ${C.fit}이에요.`:`이 동네에서 돈 쓰는 사람은 서울 평균만큼 이 손님층과 맞아요.`);
+  h+=`<div class="n4" style="margin-top:8px">${cell('지나다니는 그 손님층',C.cust_foot,C.cust_foot_pr)}${cell('일하는 그 손님층',C.cust_work,C.cust_work_pr)}${cell('사는 그 손님층',C.cust_res,C.cust_res_pr)}</div>
+    <p class="src" style="margin:4px 0 0">이 동네 사람 수를 ${ind} 손님 나이대로 다시 센 값이에요. ${fitTxt}</p>`;
+  return h;
+}
+function survLine(ind){
+  const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind], C=_CUBE&&_CUBE.cells&&_CUBE.cells[ind];
+  if(!C||C.s5==null) return '';
+  const se=M&&M.s5_seoul; const d=se!=null?Math.round(C.s5-se):null;
+  const verdict = d==null?'' : d>=5?`서울 평균보다 <b>${d}%p 많이</b> 남았어요` : d<=-5?`서울 평균보다 <b>${-d}%p 적게</b> 남았어요` : `서울 평균과 비슷해요`;
+  return `<p class="src" style="margin:8px 0 0"><b>5년 뒤 남은 가게</b> — ${_CUBE.adstrd||'이 동네'}에서 2010~2020년에 문 연 ${ind} ${_n(C.s5_n_open)}곳 중 <b>${C.s5}%</b>가 5년 뒤에도 영업 중이었어요.${se!=null?` 서울 전체는 ${se}%예요.`:''} ${verdict}</p>`;
 }
 
 function floorSec(){
@@ -1775,7 +1817,7 @@ async function loadSide(gu, dg, seq){
   const q = `sigungu=${encodeURIComponent(gu)}&dong=${encodeURIComponent(dg)}`;
   const jobs = [
     fetch(`/api/b2c/dong-rent-kinds?${q}`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok) _KINDS=j; }).catch(()=>{}),
-    fetch(`/api/sales-intel?${q}&top=200&pairs=1`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok){ _ALLIND=j.rows||[]; _PAIRS=(j.pairs&&j.pairs.ok)?j.pairs:null; } }).catch(()=>{})
+    fetch(`/api/sales-intel?${q}&top=200&pairs=1`).then(r=>r.json()).then(j=>{ if(seq===_seq && j && j.ok){ _ALLIND=j.rows||[]; _PAIRS=(j.pairs&&j.pairs.ok)?j.pairs:null; _CUBE=(j.cube&&j.cube.ok)?j.cube:null; } }).catch(()=>{})
   ];
   await Promise.all(jobs);
   if(seq!==_seq) return;
