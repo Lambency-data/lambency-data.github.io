@@ -266,7 +266,7 @@ html[lang="ko"] .cta p{ margin: 0 0 8px; }
   .masthead{padding-top:26px}
 }
 
-/* 🔴 2026-10-19 한글 라벨엔 자간을 안 벌린다 (카프 «다른 페이지들도 똑같이 한글 자간 다 고쳐놔»; 홈 «그   외» 사고에서 시작).
+/* 🔴 2026-10-19 한글 라벨엔 자간을 안 벌린다 (피드백 «다른 페이지들도 똑같이 한글 자간 다 고쳐놔»; 홈 «그   외» 사고에서 시작).
    아래 규칙들은 영문 소문자·대문자 라벨용(.1~.2em)이라 한글이 띄엄띄엄 나왔다. 한국어 페이지(html[lang="ko"])에서만 0 으로 — 영문판은 그대로. */
 html[lang="ko"] nav a,html[lang="ko"] .kicker,html[lang="ko"] .masthead .kicker,html[lang="ko"] .meta,html[lang="ko"] th,
 html[lang="ko"] .note h3,html[lang="ko"] .method h3,html[lang="ko"] .related .lb,html[lang="ko"] .next .lb,html[lang="ko"] .subscribe .lb,
