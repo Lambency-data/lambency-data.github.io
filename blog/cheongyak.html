@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-cheongyak: da9fe3a7cb8bd7c6 -->
+<!-- baked-from-b2c-cheongyak: bc4bda388eac8ff6 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -388,7 +388,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   var tok = null;
   try { tok = localStorage.getItem(KEY); } catch (_) { tok = null; }
 
-  if (tok && window.fetch) {
+  if (window.fetch) {
     var _f = window.fetch.bind(window);
     window.fetch = function (input, init) {
       try {
@@ -397,9 +397,10 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
         if (sameOrigin && url.indexOf('/api/') !== -1) {
           init = init || {};
           var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
-          if (!h.has('Authorization')) h.set('Authorization', 'Bearer ' + tok);
+          if (!h.has('X-Hicce-Voice')) h.set('X-Hicce-Voice', 'b2c');
+          if (tok && !h.has('Authorization')) h.set('Authorization', 'Bearer ' + tok);
           init.headers = h;
-          if (!init.credentials) init.credentials = 'same-origin';
+          if (tok && !init.credentials) init.credentials = 'same-origin';
         }
       } catch (_) { /* 가로채기 실패가 원래 호출을 막으면 안 된다 */ }
       return _f(input, init);
