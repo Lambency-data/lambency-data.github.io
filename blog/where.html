@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 326b63315e02ad8f -->
+<!-- baked-from-b2c-where: 61230904940c63f8 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -761,6 +761,9 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .qa-calc .qa-det{grid-column:1 / -1;background:transparent;border:0;padding:0;margin:4px 0 0}
   .qa-calc .numin{width:56px}
   .indbox.ans .pill{margin-top:12px}
+  
+  .indbox.ans a.pill.ghost{display:block;width:fit-content;margin-top:8px;background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .indbox.ans a.pill.ghost:hover{color:var(--ink);opacity:.8}
   @media (max-width:420px){ .qa-v{font-size:17px} .qa-calc{grid-template-columns:minmax(0,1fr) auto} .qa-calc>b{grid-column:1} .qa-calc .qa-why{grid-column:2;grid-row:1 / span 2} }
   .dongall-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;margin:18px 0 0;min-height:46px;padding:9px 12px;border-radius:12px;border:1.5px solid var(--ink);background:var(--paper);font:600 14px var(--ff);color:var(--ink);cursor:pointer}
   .dongall-btn small{font:400 12px var(--ff);color:var(--soft)}
@@ -1652,6 +1655,7 @@ function shopHead(){
       ${szBlock}
     </div></div>
     <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">보고 있는 건물이 있으면 → <b>그 건물 시세</b> 보기</a>
+    <a class="pill ghost" href="https://hicce.co.kr/b2c/consult?${new URLSearchParams(Object.entries({gu:_GU, dong:_DG, ind}).filter(([,v])=>v)).toString()}&from=blog-where">더 깊게 보고 싶으면 → <b>입지 검증 컨설팅</b> 신청</a>
     </div>`;
   return h;
 }
