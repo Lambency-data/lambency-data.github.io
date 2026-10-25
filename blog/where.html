@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 61230904940c63f8 -->
+<!-- baked-from-b2c-where: 09cc134e945df7c0 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1697,10 +1697,15 @@ function custRow(ind, pr, CB, FT, WK, CS, row, pill, cell, rkS){
   det+=dongCells;
   return row(4,'손님은 누구냐',`${ages}${sex}${peak?` · ${peak}`:''}`,`서울 ${ind} 손님`,pills,det);
 }
+function svSplit(SV){
+  const L=[].concat(SV||[]);
+  return {good: L.filter(x=>x.hi<1).sort((a,b)=>a.rr-b.rr).slice(0,4),
+          bad:  L.filter(x=>x.lo>1).sort((a,b)=>b.rr-a.rr).slice(0,4)};
+}
 function pairsRow(ind, row, pill){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
   const Mi=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=(Mi&&Mi.partner_survival)||[];
-  const good=SV.filter(x=>x.hi<1).slice(0,4), bad=SV.filter(x=>x.lo>1).slice(0,3);
+  const {good, bad}=svSplit(SV);
   const pc=x=>Math.round(Math.abs(1-x.rr)*100);
   if(!good.length && !bad.length && !(P&&(P.partners||[]).length)) return '';
   let v, small='', pills='';
@@ -1720,7 +1725,7 @@ function pairsLine(ind){
   if(P&&(P.partners||[]).length) h+=`<div class="prs">${P.partners.map(x=>`<div class="pr"><b>${x.industry}</b><span class="rt">${x.ratio}배</span>
       <span class="hr">이 동네 ${here(x.industry)?_n(here(x.industry))+'곳':'없음'}</span></div>`).join('')}</div>
     <p class="src" style="margin:6px 0 0">서울에서 ${ind} 가게 ${_PAIRS.radius_m||100}m 안에는 이 업종들이 같은 동네 평균보다 위 배수만큼 더 많이 붙어 있어요. ${_PAIRS.caveat||''}</p>`;
-  const good=SV.filter(x=>x.hi<1).slice(0,4), bad=SV.filter(x=>x.lo>1).slice(0,3);
+  const {good, bad}=svSplit(SV);
   const pc=x=>Math.round(Math.abs(1-x.rr)*100);
   if(good.length||bad.length){
     const chip=x=>`<span class="ch">${x.with} <em>${pc(x)}%</em></span>`;
