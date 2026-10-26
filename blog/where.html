@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 02be6f9c8f05caa0 -->
+<!-- baked-from-b2c-where: 09cc134e945df7c0 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -764,9 +764,6 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   
   .indbox.ans a.pill.ghost{display:block;width:fit-content;margin-top:8px;background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
   .indbox.ans a.pill.ghost:hover{color:var(--ink);opacity:.8}
-  
-  .indbox.ans a.pill#wantCta{display:block;text-align:left;word-break:keep-all;padding:12px 18px;border-radius:14px}
-  .indbox.ans a.pill#wantCta .pl{display:block;font-size:12px;font-weight:400;opacity:.8;margin-bottom:2px}
   @media (max-width:420px){ .qa-v{font-size:17px} .qa-calc{grid-template-columns:minmax(0,1fr) auto} .qa-calc>b{grid-column:1} .qa-calc .qa-why{grid-column:2;grid-row:1 / span 2} }
   .dongall-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;margin:18px 0 0;min-height:46px;padding:9px 12px;border-radius:12px;border:1.5px solid var(--ink);background:var(--paper);font:600 14px var(--ff);color:var(--ink);cursor:pointer}
   .dongall-btn small{font:400 12px var(--ff);color:var(--soft)}
@@ -1359,7 +1356,6 @@ let _PY=10;            /* 집  — 찾는 크기(평) */
 let _BUD=150;          /* 가게 — 예산(월 만원) */
 let _SPY=10;           /* 가게 — 하고 싶은 크기(평). 예산과 **양방향**이다 */
 let _SPY_USER=false;   /* 사람이 직접 넣었나 — 아니면 동네 1층 가게 가운데 값을 기본으로 쓴다 (2026-09-29) */
-let _BUD_USER=false;   /* 예산을 사람이 직접 바꿨나 — 기본값 150 을 «내가 고른 월세 상한» 처럼 구하는 조건으로 넘기지 않는다 (2026-10-26) */
 let _IND='';           /* 가게 — 고른 업종 */
 let _KINDS=null;       /* 집 종류마다(빌라·오피스텔·단독) */
 let _PICK=null;        /* dong-pick — all 포함 */
@@ -1658,9 +1654,7 @@ function shopHead(){
       <p class="src"><span class="exflag" style="float:none;margin-right:6px">⚠ 층별은 준비 중</span>부동산원이 <b>1층만</b> 조사해서 2층이나 지하는 얼마나 다른지 아직 몰라요.</p>
       ${szBlock}
     </div></div>
-    <a class="pill" id="wantCta" href="https://hicce.co.kr/b2c/want?${new URLSearchParams(Object.entries({deal:'월세', product:'상가', gu:_GU, dong:_DG, biz:ind,
-        rent:_BUD_USER?_BUD:'', area:_SPY_USER?_SPY:''}).filter(([,v])=>v)).toString()}&from=blog-where"><span class="pl">가게 자리를 찾고 있으면</span><b>이 조건으로 가게 자리 찾기</b></a>
-    <a class="pill ghost" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">보고 있는 건물이 있으면 → <b>그 건물 시세</b> 보기</a>
+    <a class="pill" href="https://hicce.co.kr/b2c/ask?product=상가&deal=월세&from=blog-where">보고 있는 건물이 있으면 → <b>그 건물 시세</b> 보기</a>
     <a class="pill ghost" href="https://hicce.co.kr/b2c/consult?${new URLSearchParams(Object.entries({gu:_GU, dong:_DG, ind}).filter(([,v])=>v)).toString()}&from=blog-where">더 깊게 보고 싶으면 → <b>입지 검증 컨설팅</b> 신청</a>
     </div>`;
   return h;
@@ -1875,7 +1869,7 @@ function renderHead(){
     if(v>0&&v<200){ _PY=v; renderHead(); } else { pi.value=_PY; } });
   const bi=document.getElementById('budIn');
   if(bi) bi.addEventListener('change', ()=>{ const v=parseFloat(bi.value);
-    if(v>0&&v<100000){ _BUD=v; _BUD_USER=true; renderHead(); } else { bi.value=_BUD; } });
+    if(v>0&&v<100000){ _BUD=v; renderHead(); } else { bi.value=_BUD; } });
   const si=document.getElementById('spyIn');
   if(si) si.addEventListener('change', ()=>{ const v=parseFloat(si.value);
     if(v>0&&v<3000){ _SPY=v; _SPY_USER=true; renderHead(); } else { si.value=_SPY; } });
