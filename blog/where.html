@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 44d6c34b2fff12c5 -->
+<!-- baked-from-b2c-where: b860a266256d02df -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -902,6 +902,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     <select id="isort" style="padding:6px 10px;border:1px solid var(--rule);border-radius:6px;
       background:var(--field);color:var(--ink);font-size:13px">
       <option value="sales">가게당 월매출 높은 순</option>
+      <option value="operating">내 운영조건에 맞는 순</option>
       <option value="net">가게가 많이 늘어난 순</option>
       <option value="net_asc">가게가 많이 줄어든 순</option>
       <option value="close_asc">폐업률 낮은 순</option>
@@ -2257,10 +2258,21 @@ async function run(ind,more=false){
   const gus=[...new Set(d.rows.flatMap(r=>(r.locations||[]).map(x=>x.gu)))].sort();
   $('industryGu').replaceChildren(new Option('서울 전체',''),...gus.map(g=>new Option(g,g)));
   $('industryGu').value=gus.includes(region)?region:''; renderMarketEvidence();
-  let R=(d.rows||[]).filter(r=>!$('industryGu').value||(r.locations||[]).some(x=>x.gu===$('industryGu').value));
   renderMarketCompare();
+  renderIndustryResults();
+}
+function renderIndustryResults(){
+  if(!industryData)return;
+  const d=industryData;
+  let R=(d.rows||[]).filter(r=>!$('industryGu').value||(r.locations||[]).some(x=>x.gu===$('industryGu').value));
   $('isort').options[0].textContent=d.sorted_by+' 높은 순';
   const SORT=$('isort')?$('isort').value:'sales';
+  let operating=null;
+  if(SORT==='operating'){
+    operating=rankOperatingRows(R,marketOperating);
+    if(operating.error){$('out').innerHTML='<p class="empty">'+marketEsc(operating.error)+'</p>';$('marketMore').hidden=true;$('src').textContent='운영조건을 입력하면 선택한 지역 안에서 비교해요.';return;}
+    R=operating.rows;
+  }
   const num=(v,d0)=>v==null?d0:v;
   if(SORT==='net')        R.sort((a,b)=>num(b.net_rate_pct,-1e9)-num(a.net_rate_pct,-1e9));
   else if(SORT==='net_asc')R.sort((a,b)=>num(a.net_rate_pct,1e9)-num(b.net_rate_pct,1e9));
@@ -2270,11 +2282,11 @@ async function run(ind,more=false){
   const key=r=>r.per_store_month_man ?? r.sales_month_man;
   const maxV=Math.max(...R.map(key),1);
   const w=v=>Math.max(3,Math.min(100,Math.sqrt((v||0)/maxV)*100));
-  $('out').innerHTML=`<div class="g hd"><span></span><span>행정동</span><span>${d.sorted_by} <i style="font-style:normal">(√눈금)</i></span><span>전년 동기</span><span style="text-align:right">신규·폐업 · 생활</span></div>`
+  $('out').innerHTML=(operating?`<p class="src">내 운영조건 순 · ${operatingTime(marketOperating.start)}~${Number(marketOperating.end)<Number(marketOperating.start)?'다음 날 ':''}${operatingTime(marketOperating.end)} · ${marketEsc(marketOperating.ages.join('·').replace('60대+','60대 이상'))} · ${operating.validCount}개 동 비교. 영업시간 유동 비중과 목표 연령 유동 비중의 지역 내 순위를 같은 비중(50:50)으로 합쳤어요. 동점이면 영업시간 유동량이 많은 순이에요. 예상 고객 수·매출 순위가 아니에요. 자료가 부족한 동네는 아래에 모았어요.</p>`:'')+`<div class="g hd"><span></span><span>행정동</span><span>${d.sorted_by} <i style="font-style:normal">(√눈금)</i></span><span>전년 동기</span><span style="text-align:right">신규·폐업 · 생활</span></div>`
     + R.slice(0,industryLimit).map((r,i)=>{
       const y=r.yoy_pct, cls=y==null?'':(y>=5?'up':y<=-5?'dn':'');
       return `<div class="g">
-        <span class="rk">${i+1}</span>
+        <span class="rk">${operating&&!operating.metrics.get(r.adstrd_cd).eligible?'—':i+1}</span>
         <span class="nm" title="${r.adstrd}">${r.adstrd}<br><button type="button" class="market-pick" data-code="${r.adstrd_cd}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?"비교에서 빼기":"비교에 담기"}</button></span>
         <span class="bar2"><i style="width:${w(key(r))}%"></i><b>${eok(key(r))}${r.per_store_month_man?'/가게':''}</b></span>
         <span class="dl"><span class="${cls}">${y==null?'—':(y>0?'+':'')+y+'%'}</span> · ${r.stores}곳</span>
@@ -2284,10 +2296,11 @@ async function run(ind,more=false){
         }<br><span style="opacity:.75">생활 ${r.living_pop?Math.round(r.living_pop/1000)+'천':'—'}${
           r.net_rate_pct==null?'':` · 순 <b class="${r.net_rate_pct>0?'up':r.net_rate_pct<0?'dn':''}">${r.net_rate_pct>0?'+':''}${r.net_rate_pct}%p</b>`
         }</span></span>
+        ${operating?`<small class="src" style="grid-column:2/-1;margin:4px 0 6px;font-size:12px;color:var(--ink)">${operatingReason(operating.metrics.get(r.adstrd_cd),marketOperating)}</small>`:''}
       </div>`;}).join('');
   $('marketMore').hidden=R.length<=industryLimit;
   if(!R.length) $('out').innerHTML='<div class="empty">이 지역에서 비교할 자료가 없어요. 다른 지역을 골라 주세요.</div>';
-  const SORTLBL={sales:d.sorted_by,net:'가게가 많이 늘어난 순',net_asc:'가게가 많이 줄어든 순',
+  const SORTLBL={operating:'내 운영조건에 맞는 순',sales:d.sorted_by,net:'가게가 많이 늘어난 순',net_asc:'가게가 많이 줄어든 순',
     close_asc:'폐업률 낮은 순',close:'폐업률 높은 순',pop:'생활인구 많은 순'};
   $('src').innerHTML=`정렬: <b>${SORTLBL[SORT]||d.sorted_by}</b> · 가게가 ${d.min_stores}곳 이상인 ${d.n_dongs}개 동 중 ${R.length}개 해당 · ${Math.min(industryLimit,R.length)}개 표시 · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기<br>${d.source}<br>${d.caveat}`;
 }
@@ -2370,9 +2383,26 @@ function operatingNumbers(pop, settings){
   };
   return {hours,error,footPct:share('foot'),workPct:share('work')};
 }
+function operatingTime(v){return String(Math.floor(Number(v))).padStart(2,'0')+':'+(Number(v)%1?'30':'00');}
+function rankOperatingRows(rows,settings){
+  const check=operatingNumbers({},settings);
+  if(check.error||settings.start===''||settings.end===''||!settings.ages.length)return {error:check.error||'위에서 영업 시작·종료와 주 고객 연령대를 선택해 주세요.',rows:[],metrics:new Map(),validCount:0};
+  const metrics=new Map(rows.map(r=>{const n=operatingNumbers(r.population||{},settings);return [r.adstrd_cd,{...n,eligible:n.hours?.pct!=null&&n.footPct!=null}]}));
+  const valid=rows.filter(r=>metrics.get(r.adstrd_cd).eligible);
+  const percentile=(value,values)=>values.length>1?(values.filter(v=>v<value).length+(values.filter(v=>v===value).length-1)/2)/(values.length-1):0.5;
+  const times=valid.map(r=>metrics.get(r.adstrd_cd).hours.pct),ages=valid.map(r=>metrics.get(r.adstrd_cd).footPct);
+  valid.forEach(r=>{const n=metrics.get(r.adstrd_cd);n.rank=(percentile(n.hours.pct,times)+percentile(n.footPct,ages))/2;});
+  const sorted=[...rows].sort((a,b)=>{const x=metrics.get(a.adstrd_cd),y=metrics.get(b.adstrd_cd);return Number(y.eligible)-Number(x.eligible)||(x.eligible&&y.eligible?y.rank-x.rank||y.hours.count-x.hours.count:0)||String(a.adstrd_cd).localeCompare(String(b.adstrd_cd));});
+  return {rows:sorted,metrics,validCount:valid.length,error:''};
+}
+function operatingReason(n,settings){
+  if(!n.eligible)return '조건 비교 제외 · '+[n.hours?.pct==null?'시간대 유동 비중 자료 부족':'',n.footPct==null?'선택한 연령 비중 자료 부족':''].filter(Boolean).join(' · ');
+  return `영업시간 유동 <b>${n.hours.pct}%</b> · ${marketEsc(settings.ages.map(a=>a.replace('60대+','60대 이상')).join('·'))} 유동 <b>${n.footPct}%</b> · 영업시간 유동 하루 약 ${marketValue(n.hours.count,'명')}${n.hours.partial?' · 시간대 일부는 근사':''}`;
+}
+
 function marketOperatingForm(){
   const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
-  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><fieldset style="border:0;padding:0;margin:8px 0"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label style="display:inline-flex;align-items:center;gap:4px;margin:4px 12px 4px 0"><input style="width:auto" type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><p class="src" id="operating-note" role="status"></p></details>`;
+  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><fieldset style="border:0;padding:0;margin:8px 0"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label style="display:inline-flex;align-items:center;gap:4px;margin:4px 12px 4px 0"><input style="width:auto" type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
 }
 function updateOperatingAnswer(card,r){
   const el=card.querySelector('.market-operating-answer');if(!el)return;
@@ -2485,8 +2515,8 @@ function marketUpdateNumbers(){
   }
 }
 function marketInput(e){
-  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();return;}
-  if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();return;}
+  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'){industryLimit=30;renderIndustryResults();}return;}
+  if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();if($('isort').value==='operating'){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.startup){marketStartup[e.target.dataset.startup]=e.target.value.trim();marketUpdateNumbers();return;}
   if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();}}
   if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);marketUpdateNumbers();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);marketUpdateNumbers();}}
@@ -2498,7 +2528,7 @@ function marketChange(e){
   if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();}
   if(e.target.matches('.market-location')){marketLocations.set(e.target.dataset.code,Number(e.target.value));marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();}
 }
-$('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
+$('marketCompare').addEventListener('click',e=>{if(e.target.closest('[data-operating-sort]')){$('isort').value='operating';$('isort').dispatchEvent(new Event('change'));$('out').scrollIntoView({block:'start',behavior:'smooth'});return;}const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
 
 function toggleMarket(code){
   if(!industryData||!industryData.rows.some(r=>r.adstrd_cd===code))return;
@@ -2518,9 +2548,9 @@ $('q').addEventListener('input',()=>{
   $('out').innerHTML='<div class="empty">업종을 고르거나 분석을 눌러 주세요.</div>'; $('src').textContent=''; $('marketMore').hidden=true;
 });
 $('go').onclick=()=>run(); $('q').addEventListener('keydown',e=>{ if(e.key==='Enter') run(); });
-$('marketMore').onclick=()=>{industryLimit+=30;run(null,true)};
+$('marketMore').onclick=()=>{industryLimit+=30;renderIndustryResults()};
 $('industryGu').addEventListener('change',()=>run());
-if($('isort')) $('isort').addEventListener('change',()=>{ if($('q').value.trim()) run(); });
+if($('isort')) $('isort').addEventListener('change',()=>{industryLimit=30;if(industryData)renderIndustryResults();else if($('q').value.trim())run();});
 </script>
 
 <script>
