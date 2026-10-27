@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 80ffc2e146a325b3 -->
+<!-- baked-from-b2c-where: 0fb3d8528f8e741c -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -832,6 +832,17 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 #marketCompare .operating-ages label{display:inline-flex;align-items:center;justify-content:flex-start;gap:6px;margin:0;min-width:84px;width:auto;font-size:14px}
 #marketCompare .operating-ages input[type=checkbox]{appearance:auto;flex:0 0 16px;width:16px;min-width:16px;height:16px;min-height:16px;margin:0;padding:0;accent-color:var(--navy)}
 @media(max-width:520px){#marketCompare .market-startup .market-controls{grid-template-columns:1fr}}
+#marketCompare .startup-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));align-items:start;gap:16px}
+#marketCompare .startup-grid .startup-field{display:flex;flex-direction:column;align-items:flex-start;gap:8px;flex-wrap:nowrap}
+#marketCompare .startup-value{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;width:100%;min-width:0}
+#marketCompare .startup-value input{width:112px;max-width:calc(100% - 40px);flex:0 1 112px}
+#marketCompare .startup-value>span{white-space:nowrap;flex:none}
+#marketCompare article{scroll-margin-top:20px}
+.scenario-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.scenario-controls input{flex:0 1 240px;width:240px;max-width:100%;min-width:0;box-sizing:border-box;height:40px;font-size:14px}
+.scenario-controls .src{flex-basis:100%;margin:0}
+.scenario-controls button:disabled{opacity:.45;cursor:default}
+.market-name{border:0;background:transparent;color:inherit;font:inherit;padding:0;cursor:pointer;text-align:left}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -919,7 +930,8 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       <option value="pop">생활인구 많은 순</option>
     </select>
   </div>
-  <div class="market-controls"><label for="savedMarket">저장한 업종</label><select id="savedMarket" data-selx="1" aria-label="저장한 업종"><option value="">저장한 조건 선택</option></select><small id="marketSaveStatus" role="status">조건과 적용한 월세는 이 브라우저에 자동 저장돼요.</small></div>
+  <div class="market-controls"><label for="savedMarket">저장한 조건</label><select id="savedMarket" data-selx="1" aria-label="저장한 조건"><option value="">저장한 조건 선택</option></select><small id="marketSaveStatus" role="status">조건과 적용한 월세는 이 브라우저에 자동 저장돼요.</small></div>
+  <div class="scenario-controls"><label for="scenarioName">조건 이름</label><input id="scenarioName" maxlength="40" placeholder="예: 저녁 운영 · 월세 300"><button type="button" class="market-pick" id="scenarioSave">새 조건으로 저장</button><button type="button" class="market-pick" id="scenarioUpdate" disabled>선택한 조건 업데이트</button><p class="src">현재 작업은 자동 저장돼요. 이름 붙여 저장한 조건은 업데이트를 눌러야 바뀌어요.</p></div>
   <section id="marketCompare" aria-live="polite"></section><section id="marketEvidence"></section><div id="out" class="empty">위에 업종을 넣어 보세요. 63개 업종 자료가 있어요.</div>
   <button id="marketMore" type="button" hidden>동네 더 보기</button><p class="src" id="src"></p>
 </section>
@@ -2262,7 +2274,7 @@ async function run(ind,more=false){
   const shareURL=new URL(location.href);shareURL.searchParams.set('view','ind');shareURL.searchParams.set('ind',d.query||d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
   industryData=d; _REQUESTED_IND=d.industry; if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
   let region=$('industryGu').value;
-  if(compareIndustry!==(d.query||d.industry)){
+  if(compareIndustry!==(d.query||d.industry)||pendingScenario){
     compareIndustry=d.query||d.industry;
     region=restoreMarketSaved(d);
   }
@@ -2304,7 +2316,7 @@ function renderIndustryResults(){
       const y=r.yoy_pct, cls=y==null?'':(y>=5?'up':y<=-5?'dn':'');
       return `<div class="g">
         <span class="rk">${operating&&!operating.metrics.get(r.adstrd_cd).eligible?'—':i+1}</span>
-        <span class="nm" title="${r.adstrd}">${r.adstrd}<br><button type="button" class="market-pick" data-code="${r.adstrd_cd}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?"비교에서 빼기":"비교에 담기"}</button></span>
+        <span class="nm" title="${r.adstrd}"><button type="button" class="market-name" data-compare-name="${r.adstrd_cd}">${r.adstrd}</button><br><button type="button" class="market-pick" data-code="${r.adstrd_cd}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?"비교에서 빼기":"비교에 담기"}</button></span>
         <span class="bar2"><i style="width:${w(key(r))}%"></i><b>${eok(key(r))}${r.per_store_month_man?'/가게':''}</b></span>
         <span class="dl"><span class="${cls}">${y==null?'—':(y>0?'+':'')+y+'%'}</span> · ${r.stores}곳</span>
         <span class="sub" title="분기 개업률과 폐업률, 서울 상권분석 자료">${
@@ -2329,6 +2341,7 @@ function marketEsc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','
 let marketArea=20, marketType='소규모';
 const marketRentCache=new Map(), marketLocations=new Map(), marketQuotedRent=new Map();
 const MARKET_SAVE_KEY='hicce_market_workspace_v1';
+let pendingScenario=null,activeScenario=null;
 function readMarketSaved(){
   try{const d=JSON.parse(localStorage.getItem(MARKET_SAVE_KEY)||'null');return d&&d.version===1&&Array.isArray(d.profiles)?d:{version:1,profiles:[],last:''};}catch(_){return {version:1,profiles:[],last:''};}
 }
@@ -2347,7 +2360,10 @@ function cleanMarketProfile(raw,rows){
     startup:{fixed:decimal(start.fixed,100000000),variable:decimal(start.variable,100),days:decimal(start.days,31),ticket:decimal(start.ticket,100000000)}};
 }
 function restoreMarketSaved(d){
-  let raw=readMarketSaved().profiles.find(p=>p&&p.industry===compareIndustry);
+  const workspace=readMarketSaved();
+  let raw=pendingScenario?(workspace.scenarios||[]).find(p=>p.id===pendingScenario&&p.industry===compareIndustry):workspace.profiles.find(p=>p&&p.industry===compareIndustry);
+  activeScenario=pendingScenario&&raw?pendingScenario:null;pendingScenario=null;
+  $('scenarioName').value=activeScenario?raw.name:'';
   if(!raw){try{const legacy=JSON.parse(sessionStorage.getItem('hicce_market_compare')||'null');if(legacy?.industry===compareIndustry)raw={codes:legacy.codes};}catch(_){}}
   const saved=cleanMarketProfile(raw,d.rows);
   compareCodes=new Set(saved.codes);marketArea=saved.area;marketType=saved.type;
@@ -2359,14 +2375,32 @@ function restoreMarketSaved(d){
 function refreshSavedMarkets(){
   const select=$('savedMarket');if(!select)return;
   const profiles=readMarketSaved().profiles.filter(p=>p&&typeof p.industry==='string');
-  select.replaceChildren(new Option('저장한 조건 선택',''),...profiles.map(p=>new Option(p.industry,p.industry)));
-  select.value=profiles.some(p=>p.industry===compareIndustry)?compareIndustry:'';
+  const scenarios=(readMarketSaved().scenarios||[]).filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string');
+  select.replaceChildren(new Option('저장한 조건 선택',''),...profiles.map(p=>new Option(p.industry+' · 최근 작업',p.industry)),...scenarios.map(p=>new Option(p.industry+' · '+p.name,'scenario:'+p.id)));
+  select.value=activeScenario?'scenario:'+activeScenario:profiles.some(p=>p.industry===compareIndustry)?compareIndustry:'';
+  $('scenarioUpdate').disabled=!activeScenario;
 }
 function saveMarketState(){
   if(!industryData||!compareIndustry)return;
   const d=readMarketSaved(),profile={industry:compareIndustry,updated:Date.now(),area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating,ages:[...marketOperating.ages]},startup:{...marketStartup}};
-  try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify({version:1,last:compareIndustry,profiles:[profile,...d.profiles.filter(p=>p&&p.industry!==compareIndustry)]}));$('marketSaveStatus').textContent='자동 저장됨 · 이 브라우저에서 다시 볼 수 있어요. 다른 기기와는 공유되지 않아요.';refreshSavedMarkets();}
+  try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify({...d,version:1,last:compareIndustry,profiles:[profile,...d.profiles.filter(p=>p&&p.industry!==compareIndustry)]}));$('marketSaveStatus').textContent='현재 작업 자동 저장됨 · 이름 붙인 조건은 별도로 보관해요. 같은 브라우저에서 다시 볼 수 있어요.';refreshSavedMarkets();}
   catch(_){$('marketSaveStatus').textContent='브라우저 저장을 사용할 수 없어 이번 조건을 보관하지 못했어요.';}
+}
+function makeMarketScenario(workspace,profile,name,id,update=false){
+  const title=String(name||'').trim().slice(0,40),scenarios=Array.isArray(workspace.scenarios)?workspace.scenarios:[];
+  if(!title)return {error:'조건 이름을 입력해 주세요.'};
+  if(update&&!scenarios.some(p=>p.id===id))return {error:'업데이트할 저장 조건을 먼저 골라 주세요.'};
+  if(scenarios.some(p=>p.industry===profile.industry&&p.name===title&&(!update||p.id!==id)))return {error:'같은 업종에 같은 이름이 있어요. 다른 이름을 쓰거나 저장 조건을 골라 업데이트해 주세요.'};
+  const snapshot=JSON.parse(JSON.stringify({...profile,id,name:title,updated:Date.now()}));
+  return {data:{...workspace,scenarios:[snapshot,...scenarios.filter(p=>!update||p.id!==id)]},snapshot};
+}
+function saveNamedScenario(update){
+  if(!industryData)return;
+  saveMarketState();const workspace=readMarketSaved();
+  const profile={industry:compareIndustry,area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating},startup:{...marketStartup}};
+  const result=makeMarketScenario(workspace,profile,$('scenarioName').value,update?activeScenario:crypto.randomUUID(),update);
+  if(result.error){$('marketSaveStatus').textContent=result.error;return;}
+  try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify(result.data));activeScenario=result.snapshot.id;refreshSavedMarkets();$('marketSaveStatus').textContent=result.snapshot.name+' · '+(update?'업데이트했어요.':'새 조건으로 저장했어요.');}catch(_){$('marketSaveStatus').textContent='저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.';}
 }
 function marketValue(v,unit=''){return v==null?'자료 없음':Number(v).toLocaleString()+unit;}
 function renderMarketEvidence(){
@@ -2406,8 +2440,8 @@ function startupNumbers(rent,fixed,variable,days,ticket){
   return {monthly,revenue,customers};
 }
 function marketStartupForm(){
-  const field=(key,label,unit)=>`<label>${label} <input id="startup-${key}" data-startup="${key}" type="text" inputmode="decimal" value="${marketStartup[key]}" placeholder="직접 입력"> ${unit}</label>`;
-  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">같은 운영 조건에 동네별 월세를 적용해 비교해요. 아래 값은 직접 입력하며, 실제 수익 예측이 아닌 손익분기 계산이에요.</p><div class="market-controls">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 보증금·권리금·공사비 같은 초기 자금은 별도 확인이 필요해요.</p></details>`;
+  const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketStartup[key]}" placeholder="직접 입력"><span>${unit}</span></span></label>`;
+  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">같은 운영 조건에 동네별 월세를 적용해 비교해요. 아래 값은 직접 입력하며, 실제 수익 예측이 아닌 손익분기 계산이에요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 보증금·권리금·공사비 같은 초기 자금은 별도 확인이 필요해요.</p></details>`;
 }
 function updateStartupAnswer(card,rent){
   const el=card.querySelector('.market-startup-answer');if(!el)return;
@@ -2633,8 +2667,13 @@ function marketChange(e){
 }
 $('marketCompare').addEventListener('click',e=>{if(e.target.closest('[data-operating-sort]')){$('isort').value='operating';$('isort').dispatchEvent(new Event('change'));$('out').scrollIntoView({block:'start',behavior:'smooth'});return;}const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
 
+function focusMarketCard(code){
+  const card=Array.from($('marketCompare').querySelectorAll('article[data-code]')).find(el=>el.dataset.code===code);
+  if(card){card.setAttribute('tabindex','-1');card.focus({preventScroll:true});card.scrollIntoView({block:'start',behavior:'instant'});}
+}
 function toggleMarket(code){
   if(!industryData||!industryData.rows.some(r=>r.adstrd_cd===code))return;
+  const adding=!compareCodes.has(code);
   if(compareCodes.has(code))compareCodes.delete(code);
   else if(compareCodes.size<3)compareCodes.add(code);
   else{alert('동네는 세 곳까지 비교할 수 있어요. 담은 동네를 빼고 다시 골라 주세요.');return;}
@@ -2642,8 +2681,9 @@ function toggleMarket(code){
   saveMarketState();
   renderMarketCompare();
   document.querySelectorAll('.market-pick[data-code]').forEach(b=>{const on=compareCodes.has(b.dataset.code);b.setAttribute('aria-pressed',on);b.textContent=on?'비교에서 빼기':'비교에 담기'});
+  if(adding)focusMarketCard(code);
 }
-$('out').addEventListener('click',e=>{const apply=e.target.closest('[data-quote-apply]');if(apply){const editor=apply.closest('.quote-editor'),input=editor.querySelector('input'),value=input.value.trim(),n=Number(value);if(value!==''&&(!Number.isFinite(n)||n<0||n>1000000)){editor.querySelector('[role=status]').textContent='월세는 0~1,000,000만원 사이 숫자로 입력해 주세요.';return;}if(value==='')marketQuotedRent.delete(apply.dataset.quoteApply);else marketQuotedRent.set(apply.dataset.quoteApply,n);industryLimit=30;saveMarketState();renderMarketCompare();renderIndustryResults();$('out').scrollIntoView({block:'start',behavior:'instant'});return;}if(e.target.closest('a[href="#unconfirmedRent"]')){e.preventDefault();const section=$('unconfirmedRent');if(section){section.open=true;section.scrollIntoView({block:'start',behavior:'instant'});}return;}const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
+$('out').addEventListener('click',e=>{const name=e.target.closest('[data-compare-name]');if(name){const code=name.dataset.compareName;if(!compareCodes.has(code))toggleMarket(code);else focusMarketCard(code);return;}const apply=e.target.closest('[data-quote-apply]');if(apply){const editor=apply.closest('.quote-editor'),input=editor.querySelector('input'),value=input.value.trim(),n=Number(value);if(value!==''&&(!Number.isFinite(n)||n<0||n>1000000)){editor.querySelector('[role=status]').textContent='월세는 0~1,000,000만원 사이 숫자로 입력해 주세요.';return;}if(value==='')marketQuotedRent.delete(apply.dataset.quoteApply);else marketQuotedRent.set(apply.dataset.quoteApply,n);industryLimit=30;saveMarketState();renderMarketCompare();renderIndustryResults();$('out').scrollIntoView({block:'start',behavior:'instant'});return;}if(e.target.closest('a[href="#unconfirmedRent"]')){e.preventDefault();const section=$('unconfirmedRent');if(section){section.open=true;section.scrollIntoView({block:'start',behavior:'instant'});}return;}const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
 $('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-remove');if(b)toggleMarket(b.dataset.code)});
 
 $('q').addEventListener('hicceindustryselect',()=>run());
@@ -2652,7 +2692,9 @@ $('q').addEventListener('input',()=>{
   $('out').innerHTML='<div class="empty">업종을 고르거나 분석을 눌러 주세요.</div>'; $('src').textContent=''; $('marketMore').hidden=true;
 });
 refreshSavedMarkets();
-$('savedMarket').addEventListener('change',e=>{if(e.target.value)run(e.target.value);});
+$('scenarioSave').onclick=()=>saveNamedScenario(false);
+$('scenarioUpdate').onclick=()=>saveNamedScenario(true);
+$('savedMarket').addEventListener('change',e=>{const value=e.target.value;if(!value)return;if(value.startsWith('scenario:')){const snapshot=(readMarketSaved().scenarios||[]).find(p=>p.id===value.slice(9));if(snapshot){pendingScenario=snapshot.id;run(snapshot.industry);}}else{pendingScenario=null;compareIndustry='';activeScenario=null;run(value);}});
 $('go').onclick=()=>run(); $('q').addEventListener('keydown',e=>{ if(e.key==='Enter') run(); });
 $('marketMore').onclick=()=>{industryLimit+=30;renderIndustryResults()};
 $('industryGu').addEventListener('change',()=>{saveMarketState();run();});
