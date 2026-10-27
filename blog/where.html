@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 1c3e6cc12f4ffd25 -->
+<!-- baked-from-b2c-where: 24108b20418cce6c -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2582,7 +2582,7 @@ function toggleMarket(code){
   renderMarketCompare();
   document.querySelectorAll('.market-pick[data-code]').forEach(b=>{const on=compareCodes.has(b.dataset.code);b.setAttribute('aria-pressed',on);b.textContent=on?'비교에서 빼기':'비교에 담기'});
 }
-$('out').addEventListener('click',e=>{const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
+$('out').addEventListener('click',e=>{if(e.target.closest('a[href="#unconfirmedRent"]')){e.preventDefault();const section=$('unconfirmedRent');if(section){section.open=true;section.scrollIntoView({block:'start',behavior:'instant'});}return;}const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
 $('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-remove');if(b)toggleMarket(b.dataset.code)});
 
 $('q').addEventListener('hicceindustryselect',()=>run());
