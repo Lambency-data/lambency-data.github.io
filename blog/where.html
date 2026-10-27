@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: b5a6ef13c74277e8 -->
+<!-- baked-from-b2c-where: 1c3e6cc12f4ffd25 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2281,7 +2281,7 @@ function renderIndustryResults(){
   const budget=budgetFilter(R,marketOperating.budget,marketArea,marketType,marketRentCache,marketLocations);
   if(budget.error){$('out').textContent=budget.error;$('marketMore').hidden=true;return;}
   R=budget.rows;
-  const budgetNote=budget.active?`<p class="src">월세 ${marketEsc(marketOperating.budget)}만원 이하 · ${marketArea}평 · ${marketEsc(marketType)} · 평균 월세 기준 ${R.length}개 동. 예산 초과 ${budget.over}개, 월세 미확인 ${budget.missing}개는 제외했어요.${budget.pending?' '+budget.pending+'개 동 월세 확인 중…':''}<br>1층 상권·권역 조사 평균으로 추린 후보예요. 실제 매물 월세와 다를 수 있으며 보증금·관리비·권리금은 별도예요. 여러 법정동에 걸치면 처음 연결된 동 기준이며 비교 카드에서 바꿀 수 있어요.</p>`:'';
+  const budgetNote=budget.active?`<p class="src">월세 ${marketEsc(marketOperating.budget)}만원 이하 · ${marketArea}평 · ${marketEsc(marketType)} · 평균 월세 기준 ${R.length}개 동. 예산 초과 ${budget.over}개는 제외했어요. <a href="#unconfirmedRent">월세 미확인 ${budget.missing}개 따로 보기</a>${budget.pending?' '+budget.pending+'개 동 월세 확인 중…':''}<br>1층 상권·권역 조사 평균으로 추린 후보예요. 실제 매물 월세와 다를 수 있으며 보증금·관리비·권리금은 별도예요. 여러 법정동에 걸치면 처음 연결된 동 기준이며 비교 카드에서 바꿀 수 있어요.</p>`:'';
   let operating=null;
   if(SORT==='operating'){
     operating=rankOperatingRows(R,marketOperating);
@@ -2316,6 +2316,7 @@ function renderIndustryResults(){
       </div>`;}).join('');
   $('marketMore').hidden=R.length<=industryLimit;
   if(!R.length) $('out').innerHTML=budgetNote+'<div class="empty">'+(budget.active?(budget.pending?'월세 자료를 확인하고 있어요.':'이 면적·건물 유형에서 예산 이내로 확인된 동네가 없어요. 예산이나 면적을 바꿔 보세요.'):'이 지역에서 비교할 자료가 없어요. 다른 지역을 골라 주세요.')+'</div>';
+  $('out').insertAdjacentHTML('beforeend',unconfirmedRentList(budget,marketOperating));
   const SORTLBL={operating:'내 운영조건에 맞는 순',sales:d.sorted_by,net:'가게가 많이 늘어난 순',net_asc:'가게가 많이 줄어든 순',
     close_asc:'폐업률 낮은 순',close:'폐업률 높은 순',pop:'생활인구 많은 순'};
   $('src').innerHTML=`정렬: <b>${SORTLBL[SORT]||d.sorted_by}</b> · 가게가 ${d.min_stores}곳 이상인 ${d.n_dongs}개 동 중 ${R.length}개 해당 · ${Math.min(industryLimit,R.length)}개 표시 · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기<br>${d.source}<br>${d.caveat}`;
@@ -2403,19 +2404,27 @@ function budgetFilter(rows,budget,area,type,cache,locations){
   const active=budget!=='';
   if(!active)return {rows,active:false,details:new Map()};
   if(!Number.isFinite(Number(budget))||Number(budget)<=0)return {rows:[],active:true,error:'월세 예산을 0보다 큰 숫자로 입력해 주세요.',details:new Map()};
-  const details=new Map();let missing=0,over=0,pending=0;
+  const details=new Map(),unconfirmed=[];let missing=0,over=0,pending=0;
   const kept=rows.filter(r=>{
     const loc=(r.locations||[])[locations.get(r.adstrd_cd)||0];
     const state=loc?cache.get(loc.gu+'|'+loc.dong):null;
     if(loc&&state?.loading){pending++;return false;}
     const rent=state?.data?.rent,typ=rent?.types?.find(t=>t.type===type);
     const price=typ?.per_m2_thousand;
-    if(!(price>0)){missing++;return false;}
+    if(!(price>0)){missing++;unconfirmed.push(r);return false;}
     const raw=price/10*area*3.305785;
     details.set(r.adstrd_cd,{monthly:Math.round(raw),loc,scope:rent.scope,region:typ.region,quarter:rent.quarter});
     if(raw>Number(budget)){over++;return false;}return true;
   });
-  return {rows:kept,active:true,details,missing,over,pending};
+  return {rows:kept,active:true,details,missing,over,pending,unconfirmed};
+}
+function unconfirmedRentList(budget,settings){
+  if(!budget.active||!budget.unconfirmed?.length)return '';
+  const ranked=rankOperatingRows(budget.unconfirmed,settings);
+  const intro='<p class="src">월세를 확인하지 못해 예산 안에 드는지는 아직 몰라요. 영업시간·고객층 조건으로만 비교한 별도 순위예요. 비교에 담아 실제 월세를 확인해 보세요.</p>';
+  if(ranked.error)return `<details id="unconfirmedRent" class="market-startup" open><summary>월세 확인이 필요한 동네 ${budget.unconfirmed.length}곳</summary>${intro}<p class="src">${marketEsc(ranked.error)}</p></details>`;
+  const rows=ranked.rows.filter(r=>ranked.metrics.get(r.adstrd_cd).eligible);
+  return `<details id="unconfirmedRent" class="market-startup" open><summary>조건으로 비교하기 · 월세 확인 필요 ${rows.length}곳</summary>${intro}<p class="src">시간대 유동 비중과 목표 연령 비중의 순위를 50:50으로 반영했어요.${rows.length<budget.unconfirmed.length?' 운영조건 자료도 부족한 '+(budget.unconfirmed.length-rows.length)+'곳은 순위를 매기지 않았어요.':''}</p>${rows.length?rows.map((r,i)=>`<div class="market-answer"><span>${i+1}. ${marketEsc(r.adstrd)}</span><b style="font-size:14px">월세 확인 필요 · 예산 충족 여부 미확인</b><small style="color:var(--ink)">${operatingReason(ranked.metrics.get(r.adstrd_cd),settings)}</small><button type="button" class="market-pick" data-code="${marketEsc(r.adstrd_cd)}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?'비교에서 빼기':'비교에 담기'}</button></div>`).join(''):'<p class="src">운영조건까지 비교할 수 있는 동네가 없어요.</p>'}</details>`;
 }
 function operatingTime(v){return String(Math.floor(Number(v))).padStart(2,'0')+':'+(Number(v)%1?'30':'00');}
 function rankOperatingRows(rows,settings){
@@ -2549,8 +2558,8 @@ function marketUpdateNumbers(){
   }
 }
 function marketInput(e){
-  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'||e.target.dataset.operating==='budget'){industryLimit=30;renderIndustryResults();}return;}
-  if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();if($('isort').value==='operating'){industryLimit=30;renderIndustryResults();}return;}
+  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'||marketOperating.budget!==''||e.target.dataset.operating==='budget'){industryLimit=30;renderIndustryResults();}return;}
+  if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();if($('isort').value==='operating'||marketOperating.budget!==''){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.startup){marketStartup[e.target.dataset.startup]=e.target.value.trim();marketUpdateNumbers();return;}
   if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();renderIndustryResults();}}
   if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);marketUpdateNumbers();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);marketUpdateNumbers();}}
