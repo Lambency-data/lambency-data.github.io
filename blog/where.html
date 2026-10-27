@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 42a52731a7599535 -->
+<!-- baked-from-b2c-where: 80ffc2e146a325b3 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -919,6 +919,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       <option value="pop">생활인구 많은 순</option>
     </select>
   </div>
+  <div class="market-controls"><label for="savedMarket">저장한 업종</label><select id="savedMarket" data-selx="1" aria-label="저장한 업종"><option value="">저장한 조건 선택</option></select><small id="marketSaveStatus" role="status">조건과 적용한 월세는 이 브라우저에 자동 저장돼요.</small></div>
   <section id="marketCompare" aria-live="polite"></section><section id="marketEvidence"></section><div id="out" class="empty">위에 업종을 넣어 보세요. 63개 업종 자료가 있어요.</div>
   <button id="marketMore" type="button" hidden>동네 더 보기</button><p class="src" id="src"></p>
 </section>
@@ -1222,7 +1223,7 @@ selxAll();
   await GUS_READY;
   if(_REQUESTED_IND){try{const names=await (await fetch('/api/b2c/industry-names')).json();const found=(names.choices||[]).find(c=>c.name===_REQUESTED_IND||(c.aliases||[]).includes(_REQUESTED_IND));_REQUESTED_IND=found?found.parent:((names.industries||[]).includes(_REQUESTED_IND)?_REQUESTED_IND:'');}catch(_){_REQUESTED_IND='';}}
   if(_m==='shop'||_m==='home') setMode(_m);
-  if(_get('view')==='ind'){tab('ind'); if(_get('ind')) run(_get('ind')); await loadDongs(g); $('gu').value=g; $('dg').value=d; return;}
+  if(_get('view')==='ind'){tab('ind'); if(_get('ind')||readMarketSaved().last) run(_get('ind')||readMarketSaved().last); await loadDongs(g); $('gu').value=g; $('dg').value=d; return;}
   await loadDongs(g); $('gu').value=g;
   if(_gu&&_dg&&$('gu').value&&!Array.from($('dg').options).some(o=>o.value===d)) $('dg').add(new Option(d,d));
   $('dg').value=d;
@@ -2260,16 +2261,17 @@ async function run(ind,more=false){
   Object.entries(d.rents||{}).forEach(([key,data])=>marketRentCache.set(key,{data}));
   const shareURL=new URL(location.href);shareURL.searchParams.set('view','ind');shareURL.searchParams.set('ind',d.query||d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
   industryData=d; _REQUESTED_IND=d.industry; if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
+  let region=$('industryGu').value;
   if(compareIndustry!==(d.query||d.industry)){
-    compareCodes.clear(); compareIndustry=d.query||d.industry;
-    try{const saved=JSON.parse(sessionStorage.getItem('hicce_market_compare')||'null');if(saved&&saved.industry===(d.query||d.industry)&&Array.isArray(saved.codes))compareCodes=new Set(saved.codes.filter(code=>d.rows.some(r=>r.adstrd_cd===code)).slice(0,3));}catch(_){}
+    compareIndustry=d.query||d.industry;
+    region=restoreMarketSaved(d);
   }
-  const region=$('industryGu').value;
   const gus=[...new Set(d.rows.flatMap(r=>(r.locations||[]).map(x=>x.gu)))].sort();
   $('industryGu').replaceChildren(new Option('서울 전체',''),...gus.map(g=>new Option(g,g)));
   $('industryGu').value=gus.includes(region)?region:''; renderMarketEvidence();
   renderMarketCompare();
   renderIndustryResults();
+  saveMarketState();
 }
 function renderIndustryResults(){
   if(!industryData)return;
@@ -2326,6 +2328,46 @@ function renderIndustryResults(){
 function marketEsc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 let marketArea=20, marketType='소규모';
 const marketRentCache=new Map(), marketLocations=new Map(), marketQuotedRent=new Map();
+const MARKET_SAVE_KEY='hicce_market_workspace_v1';
+function readMarketSaved(){
+  try{const d=JSON.parse(localStorage.getItem(MARKET_SAVE_KEY)||'null');return d&&d.version===1&&Array.isArray(d.profiles)?d:{version:1,profiles:[],last:''};}catch(_){return {version:1,profiles:[],last:''};}
+}
+function cleanMarketProfile(raw,rows){
+  const x=raw&&typeof raw==='object'?raw:{},valid=new Map(rows.map(r=>[r.adstrd_cd,r]));
+  const numeric=(v,min,max)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
+  const decimal=(v,max)=>typeof v==='string'&&/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(v)&&Number(v)<=max?v:'';
+  const time=(v,end)=>typeof v==='string'&&v!==''&&Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=(end?24:23.5)&&Number(v)*2%1===0?v:'';
+  const op=x.operating||{},start=x.startup||{};
+  return {area:numeric(x.area,1,1000)?x.area:20,type:['소규모','집합','중대형'].includes(x.type)?x.type:'소규모',
+    region:typeof x.region==='string'?x.region:'',sort:['sales','operating','net','net_asc','close','close_asc','pop'].includes(x.sort)?x.sort:'sales',
+    codes:[...new Set(Array.isArray(x.codes)?x.codes:[])].filter(c=>valid.has(c)).slice(0,3),
+    quotes:(Array.isArray(x.quotes)?x.quotes:[]).filter(v=>Array.isArray(v)&&valid.has(v[0])&&numeric(v[1],0,1000000)),
+    locations:(Array.isArray(x.locations)?x.locations:[]).filter(v=>Array.isArray(v)&&valid.has(v[0])&&Number.isInteger(v[1])&&v[1]>=0&&v[1]<(valid.get(v[0]).locations||[]).length),
+    operating:{start:time(op.start,false),end:time(op.end,true),budget:decimal(op.budget,1000000),ages:[...new Set(Array.isArray(op.ages)?op.ages:[])].filter(a=>['10대','20대','30대','40대','50대','60대+'].includes(a))},
+    startup:{fixed:decimal(start.fixed,100000000),variable:decimal(start.variable,100),days:decimal(start.days,31),ticket:decimal(start.ticket,100000000)}};
+}
+function restoreMarketSaved(d){
+  let raw=readMarketSaved().profiles.find(p=>p&&p.industry===compareIndustry);
+  if(!raw){try{const legacy=JSON.parse(sessionStorage.getItem('hicce_market_compare')||'null');if(legacy?.industry===compareIndustry)raw={codes:legacy.codes};}catch(_){}}
+  const saved=cleanMarketProfile(raw,d.rows);
+  compareCodes=new Set(saved.codes);marketArea=saved.area;marketType=saved.type;
+  marketQuotedRent.clear();saved.quotes.forEach(([k,v])=>marketQuotedRent.set(k,v));
+  marketLocations.clear();saved.locations.forEach(([k,v])=>marketLocations.set(k,v));
+  Object.assign(marketOperating,saved.operating);Object.assign(marketStartup,saved.startup);$('isort').value=saved.sort;
+  return saved.region;
+}
+function refreshSavedMarkets(){
+  const select=$('savedMarket');if(!select)return;
+  const profiles=readMarketSaved().profiles.filter(p=>p&&typeof p.industry==='string');
+  select.replaceChildren(new Option('저장한 조건 선택',''),...profiles.map(p=>new Option(p.industry,p.industry)));
+  select.value=profiles.some(p=>p.industry===compareIndustry)?compareIndustry:'';
+}
+function saveMarketState(){
+  if(!industryData||!compareIndustry)return;
+  const d=readMarketSaved(),profile={industry:compareIndustry,updated:Date.now(),area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating,ages:[...marketOperating.ages]},startup:{...marketStartup}};
+  try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify({version:1,last:compareIndustry,profiles:[profile,...d.profiles.filter(p=>p&&p.industry!==compareIndustry)]}));$('marketSaveStatus').textContent='자동 저장됨 · 이 브라우저에서 다시 볼 수 있어요. 다른 기기와는 공유되지 않아요.';refreshSavedMarkets();}
+  catch(_){$('marketSaveStatus').textContent='브라우저 저장을 사용할 수 없어 이번 조건을 보관하지 못했어요.';}
+}
 function marketValue(v,unit=''){return v==null?'자료 없음':Number(v).toLocaleString()+unit;}
 function renderMarketEvidence(){
   const d=industryData, box=$('marketEvidence');if(!d){box.replaceChildren();return;}
@@ -2572,18 +2614,22 @@ function marketUpdateNumbers(){
   }
 }
 function marketInput(e){
+  try{
   if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'||marketOperating.budget!==''||e.target.dataset.operating==='budget'){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();if($('isort').value==='operating'||marketOperating.budget!==''){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.startup){marketStartup[e.target.dataset.startup]=e.target.value.trim();marketUpdateNumbers();return;}
   if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();renderIndustryResults();}}
   if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);marketUpdateNumbers();renderIndustryResults();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);marketUpdateNumbers();renderIndustryResults();}}
+  }finally{saveMarketState();}
 }
 function marketChange(e){
+  try{
   if(e.target.dataset.operating||e.target.dataset.operatingAge){marketInput(e);return;}
   if(e.target.matches('.market-quoted'))marketInput(e);
   if(e.target.id==='marketArea')marketInput(e);
   if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();renderIndustryResults();}
   if(e.target.matches('.market-location')){marketLocations.set(e.target.dataset.code,Number(e.target.value));marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();renderIndustryResults();}
+  }finally{saveMarketState();}
 }
 $('marketCompare').addEventListener('click',e=>{if(e.target.closest('[data-operating-sort]')){$('isort').value='operating';$('isort').dispatchEvent(new Event('change'));$('out').scrollIntoView({block:'start',behavior:'smooth'});return;}const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
 
@@ -2593,10 +2639,11 @@ function toggleMarket(code){
   else if(compareCodes.size<3)compareCodes.add(code);
   else{alert('동네는 세 곳까지 비교할 수 있어요. 담은 동네를 빼고 다시 골라 주세요.');return;}
   try{sessionStorage.setItem('hicce_market_compare',JSON.stringify({industry:compareIndustry,codes:[...compareCodes]}))}catch(_){}
+  saveMarketState();
   renderMarketCompare();
   document.querySelectorAll('.market-pick[data-code]').forEach(b=>{const on=compareCodes.has(b.dataset.code);b.setAttribute('aria-pressed',on);b.textContent=on?'비교에서 빼기':'비교에 담기'});
 }
-$('out').addEventListener('click',e=>{const apply=e.target.closest('[data-quote-apply]');if(apply){const editor=apply.closest('.quote-editor'),input=editor.querySelector('input'),value=input.value.trim(),n=Number(value);if(value!==''&&(!Number.isFinite(n)||n<0||n>1000000)){editor.querySelector('[role=status]').textContent='월세는 0~1,000,000만원 사이 숫자로 입력해 주세요.';return;}if(value==='')marketQuotedRent.delete(apply.dataset.quoteApply);else marketQuotedRent.set(apply.dataset.quoteApply,n);industryLimit=30;renderMarketCompare();renderIndustryResults();$('out').scrollIntoView({block:'start',behavior:'instant'});return;}if(e.target.closest('a[href="#unconfirmedRent"]')){e.preventDefault();const section=$('unconfirmedRent');if(section){section.open=true;section.scrollIntoView({block:'start',behavior:'instant'});}return;}const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
+$('out').addEventListener('click',e=>{const apply=e.target.closest('[data-quote-apply]');if(apply){const editor=apply.closest('.quote-editor'),input=editor.querySelector('input'),value=input.value.trim(),n=Number(value);if(value!==''&&(!Number.isFinite(n)||n<0||n>1000000)){editor.querySelector('[role=status]').textContent='월세는 0~1,000,000만원 사이 숫자로 입력해 주세요.';return;}if(value==='')marketQuotedRent.delete(apply.dataset.quoteApply);else marketQuotedRent.set(apply.dataset.quoteApply,n);industryLimit=30;saveMarketState();renderMarketCompare();renderIndustryResults();$('out').scrollIntoView({block:'start',behavior:'instant'});return;}if(e.target.closest('a[href="#unconfirmedRent"]')){e.preventDefault();const section=$('unconfirmedRent');if(section){section.open=true;section.scrollIntoView({block:'start',behavior:'instant'});}return;}const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
 $('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-remove');if(b)toggleMarket(b.dataset.code)});
 
 $('q').addEventListener('hicceindustryselect',()=>run());
@@ -2604,10 +2651,12 @@ $('q').addEventListener('input',()=>{
   ++industrySeq; industryData=null; $('marketCompare').replaceChildren(); $('marketEvidence').replaceChildren();
   $('out').innerHTML='<div class="empty">업종을 고르거나 분석을 눌러 주세요.</div>'; $('src').textContent=''; $('marketMore').hidden=true;
 });
+refreshSavedMarkets();
+$('savedMarket').addEventListener('change',e=>{if(e.target.value)run(e.target.value);});
 $('go').onclick=()=>run(); $('q').addEventListener('keydown',e=>{ if(e.key==='Enter') run(); });
 $('marketMore').onclick=()=>{industryLimit+=30;renderIndustryResults()};
-$('industryGu').addEventListener('change',()=>run());
-if($('isort')) $('isort').addEventListener('change',()=>{industryLimit=30;if(industryData)renderIndustryResults();else if($('q').value.trim())run();});
+$('industryGu').addEventListener('change',()=>{saveMarketState();run();});
+if($('isort')) $('isort').addEventListener('change',()=>{industryLimit=30;if(industryData){renderIndustryResults();saveMarketState();}else if($('q').value.trim())run();});
 </script>
 
 <script>
