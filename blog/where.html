@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: b346cf09cf592cd2 -->
+<!-- baked-from-b2c-where: 44d6c34b2fff12c5 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2341,6 +2341,48 @@ function updateStartupAnswer(card,rent){
   const n=startupNumbers(rent,marketStartup.fixed,marketStartup.variable,marketStartup.days,marketStartup.ticket);
   el.innerHTML=n?`<span>매달 고정적으로 얼마가 필요한가</span><b>${Math.ceil(n.monthly).toLocaleString()}만원</b><span>비용을 감당하려면 월 얼마를 팔아야 하나</span><b>${Math.ceil(n.revenue).toLocaleString()}만원</b><span>하루에 고객이 몇 명 필요한가</span><b>${n.customers==null?'영업일·고객당 결제액을 입력해 주세요':n.customers.toLocaleString()+'명'}</b><small>월세 포함 고정비 ÷ (1 − 변동비율). 고객 수는 올림. 동네 평균매출을 내 매출로 가정하지 않아요.</small>`:'<span>내 비용으로 손익분기점 확인</span><small>'+ (rent==null?'이 동네 월세 자료가 없어 계산을 멈췄어요. 알아본 월세를 직접 입력해 주세요.':'위에서 월 고정비(0 이상)와 변동비율(0 이상 100% 미만)을 입력해 주세요. 월세 자료가 없으면 알아본 월세를 직접 입력해 주세요.')+'</small>';
 }
+const marketOperating={start:'',end:'',ages:[]};
+function operatingNumbers(pop, settings){
+  const starts=[0,6,11,14,17,21], ends=[6,11,14,17,21,24];
+  const labels=['새벽 0~6시','아침 6~11시','낮 11~14시','오후 14~17시','저녁 17~21시','밤 21~24시'];
+  const valid=v=>typeof v==='number'&&Number.isFinite(v)&&v>=0;
+  let hours=null,error='',partial=false;
+  if(settings.start!==''&&settings.end!==''){
+    const start=Number(settings.start),end=Number(settings.end);
+    if(!Number.isFinite(start)||!Number.isFinite(end)||start<0||start>=24||end<0||end>24||start===end)error='시작과 종료 시간을 다르게 골라 주세요. 24시간은 00:00~24:00으로 선택해 주세요.';
+    else{
+      const segments=end>start?[[start,end]]:[[start,24],[0,end]];
+      const source=(pop.foot||{}).hours||[];
+      const bins=labels.map(label=>source.find(h=>h.label===label));
+      if(bins.every(h=>h&&valid(h.day_avg))){
+        let total=0,selected=0;
+        bins.forEach((h,i)=>{const overlap=segments.reduce((sum,[a,b])=>sum+Math.max(0,Math.min(b,ends[i])-Math.max(a,starts[i])),0);total+=h.day_avg;selected+=h.day_avg*overlap/(ends[i]-starts[i]);if(overlap>0&&overlap<ends[i]-starts[i])partial=true;});
+        hours={count:Math.round(selected),pct:total>0?Math.round(selected/total*1000)/10:null,duration:segments.reduce((n,[a,b])=>n+b-a,0),partial};
+      }
+    }
+  }
+  const chosen=[...new Set(settings.ages||[])];
+  const share=kind=>{
+    if(!chosen.length)return null;
+    const rows=(pop[kind]||{}).ages||[];
+    const values=chosen.map(age=>rows.find(r=>r.label.replace('60대 이상','60대+')===age)?.pct);
+    return values.every(valid)?Math.round(values.reduce((a,b)=>a+b,0)*10)/10:null;
+  };
+  return {hours,error,footPct:share('foot'),workPct:share('work')};
+}
+function marketOperatingForm(){
+  const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
+  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><fieldset style="border:0;padding:0;margin:8px 0"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label style="display:inline-flex;align-items:center;gap:4px;margin:4px 12px 4px 0"><input style="width:auto" type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><p class="src" id="operating-note" role="status"></p></details>`;
+}
+function updateOperatingAnswer(card,r){
+  const el=card.querySelector('.market-operating-answer');if(!el)return;
+  const n=operatingNumbers(r.population||{},marketOperating);
+  const time=v=>String(Math.floor(Number(v))).padStart(2,'0')+':'+(Number(v)%1?'30':'00');
+  const schedule=marketOperating.start!==''&&marketOperating.end!==''?time(marketOperating.start)+'~'+(Number(marketOperating.end)<Number(marketOperating.start)?'다음 날 ':'')+time(marketOperating.end):'';
+  const ages=marketOperating.ages.map(a=>a.replace('60대+','60대 이상')).join('·');
+  el.innerHTML=`<span>내 운영조건과 이 동네는 얼마나 맞나</span><b>${n.hours?`${schedule} · 유동 하루 약 ${marketValue(n.hours.count,'명')}`:n.error?'영업시간을 확인해 주세요':schedule?'시간대 자료 부족':'영업시간을 선택해 주세요'}</b>${n.hours?`<small>하루 유동량의 ${marketValue(n.hours.pct,'%')}가 영업시간에 해당해요.${n.hours.partial?' 일부 구간은 그 안에서 고르게 통행한다고 가정해 나눈 근사값이에요.':''}</small>`:''}<b>${ages?marketEsc(ages)+' 비중':'주 고객 연령대를 선택해 주세요'}</b>${ages?`<small>유동인구 ${marketValue(n.footPct,'%')} · 직장인구 ${marketValue(n.workPct,'%')}</small>`:''}<small>선택한 동네끼리 같은 조건으로 비교하는 참고값이에요. 실제 매장 방문·매출이나 성공 확률을 뜻하지 않아요.</small>`;
+}
+
 function marketPeriod(q){return q?String(q).slice(0,4)+'년 '+String(q).slice(4)+'분기':'기준일 미확인';}
 function marketCustomerProfile(d){
   const c=d.customer_profile,p=c&&c.profile;
@@ -2389,7 +2431,7 @@ function renderMarketCompare(){
   const focusCode=box.contains(active)&&active.matches('.market-quoted')?active.dataset.code:null;
   if(!industryData){box.innerHTML='';return;}
   const d=industryData, rows=d.rows.filter(r=>compareCodes.has(r.adstrd_cd));
-  box.innerHTML=`<h2>관심 동네, 같은 질문으로 비교해요 <small>${rows.length}/3</small></h2><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p><div class="market-controls"><label>비교할 크기 <input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
+  box.innerHTML=`<h2>관심 동네, 같은 질문으로 비교해요 <small>${rows.length}/3</small></h2><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p><div class="market-controls"><label>비교할 크기 <input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`+marketOperatingForm()+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
     const locations=r.locations||[];
     const selected=marketLocations.get(r.adstrd_cd)||0;
     const loc=locations[selected]||locations[0];
@@ -2403,6 +2445,7 @@ function renderMarketCompare(){
     const nearby=(r.context&&r.context.neighbors||[]).slice(0,3).map(p=>`${marketEsc(p.industry)} ${marketValue(p.stores,'곳')}`).join('<br>');
     const row=(title,body,sub='',field='')=>`<div class="market-answer" data-field="${field}"><span>${title}</span><b>${body}</b>${sub?`<small>${sub}</small>`:''}</div>`;
     return `<article data-code="${r.adstrd_cd}"><h3>${marketEsc(r.adstrd)}</h3><small>${marketEsc((loc||{}).gu||'')} · 매출은 행정동 기준</small>`+
+      `<div class="market-answer market-operating-answer" aria-live="polite"></div>`+
       row(d.specialty||d.subclass?marketEsc(d.industry)+' 월매출 · 참고':'한 달에 얼마나 파나',marketValue(r.per_store_month_man,'만원'),d.specialty||d.subclass?'선택한 세부 업종의 매출이 아니에요':'같은 업종 가게당 월 추정매출')+
       row(quoted!=null?'입력한 매물 월세':`${marketArea}평 월세는 얼마인가`,calc.monthly==null?'자료 없음':`${quoted!=null?'':'약 '}${marketValue(calc.monthly,'만원')}`,source,'rent')+
       `<label class="market-loc-label">월세 기준 동네 <select class="market-location" data-code="${r.adstrd_cd}" data-selx="1">${locations.map((l,i)=>`<option value="${i}" ${i===selected?'selected':''}>${marketEsc(l.gu+' '+l.dong)}</option>`).join('')}</select></label><label class="market-loc-label">알아본 월세가 있으면 <input class="market-quoted" data-code="${r.adstrd_cd}" type="text" inputmode="decimal" min="0" max="1000000" step="0.1" placeholder="만원 · 선택 입력" value="${quoted??''}"> 만원</label>${state.error?`<button class="market-retry" data-key="${marketEsc(key)}">월세 다시 불러오기</button>`:''}`+
@@ -2424,6 +2467,7 @@ function renderMarketCompare(){
 }
 function marketUpdateNumbers(){
   if(!industryData)return;
+  const note=$('operating-note');if(note)note.textContent=operatingNumbers({},marketOperating).error;
   for(const card of $('marketCompare').querySelectorAll('article[data-code]')){
     const r=industryData.rows.find(r=>r.adstrd_cd===card.dataset.code);if(!r)continue;
     const loc=(r.locations||[])[marketLocations.get(r.adstrd_cd)||0];
@@ -2437,14 +2481,18 @@ function marketUpdateNumbers(){
     answer.querySelector('small').textContent=quoted!=null?'직접 입력한 매물 월세 · 면적·층은 매물 조건을 확인하세요.':typ?`1층 기준 · ${typ.region} ${rent.scope} 조사 평균 · ${rent.quarter||'기준일 미확인'}`:state.loading?'월세 자료 불러오는 중…':state.error?'자료를 불러오지 못했어요.':'선택한 건물 유형의 월세 자료가 없어요.';
     card.querySelector('[data-field="ratio"] b').textContent=calc.ratio==null?'계산할 자료 없음':calc.ratio+'%';
     updateStartupAnswer(card,calc.monthly);
+    updateOperatingAnswer(card,r);
   }
 }
 function marketInput(e){
+  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();return;}
+  if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();return;}
   if(e.target.dataset.startup){marketStartup[e.target.dataset.startup]=e.target.value.trim();marketUpdateNumbers();return;}
   if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();}}
   if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);marketUpdateNumbers();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);marketUpdateNumbers();}}
 }
 function marketChange(e){
+  if(e.target.dataset.operating||e.target.dataset.operatingAge){marketInput(e);return;}
   if(e.target.matches('.market-quoted'))marketInput(e);
   if(e.target.id==='marketArea')marketInput(e);
   if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();}
