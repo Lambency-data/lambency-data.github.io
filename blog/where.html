@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: cd42363f4b7cae98 -->
+<!-- baked-from-b2c-where: b346cf09cf592cd2 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,7 +8,7 @@
 /* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=dca822279333').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=082334e519d0').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -2345,6 +2345,26 @@ function marketCustomerProfile(d){
   const ages=Object.entries(p.age||{}).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([age,pct])=>marketEsc(age)+' '+pct+'%').join(' · ');
   return `<div class="market-note"><h2>${marketEsc(d.industry)}에 주로 누가, 언제 돈을 쓰나</h2><p>매출 비중이 큰 연령대 <b>${ages||'자료 없음'}</b><br>여성 매출 비중 <b>${marketValue(p.female_pct,'%')}</b><br>매출이 가장 많은 시간대 <b>${marketEsc(p.peak_time||'자료 없음')}</b> · 주말 매출 비중 <b>${marketValue(p.weekend_pct,'%')}</b></p><p class="src">서울 전체 업종 기준 · ${(c.quarters||[]).map(marketPeriod).join(', ')} 합산. 고객 수가 아닌 추정매출 비중이에요. 비교 카드의 동네 인구 구성과 함께 살펴보세요.</p></div>`;
 }
+function marketCustomerMatch(d,r,row){
+  const c=r.customer_match;
+  if(!c)return '';
+  const basis=marketEsc(c.basis_industry),parent=c.parent_reference;
+  let headline='고객층 구성 비교',reason='';
+  if(c.status==='available'){
+    const direction=c.index>=1.1?'서울 기준보다 높은 편':c.index<=0.9?'서울 기준보다 낮은 편':'서울 기준과 비슷한 편';
+    headline=Number(c.index).toFixed(2)+' · '+direction;
+    reason='서울 기준 1인 고객층 구성 지수예요. 같은 업종을 제외한 동네 소비자의 연령·성별 매출 구성으로 계산해요. 고객 수·성공 확률·매출 증가율이 아니에요.';
+  }else if(c.status==='comparison_only')reason=basis+'은 기존 매출 연관성 검증 기준을 통과하지 않아 적합도 점수 없이 구성만 비교해요.';
+  else if(c.status==='missing_local')reason='이 동네의 소비층 지수가 없어 구성 자료만 비교해요.';
+  else {headline='업종 고객층 자료 미확보';reason='인구만으로 고객층 적합도를 추정하지 않아요.';}
+  const comparison=(c.ages||[]).map(a=>`${marketEsc(a.label.replace('60대+','60대 이상'))}: 업종 매출 ${marketValue(a.sales_pct,'%')} · 동네 유동 ${marketValue(a.foot_pct,'%')} · 직장 ${marketValue(a.work_pct,'%')}`).join('<br>');
+  const female=c.female?`<br>여성: 업종 매출 ${marketValue(c.female.sales_pct,'%')} · 동네 유동 ${marketValue(c.female.foot_pct,'%')} · 직장 ${marketValue(c.female.work_pct,'%')}`:'';
+  return row(parent?basis+' 고객층과 비교 · 상위 업종 참고':'내 업종 고객층과 이 동네 소비층은 맞나',headline,
+    (parent?marketEsc(d.query)+' 전용 고객층 분석은 없어요. ':'')+reason+
+    (comparison?'<br><br>'+comparison+female+'<br>업종은 서울 전체 추정매출 비중, 동네는 인구 비중이에요. 같은 수치로 해석하지 않아요.':'')+
+    `<details><summary>고객층 비교 기준</summary>업종 고객층: ${(c.profile_quarters||[]).map(marketPeriod).join(', ')||'자료 미확보'} 합산<br>소비층 지수: ${marketPeriod(c.fit_quarter)} · 연령·성별 구성 비교. 시간대·매장 조건은 이 지수에 포함되지 않아요.<br>유동·직장인구는 아래 인구 자료 기준을 확인해 주세요.</details>`);
+}
+
 function marketPeople(r,row){
   const p=r.population||{},foot=p.foot,work=p.work,res=p.resident;
   const ages=foot?(foot.ages||[]).slice(0,2).map(a=>marketEsc(a.label)+' '+a.pct+'%').join(' · '):'';
@@ -2353,7 +2373,8 @@ function marketPeople(r,row){
     marketEsc(r.adstrd)+' 행정동 기준. 서로 겹칠 수 있어 합산하지 않아요. 방문 고객 수를 뜻하지 않아요.')+
     row('지나가는 사람은 어떤가',ages||'연령 자료 없음',
     (foot&&foot.female_pct!=null?'여성 '+foot.female_pct+'% · 남성 '+Math.round((100-foot.female_pct)*10)/10+'%<br>':'')+
-    '통행량이 가장 많은 시간대: '+marketEsc(foot&&foot.peak||'자료 없음')+'<br>시간대별 길이가 달라 시간당 혼잡도와는 달라요.')+
+    '시간당 통행량이 가장 많은 시간대: '+marketEsc(foot&&foot.peak_hour||'자료 없음'))+
+    `<details class="src"><summary>시간대별 유동인구 보기</summary>${foot&&(foot.hours||[]).length?foot.hours.map(h=>`${marketEsc(h.label)}: 하루 약 ${marketValue(h.day_avg,'명')} · 시간당 약 ${marketValue(h.hour_avg,'명')}`).join('<br>'):'시간대별 자료가 없어요.'}<br>분기 합계를 90일로 나눈 값이에요. 시간당 값은 각 구간의 시간 수로 다시 나눴어요. 중복 없는 방문자 수나 실제 매장 유입 수가 아니에요.</details>`+
     `<details class="src"><summary>인구 자료 기준</summary>거주: 주민등록 ${res?marketEsc(res.month.slice(0,4)+'년 '+res.month.slice(4)+'월'):'자료 미확보'}<br>직장: 서울 상권분석 직장인구 ${work?marketPeriod(work.quarter):'자료 미확보'}<br>유동: 서울 상권분석 길단위인구 ${foot?marketPeriod(foot.quarter):'자료 미확보'}, 분기 합계를 90일로 나눈 하루 평균이에요. 매장 앞 통행량이나 중복 없는 방문자 수가 아니에요.</details>`;
 }
 
@@ -2384,6 +2405,7 @@ function renderMarketCompare(){
       `<label class="market-loc-label">월세 기준 동네 <select class="market-location" data-code="${r.adstrd_cd}" data-selx="1">${locations.map((l,i)=>`<option value="${i}" ${i===selected?'selected':''}>${marketEsc(l.gu+' '+l.dong)}</option>`).join('')}</select></label><label class="market-loc-label">알아본 월세가 있으면 <input class="market-quoted" data-code="${r.adstrd_cd}" type="text" inputmode="decimal" min="0" max="1000000" step="0.1" placeholder="만원 · 선택 입력" value="${quoted??''}"> 만원</label>${state.error?`<button class="market-retry" data-key="${marketEsc(key)}">월세 다시 불러오기</button>`:''}`+
       row('매출에서 월세가 차지하는 몫',calc.ratio==null?'계산할 자료 없음':`${calc.ratio}%`,'지역 범위가 다른 평균끼리 비교한 참고 비율','ratio')+
       `<div class="market-answer market-startup-answer"></div>`+
+      marketCustomerMatch(d,r,row)+
       marketPeople(r,row)+
       row('경쟁·개폐업은 어떤가',`${d.specialty||d.subclass?marketEsc(d.industry)+' 전체':'같은 업종'} ${marketValue(r.stores,'곳')}`,`분기 개업 ${marketValue(r.open_rate_pct,'%')} · 폐업 ${marketValue(r.close_rate_pct,'%')}<br>매출 전년 동기 ${marketValue(r.yoy_pct,'%')}`)+
       row('5년 뒤 얼마나 남았나',marketValue(r.context&&r.context.s5,'%'),r.context&&r.context.s5!=null?'2010~2020년 개업 가게의 5년 생존 추정':['일반의원','치과의원','한의원'].includes(d.industry)?'의원 유형별 집계 검증 중':r.context&&r.context.s5_n_open!=null?'추적 표본 '+r.context.s5_n_open+'곳 · 최소 30곳 필요':'해당 동·업종의 추적 표본 부족 또는 인허가 분류 미연결')+
