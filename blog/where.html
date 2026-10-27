@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: b860a266256d02df -->
+<!-- baked-from-b2c-where: b5a6ef13c74277e8 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -45,7 +45,7 @@
         const chosen=named||(hit.length===1?hit[0]:null);
         const name=(D.industry_files||{})[query]?query:chosen&&chosen.name;
         const path=name&&(D.industry_files||{})[name];
-        if(path){const r=await _fetch('/blog/data/'+path);if(!r.ok)throw new Error('업종 자료를 불러오지 못했어요');return J(await r.json());}
+        if(path){const r=await _fetch('/blog/data/'+path);if(!r.ok)throw new Error('업종 자료를 불러오지 못했어요');return J({...await r.json(),rents:D.rents||{}});}
         return J((D.industries||{})[query] || (chosen?(D.industries||{})[chosen.name]:null) || {ok:false, rows:[],suggestions:hit.slice(0,8).map(c=>c.name)});
       }
       if(u.indexOf('/api/sales-intel')===0){
@@ -823,6 +823,15 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 @media(min-width:900px){body:has(#p-ind:not([hidden])) main{max-width:1080px}.market-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
 .market-risk-list{list-style:none;padding:0;margin:8px 0}.market-risk-lower b{color:#17665b}.market-risk-higher b{color:#92500e}
 .market-startup{border:1px solid var(--rule);border-radius:14px;padding:14px;margin:16px 0}.market-startup summary{cursor:pointer;font-weight:600}.market-startup .market-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.market-startup input{width:100px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}.market-startup-answer span{display:block;margin-top:10px}
+
+#marketCompare .market-controls label{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;font-size:13px;min-width:0}
+#marketCompare .market-controls input,#marketCompare .market-controls select{box-sizing:border-box;height:40px;flex:0 0 auto;width:112px;min-width:0;max-width:100%;margin:0;padding:7px 10px;font-size:16px;line-height:24px;border:1px solid var(--rule);border-radius:8px}
+#marketCompare .market-controls select{width:124px}
+#marketCompare .operating-ages{border:0;padding:0;margin:12px 0;display:flex;gap:8px 18px;flex-wrap:wrap}
+#marketCompare .operating-ages legend{font-size:13px;margin-bottom:8px}
+#marketCompare .operating-ages label{display:inline-flex;align-items:center;justify-content:flex-start;gap:6px;margin:0;min-width:84px;width:auto;font-size:14px}
+#marketCompare .operating-ages input[type=checkbox]{appearance:auto;flex:0 0 16px;width:16px;min-width:16px;height:16px;min-height:16px;margin:0;padding:0;accent-color:var(--navy)}
+@media(max-width:520px){#marketCompare .market-startup .market-controls{grid-template-columns:1fr}}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -2248,6 +2257,7 @@ async function run(ind,more=false){
   try{ d=await (await fetch('/api/b2c/where-for-industry?industry='+encodeURIComponent(q)+'&top=500')).json(); }catch(_){}
   if(seq!==industrySeq) return;
   if(!d||!d.ok){ industryData=null;renderMarketCompare();$('marketEvidence').replaceChildren(); $('out').innerHTML=`<div class="empty">${marketEsc((d&&d.reason)||'불러오지 못했어요.')}<br>예시 버튼이나 자동완성에서 골라 보세요.</div>`; for(const name of (d&&d.suggestions)||[]){const b=document.createElement('button');b.textContent=name;b.onclick=()=>run(name);$('out').append(b)} return; }
+  Object.entries(d.rents||{}).forEach(([key,data])=>marketRentCache.set(key,{data}));
   const shareURL=new URL(location.href);shareURL.searchParams.set('view','ind');shareURL.searchParams.set('ind',d.query||d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
   industryData=d; _REQUESTED_IND=d.industry; if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
   if(compareIndustry!==(d.query||d.industry)){
@@ -2267,6 +2277,11 @@ function renderIndustryResults(){
   let R=(d.rows||[]).filter(r=>!$('industryGu').value||(r.locations||[]).some(x=>x.gu===$('industryGu').value));
   $('isort').options[0].textContent=d.sorted_by+' 높은 순';
   const SORT=$('isort')?$('isort').value:'sales';
+
+  const budget=budgetFilter(R,marketOperating.budget,marketArea,marketType,marketRentCache,marketLocations);
+  if(budget.error){$('out').textContent=budget.error;$('marketMore').hidden=true;return;}
+  R=budget.rows;
+  const budgetNote=budget.active?`<p class="src">월세 ${marketEsc(marketOperating.budget)}만원 이하 · ${marketArea}평 · ${marketEsc(marketType)} · 평균 월세 기준 ${R.length}개 동. 예산 초과 ${budget.over}개, 월세 미확인 ${budget.missing}개는 제외했어요.${budget.pending?' '+budget.pending+'개 동 월세 확인 중…':''}<br>1층 상권·권역 조사 평균으로 추린 후보예요. 실제 매물 월세와 다를 수 있으며 보증금·관리비·권리금은 별도예요. 여러 법정동에 걸치면 처음 연결된 동 기준이며 비교 카드에서 바꿀 수 있어요.</p>`:'';
   let operating=null;
   if(SORT==='operating'){
     operating=rankOperatingRows(R,marketOperating);
@@ -2282,7 +2297,7 @@ function renderIndustryResults(){
   const key=r=>r.per_store_month_man ?? r.sales_month_man;
   const maxV=Math.max(...R.map(key),1);
   const w=v=>Math.max(3,Math.min(100,Math.sqrt((v||0)/maxV)*100));
-  $('out').innerHTML=(operating?`<p class="src">내 운영조건 순 · ${operatingTime(marketOperating.start)}~${Number(marketOperating.end)<Number(marketOperating.start)?'다음 날 ':''}${operatingTime(marketOperating.end)} · ${marketEsc(marketOperating.ages.join('·').replace('60대+','60대 이상'))} · ${operating.validCount}개 동 비교. 영업시간 유동 비중과 목표 연령 유동 비중의 지역 내 순위를 같은 비중(50:50)으로 합쳤어요. 동점이면 영업시간 유동량이 많은 순이에요. 예상 고객 수·매출 순위가 아니에요. 자료가 부족한 동네는 아래에 모았어요.</p>`:'')+`<div class="g hd"><span></span><span>행정동</span><span>${d.sorted_by} <i style="font-style:normal">(√눈금)</i></span><span>전년 동기</span><span style="text-align:right">신규·폐업 · 생활</span></div>`
+  $('out').innerHTML=budgetNote+(operating?`<p class="src">내 운영조건 순 · ${operatingTime(marketOperating.start)}~${Number(marketOperating.end)<Number(marketOperating.start)?'다음 날 ':''}${operatingTime(marketOperating.end)} · ${marketEsc(marketOperating.ages.join('·').replace('60대+','60대 이상'))} · ${operating.validCount}개 동 비교. 영업시간 유동 비중과 목표 연령 유동 비중의 지역 내 순위를 같은 비중(50:50)으로 합쳤어요. 동점이면 영업시간 유동량이 많은 순이에요. 예상 고객 수·매출 순위가 아니에요. 자료가 부족한 동네는 아래에 모았어요.</p>`:'')+`<div class="g hd"><span></span><span>행정동</span><span>${d.sorted_by} <i style="font-style:normal">(√눈금)</i></span><span>전년 동기</span><span style="text-align:right">신규·폐업 · 생활</span></div>`
     + R.slice(0,industryLimit).map((r,i)=>{
       const y=r.yoy_pct, cls=y==null?'':(y>=5?'up':y<=-5?'dn':'');
       return `<div class="g">
@@ -2296,10 +2311,11 @@ function renderIndustryResults(){
         }<br><span style="opacity:.75">생활 ${r.living_pop?Math.round(r.living_pop/1000)+'천':'—'}${
           r.net_rate_pct==null?'':` · 순 <b class="${r.net_rate_pct>0?'up':r.net_rate_pct<0?'dn':''}">${r.net_rate_pct>0?'+':''}${r.net_rate_pct}%p</b>`
         }</span></span>
+        ${budget.active?`<small class="src" style="grid-column:2/-1;margin:3px 0;color:var(--ink)">월세 약 <b>${marketValue(budget.details.get(r.adstrd_cd).monthly,'만원')}</b> / 예산 ${marketEsc(marketOperating.budget)}만원 · ${marketEsc(budget.details.get(r.adstrd_cd).loc.dong)} 기준 · ${marketEsc(budget.details.get(r.adstrd_cd).region||'')} ${marketEsc(budget.details.get(r.adstrd_cd).scope)} 평균 · ${marketEsc(budget.details.get(r.adstrd_cd).quarter||'')}</small>`:''}
         ${operating?`<small class="src" style="grid-column:2/-1;margin:4px 0 6px;font-size:12px;color:var(--ink)">${operatingReason(operating.metrics.get(r.adstrd_cd),marketOperating)}</small>`:''}
       </div>`;}).join('');
   $('marketMore').hidden=R.length<=industryLimit;
-  if(!R.length) $('out').innerHTML='<div class="empty">이 지역에서 비교할 자료가 없어요. 다른 지역을 골라 주세요.</div>';
+  if(!R.length) $('out').innerHTML=budgetNote+'<div class="empty">'+(budget.active?(budget.pending?'월세 자료를 확인하고 있어요.':'이 면적·건물 유형에서 예산 이내로 확인된 동네가 없어요. 예산이나 면적을 바꿔 보세요.'):'이 지역에서 비교할 자료가 없어요. 다른 지역을 골라 주세요.')+'</div>';
   const SORTLBL={operating:'내 운영조건에 맞는 순',sales:d.sorted_by,net:'가게가 많이 늘어난 순',net_asc:'가게가 많이 줄어든 순',
     close_asc:'폐업률 낮은 순',close:'폐업률 높은 순',pop:'생활인구 많은 순'};
   $('src').innerHTML=`정렬: <b>${SORTLBL[SORT]||d.sorted_by}</b> · 가게가 ${d.min_stores}곳 이상인 ${d.n_dongs}개 동 중 ${R.length}개 해당 · ${Math.min(industryLimit,R.length)}개 표시 · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기<br>${d.source}<br>${d.caveat}`;
@@ -2329,7 +2345,7 @@ function loadMarketRent(loc){
   const key=loc.gu+'|'+loc.dong;
   if(marketRentCache.has(key))return;
   marketRentCache.set(key,{loading:true});
-  fetch('/api/b2c/market-rent?'+new URLSearchParams({sigungu:loc.gu,dong:loc.dong})).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{marketRentCache.set(key,{data:d});marketUpdateNumbers()}).catch(()=>{marketRentCache.set(key,{error:true});renderMarketCompare()});
+  fetch('/api/b2c/market-rent?'+new URLSearchParams({sigungu:loc.gu,dong:loc.dong})).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{marketRentCache.set(key,{data:d});marketUpdateNumbers();if(marketOperating.budget!=='')renderIndustryResults()}).catch(()=>{marketRentCache.set(key,{error:true});renderMarketCompare()});
 }
 function marketRentNumbers(rent,area,sales){
   const price=rent&&rent.per_m2_thousand;
@@ -2354,7 +2370,7 @@ function updateStartupAnswer(card,rent){
   const n=startupNumbers(rent,marketStartup.fixed,marketStartup.variable,marketStartup.days,marketStartup.ticket);
   el.innerHTML=n?`<span>매달 고정적으로 얼마가 필요한가</span><b>${Math.ceil(n.monthly).toLocaleString()}만원</b><span>비용을 감당하려면 월 얼마를 팔아야 하나</span><b>${Math.ceil(n.revenue).toLocaleString()}만원</b><span>하루에 고객이 몇 명 필요한가</span><b>${n.customers==null?'영업일·고객당 결제액을 입력해 주세요':n.customers.toLocaleString()+'명'}</b><small>월세 포함 고정비 ÷ (1 − 변동비율). 고객 수는 올림. 동네 평균매출을 내 매출로 가정하지 않아요.</small>`:'<span>내 비용으로 손익분기점 확인</span><small>'+ (rent==null?'이 동네 월세 자료가 없어 계산을 멈췄어요. 알아본 월세를 직접 입력해 주세요.':'위에서 월 고정비(0 이상)와 변동비율(0 이상 100% 미만)을 입력해 주세요. 월세 자료가 없으면 알아본 월세를 직접 입력해 주세요.')+'</small>';
 }
-const marketOperating={start:'',end:'',ages:[]};
+const marketOperating={start:'',end:'',ages:[],budget:''};
 function operatingNumbers(pop, settings){
   const starts=[0,6,11,14,17,21], ends=[6,11,14,17,21,24];
   const labels=['새벽 0~6시','아침 6~11시','낮 11~14시','오후 14~17시','저녁 17~21시','밤 21~24시'];
@@ -2383,6 +2399,24 @@ function operatingNumbers(pop, settings){
   };
   return {hours,error,footPct:share('foot'),workPct:share('work')};
 }
+function budgetFilter(rows,budget,area,type,cache,locations){
+  const active=budget!=='';
+  if(!active)return {rows,active:false,details:new Map()};
+  if(!Number.isFinite(Number(budget))||Number(budget)<=0)return {rows:[],active:true,error:'월세 예산을 0보다 큰 숫자로 입력해 주세요.',details:new Map()};
+  const details=new Map();let missing=0,over=0,pending=0;
+  const kept=rows.filter(r=>{
+    const loc=(r.locations||[])[locations.get(r.adstrd_cd)||0];
+    const state=loc?cache.get(loc.gu+'|'+loc.dong):null;
+    if(loc&&state?.loading){pending++;return false;}
+    const rent=state?.data?.rent,typ=rent?.types?.find(t=>t.type===type);
+    const price=typ?.per_m2_thousand;
+    if(!(price>0)){missing++;return false;}
+    const raw=price/10*area*3.305785;
+    details.set(r.adstrd_cd,{monthly:Math.round(raw),loc,scope:rent.scope,region:typ.region,quarter:rent.quarter});
+    if(raw>Number(budget)){over++;return false;}return true;
+  });
+  return {rows:kept,active:true,details,missing,over,pending};
+}
 function operatingTime(v){return String(Math.floor(Number(v))).padStart(2,'0')+':'+(Number(v)%1?'30':'00');}
 function rankOperatingRows(rows,settings){
   const check=operatingNumbers({},settings);
@@ -2402,7 +2436,7 @@ function operatingReason(n,settings){
 
 function marketOperatingForm(){
   const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
-  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><fieldset style="border:0;padding:0;margin:8px 0"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label style="display:inline-flex;align-items:center;gap:4px;margin:4px 12px 4px 0"><input style="width:auto" type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
+  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"> 만원 이하</label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
 }
 function updateOperatingAnswer(card,r){
   const el=card.querySelector('.market-operating-answer');if(!el)return;
@@ -2515,18 +2549,18 @@ function marketUpdateNumbers(){
   }
 }
 function marketInput(e){
-  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'){industryLimit=30;renderIndustryResults();}return;}
+  if(e.target.dataset.operating){marketOperating[e.target.dataset.operating]=e.target.value;marketUpdateNumbers();if($('isort').value==='operating'||e.target.dataset.operating==='budget'){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.operatingAge){const age=e.target.dataset.operatingAge;marketOperating.ages=marketOperating.ages.filter(a=>a!==age);if(e.target.checked)marketOperating.ages.push(age);marketUpdateNumbers();if($('isort').value==='operating'){industryLimit=30;renderIndustryResults();}return;}
   if(e.target.dataset.startup){marketStartup[e.target.dataset.startup]=e.target.value.trim();marketUpdateNumbers();return;}
-  if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();}}
+  if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;marketUpdateNumbers();renderIndustryResults();}}
   if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);marketUpdateNumbers();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);marketUpdateNumbers();}}
 }
 function marketChange(e){
   if(e.target.dataset.operating||e.target.dataset.operatingAge){marketInput(e);return;}
   if(e.target.matches('.market-quoted'))marketInput(e);
   if(e.target.id==='marketArea')marketInput(e);
-  if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();}
-  if(e.target.matches('.market-location')){marketLocations.set(e.target.dataset.code,Number(e.target.value));marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();}
+  if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();renderIndustryResults();}
+  if(e.target.matches('.market-location')){marketLocations.set(e.target.dataset.code,Number(e.target.value));marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();renderIndustryResults();}
 }
 $('marketCompare').addEventListener('click',e=>{if(e.target.closest('[data-operating-sort]')){$('isort').value='operating';$('isort').dispatchEvent(new Event('change'));$('out').scrollIntoView({block:'start',behavior:'smooth'});return;}const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
 
@@ -2537,7 +2571,7 @@ function toggleMarket(code){
   else{alert('동네는 세 곳까지 비교할 수 있어요. 담은 동네를 빼고 다시 골라 주세요.');return;}
   try{sessionStorage.setItem('hicce_market_compare',JSON.stringify({industry:compareIndustry,codes:[...compareCodes]}))}catch(_){}
   renderMarketCompare();
-  document.querySelectorAll('.market-pick').forEach(b=>{const on=compareCodes.has(b.dataset.code);b.setAttribute('aria-pressed',on);b.textContent=on?'비교에서 빼기':'비교에 담기'});
+  document.querySelectorAll('.market-pick[data-code]').forEach(b=>{const on=compareCodes.has(b.dataset.code);b.setAttribute('aria-pressed',on);b.textContent=on?'비교에서 빼기':'비교에 담기'});
 }
 $('out').addEventListener('click',e=>{const b=e.target.closest('.market-pick');if(b)toggleMarket(b.dataset.code)});
 $('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-remove');if(b)toggleMarket(b.dataset.code)});
