@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 7a2be2499aa91fd2 -->
+<!-- baked-from-b2c-where: e37a1f258438eaf4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,7 +8,7 @@
 /* 정적 어댑터 — 서버 API 대신 동봉된 JSON 으로 답한다. 자동 생성물. */
 (function(){
   let _p=null, _ps=null;
-  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=8689356e337d').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
+  const data=()=>_p||(_p=fetch('/blog/data/where.json?v=f8eb2b828a3f').then(r=>{ if(!r.ok) throw new Error('where.json'); return r.json(); }));
   /* 🔴 업종 전체(«가게» 모드 드롭다운 · 생활 카드의 가게 수)는 2.0MB 라 **따로 늦게** 받는다.
      집 모드만 보는 사람에게 이걸 지우지 않는다. */
   const sales=()=>_ps||(_ps=fetch('/blog/data/where_sales.json?v=6492d34b1dcd').then(r=>{ if(!r.ok) throw new Error('where_sales.json'); return r.json(); }));
@@ -29,10 +29,21 @@
         return J(r || {ok:false});
       }
       if(u.indexOf('/api/b2c/industry-names')===0){
-        return J({industries:Object.keys(D.industries).sort()});
+        return J(D.catalog || {industries:Object.keys(D.industries).sort()});
+      }
+      if(u.indexOf('/api/b2c/market-rent')===0){
+        return J((D.rents||{})[q.get('sigungu')+'|'+q.get('dong')]||{ok:false});
       }
       if(u.indexOf('/api/b2c/where-for-industry')===0){
-        return J(D.industries[q.get('industry')] || {ok:false, rows:[]});
+        const query=q.get('industry'), clean=s=>s.replace(/[\s\-_·]/g,'').toLowerCase();
+        const choices=(D.catalog||{}).choices||[], term=clean(query||'');
+        const named=choices.find(c=>clean(c.name)===term);
+        let hit=choices.filter(c=>[c.name,...c.aliases||[]].some(n=>clean(n)===term));
+        const preferred=hit.filter(c=>c.kind!=='subclass');
+        if(preferred.length===1)hit=preferred;
+        if(!hit.length&&term)hit=choices.filter(c=>[c.name,...c.aliases||[]].some(n=>clean(n).includes(term)));
+        const chosen=named||(hit.length===1?hit[0]:null);
+        return J(D.industries[query] || (chosen?D.industries[chosen.name]:null) || {ok:false, rows:[],suggestions:hit.slice(0,8).map(c=>c.name)});
       }
       if(u.indexOf('/api/sales-intel')===0){
         const S=await sales();
@@ -804,6 +815,9 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     font:400 12px var(--ff);color:var(--soft)}
   .chips span b{color:var(--ink);font:600 12px var(--fm)}
 #industryGu{flex:none;width:130px;max-width:130px;font-size:13px;height:34px;padding:0 8px}#marketCompare{margin:22px 0}.market-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.market-cards article{background:var(--field);border:1px solid var(--rule);border-radius:12px;padding:16px;font-size:13px;line-height:1.7;min-width:0}.market-cards h3{margin:0;font-size:17px}.market-pick,.market-remove{border:1px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--seal);padding:5px 9px;margin-top:6px;font:inherit;font-size:11px;cursor:pointer}.market-pick[aria-pressed=true]{background:var(--seal);color:var(--paper)}.market-cards summary{cursor:pointer;color:var(--seal)}
+
+.market-note{padding:16px;margin:18px 0;background:var(--field);border:1px solid var(--rule);border-radius:12px;font-size:13px;line-height:1.7}.market-note h2,#marketCompare h2{font-size:17px;margin:0 0 10px}.market-note p{margin:8px 0}.market-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0;font-size:13px}.market-controls input{width:65px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink)}.market-controls select{width:auto}.market-controls small{flex-basis:100%;color:var(--soft)}.market-answer{padding:8px 0;border-bottom:1px solid var(--rule)}.market-answer>span,.market-answer>b,.market-answer>small{display:block}.market-answer>span{color:var(--soft);font-size:12px}.market-answer>b{font-size:16px;margin:3px 0;line-height:1.5}.market-answer>small{font-size:11px;color:var(--soft);line-height:1.6;font-weight:400}.market-loc-label{display:block;font-size:11px;margin-top:10px}.market-quoted{width:120px;max-width:100%;padding:6px;border:1px solid var(--rule);border-radius:7px;background:var(--paper);color:var(--ink)}.market-location{width:100%;font-size:12px;height:36px;padding:4px;min-width:0}.market-detail{display:block;margin:10px 0}.industry-matches:empty{display:none}
+@media(min-width:900px){body:has(#p-ind:not([hidden])) main{max-width:1080px}.market-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr)))}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -890,7 +904,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       <option value="pop">유동인구 많은 순</option>
     </select>
   </div>
-  <section id="marketCompare" aria-live="polite"></section><div id="out" class="empty">위에 업종을 넣어 보세요. 63개 업종 자료가 있어요.</div>
+  <section id="marketCompare" aria-live="polite"></section><section id="marketEvidence"></section><div id="out" class="empty">위에 업종을 넣어 보세요. 63개 업종 자료가 있어요.</div>
   <button id="marketMore" type="button" hidden>동네 더 보기</button><p class="src" id="src"></p>
 </section>
 </main>
@@ -982,6 +996,40 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       if(e.key === 'Enter'){ e.preventDefault(); btn.click(); } });
   };
 })();
+
+</script>
+<script>
+window.hicceIndustryCatalog=null;
+window.hicceIndustrySearch=function(input,list){
+  if(!window.hicceIndustryCatalog)window.hicceIndustryCatalog=fetch('/api/b2c/industry-names').then(r=>r.json());
+  const clean=s=>s.replace(/[\s\-_·]/g,'').toLowerCase();
+  window.hicceIndustryCatalog.then(d=>{
+    const choices=d.choices||(d.industries||[]).map(name=>({name,parent:name,aliases:[]}));
+    const box=document.createElement('div');box.className='industry-matches';
+    const label=document.createElement('label');label.textContent='업종·세부 업종 선택';
+    label.style.cssText='display:block;font-size:13px;color:#68717b;margin:10px 0 6px';
+    const select=document.createElement('select');select.id=input.id+'Category';select.dataset.selx='1';label.htmlFor=select.id;
+    select.style.cssText='width:100%;max-width:100%;min-height:44px;padding:10px 12px;border:1px solid #dedbd3;border-radius:12px;background:#faf9f6;color:#20262e;font:inherit';
+    const all=document.createElement('button');all.type='button';all.textContent='전체 업종 보기';all.style.cssText='margin:8px 0;padding:6px 12px;border:1px solid #dedbd3;border-radius:20px;background:transparent;color:#28466b';all.onclick=()=>{input.value='';match();select.focus()};box.append(label,select,all);input.parentElement.insertAdjacentElement('afterend',box);
+    input.removeAttribute('list');list.replaceChildren();
+    function match(){
+      const q=clean(input.value);select.replaceChildren();
+      const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent=q?'검색 결과에서 업종 선택':'전체 업종에서 선택';select.append(placeholder);
+      const parents=new Map();
+      choices.filter(c=>!q||[c.name,c.parent,...c.aliases||[]].some(n=>clean(n||'').includes(q))).forEach(c=>{
+        const parent=c.parent||c.name;
+        if(!parents.has(parent)){const group=document.createElement('optgroup');group.label=parent;parents.set(parent,group);select.append(group);}
+        const option=document.createElement('option');option.value=c.name;option.textContent=c.name+(c.name===parent?' · 전체': ' · 세부');parents.get(parent).append(option);
+      });
+      const selected=choices.find(c=>c.name===input.value);if(selected&&Array.from(select.options).some(o=>o.value===selected.name))select.value=selected.name;
+      if(select.options.length===1)placeholder.textContent='일치하는 업종이 없어요. 검색어를 바꿔 주세요.';
+    }
+    select.addEventListener('change',()=>{if(!select.value)return;input.value=select.value;input.dispatchEvent(new Event('change',{bubbles:true}));});
+    input.addEventListener('input',match);input.addEventListener('hicceindustry',match);
+    const normalize=()=>{const named=choices.find(c=>clean(c.name)===clean(input.value));const hits=choices.filter(c=>[c.name,...c.aliases||[]].some(n=>clean(n)===clean(input.value)));const preferred=hits.filter(c=>c.kind!=='subclass');const hit=named||(preferred.length===1?preferred[0]:hits.length===1?hits[0]:null);if(hit)input.value=hit.name;};
+    input.addEventListener('change',normalize);if(input.form)input.form.addEventListener('submit',normalize);match();
+  }).catch(()=>{});
+};
 
 </script>
 <script>
@@ -1157,7 +1205,7 @@ selxAll();
   _isSample=!(_gu&&_dg);
   const _m=_get('mode') || (_q.get('utm_source')==='threads' ? 'shop' : '');
   await GUS_READY;
-  if(_REQUESTED_IND){try{const names=await (await fetch('/api/b2c/industry-names')).json();if(!(names.industries||[]).includes(_REQUESTED_IND))_REQUESTED_IND='';}catch(_){_REQUESTED_IND='';}}
+  if(_REQUESTED_IND){try{const names=await (await fetch('/api/b2c/industry-names')).json();const found=(names.choices||[]).find(c=>c.name===_REQUESTED_IND||(c.aliases||[]).includes(_REQUESTED_IND));_REQUESTED_IND=found?found.parent:((names.industries||[]).includes(_REQUESTED_IND)?_REQUESTED_IND:'');}catch(_){_REQUESTED_IND='';}}
   if(_m==='shop'||_m==='home') setMode(_m);
   if(_get('view')==='ind'){tab('ind'); if(_get('ind')) run(_get('ind')); await loadDongs(g); $('gu').value=g; $('dg').value=d; return;}
   await loadDongs(g); $('gu').value=g;
@@ -1720,7 +1768,7 @@ function svSplit(SV){
 }
 function pairsRow(ind, row, pill){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
-  const Mi=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=(Mi&&Mi.partner_survival)||[];
+  const Mi=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=ind==='일반의원'?[]:(Mi&&Mi.partner_survival)||[];
   const {good, bad}=svSplit(SV);
   const pc=x=>Math.round(Math.abs(1-x.rr)*100);
   if(!good.length && !bad.length && !(P&&(P.partners||[]).length)) return '';
@@ -1734,7 +1782,7 @@ function pairsRow(ind, row, pill){
 window.setInd=function(v){ _IND=v; _REQUESTED_IND=v; renderHead(); };
 function pairsLine(ind){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
-  const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=(M&&M.partner_survival)||[];
+  const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=ind==='일반의원'?[]:(M&&M.partner_survival)||[];
   if((!P||!(P.partners||[]).length) && !SV.length) return '';
   const here=nm=>{ const r=(_ALLIND||[]).find(x=>x.industry===nm); return r&&r.stores>0?r.stores:0; };
   let h=`<h4 class="grp">옆 가게</h4>`;
@@ -1752,6 +1800,7 @@ function pairsLine(ind){
   return h;
 }
 function survLine(ind){
+  if(ind==='일반의원') return '';
   const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind], C=_CUBE&&_CUBE.cells&&_CUBE.cells[ind];
   if(!C||C.s5==null) return '';
   const se=M&&M.s5_seoul; const d=se!=null?Math.round(C.s5-se):null;
@@ -2177,9 +2226,8 @@ function renderPE(){
 
 const POP_EX=['커피-음료','한식음식점','미용실','편의점','치킨전문점','제과점','호프-간이주점','일반의류'];
 $('sug').innerHTML=POP_EX.map(x=>`<button type="button" onclick="run('${x}')">${x}</button>`).join('');
-fetch('/api/b2c/industry-names').then(r=>r.json()).then(d=>{
-  $('inds').innerHTML=(d.industries||[]).map(x=>`<option value="${x}">`).join('');
-}).catch(()=>{});
+hicceIndustrySearch($('q'),$('inds'));
+
 let industryLimit=30;
 let industrySeq=0, industryData=null, compareIndustry='', compareCodes=new Set();
 async function run(ind,more=false){
@@ -2187,17 +2235,18 @@ async function run(ind,more=false){
   if(ind) $('q').value=ind;
   const seq=++industrySeq;
   const q=$('q').value.trim(); if(!q) return;
+  industryData=null; $('marketCompare').innerHTML='<p class="lead">업종 자료를 불러오는 중…</p>'; $('marketEvidence').replaceChildren();
   $('marketMore').hidden=true;
   $('out').className=''; $('out').innerHTML='<div class="empty">불러오는 중…</div>'; $('src').textContent='';
   let d=null;
   try{ d=await (await fetch('/api/b2c/where-for-industry?industry='+encodeURIComponent(q)+'&top=500')).json(); }catch(_){}
   if(seq!==industrySeq) return;
-  if(!d||!d.ok){ industryData=null;renderMarketCompare(); $('out').innerHTML=`<div class="empty">${marketEsc((d&&d.reason)||'불러오지 못했어요.')}<br>예시 버튼이나 자동완성에서 골라 보세요.</div>`; return; }
-  const shareURL=new URL(location.href);shareURL.searchParams.set('view','ind');shareURL.searchParams.set('ind',d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
-  industryData=d; _REQUESTED_IND=d.industry;
-  if(compareIndustry!==d.industry){
-    compareCodes.clear(); compareIndustry=d.industry;
-    try{const saved=JSON.parse(sessionStorage.getItem('hicce_market_compare')||'null');if(saved&&saved.industry===d.industry&&Array.isArray(saved.codes))compareCodes=new Set(saved.codes.filter(code=>d.rows.some(r=>r.adstrd_cd===code)).slice(0,3));}catch(_){}
+  if(!d||!d.ok){ industryData=null;renderMarketCompare();$('marketEvidence').replaceChildren(); $('out').innerHTML=`<div class="empty">${marketEsc((d&&d.reason)||'불러오지 못했어요.')}<br>예시 버튼이나 자동완성에서 골라 보세요.</div>`; for(const name of (d&&d.suggestions)||[]){const b=document.createElement('button');b.textContent=name;b.onclick=()=>run(name);$('out').append(b)} return; }
+  const shareURL=new URL(location.href);shareURL.searchParams.set('view','ind');shareURL.searchParams.set('ind',d.query||d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
+  industryData=d; _REQUESTED_IND=d.industry; if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
+  if(compareIndustry!==(d.query||d.industry)){
+    compareCodes.clear(); compareIndustry=d.query||d.industry;
+    try{const saved=JSON.parse(sessionStorage.getItem('hicce_market_compare')||'null');if(saved&&saved.industry===(d.query||d.industry)&&Array.isArray(saved.codes))compareCodes=new Set(saved.codes.filter(code=>d.rows.some(r=>r.adstrd_cd===code)).slice(0,3));}catch(_){}
   }
   const region=$('industryGu').value;
   const gus=[...new Set(d.rows.flatMap(r=>(r.locations||[]).map(x=>x.gu)))].sort();
@@ -2245,13 +2294,81 @@ async function run(ind,more=false){
 }
 
 function marketEsc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+let marketArea=20, marketType='소규모';
+const marketRentCache=new Map(), marketLocations=new Map(), marketQuotedRent=new Map();
+function marketValue(v,unit=''){return v==null?'자료 없음':Number(v).toLocaleString()+unit;}
+function renderMarketEvidence(){
+  const d=industryData, box=$('marketEvidence');if(!d){box.replaceChildren();return;}
+  const N=d.neighbors||{}, good=svSplit(N.survival||[]).good, bad=svSplit(N.survival||[]).bad;
+  const S=d.specialty||d.subclass;
+  const alias=d.query!==d.industry&&!S?`<p>${marketEsc(d.query)} → ${marketEsc(d.industry)} 자료로 찾았어요.</p>`:'';
+  const specs=d.industry==='일반의원'?`<div class="sug" id="clinicChoices"><b>의원 세부 분류</b>${['일반의원','피부과','성형외과','내과','소아청소년과','이비인후과','정형외과','안과','산부인과','비뇨의학과','정신건강의학과'].map(n=>`<button type="button" data-industry="${n}" aria-pressed="${n===d.query}">${n}</button>`).join('')}</div>`:'';
+  const specialty=S?`<div class="market-note"><b>${marketEsc(S.name)} ${d.subclass?'등록 점포':'이름이 있는 영업 중 의원'} ${marketValue(S.total,'곳')}</b><p>${marketEsc(S.note)}</p><p><b>${marketEsc(S.sales_note)}</b></p><details><summary>구별 분포 보기</summary>${Object.entries(S.by_gu).sort((a,b)=>b[1]-a[1]).map(([g,n])=>`${marketEsc(g)} ${n}곳`).join(' · ')}</details></div>`:'';
+  const co=(N.partners||[]).slice(0,4).map(p=>`${marketEsc(p.industry)} <b>${marketValue(p.ratio,'배')}</b>`).join(' · ');
+  const effect=(rows,word)=>rows.slice(0,3).map(p=>`${marketEsc(p.with)}: 폐업 위험률 <b>${Math.round(Math.abs(1-p.rr)*100)}% ${word}</b>`).join('<br>');
+  box.innerHTML=alias+specs+specialty+`<div class="market-note"><h2>옆에 어떤 가게가 있는지 함께 보세요</h2><p><b>100m 안에 함께 모이는 업종</b><br>${co||'비교할 자료가 없어요.'}</p><p class="src">같은 동네 평균보다 함께 있는 정도예요. 매출 상승 효과를 뜻하지는 않아요. ${marketEsc(N.built||'')} 분석.</p><p><b>옆 업종과 폐업 위험률의 관계</b><br>${good.length||bad.length?effect(good,'낮게 관찰')+(good.length&&bad.length?'<br>':'')+effect(bad,'높게 관찰'):'현재 이 업종에서 안내할 검증된 차이가 없어요.'}</p><p class="src">2010~2020년 개업 가게를 5년까지 추적하고 같은 500m 구역·주변 가게 밀도 안에서 비교한 결과예요. ${marketEsc(N.note||'')} ${marketEsc(N.survival_built||'')} 기준.</p></div>`;
+}
+$('marketEvidence').addEventListener('click',e=>{const b=e.target.closest('[data-industry]');if(b)run(b.dataset.industry)});
+function loadMarketRent(loc){
+  const key=loc.gu+'|'+loc.dong;
+  if(marketRentCache.has(key))return;
+  marketRentCache.set(key,{loading:true});
+  fetch('/api/b2c/market-rent?'+new URLSearchParams({sigungu:loc.gu,dong:loc.dong})).then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{marketRentCache.set(key,{data:d});renderMarketCompare()}).catch(()=>{marketRentCache.set(key,{error:true});renderMarketCompare()});
+}
+function marketRentNumbers(rent,area,sales){
+  const price=rent&&rent.per_m2_thousand;
+  if(!(price>0)||!(area>0))return {monthly:null,ratio:null};
+  const monthly=price/10*area*3.305785;
+  return {monthly:Math.round(monthly),ratio:sales>0?Math.round(monthly/sales*1000)/10:null};
+}
 function renderMarketCompare(){
   const box=$('marketCompare');
+  const active=document.activeElement;
+  const focusId=box.contains(active)?active.id:'';
+  const focusCode=box.contains(active)&&active.matches('.market-quoted')?active.dataset.code:null;
   if(!industryData){box.innerHTML='';return;}
-  const rows=industryData.rows.filter(r=>compareCodes.has(r.adstrd_cd));
-  const value=(v,unit)=>v==null?'자료 없음':Number(v).toLocaleString()+unit;
-  box.innerHTML='<h2 style="font-size:17px">관심 동네 비교 <small>'+rows.length+'/3</small></h2><p class="lead">같은 업종의 행정동 자료예요. '+marketEsc(String(industryData.quarter).slice(0,4))+'년 '+marketEsc(String(industryData.quarter).slice(4))+'분기 기준이며, 매출은 추정값이에요. 최대 세 곳을 담아 보세요.</p>'+(rows.length?'<div class="market-cards">'+rows.map(r=>`<article><h3>${marketEsc(r.adstrd)}</h3><p>가게당 월 추정매출<br><b>${value(r.per_store_month_man,'만원')}</b></p><p>같은 업종 ${value(r.stores,'곳')}<br>개업 ${value(r.open_rate_pct,'%')} · 폐업 ${value(r.close_rate_pct,'%')}<br>매출 전년 동기 ${value(r.yoy_pct,'%')}</p><details><summary>세부 동네의 월세 살펴보기</summary><p class="src">행정동에 속한 법정동을 골라 주세요. 월세 자료는 매출과 지역 범위가 다를 수 있어요.</p>${(r.locations||[]).map(l=>'<a href="https://hicce.co.kr/b2c/where?'+marketEsc(new URLSearchParams({mode:'shop',gu:l.gu,dong:l.dong,ind:industryData.industry}).toString())+'&from=blog-where">'+marketEsc(l.gu+' '+l.dong)+'</a>').join('<br>')||'연결할 동네 자료가 없어요.'}</details><button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`).join('')+'</div>':'');
+  const d=industryData, rows=d.rows.filter(r=>compareCodes.has(r.adstrd_cd));
+  box.innerHTML=`<h2>관심 동네, 같은 질문으로 비교해요 <small>${rows.length}/3</small></h2><p class="lead">${marketEsc(d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출이 아닌 상위 업종 전체 참고값이에요.':''}</p><div class="market-controls"><label>비교할 크기 <input id="marketArea" type="number" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`+(rows.length?'<div class="market-cards">'+rows.map(r=>{
+    const locations=r.locations||[];
+    const selected=marketLocations.get(r.adstrd_cd)||0;
+    const loc=locations[selected]||locations[0];
+    if(loc)loadMarketRent(loc);
+    const key=loc?loc.gu+'|'+loc.dong:'', state=marketRentCache.get(key)||{};
+    const rent=state.data&&state.data.rent, typ=rent&&(rent.types||[]).find(t=>t.type===marketType);
+    const calc=marketRentNumbers(typ,marketArea,r.per_store_month_man);
+    const quoted=marketQuotedRent.get(r.adstrd_cd);
+    if(quoted!=null){calc.monthly=quoted;calc.ratio=r.per_store_month_man>0?Math.round(quoted/r.per_store_month_man*1000)/10:null;}
+    const source=quoted!=null?'직접 입력한 매물 월세 · 면적·층은 매물 조건을 확인하세요.':typ?`1층 기준 · ${marketEsc(typ.region)} ${marketEsc(rent.scope)} 조사 평균 · ${marketEsc(rent.quarter||'기준일 미확인')}`:state.loading?'월세 자료 불러오는 중…':state.error?'자료를 불러오지 못했어요.':'선택한 건물 유형의 월세 자료가 없어요.';
+    const nearby=(r.context&&r.context.neighbors||[]).slice(0,3).map(p=>`${marketEsc(p.industry)} ${marketValue(p.stores,'곳')}`).join('<br>');
+    const row=(title,body,sub='')=>`<div class="market-answer"><span>${title}</span><b>${body}</b>${sub?`<small>${sub}</small>`:''}</div>`;
+    return `<article><h3>${marketEsc(r.adstrd)}</h3><small>${marketEsc((loc||{}).gu||'')} · 매출은 행정동 기준</small>`+
+      row('한 달에 얼마나 파나',marketValue(r.per_store_month_man,'만원'),'같은 업종 가게당 월 추정매출')+
+      row(quoted!=null?'입력한 매물 월세':`${marketArea}평 월세는 얼마인가`,calc.monthly==null?'자료 없음':`${quoted!=null?'':'약 '}${marketValue(calc.monthly,'만원')}`,source)+
+      `<label class="market-loc-label">월세 기준 동네 <select class="market-location" data-code="${r.adstrd_cd}" data-selx="1">${locations.map((l,i)=>`<option value="${i}" ${i===selected?'selected':''}>${marketEsc(l.gu+' '+l.dong)}</option>`).join('')}</select></label><label class="market-loc-label">알아본 월세가 있으면 <input class="market-quoted" data-code="${r.adstrd_cd}" type="number" min="0" max="1000000" step="0.1" placeholder="만원 · 선택 입력" value="${quoted??''}"> 만원</label>${state.error?`<button class="market-retry" data-key="${marketEsc(key)}">월세 다시 불러오기</button>`:''}`+
+      row('매출에서 월세가 차지하는 몫',calc.ratio==null?'계산할 자료 없음':`${calc.ratio}%`,'지역 범위가 다른 평균끼리 비교한 참고 비율')+
+      row('경쟁·개폐업은 어떤가',`같은 업종 ${marketValue(r.stores,'곳')}`,`분기 개업 ${marketValue(r.open_rate_pct,'%')} · 폐업 ${marketValue(r.close_rate_pct,'%')}<br>매출 전년 동기 ${marketValue(r.yoy_pct,'%')}`)+
+      row('5년 뒤 얼마나 남았나',marketValue(r.context&&r.context.s5,'%'),r.context&&r.context.s5!=null?'2010~2020년 개업 가게의 5년 생존 추정':'표본·분류 검증 부족')+
+      row('함께 모이는 업종이 이 동네에 있나',nearby||'자료 없음','행정동 전체 수 · 특정 매물 주변 수와 달라요')+
+      `<details class="src"><summary>월세 자료 기준</summary>${marketEsc(rent&&rent.note||'월세는 개별 매물 실측이 아닌 상권·권역 조사값이에요.')}</details>`+
+      (loc?`<a class="market-detail" href="https://hicce.co.kr/b2c/where?${marketEsc(new URLSearchParams({mode:'shop',gu:loc.gu,dong:loc.dong,ind:d.industry}).toString())}&from=blog-where">${d.specialty||d.subclass?marketEsc(d.industry)+' 기준 상세 보기':'이 동네 자세히 보기'}</a>`:'')+
+      `<button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`;
+  }).join('')+'</div>':'<p class="empty">아래 결과에서 동네를 담으면 월세와 옆 업종까지 한 번에 비교할 수 있어요.</p>');
+  box.querySelectorAll('input,select').forEach(el=>{el.addEventListener('input',marketInput);el.addEventListener('change',marketChange)});
+  const nextFocus=focusId?document.getElementById(focusId):Array.from(box.querySelectorAll('.market-quoted')).find(el=>el.dataset.code===focusCode);
+  if(nextFocus)nextFocus.focus({preventScroll:true});
 }
+function marketInput(e){
+  if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000){marketArea=n;renderMarketCompare();}}
+  if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v){marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();}else if(Number.isFinite(n)&&n>=0&&n<=1000000){marketQuotedRent.set(e.target.dataset.code,n);renderMarketCompare();}}
+}
+function marketChange(e){
+  if(e.target.matches('.market-quoted')){const v=e.target.value.trim(),n=Number(v);if(!v)marketQuotedRent.delete(e.target.dataset.code);else if(Number.isFinite(n)&&n>=0&&n<=1000000)marketQuotedRent.set(e.target.dataset.code,n);renderMarketCompare();}
+  if(e.target.id==='marketArea'){const n=Number(e.target.value);if(n>=1&&n<=1000)marketArea=n;renderMarketCompare();}
+  if(e.target.id==='marketType'){marketType=e.target.value;renderMarketCompare();}
+  if(e.target.matches('.market-location')){marketLocations.set(e.target.dataset.code,Number(e.target.value));marketQuotedRent.delete(e.target.dataset.code);renderMarketCompare();}
+}
+$('marketCompare').addEventListener('click',e=>{const b=e.target.closest('.market-retry');if(b){marketRentCache.delete(b.dataset.key);renderMarketCompare()}});
+
 function toggleMarket(code){
   if(!industryData||!industryData.rows.some(r=>r.adstrd_cd===code))return;
   if(compareCodes.has(code))compareCodes.delete(code);
