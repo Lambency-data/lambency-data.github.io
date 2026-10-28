@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 05af37604de6064f -->
+<!-- baked-from-b2c-where: 85ecbdef94793f98 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2327,7 +2327,7 @@ function renderIndustryResults(){
       return `<div class="g">
         <span class="rk">${operating&&!operating.metrics.get(r.adstrd_cd).eligible?'—':i+1}</span>
         <span class="nm" title="${r.adstrd}"><button type="button" class="market-name" data-compare-name="${r.adstrd_cd}">${r.adstrd}</button><br><button type="button" class="market-pick" data-code="${r.adstrd_cd}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?"비교에서 빼기":"비교에 담기"}</button></span>
-        <span class="bar2"><i style="width:${w(key(r))}%"></i><b>${eok(key(r))}${cash70?' / 월 잔액':r.per_store_month_man?'/가게':''}</b></span>
+        <span class="bar2"><i style="width:${w(key(r))}%"></i><b>${cash70?Math.round(key(r)).toLocaleString()+'만원':eok(key(r))}${cash70?' / 월 잔액':r.per_store_month_man?'/가게':''}</b></span>
         <span class="dl"><span class="${cls}">${y==null?'—':(y>0?'+':'')+y+'%'}</span> · ${r.stores}곳</span>
         <span class="sub" title="분기 개업률과 폐업률, 서울 상권분석 자료">${
           (r.open_rate_pct==null&&r.close_rate_pct==null)?'—'
