@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 1d4b7335651a5afb -->
+<!-- baked-from-b2c-where: 2ed94637b0d5673d -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1670,18 +1670,18 @@ function shopHead(){
         pr&&pr.peak_time?` ${ind}는 <b>${pr.peak_time}</b>에 제일 많이 팔리고${pr.weekend_pct!=null?`, 주말 매출이 <b>${Math.round(pr.weekend_pct)}%</b>예요`:''}.`:''}</p>`;
     h+=`<ol class="qa">`+row(1,'한 달에 얼마 파나',`한 가게가 월 ${eok(c.per_store_month_man)}`,'카드 매출로 추정',
         (spr!=null?pill('rk',`${ind} 있는 서울 동네 중 ${rkS(spr)}`):'')+(few?pill('mid',`${c.stores}곳뿐이라 참고만`):''), det1);
-    const bk=b==null?null:(b<10?'ok':b<30?'mid':'bad'), bt=b==null?'':(b<10?'여유':b<30?'보통':'버티기 어려움');
+    const bk=b==null?null:(b<10?'ok':b<30?'mid':'bad'), bt=b==null?'':'평균끼리 비교한 참고값';
     let det2;
     if(b!=null){
       det2=`<div class="n4">${cell('이 동네 1층 월세',_n(C.monthly_rent_man)+'만',`${C.area_m2}㎡ 기준 · ${C.sangkwon} 상권`)}${cell('가게당 월매출',eok(c.per_store_month_man),'카드 추정')}${cell('월세 ÷ 매출',b+'%','',bk)}</div>
-        <p class="src"><b>월세는 가게마다 달라요.</b> 상가는 집처럼 실거래가 안 잡혀서 부동산원이 조사한 상권 평균을 썼어요. 보고 있는 자리가 있으면 맨 아래 "그 건물 시세 보기" 로 가세요. 여유·보통·어려움은 저희가 정한 기준이에요. 월세가 매출의 10% 아래면 여유, 30%를 넘으면 버티기 어렵다고 봐요.</p>`;
+        <p class="src"><b>월세는 가게마다 달라요.</b> 상가는 집처럼 실거래가 안 잡혀서 부동산원이 조사한 상권 평균을 썼어요. 보고 있는 자리가 있으면 맨 아래 "그 건물 시세 보기" 로 가세요. 평균 매출과 조사 월세의 비율이며, 내 가게가 감당할 수 있다는 뜻은 아니에요. 인건비·변동비·대출 상환까지 함께 계산해 주세요.</p>`;
     } else {
       det2=`<p class="src">이 동네는 부동산원 임대료 조사에 안 들어 있어서 월세 부담은 못 냈어요. 가게 수·매출·폐업률만 있어요.</p>`;
     }
-    h+=row(2,'월세는 감당되나', b!=null?`매출의 ${b}%가 월세`:'월세 자료가 없어요', b!=null?`1층 ${Math.round(C.area_m2)}㎡ 월세 ${_n(C.monthly_rent_man)}만`:'', b!=null?pill(bk,bt):'', det2);
+    h+=row(2,'평균 매출 대비 조사 월세는', b!=null?`매출의 ${b}%가 월세`:'월세 자료가 없어요', b!=null?`1층 ${Math.round(C.area_m2)}㎡ 월세 ${_n(C.monthly_rent_man)}만`:'', b!=null?pill(bk,bt):'', det2);
     const s5=CB&&CB.s5!=null?CB.s5:null, s5s=M&&M.s5_seoul, dd=(s5!=null&&s5s!=null)?Math.round(s5-s5s):null;
     const sk=dd==null?'mid':(dd>=5?'ok':dd<=-5?'bad':'mid');
-    let p3=''; if(hasExp) p3+= gap<=0?pill('bad','많이 몰림'):pill('ok',`자리 ${gap}곳 비어 있음`);
+    let p3=''; if(hasExp) p3+= gap<=0?pill('bad','많이 몰림'):pill('ok',`비슷한 동네보다 ${gap}곳 적음`);
     if(s5!=null) p3+=pill(sk,`5년 뒤 ${Math.round(s5)}% 남음${s5s!=null?` · 서울 ${Math.round(s5s)}%`:''}`);
     const det3=`<div class="n4">${cell('비슷한 동네만큼이면',hasExp?Math.round(c.expected)+'곳':null,hasExp?'닮은 동네 가게 비율로 계산':'가게가 적어 비교 못 함')}${
         cell('작년보다',c.yoy_pct==null?null:(c.yoy_pct>0?'+':'')+c.yoy_pct+'%','가게 수 변화',c.yoy_pct==null?'':(c.yoy_pct>0?'ok':c.yoy_pct<-10?'bad':'mid'))}${
@@ -2126,7 +2126,7 @@ async function runDong(){
         <span class="sales">매출 ${eok(r.per_store_month_man)}</span>
       </div>` + gapAt(i);}).join('');
     html+=`<div class="legend">
-      <span><i class="lo-bg"></i>10% 아래 여유</span><span><i class="mid-bg"></i>10~20%</span>
+      <span><i class="lo-bg"></i>10% 아래</span><span><i class="mid-bg"></i>10~20%</span>
       <span><i class="hi-bg"></i>20~30% 빠듯</span><span><i class="top-bg"></i>30% 이상</span>
       <span style="margin-left:auto"><b class="when w-end" style="min-width:0;padding:.05rem .3rem">주말형</b>은
       평일에 손님이 없으면 버티기 힘들어요</span></div>
@@ -2358,7 +2358,7 @@ function cleanMarketProfile(raw,rows){
     quotes:(Array.isArray(x.quotes)?x.quotes:[]).filter(v=>Array.isArray(v)&&valid.has(v[0])&&numeric(v[1],0,1000000)),
     locations:(Array.isArray(x.locations)?x.locations:[]).filter(v=>Array.isArray(v)&&valid.has(v[0])&&Number.isInteger(v[1])&&v[1]>=0&&v[1]<(valid.get(v[0]).locations||[]).length),
     operating:{start:time(op.start,false),end:time(op.end,true),budget:decimal(op.budget,1000000),ages:[...new Set(Array.isArray(op.ages)?op.ages:[])].filter(a=>['10대','20대','30대','40대','50대','60대+'].includes(a))},
-    startup:{fixed:decimal(start.fixed,100000000),variable:decimal(start.variable,100),days:decimal(start.days,31),ticket:decimal(start.ticket,100000000)}};
+    startup:{fixed:decimal(start.fixed,100000000),variable:decimal(start.variable,100),days:decimal(start.days,31),ticket:decimal(start.ticket,100000000),...Object.fromEntries(['deposit','setup','reserve','capital','sales','debt'].map(k=>[k,decimal(start[k],100000000)]))}};
 }
 function restoreMarketSaved(d){
   const workspace=readMarketSaved();
@@ -2432,7 +2432,7 @@ function marketRentNumbers(rent,area,sales){
   const monthly=price/10*area*3.305785;
   return {monthly:Math.round(monthly),ratio:sales>0?Math.round(monthly/sales*1000)/10:null};
 }
-const marketStartup={fixed:'',variable:'',days:'',ticket:''};
+const marketStartup={fixed:'',variable:'',days:'',ticket:'',deposit:'',setup:'',reserve:'',capital:'',sales:'',debt:''};
 function startupNumbers(rent,fixed,variable,days,ticket){
   const valid=v=>v!==''&&v!=null&&Number.isFinite(Number(v));
   if(!valid(rent)||!valid(fixed)||!valid(variable)||Number(rent)<0||Number(fixed)<0||Number(variable)<0||Number(variable)>=100)return null;
@@ -2441,13 +2441,30 @@ function startupNumbers(rent,fixed,variable,days,ticket){
   return {monthly,revenue,customers};
 }
 function marketStartupForm(){
-  const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketStartup[key]}" placeholder="직접 입력"><span>${unit}</span></span></label>`;
-  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">같은 운영 조건에 동네별 월세를 적용해 비교해요. 아래 값은 직접 입력하며, 실제 수익 예측이 아닌 손익분기 계산이에요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 보증금·권리금·공사비 같은 초기 자금은 별도 확인이 필요해요.</p></details>`;
+  const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketEsc(marketStartup[key])}" placeholder="직접 입력"><span>${unit}</span></span></label>`;
+  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">같은 운영 조건에 동네별 월세를 적용해 비교해요. 아래 값은 직접 입력하며, 실제 수익 예측이 아닌 손익분기 계산이에요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}${field('sales','내가 가정한 월매출','만원')}${field('debt','월 대출 원리금 상환','만원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 대출 상환은 고정비와 중복해 넣지 마세요. 없는 항목은 0을 입력해 주세요.</p><details><summary>총 창업자금과 운영 여유자금 입력</summary><div class="market-controls startup-grid">${field('deposit','예상 보증금','만원')}${field('setup','개업 준비비 합계','만원')}${field('reserve','남겨 둘 운영자금','만원')}${field('capital','조달 가능한 총자금','만원')}</div><p class="src">개업 준비비에 권리금·공사·설비·초도물품·중개보수 등을 합쳐 주세요. 총자금은 자기자금과 확정된 대출을 합친 금액이에요. 보증금은 돌려받을 수 있어도 영업 중에는 쓸 수 없는 돈으로 구분해요.</p></details></details>`;
+}
+function startupPlan(rent, s){
+  const number=k=>s[k]!==''&&s[k]!=null&&/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(String(s[k]))?Number(s[k]):null;
+  const base=startupNumbers(rent,s.fixed,s.variable,s.days,s.ticket);
+  const deposit=number('deposit'),setup=number('setup'),reserve=number('reserve'),capital=number('capital'),sales=number('sales'),debt=number('debt');
+  const upfront=deposit!=null&&setup!=null?deposit+setup:null;
+  const total=upfront!=null&&reserve!=null?upfront+reserve:null;
+  const available=capital!=null&&upfront!=null?capital-upfront:null;
+  const scenarios=base&&sales!=null&&debt!=null?[0.7,1,1.2].map(f=>{
+    const revenue=sales*f, operating=revenue*(1-Number(s.variable)/100)-base.monthly,cash=operating-debt;
+    return {factor:f,revenue,operating,cash,runway:available==null?null:available<0?0:cash<0?available/-cash:null,payback:setup!=null&&cash>0?setup/cash:null};
+  }):[];
+  return {base,upfront,total,available,shortfall:total!=null&&capital!=null?Math.max(0,total-capital):null,scenarios};
 }
 function updateStartupAnswer(card,rent){
   const el=card.querySelector('.market-startup-answer');if(!el)return;
-  const n=startupNumbers(rent,marketStartup.fixed,marketStartup.variable,marketStartup.days,marketStartup.ticket);
-  el.innerHTML=n?`<span>매달 고정적으로 얼마가 필요한가</span><b>${Math.ceil(n.monthly).toLocaleString()}만원</b><span>비용을 감당하려면 월 얼마를 팔아야 하나</span><b>${Math.ceil(n.revenue).toLocaleString()}만원</b><span>하루에 고객이 몇 명 필요한가</span><b>${n.customers==null?'영업일·고객당 결제액을 입력해 주세요':n.customers.toLocaleString()+'명'}</b><small>월세 포함 고정비 ÷ (1 − 변동비율). 고객 수는 올림. 동네 평균매출을 내 매출로 가정하지 않아요.</small>`:'<span>내 비용으로 손익분기점 확인</span><small>'+ (rent==null?'이 동네 월세 자료가 없어 계산을 멈췄어요. 알아본 월세를 직접 입력해 주세요.':'위에서 월 고정비(0 이상)와 변동비율(0 이상 100% 미만)을 입력해 주세요. 월세 자료가 없으면 알아본 월세를 직접 입력해 주세요.')+'</small>';
+  const p=startupPlan(rent,marketStartup),n=p.base;
+  const money=v=>Math.round(v).toLocaleString()+'만원';
+  el.innerHTML=(n?`<span>월세 포함 월 고정비 / 손익분기 매출</span><b>${money(n.monthly)} / ${money(Math.ceil(n.revenue))}</b><span>손익분기점에 필요한 하루 고객</span><b>${n.customers==null?'영업일·결제액 입력 필요':n.customers.toLocaleString()+'명'}</b><small>대출 상환 전 기준. 본인 보수는 입력한 고정비에 포함해 주세요.</small>`:`<span>내 비용으로 계산하기</span><small>${rent==null?'월세 확인 후 계산할 수 있어요. 알아본 월세를 입력해 주세요.':'월 고정비와 변동비율(0 이상 100% 미만)을 입력해 주세요.'}</small>`)+
+    `<span>총 창업자금 · 보증금 + 준비비 + 운영자금</span><b>${p.total==null?'초기 자금 항목 입력 필요':money(p.total)}</b><small>${p.shortfall==null?'조달 가능한 자금까지 넣으면 부족액을 계산해요.':p.shortfall>0?'조달 자금보다 '+money(p.shortfall)+' 부족해요.':'입력한 조달 자금 안에 들어요.'}</small>`+
+    `<span>개업 후 쓸 수 있는 현금</span><b>${p.available==null?'총자금·보증금·준비비 입력 필요':p.available<0?'개업 자금 '+money(-p.available)+' 부족':money(p.available)}</b>`+
+    (p.scenarios.length?`<details open><summary>매출별 손익과 버틸 기간</summary>${p.scenarios.map(x=>`<div class="market-answer"><span>${x.factor===1?'내 가정':x.factor<1?'매출 30% 감소':'매출 20% 증가'} · 월 ${money(x.revenue)}</span><b>월 현금 ${x.cash<0?'부족':'잔액'} ${money(Math.abs(x.cash))}</b><small>상환 전 운영손익 ${money(x.operating)}<br>${p.available==null?'총자금을 넣으면 버틸 기간을 계산해요.':p.available<0?'개업 자금부터 부족해요.':x.cash<0?'같은 적자가 지속되면 약 '+(Math.floor(x.runway*10)/10).toLocaleString()+'개월 버텨요.':'이 가정에서는 매달 현금이 줄지 않아요.'}<br>준비비 회수: ${x.payback==null?'흑자·준비비 입력 시 계산':(Math.ceil(x.payback*10)/10).toLocaleString()+'개월'} · 보증금 제외</small></div>`).join('')}<small>직접 가정한 매출의 단순 계산이에요. 월 현금 잔액은 운영손익에서 대출 원리금을 뺀 값이며 세금·추가 투자·매출 성장·폐업비는 별도예요. 회수 기간은 준비비 ÷ 월 현금 잔액으로, 자기자본 수익률이 아니에요.</small></details>`:'<small>내 가정 매출·월 상환액(없으면 0)을 입력하면 매출별 손익을 비교해요.</small>');
 }
 const marketOperating={start:'',end:'',ages:[],budget:''};
 function operatingNumbers(pop, settings){
@@ -2553,15 +2570,32 @@ document.addEventListener('click',event=>{
 
 function marketOperatingForm(){
   const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
-  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"> 만원 이하</label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
+  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"> 만원 이하</label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령은 별도의 생활인구 자료가 있는 동네에서 비교해요. 하루 참고값이며 실제 방문 고객 수는 아니에요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
+}
+function jointAudience(pop, settings){
+  const j=pop.living_joint,ages=[...new Set(settings.ages||[])];
+  if(!j||!ages.length||settings.start===''||settings.end==='')return null;
+  const start=Number(settings.start),end=Number(settings.end);
+  if(!Number.isFinite(start)||!Number.isFinite(end)||start<0||start>=24||end<0||end>24||start===end)return null;
+  const segments=end>start?[[start,end]]:[[start,24],[0,end]];
+  let selected=0,total=0,duration=0;
+  for(let h=0;h<24;h++){
+    const overlap=segments.reduce((n,[a,b])=>n+Math.max(0,Math.min(h+1,b)-Math.max(h,a)),0);
+    if(!overlap)continue;
+    const values=ages.map(age=>j.hours?.[h]?.[age]);
+    if(!values.every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0)||!Number.isFinite(j.totals?.[h])||j.totals[h]<=0)return null;
+    selected+=values.reduce((a,b)=>a+b,0)*overlap;total+=j.totals[h]*overlap;duration+=overlap;
+  }
+  if(!duration||selected>total)return null;
+  return {average:Math.round(selected/duration),pct:Math.round(selected/total*1000)/10,date:j.date};
 }
 function updateOperatingAnswer(card,r){
   const el=card.querySelector('.market-operating-answer');if(!el)return;
-  const n=operatingNumbers(r.population||{},marketOperating);
+  const n=operatingNumbers(r.population||{},marketOperating),joint=jointAudience(r.population||{},marketOperating);
   const time=v=>String(Math.floor(Number(v))).padStart(2,'0')+':'+(Number(v)%1?'30':'00');
   const schedule=marketOperating.start!==''&&marketOperating.end!==''?time(marketOperating.start)+'~'+(Number(marketOperating.end)<Number(marketOperating.start)?'다음 날 ':'')+time(marketOperating.end):'';
   const ages=[...marketOperating.ages].sort().map(a=>a.replace('60대+','60대 이상')).join('·');
-  el.innerHTML=`<span>내 운영조건과 이 동네는 얼마나 맞나</span><b>${n.hours?`${schedule} · 유동 하루 약 ${marketValue(n.hours.count,'명')}`:n.error?'영업시간을 확인해 주세요':schedule?'시간대 자료 부족':'영업시간을 선택해 주세요'}</b>${n.hours?`<small>하루 유동량의 ${marketValue(n.hours.pct,'%')}가 영업시간에 해당해요.${n.hours.partial?' 일부 구간은 그 안에서 고르게 통행한다고 가정해 나눈 근사값이에요.':''}</small>`:''}<b>${ages?'내가 고른 고객층: '+marketEsc(ages):'주 고객 연령대를 선택해 주세요'}</b>${ages?`<dl class="market-pop-shares"><div><dt>사는 사람 중</dt><dd>${marketValue(n.residentPct,'%')}</dd></div><div><dt>일하는 사람 중</dt><dd>${marketValue(n.workPct,'%')}</dd></div><div><dt>지나가는 사람 중</dt><dd>${marketValue(n.footPct,'%')}</dd></div></dl><small>각 인구에서 선택한 연령대를 모두 합친 비중이에요. ${marketEsc(r.adstrd)} 기준이며, 세 인구는 겹칠 수 있어 더하지 않아요.</small>`:''}<small>이 비중이 높을수록 원하는 연령층이 많이 분포해 있다는 뜻이에요. 실제 방문 고객 비율은 아니에요. 현재 조건 순위에는 영업시간 유동 비중과 목표 연령 유동 비중을 반영해요.</small>`;
+  el.innerHTML=`<span>내 운영조건과 이 동네는 얼마나 맞나</span><b>${n.hours?`${schedule} · 유동 하루 약 ${marketValue(n.hours.count,'명')}`:n.error?'영업시간을 확인해 주세요':schedule?'시간대 자료 부족':'영업시간을 선택해 주세요'}</b>${n.hours?`<small>하루 유동량의 ${marketValue(n.hours.pct,'%')}가 영업시간에 해당해요.${n.hours.partial?' 일부 구간은 그 안에서 고르게 통행한다고 가정해 나눈 근사값이에요.':''}</small>`:''}<b>${ages?'내가 고른 고객층: '+marketEsc(ages):'주 고객 연령대를 선택해 주세요'}</b>${ages?`<dl class="market-pop-shares"><div><dt>사는 사람 중</dt><dd>${marketValue(n.residentPct,'%')}</dd></div><div><dt>일하는 사람 중</dt><dd>${marketValue(n.workPct,'%')}</dd></div><div><dt>지나가는 사람 중</dt><dd>${marketValue(n.footPct,'%')}</dd></div></dl><small>각 인구에서 선택한 연령대를 모두 합친 비중이에요. ${marketEsc(r.adstrd)} 기준이며, 세 인구는 겹칠 수 있어 더하지 않아요.</small>`:''}<span>영업시간에 머무는 내 고객 연령층</span><b>${joint?'시간 평균 약 '+marketValue(joint.average,'명')+' · '+joint.pct+'%':schedule&&ages?'시간대×연령 자료 확인 필요':'영업시간과 고객 연령을 골라 주세요'}</b><small>${joint?marketEsc(joint.date)+' 하루의 내국인 생활인구 기준. 영업시간에 동네에 머문 선택 연령의 시간 평균이며, 지나가는 사람·매장 방문자 수가 아니에요. 30분은 해당 시간 안에 고르게 분포한다고 가정해요.':'시간대 비율과 연령 비율을 곱해서 고객 수를 만들지 않아요.'}</small><small>이 비중이 높을수록 원하는 연령층이 많이 분포해 있다는 뜻이에요. 실제 방문 고객 비율은 아니에요. 현재 조건 순위에는 영업시간 유동 비중과 목표 연령 유동 비중을 반영해요.</small>`;
 }
 
 function marketPeriod(q){return q?String(q).slice(0,4)+'년 '+String(q).slice(4)+'분기':'기준일 미확인';}
@@ -2631,14 +2665,14 @@ function renderMarketCompare(){
       row(quoted!=null?'입력한 매물 월세':`${marketArea}평 월세는 얼마인가`,calc.monthly==null?'자료 없음':`${quoted!=null?'':'약 '}${marketValue(calc.monthly,'만원')}`,source,'rent')+
       `<label class="market-loc-label">월세 기준 동네 <select class="market-location" data-code="${r.adstrd_cd}" data-selx="1">${locations.map((l,i)=>`<option value="${i}" ${i===selected?'selected':''}>${marketEsc(l.gu+' '+l.dong)}</option>`).join('')}</select></label><label class="market-loc-label">알아본 월세가 있으면 <input class="market-quoted" data-code="${r.adstrd_cd}" type="text" inputmode="decimal" min="0" max="1000000" step="0.1" placeholder="만원 · 선택 입력" value="${quoted??''}"> 만원</label>${state.error?`<button class="market-retry" data-key="${marketEsc(key)}">월세 다시 불러오기</button>`:''}`+
       row('매출에서 월세가 차지하는 몫',calc.ratio==null?'계산할 자료 없음':`${calc.ratio}%`,'지역 범위가 다른 평균끼리 비교한 참고 비율','ratio')+
-      `<div class="market-answer market-startup-answer"></div>`+
+      `<div class="market-answer market-startup-answer"></div><div class="market-answer market-next-answer"></div>`+
       marketCustomerMatch(d,r,row)+
       marketPeople(r,row)+
       row('경쟁·개폐업은 어떤가',`${d.specialty||d.subclass?marketEsc(d.industry)+' 전체':'같은 업종'} ${marketValue(r.stores,'곳')}`,`분기 개업 ${marketValue(r.open_rate_pct,'%')} · 폐업 ${marketValue(r.close_rate_pct,'%')}<br>매출 전년 동기 ${marketValue(r.yoy_pct,'%')}`)+
       row('5년 뒤 얼마나 남았나',marketValue(r.context&&r.context.s5,'%'),r.context&&r.context.s5!=null?'2010~2020년 개업 가게의 5년 생존 추정':['일반의원','치과의원','한의원'].includes(d.industry)?'의원 유형별 집계 검증 중':r.context&&r.context.s5_n_open!=null?'추적 표본 '+r.context.s5_n_open+'곳 · 최소 30곳 필요':'해당 동·업종의 추적 표본 부족 또는 인허가 분류 미연결')+
       row('함께 모이는 업종이 이 동네에 있나',nearby||'자료 없음',marketEsc(r.adstrd)+' 전체 점포 수 · '+marketEsc(String(d.quarter).slice(0,4))+'년 '+marketEsc(String(d.quarter).slice(4))+'분기. 서울 전체에서 함께 모이는 업종을 기준으로 조회했어요.')+
       `<details class="src"><summary>월세 자료 기준</summary>${marketEsc(rent&&rent.note||'월세는 개별 매물 실측이 아닌 상권·권역 조사값이에요.')}</details>`+
-      (loc?`<a class="market-detail" href="https://hicce.co.kr/b2c/where?${marketEsc(new URLSearchParams({mode:'shop',gu:loc.gu,dong:loc.dong,ind:d.industry}).toString())}&from=blog-where">${marketEsc(r.adstrd)} 상세 보기${d.specialty||d.subclass?' · '+marketEsc(d.industry)+' 기준':''}</a>`:'')+
+      (loc?`<p class="src">상세 화면은 ${marketEsc(loc.dong)} 법정동 기준이며, 비교 카드의 행정동·면적과 달라 수치가 달라질 수 있어요.</p><a class="market-detail" href="https://hicce.co.kr/b2c/where?${marketEsc(new URLSearchParams({mode:'shop',gu:loc.gu,dong:loc.dong,ind:d.industry}).toString())}&from=blog-where">${marketEsc(loc.dong)} 법정동 상세 보기${d.specialty||d.subclass?' · '+marketEsc(d.industry)+' 기준':''}</a>`:'')+
       `<button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`;
   }).join('')+'</div>':'<p class="empty">아래 결과에서 동네를 담으면 월세·동네 인구·옆 업종을 한 번에 비교할 수 있어요.</p>');
   if(!marketGuideLinkOpened&&new URLSearchParams(location.search).get('guide')==='1'){
@@ -2666,6 +2700,10 @@ function marketUpdateNumbers(){
     answer.querySelector('small').textContent=quoted!=null?'직접 입력한 매물 월세 · 면적·층은 매물 조건을 확인하세요.':typ?`1층 기준 · ${typ.region} ${rent.scope} 조사 평균 · ${rent.quarter||'기준일 미확인'}`:state.loading?'월세 자료 불러오는 중…':state.error?'자료를 불러오지 못했어요.':'선택한 건물 유형의 월세 자료가 없어요.';
     card.querySelector('[data-field="ratio"] b').textContent=calc.ratio==null?'계산할 자료 없음':calc.ratio+'%';
     updateStartupAnswer(card,calc.monthly);
+    const checks=[quoted==null?'실제 매물 월세·관리비·보증금 확인':'입력한 월세의 면적·층·관리비 포함 여부 확인',marketStartup.setup===''?'권리금·공사·설비 견적 확인':'입력한 준비비에 빠진 공사·설비 비용 확인','선택한 영업시간에 목표 고객이 다니는지 현장 확인','업종 영업 가능 여부·전력·급배수·환기·주차 확인'];
+    const requestNote=`희망 행정동 ${r.adstrd}. 영업 ${marketOperating.start||'미정'}~${marketOperating.end||'미정'}시, 고객 ${marketOperating.ages.join('·')||'미정'}. 유형 ${marketType}. 확인 요청: 실제 월세·관리비·권리금, 영업 가능 용도·시설.`;
+    const q=new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc?.gu||'',dong:loc?.dong||'',area:String(marketArea),rent:marketOperating.budget||'',deposit:marketStartup.deposit||'',note:requestNote});
+    card.querySelector('.market-next-answer').innerHTML=`<span>이 후보에서 더 확인할 것</span><small>${checks.map(marketEsc).join('<br>')}</small><a class="market-detail" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">이 조건으로 중개사에게 매물 요청하기</a><small>다음 화면에서 조건을 수정하고 전달 동의를 선택해요.</small>`;
     updateOperatingAnswer(card,r);
   }
 }
