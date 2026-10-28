@@ -540,9 +540,10 @@ footer img{width:108px;height:18px;object-fit:contain}
   .hero .hero-vid{width:88%}   /* 375×635 에서 12px 넘쳐 영상을 조금 더 줄임 */
   .hero .hero-text .hstat{margin-top:10px;padding:8px 12px}
 }
-/* Mobile: show consultation before video; keep the approved copy and desktop layout. */
-@media (max-width:640px){
-  .hero .hero-text h1{word-break:keep-all;overflow-wrap:break-word;line-height:1.2}
+/* Compact hero follows the single-column breakpoint, including narrow app panels. */
+@media (max-width:860px){
+  .hero .hero-text h1{font-size:clamp(24px,7vw,36px);word-break:keep-all;overflow-wrap:break-word;text-wrap:initial;line-height:1.25}
+  .hero .hero-text .sub{font-size:16px;line-height:1.5;margin-top:12px}
   .hero .hero-text .ctas{order:4;display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px}
   .hero .hero-text .ctas .btn{width:100%;min-height:48px;padding:12px;font-size:15.5px;text-align:center;justify-content:center}
   .hero .hero-vid{order:5}
