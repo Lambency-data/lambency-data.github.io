@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 2ed94637b0d5673d -->
+<!-- baked-from-b2c-where: c76d96757a4f8ba0 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -822,6 +822,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 .market-note{padding:16px;margin:18px 0;background:var(--field);border:1px solid var(--rule);border-radius:12px;font-size:13px;line-height:1.7}.market-note h2,#marketCompare h2{font-size:17px;margin:0 0 10px}.market-note p{margin:8px 0}.market-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0;font-size:13px}.market-controls input{width:65px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink)}.market-controls select{width:auto}.market-controls small{flex-basis:100%;color:var(--soft)}.market-pop-shares{max-width:320px;margin:8px 0;font-size:13px}.market-pop-shares>div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.market-pop-shares dt{color:var(--soft)}.market-pop-shares dd{margin:0;font-weight:600;white-space:nowrap}.market-operating-answer>b{margin-top:12px}.market-answer{padding:8px 0;border-bottom:1px solid var(--rule)}.market-answer>span,.market-answer>b,.market-answer>small{display:block}.market-answer>span{color:var(--soft);font-size:12px}.market-answer>b{font-size:16px;margin:3px 0;line-height:1.5}.market-answer>small{font-size:11px;color:var(--soft);line-height:1.6;font-weight:400}.market-loc-label{display:block;font-size:11px;margin-top:10px}.market-quoted{width:120px;max-width:100%;padding:6px;border:1px solid var(--rule);border-radius:7px;background:var(--paper);color:var(--ink)}.market-location{width:100%;font-size:12px;height:36px;padding:4px;min-width:0}.market-detail{display:block;margin:10px 0}.industry-matches:empty{display:none}
 @media(min-width:900px){body:has(#p-ind:not([hidden])) main{max-width:1080px}.market-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
 .market-risk-list{list-style:none;padding:0;margin:8px 0}.market-risk-lower b{color:#17665b}.market-risk-higher b{color:#92500e}
+.market-candidate-details{margin:16px 0}.market-candidate-details>summary{cursor:pointer;color:var(--seal);font-size:14px}.market-cards{align-items:start}
 .market-startup{border:1px solid var(--rule);border-radius:14px;padding:14px;margin:16px 0}.market-startup summary{cursor:pointer;font-weight:600}.market-startup .market-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.market-startup input{width:100px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}.market-startup-answer span{display:block;margin-top:10px}
 .market-guide{scroll-margin-top:20px}.market-guide>summary{color:var(--seal);font-size:14px}.market-guide .guide-intro{font-size:13px;color:var(--soft);margin:12px 0}.market-guide video{display:block;width:100%;max-height:70vh;aspect-ratio:4/3;object-fit:contain;background:var(--field);border-radius:10px}.market-guide .guide-steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.market-guide .guide-steps button{margin:0}.market-guide .src{font-size:11px}
 
@@ -2459,12 +2460,17 @@ function startupPlan(rent, s){
 }
 function updateStartupAnswer(card,rent){
   const el=card.querySelector('.market-startup-answer');if(!el)return;
+  const scenarioOpen=!!el.querySelector('details[open]');
   const p=startupPlan(rent,marketStartup),n=p.base;
   const money=v=>Math.round(v).toLocaleString()+'만원';
+  const base=p.scenarios.find(x=>x.factor===1), summary=card.querySelector('.market-decision-answer');
+  const cash=base?`${base.cash<0?'월 부족 ':''}${money(Math.abs(base.cash))}`:rent==null?'월세 확인 필요':'매출·비용 입력 필요';
+  const runway=p.available==null?'조달자금·초기비용 입력 필요':p.available<0?'개업 자금 부족':!base?'매출·비용 입력 필요':base.cash<0?`약 ${(Math.floor(base.runway*10)/10).toLocaleString()}개월`:'현재 가정에서는 현금 감소 없음';
+  if(summary)summary.innerHTML=`<span>필요한 창업자금</span><b>${p.total==null?'초기 자금 입력 필요':money(p.total)}</b>${p.shortfall>0?`<small>조달 자금보다 ${money(p.shortfall)} 부족</small>`:''}<span>매달 남는 돈</span><b>${cash}</b><span>버틸 기간</span><b>${runway}</b><small>내가 가정한 매출 기준 · 대출 상환 후 · 세금·추가 투자 별도</small>`;
   el.innerHTML=(n?`<span>월세 포함 월 고정비 / 손익분기 매출</span><b>${money(n.monthly)} / ${money(Math.ceil(n.revenue))}</b><span>손익분기점에 필요한 하루 고객</span><b>${n.customers==null?'영업일·결제액 입력 필요':n.customers.toLocaleString()+'명'}</b><small>대출 상환 전 기준. 본인 보수는 입력한 고정비에 포함해 주세요.</small>`:`<span>내 비용으로 계산하기</span><small>${rent==null?'월세 확인 후 계산할 수 있어요. 알아본 월세를 입력해 주세요.':'월 고정비와 변동비율(0 이상 100% 미만)을 입력해 주세요.'}</small>`)+
     `<span>총 창업자금 · 보증금 + 준비비 + 운영자금</span><b>${p.total==null?'초기 자금 항목 입력 필요':money(p.total)}</b><small>${p.shortfall==null?'조달 가능한 자금까지 넣으면 부족액을 계산해요.':p.shortfall>0?'조달 자금보다 '+money(p.shortfall)+' 부족해요.':'입력한 조달 자금 안에 들어요.'}</small>`+
     `<span>개업 후 쓸 수 있는 현금</span><b>${p.available==null?'총자금·보증금·준비비 입력 필요':p.available<0?'개업 자금 '+money(-p.available)+' 부족':money(p.available)}</b>`+
-    (p.scenarios.length?`<details open><summary>매출별 손익과 버틸 기간</summary>${p.scenarios.map(x=>`<div class="market-answer"><span>${x.factor===1?'내 가정':x.factor<1?'매출 30% 감소':'매출 20% 증가'} · 월 ${money(x.revenue)}</span><b>월 현금 ${x.cash<0?'부족':'잔액'} ${money(Math.abs(x.cash))}</b><small>상환 전 운영손익 ${money(x.operating)}<br>${p.available==null?'총자금을 넣으면 버틸 기간을 계산해요.':p.available<0?'개업 자금부터 부족해요.':x.cash<0?'같은 적자가 지속되면 약 '+(Math.floor(x.runway*10)/10).toLocaleString()+'개월 버텨요.':'이 가정에서는 매달 현금이 줄지 않아요.'}<br>준비비 회수: ${x.payback==null?'흑자·준비비 입력 시 계산':(Math.ceil(x.payback*10)/10).toLocaleString()+'개월'} · 보증금 제외</small></div>`).join('')}<small>직접 가정한 매출의 단순 계산이에요. 월 현금 잔액은 운영손익에서 대출 원리금을 뺀 값이며 세금·추가 투자·매출 성장·폐업비는 별도예요. 회수 기간은 준비비 ÷ 월 현금 잔액으로, 자기자본 수익률이 아니에요.</small></details>`:'<small>내 가정 매출·월 상환액(없으면 0)을 입력하면 매출별 손익을 비교해요.</small>');
+    (p.scenarios.length?`<details ${scenarioOpen?'open':''}><summary>매출별 손익과 버틸 기간</summary>${p.scenarios.map(x=>`<div class="market-answer"><span>${x.factor===1?'내 가정':x.factor<1?'매출 30% 감소':'매출 20% 증가'} · 월 ${money(x.revenue)}</span><b>월 현금 ${x.cash<0?'부족':'잔액'} ${money(Math.abs(x.cash))}</b><small>상환 전 운영손익 ${money(x.operating)}<br>${p.available==null?'총자금을 넣으면 버틸 기간을 계산해요.':p.available<0?'개업 자금부터 부족해요.':x.cash<0?'같은 적자가 지속되면 약 '+(Math.floor(x.runway*10)/10).toLocaleString()+'개월 버텨요.':'이 가정에서는 매달 현금이 줄지 않아요.'}<br>준비비 회수: ${x.payback==null?'흑자·준비비 입력 시 계산':(Math.ceil(x.payback*10)/10).toLocaleString()+'개월'} · 보증금 제외</small></div>`).join('')}<small>직접 가정한 매출의 단순 계산이에요. 월 현금 잔액은 운영손익에서 대출 원리금을 뺀 값이며 세금·추가 투자·매출 성장·폐업비는 별도예요. 회수 기간은 준비비 ÷ 월 현금 잔액으로, 자기자본 수익률이 아니에요.</small></details>`:'<small>내 가정 매출·월 상환액(없으면 0)을 입력하면 매출별 손익을 비교해요.</small>');
 }
 const marketOperating={start:'',end:'',ages:[],budget:''};
 function operatingNumbers(pop, settings){
@@ -2640,6 +2646,7 @@ function marketPeople(r,row){
 
 function renderMarketCompare(){
   const box=$('marketCompare');
+  const expanded=new Set([...box.querySelectorAll('article[data-code] > details[open]')].map(el=>el.parentElement.dataset.code));
   const active=document.activeElement;
   const editing=box.contains(active)&&active.tagName==='INPUT'?{value:active.value,start:active.selectionStart,end:active.selectionEnd}:null;
   const focusId=box.contains(active)?active.id:'';
@@ -2660,12 +2667,11 @@ function renderMarketCompare(){
     const nearby=(r.context&&r.context.neighbors||[]).slice(0,3).map(p=>`${marketEsc(p.industry)} ${marketValue(p.stores,'곳')}`).join('<br>');
     const row=(title,body,sub='',field='')=>`<div class="market-answer" data-field="${field}"><span>${title}</span><b>${body}</b>${sub?`<small>${sub}</small>`:''}</div>`;
     return `<article data-code="${r.adstrd_cd}"><h3>${marketEsc(r.adstrd)}</h3><small>${marketEsc((loc||{}).gu||'')} · 매출은 행정동 기준</small>`+
-      `<div class="market-answer market-operating-answer" aria-live="polite"></div>`+
+      `<div class="market-answer market-decision-answer" aria-live="polite"></div><div class="market-answer market-next-answer"></div><details class="market-candidate-details" ${expanded.has(r.adstrd_cd)?'open':''}><summary>계산 내역·동네 분석 자세히 보기</summary><div class="market-answer market-startup-answer"></div><div class="market-answer market-operating-answer" aria-live="polite"></div>`+
       (d.specialty||d.subclass?row(marketEsc(d.query)+' 월매출','세부 업종 매출 자료 없음',`<details><summary>상위 업종 ${marketEsc(d.industry)} 매출 참고하기</summary>${marketEsc(r.adstrd)}의 ${marketEsc(d.industry)} 가게당 월 추정매출은 ${marketValue(r.per_store_month_man,'만원')}이에요. ${marketEsc(d.query)}만 따로 집계한 값이 아니며, 내 가게의 예상 매출로 볼 수 없어요.</details>`):row('한 달에 얼마나 파나',marketValue(r.per_store_month_man,'만원'),'같은 업종 가게당 월 추정매출'))+
       row(quoted!=null?'입력한 매물 월세':`${marketArea}평 월세는 얼마인가`,calc.monthly==null?'자료 없음':`${quoted!=null?'':'약 '}${marketValue(calc.monthly,'만원')}`,source,'rent')+
       `<label class="market-loc-label">월세 기준 동네 <select class="market-location" data-code="${r.adstrd_cd}" data-selx="1">${locations.map((l,i)=>`<option value="${i}" ${i===selected?'selected':''}>${marketEsc(l.gu+' '+l.dong)}</option>`).join('')}</select></label><label class="market-loc-label">알아본 월세가 있으면 <input class="market-quoted" data-code="${r.adstrd_cd}" type="text" inputmode="decimal" min="0" max="1000000" step="0.1" placeholder="만원 · 선택 입력" value="${quoted??''}"> 만원</label>${state.error?`<button class="market-retry" data-key="${marketEsc(key)}">월세 다시 불러오기</button>`:''}`+
       row('매출에서 월세가 차지하는 몫',calc.ratio==null?'계산할 자료 없음':`${calc.ratio}%`,'지역 범위가 다른 평균끼리 비교한 참고 비율','ratio')+
-      `<div class="market-answer market-startup-answer"></div><div class="market-answer market-next-answer"></div>`+
       marketCustomerMatch(d,r,row)+
       marketPeople(r,row)+
       row('경쟁·개폐업은 어떤가',`${d.specialty||d.subclass?marketEsc(d.industry)+' 전체':'같은 업종'} ${marketValue(r.stores,'곳')}`,`분기 개업 ${marketValue(r.open_rate_pct,'%')} · 폐업 ${marketValue(r.close_rate_pct,'%')}<br>매출 전년 동기 ${marketValue(r.yoy_pct,'%')}`)+
@@ -2673,7 +2679,7 @@ function renderMarketCompare(){
       row('함께 모이는 업종이 이 동네에 있나',nearby||'자료 없음',marketEsc(r.adstrd)+' 전체 점포 수 · '+marketEsc(String(d.quarter).slice(0,4))+'년 '+marketEsc(String(d.quarter).slice(4))+'분기. 서울 전체에서 함께 모이는 업종을 기준으로 조회했어요.')+
       `<details class="src"><summary>월세 자료 기준</summary>${marketEsc(rent&&rent.note||'월세는 개별 매물 실측이 아닌 상권·권역 조사값이에요.')}</details>`+
       (loc?`<p class="src">상세 화면은 ${marketEsc(loc.dong)} 법정동 기준이며, 비교 카드의 행정동·면적과 달라 수치가 달라질 수 있어요.</p><a class="market-detail" href="https://hicce.co.kr/b2c/where?${marketEsc(new URLSearchParams({mode:'shop',gu:loc.gu,dong:loc.dong,ind:d.industry}).toString())}&from=blog-where">${marketEsc(loc.dong)} 법정동 상세 보기${d.specialty||d.subclass?' · '+marketEsc(d.industry)+' 기준':''}</a>`:'')+
-      `<button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`;
+      `</details><button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`;
   }).join('')+'</div>':'<p class="empty">아래 결과에서 동네를 담으면 월세·동네 인구·옆 업종을 한 번에 비교할 수 있어요.</p>');
   if(!marketGuideLinkOpened&&new URLSearchParams(location.search).get('guide')==='1'){
     marketGuideLinkOpened=true;
@@ -2703,7 +2709,7 @@ function marketUpdateNumbers(){
     const checks=[quoted==null?'실제 매물 월세·관리비·보증금 확인':'입력한 월세의 면적·층·관리비 포함 여부 확인',marketStartup.setup===''?'권리금·공사·설비 견적 확인':'입력한 준비비에 빠진 공사·설비 비용 확인','선택한 영업시간에 목표 고객이 다니는지 현장 확인','업종 영업 가능 여부·전력·급배수·환기·주차 확인'];
     const requestNote=`희망 행정동 ${r.adstrd}. 영업 ${marketOperating.start||'미정'}~${marketOperating.end||'미정'}시, 고객 ${marketOperating.ages.join('·')||'미정'}. 유형 ${marketType}. 확인 요청: 실제 월세·관리비·권리금, 영업 가능 용도·시설.`;
     const q=new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc?.gu||'',dong:loc?.dong||'',area:String(marketArea),rent:marketOperating.budget||'',deposit:marketStartup.deposit||'',note:requestNote});
-    card.querySelector('.market-next-answer').innerHTML=`<span>이 후보에서 더 확인할 것</span><small>${checks.map(marketEsc).join('<br>')}</small><a class="market-detail" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">이 조건으로 중개사에게 매물 요청하기</a><small>다음 화면에서 조건을 수정하고 전달 동의를 선택해요.</small>`;
+    card.querySelector('.market-next-answer').innerHTML=`<span>더 확인할 것</span><small>${checks.map(marketEsc).join('<br>')}</small><a class="market-detail" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">이 조건으로 중개사에게 매물 요청하기</a><small>다음 화면에서 조건을 수정하고 전달 동의를 선택해요.</small>`;
     updateOperatingAnswer(card,r);
   }
 }
