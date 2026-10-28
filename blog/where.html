@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 4e9ade237ecaaeb1 -->
+<!-- baked-from-b2c-where: fe36637ae19d78f3 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2447,7 +2447,7 @@ function marketStartupForm(){
     variable:['35','100만원을 팔 때 재료비·결제 수수료 등이 35만원이면 35%. 매출에 따라 늘어나는 비용이에요.'],
     days:['26','한 달 중 실제로 문 여는 날 수예요. 쉬는 날을 빼고 입력해 주세요.'],
     ticket:['6500','고객 한 명이 한 번 방문해 결제할 것으로 가정한 평균 금액이에요.'],
-    sales:['1000','직접 가정한 한 달 매출이에요. 하루 고객 60명 × 6,500원 × 26일이면 약 1,014만원이에요.'],
+    sales:['1000','입력하면 동네 평균 대신 이 값을 써요. 비워 두면 후보별 평균을 참고해요. 하루 고객 60명 × 6,500원 × 26일이면 약 1,014만원이에요.'],
     debt:['50','매달 갚는 대출 원금과 이자의 합계. 상환할 대출이 없다면 0을 넣어 주세요.'],
     deposit:['3000','임대 계약 때 맡기는 보증금. 월세·권리금과 따로 넣고, 미정이면 중개사에게 확인해 주세요.'],
     setup:['5000','권리금·공사·설비·초도물품·중개보수 등 개업 전 비용 합계. 보증금과 운영자금은 빼 주세요.'],
@@ -2455,7 +2455,7 @@ function marketStartupForm(){
     capital:['10000','실제로 마련할 수 있는 자기자금 + 확정된 대출. 보증금·준비비를 내기 전 총액이에요.']
   };
   const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketEsc(marketStartup[key])}" aria-describedby="startup-help-${key}" placeholder="예: ${hints[key][0]}"><span>${unit}</span></span><small id="startup-help-${key}" class="src" style="margin:0;line-height:1.6">${hints[key][1]}</small></label>`;
-  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">칸 안의 숫자는 입력 방법을 보여주는 가상 예시예요. 업종별 평균이나 권장 금액이 아니며 계산에 쓰이지 않아요. 직접 입력한 값에만 동네별 월세를 적용해 비교해요. 모르는 값은 비워 두고, 비용이 없는 항목만 0을 넣어 주세요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}${field('sales','내가 가정한 월매출','만원')}${field('debt','월 대출 원리금 상환','만원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 대출 상환은 고정비와 중복해 넣지 마세요. 없는 항목은 0을 입력해 주세요.</p><details><summary>총 창업자금과 운영 여유자금 입력</summary><div class="market-controls startup-grid">${field('deposit','예상 보증금','만원')}${field('setup','개업 준비비 합계','만원')}${field('reserve','남겨 둘 운영자금','만원')}${field('capital','조달 가능한 총자금','만원')}</div><p class="src">개업 준비비에 권리금·공사·설비·초도물품·중개보수 등을 합쳐 주세요. 총자금은 자기자금과 확정된 대출을 합친 금액이에요. 보증금은 돌려받을 수 있어도 영업 중에는 쓸 수 없는 돈으로 구분해요.</p></details></details>`;
+  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">칸 안의 숫자는 입력 방법을 보여주는 가상 예시예요. 업종별 평균이나 권장 금액이 아니며 계산에 쓰이지 않아요. 비용은 직접 입력한 값만 써요. 월매출을 비워 두면 같은 업종 자료가 있는 후보는 동네 평균의 70%·100%·120%를 대입해 참고 계산해요. 실제 매출 예측은 아니에요. 모르는 값은 비워 두고, 비용이 없는 항목만 0을 넣어 주세요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}${field('sales','내가 가정한 월매출','만원')}${field('debt','월 대출 원리금 상환','만원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 대출 상환은 고정비와 중복해 넣지 마세요. 없는 항목은 0을 입력해 주세요.</p><details><summary>총 창업자금과 운영 여유자금 입력</summary><div class="market-controls startup-grid">${field('deposit','예상 보증금','만원')}${field('setup','개업 준비비 합계','만원')}${field('reserve','남겨 둘 운영자금','만원')}${field('capital','조달 가능한 총자금','만원')}</div><p class="src">개업 준비비에 권리금·공사·설비·초도물품·중개보수 등을 합쳐 주세요. 총자금은 자기자금과 확정된 대출을 합친 금액이에요. 보증금은 돌려받을 수 있어도 영업 중에는 쓸 수 없는 돈으로 구분해요.</p></details></details>`;
 }
 function startupPlan(rent, s){
   const number=k=>s[k]!==''&&s[k]!=null&&/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(String(s[k]))?Number(s[k]):null;
@@ -2470,19 +2470,28 @@ function startupPlan(rent, s){
   }):[];
   return {base,upfront,total,available,shortfall:total!=null&&capital!=null?Math.max(0,total-capital):null,scenarios};
 }
+function startupSalesBasis(row, industry, settings){
+  if(settings.sales!=='')return {settings,reference:false,average:null};
+  const average=row?.per_store_month_man;
+  if(industry?.specialty||industry?.subclass||!Number.isFinite(average)||average<=0)return {settings,reference:false,average:null};
+  return {settings:{...settings,sales:String(average)},reference:true,average};
+}
 function updateStartupAnswer(card,rent){
   const el=card.querySelector('.market-startup-answer');if(!el)return;
   const scenarioOpen=!!el.querySelector('details[open]');
-  const p=startupPlan(rent,marketStartup),n=p.base;
+  const r=industryData?.rows.find(r=>r.adstrd_cd===card.dataset.code);
+  const basis=startupSalesBasis(r,industryData,marketStartup);
+  const p=startupPlan(rent,basis.settings),n=p.base;
+  const basisLabel=basis.reference?'동네 같은 업종 평균을 대입한 참고 계산':'직접 입력한 매출 기준';
   const money=v=>Math.round(v).toLocaleString()+'만원';
   const base=p.scenarios.find(x=>x.factor===1), summary=card.querySelector('.market-decision-answer');
   const cash=base?`${base.cash<0?'월 부족 ':''}${money(Math.abs(base.cash))}`:rent==null?'월세 확인 필요':'매출·비용 입력 필요';
   const runway=p.available==null?'조달자금·초기비용 입력 필요':p.available<0?'개업 자금 부족':!base?'매출·비용 입력 필요':base.cash<0?`약 ${(Math.floor(base.runway*10)/10).toLocaleString()}개월`:'현재 가정에서는 현금 감소 없음';
-  if(summary)summary.innerHTML=`<span>필요한 창업자금</span><b>${p.total==null?'초기 자금 입력 필요':money(p.total)}</b>${p.shortfall>0?`<small>조달 자금보다 ${money(p.shortfall)} 부족</small>`:''}<span>매달 남는 돈</span><b>${cash}</b><span>버틸 기간</span><b>${runway}</b><small>내가 가정한 매출 기준 · 대출 상환 후 · 세금·추가 투자 별도</small>`;
-  el.innerHTML=(n?`<span>월세 포함 월 고정비 / 손익분기 매출</span><b>${money(n.monthly)} / ${money(Math.ceil(n.revenue))}</b><span>손익분기점에 필요한 하루 고객</span><b>${n.customers==null?'영업일·결제액 입력 필요':n.customers.toLocaleString()+'명'}</b><small>대출 상환 전 기준. 본인 보수는 입력한 고정비에 포함해 주세요.</small>`:`<span>내 비용으로 계산하기</span><small>${rent==null?'월세 확인 후 계산할 수 있어요. 알아본 월세를 입력해 주세요.':'월 고정비와 변동비율(0 이상 100% 미만)을 입력해 주세요.'}</small>`)+
+  if(summary)summary.innerHTML=`<span>필요한 창업자금</span><b>${p.total==null?'초기 자금 입력 필요':money(p.total)}</b>${p.shortfall>0?`<small>조달 자금보다 ${money(p.shortfall)} 부족</small>`:''}<span>매달 남는 돈${basis.reference?' · 평균 매출 대입':''}</span><b>${cash}</b><span>버틸 기간</span><b>${runway}</b><small>${basisLabel} · 대출 상환 후 · 세금·추가 투자 별도</small>${basis.reference?`<small>참고 매출 월 ${money(basis.average*0.7)}~${money(basis.average*1.2)}<br>동네 평균 ${money(basis.average)}의 70~120%를 가정한 범위예요. 실제 매출 분포·내 가게 예측이 아니에요.</small>`:marketStartup.sales===''?'<small>같은 업종 매출 자료가 없어 직접 매출 가정이 필요해요. 세부 업종에 상위 업종 평균을 대신 쓰지 않아요.</small>':''}`;
+  el.innerHTML=(basis.reference?`<small>${marketEsc(r.adstrd)} · ${marketEsc(industryData.industry)} ${marketValue(r.stores,'곳')} · ${marketPeriod(industryData.quarter)}. 서울 상권분석 추정매출을 점포 수로 나눈 월평균이에요. 매장 크기·층·영업연수 차이는 보정하지 않았어요. 70%·100%·120%는 비교용 가정이며 통계적 하한·상한이 아니에요.</small>`:'')+(n?`<span>월세 포함 월 고정비 / 손익분기 매출</span><b>${money(n.monthly)} / ${money(Math.ceil(n.revenue))}</b><span>손익분기점에 필요한 하루 고객</span><b>${n.customers==null?'영업일·결제액 입력 필요':n.customers.toLocaleString()+'명'}</b><small>대출 상환 전 기준. 본인 보수는 입력한 고정비에 포함해 주세요.</small>`:`<span>내 비용으로 계산하기</span><small>${rent==null?'월세 확인 후 계산할 수 있어요. 알아본 월세를 입력해 주세요.':'월 고정비와 변동비율(0 이상 100% 미만)을 입력해 주세요.'}</small>`)+
     `<span>총 창업자금 · 보증금 + 준비비 + 운영자금</span><b>${p.total==null?'초기 자금 항목 입력 필요':money(p.total)}</b><small>${p.shortfall==null?'조달 가능한 자금까지 넣으면 부족액을 계산해요.':p.shortfall>0?'조달 자금보다 '+money(p.shortfall)+' 부족해요.':'입력한 조달 자금 안에 들어요.'}</small>`+
     `<span>개업 후 쓸 수 있는 현금</span><b>${p.available==null?'총자금·보증금·준비비 입력 필요':p.available<0?'개업 자금 '+money(-p.available)+' 부족':money(p.available)}</b>`+
-    (p.scenarios.length?`<details ${scenarioOpen?'open':''}><summary>매출별 손익과 버틸 기간</summary>${p.scenarios.map(x=>`<div class="market-answer"><span>${x.factor===1?'내 가정':x.factor<1?'매출 30% 감소':'매출 20% 증가'} · 월 ${money(x.revenue)}</span><b>월 현금 ${x.cash<0?'부족':'잔액'} ${money(Math.abs(x.cash))}</b><small>상환 전 운영손익 ${money(x.operating)}<br>${p.available==null?'총자금을 넣으면 버틸 기간을 계산해요.':p.available<0?'개업 자금부터 부족해요.':x.cash<0?'같은 적자가 지속되면 약 '+(Math.floor(x.runway*10)/10).toLocaleString()+'개월 버텨요.':'이 가정에서는 매달 현금이 줄지 않아요.'}<br>준비비 회수: ${x.payback==null?'흑자·준비비 입력 시 계산':(Math.ceil(x.payback*10)/10).toLocaleString()+'개월'} · 보증금 제외</small></div>`).join('')}<small>직접 가정한 매출의 단순 계산이에요. 월 현금 잔액은 운영손익에서 대출 원리금을 뺀 값이며 세금·추가 투자·매출 성장·폐업비는 별도예요. 회수 기간은 준비비 ÷ 월 현금 잔액으로, 자기자본 수익률이 아니에요.</small></details>`:'<small>내 가정 매출·월 상환액(없으면 0)을 입력하면 매출별 손익을 비교해요.</small>');
+    (p.scenarios.length?`<details ${scenarioOpen?'open':''}><summary>매출별 손익과 버틸 기간</summary>${p.scenarios.map(x=>`<div class="market-answer"><span>${basis.reference?'동네 평균의 '+Math.round(x.factor*100)+'%':x.factor===1?'내 가정':x.factor<1?'매출 30% 감소':'매출 20% 증가'} · 월 ${money(x.revenue)}</span><b>월 현금 ${x.cash<0?'부족':'잔액'} ${money(Math.abs(x.cash))}</b><small>상환 전 운영손익 ${money(x.operating)}<br>${p.available==null?'총자금을 넣으면 버틸 기간을 계산해요.':p.available<0?'개업 자금부터 부족해요.':x.cash<0?'같은 적자가 지속되면 약 '+(Math.floor(x.runway*10)/10).toLocaleString()+'개월 버텨요.':'이 가정에서는 매달 현금이 줄지 않아요.'}<br>준비비 회수: ${x.payback==null?'흑자·준비비 입력 시 계산':(Math.ceil(x.payback*10)/10).toLocaleString()+'개월'} · 보증금 제외</small></div>`).join('')}<small>${basisLabel}의 단순 계산이에요. 월 현금 잔액은 운영손익에서 대출 원리금을 뺀 값이며 세금·추가 투자·매출 성장·폐업비는 별도예요. 회수 기간은 준비비 ÷ 월 현금 잔액으로, 자기자본 수익률이 아니에요.</small></details>`:'<small>내 가정 매출·월 상환액(없으면 0)을 입력하면 매출별 손익을 비교해요.</small>');
 }
 const marketOperating={start:'',end:'',ages:[],budget:''};
 function operatingNumbers(pop, settings){
