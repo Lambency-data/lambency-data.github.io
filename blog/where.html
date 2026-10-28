@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 77913f8551541bf4 -->
+<!-- baked-from-b2c-where: 1d4b7335651a5afb -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -823,7 +823,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 @media(min-width:900px){body:has(#p-ind:not([hidden])) main{max-width:1080px}.market-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
 .market-risk-list{list-style:none;padding:0;margin:8px 0}.market-risk-lower b{color:#17665b}.market-risk-higher b{color:#92500e}
 .market-startup{border:1px solid var(--rule);border-radius:14px;padding:14px;margin:16px 0}.market-startup summary{cursor:pointer;font-weight:600}.market-startup .market-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.market-startup input{width:100px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}.market-startup-answer span{display:block;margin-top:10px}
-.market-guide>summary{color:var(--seal);font-size:14px}.market-guide .guide-intro{font-size:13px;color:var(--soft);margin:12px 0}.market-guide video{display:block;width:100%;max-height:70vh;aspect-ratio:4/3;object-fit:contain;background:var(--field);border-radius:10px}.market-guide .guide-steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.market-guide .guide-steps button{margin:0}.market-guide .src{font-size:11px}
+.market-guide{scroll-margin-top:20px}.market-guide>summary{color:var(--seal);font-size:14px}.market-guide .guide-intro{font-size:13px;color:var(--soft);margin:12px 0}.market-guide video{display:block;width:100%;max-height:70vh;aspect-ratio:4/3;object-fit:contain;background:var(--field);border-radius:10px}.market-guide .guide-steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.market-guide .guide-steps button{margin:0}.market-guide .src{font-size:11px}
 
 #marketCompare .market-controls label{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;font-size:13px;min-width:0}
 #marketCompare .market-controls input,#marketCompare .market-controls select{box-sizing:border-box;height:40px;flex:0 0 auto;width:112px;min-width:0;max-width:100%;margin:0;padding:7px 10px;font-size:16px;line-height:24px;border:1px solid var(--rule);border-radius:8px}
@@ -2534,8 +2534,10 @@ function operatingReason(n,settings){
   return `영업시간 유동 <b>${n.hours.pct}%</b> · ${marketEsc(settings.ages.map(a=>a.replace('60대+','60대 이상')).join('·'))} 유동 <b>${n.footPct}%</b> · 영업시간 유동 하루 약 ${marketValue(n.hours.count,'명')}${n.hours.partial?' · 시간대 일부는 근사':''}`;
 }
 
+let marketGuideLinkOpened=false;
 function marketGuide(){
-  return `<details class="market-startup market-guide"><summary>처음이라면, 영상으로 따라하기</summary><p class="guide-intro">카페 예시로 월세 예산·영업시간을 넣고, 동네를 비교한 뒤 필요한 매출까지 계산해 봐요. 내 업종에도 같은 순서로 적용할 수 있어요.</p><video controls playsinline preload="none" poster="https://hicce.co.kr/static/guides/where-start-poster.jpg" aria-label="내 가게 조건으로 동네 비교하기 안내 영상"><source src="https://hicce.co.kr/static/guides/where-start-v1.mp4" type="video/mp4"><track kind="captions" srclang="ko" label="한국어" src="https://hicce.co.kr/static/guides/where-start-v1.vtt">영상 재생을 지원하지 않는 브라우저예요. <a href="https://hicce.co.kr/static/guides/where-start-v1.mp4">영상 내려받기</a></video><nav class="guide-steps" aria-label="영상 구간 바로가기"><button type="button" class="market-pick" data-guide-seek="8.4">1. 내 조건 입력</button><button type="button" class="market-pick" data-guide-seek="32.08">2. 동네 비교</button><button type="button" class="market-pick" data-guide-seek="56.8">3. 내 비용 계산</button></nav><p class="src">실제 화면 · 가상 운영조건 예시 · 본인 목소리 기반 합성음성. 조사 월세는 실제 매물 가격과 다를 수 있어요.</p></details>`;
+  const fromGuideLink=document.getElementById("marketGuide")?.open??(new URLSearchParams(location.search).get("guide")==="1"&&!marketGuideLinkOpened);
+  return `<details id="marketGuide" class="market-startup market-guide" ${fromGuideLink?"open":""}><summary>처음이라면, 영상으로 따라하기</summary><p class="guide-intro">카페 예시로 월세 예산·영업시간을 넣고, 동네를 비교한 뒤 필요한 매출까지 계산해 봐요. 내 업종에도 같은 순서로 적용할 수 있어요.</p><video controls playsinline preload="none" poster="https://hicce.co.kr/static/guides/where-start-poster.jpg" aria-label="내 가게 조건으로 동네 비교하기 안내 영상"><source src="https://hicce.co.kr/static/guides/where-start-v1.mp4" type="video/mp4"><track kind="captions" srclang="ko" label="한국어" src="https://hicce.co.kr/static/guides/where-start-v1.vtt">영상 재생을 지원하지 않는 브라우저예요. <a href="https://hicce.co.kr/static/guides/where-start-v1.mp4">영상 내려받기</a></video><nav class="guide-steps" aria-label="영상 구간 바로가기"><button type="button" class="market-pick" data-guide-seek="8.4">1. 내 조건 입력</button><button type="button" class="market-pick" data-guide-seek="32.08">2. 동네 비교</button><button type="button" class="market-pick" data-guide-seek="56.8">3. 내 비용 계산</button></nav><p class="src">실제 화면 · 가상 운영조건 예시 · 본인 목소리 기반 합성음성. 조사 월세는 실제 매물 가격과 다를 수 있어요.</p></details>`;
 }
 document.addEventListener('toggle',event=>{
   const guide=event.target;if(!guide.matches?.('.market-guide'))return;
@@ -2639,6 +2641,10 @@ function renderMarketCompare(){
       (loc?`<a class="market-detail" href="https://hicce.co.kr/b2c/where?${marketEsc(new URLSearchParams({mode:'shop',gu:loc.gu,dong:loc.dong,ind:d.industry}).toString())}&from=blog-where">${marketEsc(r.adstrd)} 상세 보기${d.specialty||d.subclass?' · '+marketEsc(d.industry)+' 기준':''}</a>`:'')+
       `<button type="button" class="market-remove" data-code="${r.adstrd_cd}">비교에서 빼기</button></article>`;
   }).join('')+'</div>':'<p class="empty">아래 결과에서 동네를 담으면 월세·동네 인구·옆 업종을 한 번에 비교할 수 있어요.</p>');
+  if(!marketGuideLinkOpened&&new URLSearchParams(location.search).get('guide')==='1'){
+    marketGuideLinkOpened=true;
+    requestAnimationFrame(()=>document.getElementById('marketGuide')?.scrollIntoView({block:'start'}));
+  }
   box.querySelectorAll('input,select').forEach(el=>{el.addEventListener('input',marketInput);el.addEventListener('change',marketChange)});
   marketUpdateNumbers();
   const nextFocus=focusId?document.getElementById(focusId):Array.from(box.querySelectorAll('.market-quoted')).find(el=>el.dataset.code===focusCode);
