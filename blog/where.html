@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: c76d96757a4f8ba0 -->
+<!-- baked-from-b2c-where: 4e9ade237ecaaeb1 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2442,8 +2442,20 @@ function startupNumbers(rent,fixed,variable,days,ticket){
   return {monthly,revenue,customers};
 }
 function marketStartupForm(){
-  const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketEsc(marketStartup[key])}" placeholder="직접 입력"><span>${unit}</span></span></label>`;
-  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">같은 운영 조건에 동네별 월세를 적용해 비교해요. 아래 값은 직접 입력하며, 실제 수익 예측이 아닌 손익분기 계산이에요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}${field('sales','내가 가정한 월매출','만원')}${field('debt','월 대출 원리금 상환','만원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 대출 상환은 고정비와 중복해 넣지 마세요. 없는 항목은 0을 입력해 주세요.</p><details><summary>총 창업자금과 운영 여유자금 입력</summary><div class="market-controls startup-grid">${field('deposit','예상 보증금','만원')}${field('setup','개업 준비비 합계','만원')}${field('reserve','남겨 둘 운영자금','만원')}${field('capital','조달 가능한 총자금','만원')}</div><p class="src">개업 준비비에 권리금·공사·설비·초도물품·중개보수 등을 합쳐 주세요. 총자금은 자기자금과 확정된 대출을 합친 금액이에요. 보증금은 돌려받을 수 있어도 영업 중에는 쓸 수 없는 돈으로 구분해요.</p></details></details>`;
+  const hints={
+    fixed:['400','매달 나가는 인건비·관리비·공과금·본인 보수의 합계. 월세와 대출 상환은 빼 주세요.'],
+    variable:['35','100만원을 팔 때 재료비·결제 수수료 등이 35만원이면 35%. 매출에 따라 늘어나는 비용이에요.'],
+    days:['26','한 달 중 실제로 문 여는 날 수예요. 쉬는 날을 빼고 입력해 주세요.'],
+    ticket:['6500','고객 한 명이 한 번 방문해 결제할 것으로 가정한 평균 금액이에요.'],
+    sales:['1000','직접 가정한 한 달 매출이에요. 하루 고객 60명 × 6,500원 × 26일이면 약 1,014만원이에요.'],
+    debt:['50','매달 갚는 대출 원금과 이자의 합계. 상환할 대출이 없다면 0을 넣어 주세요.'],
+    deposit:['3000','임대 계약 때 맡기는 보증금. 월세·권리금과 따로 넣고, 미정이면 중개사에게 확인해 주세요.'],
+    setup:['5000','권리금·공사·설비·초도물품·중개보수 등 개업 전 비용 합계. 보증금과 운영자금은 빼 주세요.'],
+    reserve:['2000','개업 후 적자나 추가 지출에 대비해 남겨 둘 현금이에요. 준비비로 쓸 돈과 나눠 주세요.'],
+    capital:['10000','실제로 마련할 수 있는 자기자금 + 확정된 대출. 보증금·준비비를 내기 전 총액이에요.']
+  };
+  const field=(key,label,unit)=>`<label class="startup-field"><span>${label}</span><span class="startup-value"><input id="startup-${key}" aria-label="${label}" data-startup="${key}" type="text" inputmode="decimal" value="${marketEsc(marketStartup[key])}" aria-describedby="startup-help-${key}" placeholder="예: ${hints[key][0]}"><span>${unit}</span></span><small id="startup-help-${key}" class="src" style="margin:0;line-height:1.6">${hints[key][1]}</small></label>`;
+  return `<details class="market-startup" open><summary>창업 전에, 내 비용으로 계산해 보기</summary><p class="src">칸 안의 숫자는 입력 방법을 보여주는 가상 예시예요. 업종별 평균이나 권장 금액이 아니며 계산에 쓰이지 않아요. 직접 입력한 값에만 동네별 월세를 적용해 비교해요. 모르는 값은 비워 두고, 비용이 없는 항목만 0을 넣어 주세요.</p><div class="market-controls startup-grid">${field('fixed','월세 외 월 고정비','만원')}${field('variable','매출 대비 변동비','%')}${field('days','월 영업일','일')}${field('ticket','고객 1명당 결제액','원')}${field('sales','내가 가정한 월매출','만원')}${field('debt','월 대출 원리금 상환','만원')}</div><p class="src">고정비에는 인건비·관리비·공과금·본인 보수 등을, 변동비에는 재료비·결제 수수료 등을 넣어 주세요. 부가세 포함 여부는 매출과 비용에 같은 기준을 써 주세요. 대출 상환은 고정비와 중복해 넣지 마세요. 없는 항목은 0을 입력해 주세요.</p><details><summary>총 창업자금과 운영 여유자금 입력</summary><div class="market-controls startup-grid">${field('deposit','예상 보증금','만원')}${field('setup','개업 준비비 합계','만원')}${field('reserve','남겨 둘 운영자금','만원')}${field('capital','조달 가능한 총자금','만원')}</div><p class="src">개업 준비비에 권리금·공사·설비·초도물품·중개보수 등을 합쳐 주세요. 총자금은 자기자금과 확정된 대출을 합친 금액이에요. 보증금은 돌려받을 수 있어도 영업 중에는 쓸 수 없는 돈으로 구분해요.</p></details></details>`;
 }
 function startupPlan(rent, s){
   const number=k=>s[k]!==''&&s[k]!=null&&/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(String(s[k]))?Number(s[k]):null;
