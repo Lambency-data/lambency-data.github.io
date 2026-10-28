@@ -4,13 +4,20 @@
 <!-- byteme-qr-routing:start -->
 <script>
 (function(){
-  if(location.pathname!=="/byteme/" && location.pathname!=="/byteme/index.html") return;
-  var tag=new URLSearchParams(location.search).get("from");
-  if(!/^(d5|d18)-(cover|last)$/.test(tag||"")) return;
-  location.replace("/byteme/qr/"+tag+"/?from="+encodeURIComponent(tag)+location.hash);
+  var P=location.pathname,Q=new URLSearchParams(location.search),H=location.hash,KEY="byteme_test_mode",ls=null;
+  try{ls=window.localStorage}catch(e){}
+  if(ls){try{if(Q.get("test")==="1")ls.setItem(KEY,"1");if(Q.get("test")==="0")ls.removeItem(KEY)}catch(e){}}
+  var test=false;try{test=!!(ls&&ls.getItem(KEY)==="1")}catch(e){}
+  var tag=null,m=P.match(/^\/byteme\/qr\/(test-)?(d5|d18)-(cover|last)\/(index\.html)?$/);
+  if(P==="/byteme/"||P==="/byteme/index.html"){tag=Q.get("from");if(!/^(d5|d18)-(cover|last)$/.test(tag||""))return;}
+  else if(m){if(!!m[1]===test)return;tag=m[2]+"-"+m[3];}
+  else return;
+  var t=(test?"test-":"")+tag;
+  location.replace("/byteme/qr/"+t+"/?from="+encodeURIComponent(t)+H);
 })();
 </script>
 <!-- byteme-qr-routing:end -->
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>판매 페이지 건강검진 서비스 | BYTEME</title>
