@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 715e8eebe7df23e5 -->
+<!-- baked-from-b2c-where: 77913f8551541bf4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -823,6 +823,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 @media(min-width:900px){body:has(#p-ind:not([hidden])) main{max-width:1080px}.market-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
 .market-risk-list{list-style:none;padding:0;margin:8px 0}.market-risk-lower b{color:#17665b}.market-risk-higher b{color:#92500e}
 .market-startup{border:1px solid var(--rule);border-radius:14px;padding:14px;margin:16px 0}.market-startup summary{cursor:pointer;font-weight:600}.market-startup .market-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.market-startup input{width:100px;padding:8px;border:1px solid var(--rule);border-radius:8px;background:var(--bg)}.market-startup-answer span{display:block;margin-top:10px}
+.market-guide>summary{color:var(--seal);font-size:14px}.market-guide .guide-intro{font-size:13px;color:var(--soft);margin:12px 0}.market-guide video{display:block;width:100%;max-height:70vh;aspect-ratio:4/3;object-fit:contain;background:var(--field);border-radius:10px}.market-guide .guide-steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.market-guide .guide-steps button{margin:0}.market-guide .src{font-size:11px}
 
 #marketCompare .market-controls label{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;font-size:13px;min-width:0}
 #marketCompare .market-controls input,#marketCompare .market-controls select{box-sizing:border-box;height:40px;flex:0 0 auto;width:112px;min-width:0;max-width:100%;margin:0;padding:7px 10px;font-size:16px;line-height:24px;border:1px solid var(--rule);border-radius:8px}
@@ -2533,6 +2534,21 @@ function operatingReason(n,settings){
   return `영업시간 유동 <b>${n.hours.pct}%</b> · ${marketEsc(settings.ages.map(a=>a.replace('60대+','60대 이상')).join('·'))} 유동 <b>${n.footPct}%</b> · 영업시간 유동 하루 약 ${marketValue(n.hours.count,'명')}${n.hours.partial?' · 시간대 일부는 근사':''}`;
 }
 
+function marketGuide(){
+  return `<details class="market-startup market-guide"><summary>처음이라면, 영상으로 따라하기</summary><p class="guide-intro">카페 예시로 월세 예산·영업시간을 넣고, 동네를 비교한 뒤 필요한 매출까지 계산해 봐요. 내 업종에도 같은 순서로 적용할 수 있어요.</p><video controls playsinline preload="none" poster="https://hicce.co.kr/static/guides/where-start-poster.jpg" aria-label="내 가게 조건으로 동네 비교하기 안내 영상"><source src="https://hicce.co.kr/static/guides/where-start-v1.mp4" type="video/mp4"><track kind="captions" srclang="ko" label="한국어" src="https://hicce.co.kr/static/guides/where-start-v1.vtt">영상 재생을 지원하지 않는 브라우저예요. <a href="https://hicce.co.kr/static/guides/where-start-v1.mp4">영상 내려받기</a></video><nav class="guide-steps" aria-label="영상 구간 바로가기"><button type="button" class="market-pick" data-guide-seek="8.4">1. 내 조건 입력</button><button type="button" class="market-pick" data-guide-seek="32.08">2. 동네 비교</button><button type="button" class="market-pick" data-guide-seek="56.8">3. 내 비용 계산</button></nav><p class="src">실제 화면 · 가상 운영조건 예시 · 본인 목소리 기반 합성음성. 조사 월세는 실제 매물 가격과 다를 수 있어요.</p></details>`;
+}
+document.addEventListener('toggle',event=>{
+  const guide=event.target;if(!guide.matches?.('.market-guide'))return;
+  const video=guide.querySelector('video');
+  if(guide.open){if(video.preload==='none'){video.preload='metadata';video.load();}}else video.pause();
+},true);
+document.addEventListener('click',event=>{
+  const button=event.target.closest?.('[data-guide-seek]');if(!button)return;
+  const video=button.closest('.market-guide').querySelector('video');
+  const seek=()=>{video.currentTime=Number(button.dataset.guideSeek);video.play().catch(()=>{});};
+  if(video.readyState>=1)seek();else{video.addEventListener('loadedmetadata',seek,{once:true});video.load();}
+});
+
 function marketOperatingForm(){
   const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
   return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"> 만원 이하</label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령 결합 자료가 없어 영업시간 중 목표 고객 수는 계산하지 않아요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
@@ -2594,7 +2610,7 @@ function renderMarketCompare(){
   const focusCode=box.contains(active)&&active.matches('.market-quoted')?active.dataset.code:null;
   if(!industryData){box.innerHTML='';return;}
   const d=industryData, rows=d.rows.filter(r=>compareCodes.has(r.adstrd_cd));
-  box.innerHTML=`<h2>관심 동네, 같은 질문으로 비교해요 <small>${rows.length}/3</small></h2><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p><div class="market-controls"><label>비교할 크기 <input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`+marketOperatingForm()+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
+  box.innerHTML=`<h2>관심 동네, 같은 질문으로 비교해요 <small>${rows.length}/3</small></h2><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p><div class="market-controls"><label>비교할 크기 <input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`+marketGuide()+marketOperatingForm()+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
     const locations=r.locations||[];
     const selected=marketLocations.get(r.adstrd_cd)||0;
     const loc=locations[selected]||locations[0];
