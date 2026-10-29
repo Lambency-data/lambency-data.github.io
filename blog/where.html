@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: cd5ba7b5c78919fc -->
+<!-- baked-from-b2c-where: fe2bd96b305b6a17 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -869,6 +869,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 }
 
 .quick-controls input,.quick-controls select{min-height:44px;box-sizing:border-box}.market-cards article{min-width:0}.market-cards .market-request{display:inline-block;max-width:100%;box-sizing:border-box}.market-cards small{display:block;overflow-wrap:anywhere}#out{scroll-margin-top:85px}@media(max-width:600px){.quick-controls{display:grid!important;grid-template-columns:auto minmax(0,1fr)}.quick-controls input,.quick-controls select{width:100%!important;min-width:0;font-size:16px!important}.market-cards .market-request{margin-top:10px}}
+.broker-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.broker-fields label{display:grid;gap:6px;font-size:13px}.broker-fields input:not([type=checkbox]),.broker-fields select{box-sizing:border-box;width:100%;min-width:0;min-height:44px;font-size:16px}.broker-fields .broker-check{display:flex;align-items:center;gap:8px;min-height:44px}.broker-fields .broker-check input{flex:0 0 18px;width:18px;min-width:18px;height:18px;margin:0}@media(max-width:600px){.broker-fields{grid-template-columns:1fr}}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -949,7 +950,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     <select id="isort" style="padding:6px 10px;border:1px solid var(--rule);border-radius:6px;
       background:var(--field);color:var(--ink);font-size:13px">
       <option value="sales">가게당 월매출 높은 순</option>
-      <option value="budget" selected>예산 후보 · 월세 낮은 순</option><option value="cash70">평균의 70%에도 적자 없는 순</option>
+      <option value="budget" selected>예산 안에서 업종 고객층 비교</option><option value="cash70">평균의 70%에도 적자 없는 순</option>
       <option value="operating">내 운영조건에 맞는 순</option>
       <option value="net">가게가 많이 늘어난 순</option>
       <option value="net_asc">가게가 많이 줄어든 순</option>
@@ -958,7 +959,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
       <option value="pop">생활인구 많은 순</option>
     </select>
   </div>
-  <details id="marketSavedControls" class="market-startup"><summary>저장한 조건 불러오기 · 선택</summary><div class="market-controls"><label for="savedMarket">저장한 조건</label><select id="savedMarket" data-selx="1" aria-label="저장한 조건"><option value="">저장한 조건 선택</option></select><small id="marketSaveStatus" role="status">조건과 적용한 월세는 이 브라우저에 자동 저장돼요.</small></div>
+  <details class="market-startup" id="brokerConditions"><summary>중개사에게 전할 조건 미리 정하기 · 선택</summary><p class="src">후보 선택 후 요청 화면으로 함께 넘겨요. 아직 모르는 항목은 비워 두세요.</p><div class="broker-fields"><label>보증금 예산 (만원)<input id="broker_deposit" inputmode="decimal" placeholder="예: 3000" data-broker="deposit"></label><label for="broker_movein">언제 공간이 필요한가요?<select aria-label="언제 공간이 필요한가요?" id="broker_movein" data-broker="movein"><option value="">선택</option><option>1개월 안</option><option>3개월 안</option><option>6개월 안</option><option>6개월 넘게</option><option>아직 안 정함</option><option>시세만 알아보는 중</option></select></label><label class="broker-check"><input id="broker_park" type="checkbox" data-broker="park">주차 필요</label><label class="broker-check"><input id="broker_elev" type="checkbox" data-broker="elev">엘리베이터 필요</label></div><p class="src">보증금은 요청 상한으로 전달하며 창업자금 계산의 보증금과는 별개예요. 체크하지 않은 시설은 필수 조건으로 요청하지 않아요. 입주 3개월 안이고 연락처 제공에 동의한 요청을 희재가 확인해 중개사에게 전달해요.</p><p id="brokerStatus" class="src" role="status"></p></details><details id="marketSavedControls" class="market-startup"><summary>저장한 조건 불러오기 · 선택</summary><div class="market-controls"><label for="savedMarket">저장한 조건</label><select id="savedMarket" data-selx="1" aria-label="저장한 조건"><option value="">저장한 조건 선택</option></select><small id="marketSaveStatus" role="status">조건과 적용한 월세는 이 브라우저에 자동 저장돼요.</small></div>
   <div class="scenario-controls"><label for="scenarioName">조건 이름</label><input id="scenarioName" maxlength="40" placeholder="예: 저녁 운영 · 월세 300"><button type="button" class="market-pick" id="scenarioSave">새 조건으로 저장</button><button type="button" class="market-pick" id="scenarioUpdate" disabled>선택한 조건 업데이트</button><p class="src">현재 작업은 자동 저장돼요. 이름 붙여 저장한 조건은 업데이트를 눌러야 바뀌어요.</p></div>
   </details><div id="industryCompareHost"><details id="marketCompare" class="market-startup" aria-live="polite"></details></div><details class="market-startup"><summary>업종 전체 참고자료</summary><section id="marketEvidence"></section></details><div id="out" class="empty">위에 업종을 넣어 보세요. 63개 업종 자료가 있어요.</div>
   <button id="marketMore" type="button" hidden>동네 더 보기</button><p class="src" id="src"></p>
@@ -2319,25 +2320,49 @@ async function run(ind,more=false){
   renderIndustryResults();
   saveMarketState();
 }
+const marketBroker={deposit:'',movein:'',park:false,elev:false};
+function cleanBroker(x={}){
+ return {deposit:typeof x.deposit==='string'&&/^\d+(?:\.\d+)?$/.test(x.deposit)&&Number(x.deposit)<=100000000?x.deposit:'',movein:['1개월 안','3개월 안','6개월 안','6개월 넘게','아직 안 정함','시세만 알아보는 중'].includes(x.movein)?x.movein:'',park:x.park===true,elev:x.elev===true};
+}
+function brokerParams(){return {deposit:marketBroker.deposit||marketStartup.deposit||'',movein:marketBroker.movein,park:marketBroker.park?'1':'0',elev:marketBroker.elev?'1':'0'};}
+function syncBrokerForm(){
+ for(const [key,value] of Object.entries(marketBroker)){const el=$('broker_'+key);if(el){if(el.type==='checkbox')el.checked=value;else{el.value=value;el.setCustomValidity('');}}}
+}
 function candidateRequest(r){
  const loc=(r.locations||[])[marketLocations.get(r.adstrd_cd)||0]||{};
- return 'https://hicce.co.kr/b2c/want?'+new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc.gu||'',dong:loc.dong||'',area:String(marketArea),rent:marketOperating.budget||'',note:`희망 행정동 ${r.adstrd}. 실제 월세·보증금·관리비·권리금, 해당 업종 영업 가능 용도·시설 확인 요청.`});
+ return 'https://hicce.co.kr/b2c/want?'+new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc.gu||'',dong:loc.dong||'',area:String(marketArea),rent:marketOperating.budget||'',...brokerParams(),note:`희망 행정동 ${r.adstrd}. 면적 ${marketArea}평은 비교 조건이며 최종 확인 필요. 실제 월세·관리비·권리금, 해당 업종 영업 가능 용도·시설 확인 요청.`});
+}
+function candidateFit(row){
+ const c=row.customer_match;
+ return c&&!c.parent_reference&&c.status==='available'&&Number.isFinite(c.index)&&c.index>0?c.index:null;
+}
+function orderCandidates(rows,details){
+ return [...rows].sort((a,b)=>{const x=candidateFit(a),y=candidateFit(b);return Number(y!=null)-Number(x!=null)||(x!=null&&y!=null?y-x:0)||((details.get(a.adstrd_cd)?.monthly??Infinity)-(details.get(b.adstrd_cd)?.monthly??Infinity))||a.adstrd.localeCompare(b.adstrd,'ko');});
+}
+function candidateFitCard(r){
+ const c=r.customer_match||{},n=candidateFit(r),ages=c.ages||[];
+ const title=n==null?(c.parent_reference?'세부 업종 적합도는 아직 확인 필요':'고객층 구성부터 비교해 보세요'):n>=1.1?'업종 고객층과 동네 소비층이 잘 맞는 편':n<=0.9?'업종 고객층과 동네 소비층의 맞음 정도가 낮은 편':'업종 고객층과 동네 소비층이 서울 기준과 비슷해요';
+ const basis=c.parent_reference?marketEsc(c.basis_industry)+' 전체 참고 · 선택한 세부 업종 전용 자료 없음':marketEsc(c.basis_industry||industryData.industry)+' 기준';
+ const share=key=>ages.length&&ages.every(a=>Number.isFinite(a[key]))?marketValue(Math.round(ages.reduce((v,a)=>v+a[key],0)*10)/10,'%'):'자료 없음';
+ const near=(r.context?.neighbors||[]).filter(a=>Number.isFinite(a.stores)&&a.stores>0).slice(0,2).map(a=>marketEsc(a.industry)+' '+marketValue(a.stores,'곳')).join(' · ');
+ return `<div class="market-answer"><span>내 업종과 이 동네</span><b>${title}</b>${n!=null?`<small>고객층 구성 지수 <strong>${n.toFixed(2)}</strong> · 서울 기준 1.00 · ${marketPeriod(c.fit_quarter)}</small>`:''}<small>${basis}</small>${ages.length?`<p>주요 고객 연령 ${ages.map(a=>marketEsc(a.label.replace('60대+','60대 이상'))).join('·')}<br><small>이 연령대가 동네에서 차지하는 비중<br>거주 ${share('resident_pct')} · 직장 ${share('work_pct')} · 유동 ${share('foot_pct')}</small></p>`:'<small>업종 고객층 자료 미확보</small>'}${near?`<small>함께 모이는 업종: ${near}<br>행정동 전체 수 · 특정 매물 옆 가게 수는 아니에요.</small>`:''}<details class="src"><summary>비교 근거</summary>${n!=null?'같은 업종을 제외한 동네 소비자의 연령·성별 매출 구성과 서울 업종 고객층을 비교한 지수예요.':'검증된 선택 업종 지수가 없어 순위를 만들지 않고 구성 자료만 보여줘요.'} 성공 확률·예상 매출이 아니에요. 주요 고객 연령은 서울 업종 매출 비중 상위 2개이며, 동네 인구 비중과 다른 자료예요. 업종 자료: ${(c.profile_quarters||[]).map(marketPeriod).join(', ')||'미확보'}. 거주 ${marketEsc(r.population?.resident?.month||'미확보')}, 직장 ${marketPeriod(r.population?.work?.quarter)}, 유동 ${marketPeriod(r.population?.foot?.quarter)}.</details></div>`;
 }
 function renderQuickCandidates(rows,budget){
  const price=r=>budget.details.get(r.adstrd_cd)?.monthly;
- const ordered=[...rows].sort((a,b)=>(price(a)??Infinity)-(price(b)??Infinity)||a.adstrd.localeCompare(b.adstrd,'ko'));
- const card=(r,unknown=false)=>{const n=price(r);return `<article><h3>${marketEsc(r.adstrd)}</h3><div class="market-answer"><span>${unknown?'살펴볼 이유':'후보로 나온 이유'}</span><b>${unknown?'선택한 지역의 후보':n!=null?'월세 '+marketValue(n,'만원')+' · 예산 이내':'선택한 지역의 후보'}</b><small>${marketEsc(industryData.query||industryData.industry)}로 검색한 지역이에요.${n!=null?` ${marketArea}평·${marketEsc(marketType)} 기준 ${budget.details.get(r.adstrd_cd)?.quoted?'직접 입력한 월세':'조사 월세'}예요. ${budget.details.get(r.adstrd_cd)?.quoted?'':marketEsc(budget.details.get(r.adstrd_cd)?.region||'')+' '+marketEsc(budget.details.get(r.adstrd_cd)?.scope||'')+' 평균 · '+marketEsc(budget.details.get(r.adstrd_cd)?.quarter||'기준일 미확인')}`:''}</small></div><div class="market-answer"><span>걸리는 점</span><p>${unknown?'월세 자료가 없어 예산에 맞는지 아직 몰라요.':n!=null?'실제 매물 월세·층·면적에 따라 예산을 넘을 수 있어요.':'월세 예산을 넣으면 감당할 범위로 좁힐 수 있어요.'}</p><small>보증금·관리비·권리금 별도.${industryData.subclass||industryData.specialty?' 동네별 세부 업종 매출은 미확보예요.':''} 고객층·수익성은 아직 판단하지 않았어요.</small></div><button type="button" class="market-pick" data-code="${marketEsc(r.adstrd_cd)}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?'비교에서 빼기':'더 비교해 보기'}</button><a class="market-request" href="${marketEsc(candidateRequest(r))}">중개사에게 공간 요청하기</a><small>다음 화면에서 조건을 확인하고 요청해요.</small></article>`;};
+ const ordered=orderCandidates(rows,budget.details),unknownRows=orderCandidates(budget.unconfirmed||[],budget.details);
+ const ranked=ordered.filter(r=>candidateFit(r)!=null).length;
+ const card=(r,unknown=false)=>{const n=price(r);return `<article><h3>${marketEsc(r.adstrd)}</h3>${candidateFitCard(r)}<div class="market-answer"><span>월세와 예산</span><b>${unknown?'월세 확인 필요':n!=null?'월세 '+marketValue(n,'만원')+' · 예산 이내':'예산을 넣으면 후보를 좁힐 수 있어요'}</b><small>${n!=null?`${marketArea}평·${marketEsc(marketType)} 기준. ${budget.details.get(r.adstrd_cd)?.quoted?'직접 입력한 월세':marketEsc(budget.details.get(r.adstrd_cd)?.region||'')+' '+marketEsc(budget.details.get(r.adstrd_cd)?.scope||'')+' 조사 평균 · '+marketEsc(budget.details.get(r.adstrd_cd)?.quarter||'기준일 미확인')}`:''}</small></div><div class="market-answer"><span>걸리는 점</span><p>${unknown?'월세 자료가 없어 예산에 맞는지 아직 몰라요.':'실제 매물 월세·층·면적에 따라 예산을 넘을 수 있어요.'}</p><small>${marketEsc(industryData.industry)} ${marketValue(r.stores,'곳')}${industryData.subclass||industryData.specialty?' · 상위 업종 점포 수':''} · 경쟁은 현장 확인 필요.<br>보증금·관리비·권리금 별도. ${industryData.subclass||industryData.specialty?'세부 업종 매출은 미확보예요.':'내 가게 수익은 비용을 넣어 따로 확인하세요.'}</small></div><button type="button" class="market-pick" data-code="${marketEsc(r.adstrd_cd)}" aria-pressed="${compareCodes.has(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?'비교에서 빼기':'더 비교해 보기'}</button><a class="market-request" href="${marketEsc(candidateRequest(r))}">중개사에게 공간 요청하기</a><small>보증금·주차·엘리베이터·입주 시점은 다음 화면에서도 정할 수 있어요.</small></article>`;};
  $('out').className='';
- $('out').innerHTML=`<h2 style="font-size:20px">먼저 살펴볼 후보 ${ordered.length}곳</h2><p class="src">${budget.active?'예산 안의 조사·입력 월세가 낮은 순':'지역 이름순'}이에요. 성공·수익 추천 순위는 아니에요. ${marketArea}평·${marketEsc(marketType)} 기준이며 비교에 담으면 크기를 바꿀 수 있어요.${budget.active?' 예산 초과 '+budget.over+'곳 제외.':''}</p><div class="market-cards">${ordered.slice(0,industryLimit).map(r=>card(r)).join('')}</div>${!ordered.length?'<p class="empty">확인된 예산 내 후보가 없어요. 예산·지역을 바꾸거나 아래 월세 미확인 후보를 살펴보세요.</p>':''}`+(budget.unconfirmed?.length?`<details class="market-startup" id="unconfirmedRent"><summary>월세 확인이 필요한 후보 ${budget.unconfirmed.length}곳</summary><p class="src">예산 적합 여부는 아직 몰라요. 중개사에게 확인하거나 비교에 담아 알아본 월세를 입력하세요.</p><div class="market-cards">${budget.unconfirmed.slice(0,industryLimit).map(r=>card(r,true)).join('')}</div></details>`:'');
- $('marketMore').hidden=Math.max(ordered.length,budget.unconfirmed?.length||0)<=industryLimit;$('src').textContent='';
+ $('out').innerHTML=`<h2 style="font-size:20px">먼저 살펴볼 후보 ${ordered.length}곳</h2><p class="src">${budget.active?'월세 예산 안에서 ':''}${ranked?'선택 업종 고객층 구성 지수가 높은 순이에요. 같은 지수면 월세가 낮은 순, 지수 없는 후보는 뒤에 보여줘요.':'검증된 선택 업종 지수가 없어 적합도 순위는 만들지 않았어요. 월세 확인값이 낮은 순으로 구성 자료를 비교해 주세요.'} ${marketArea}평·${marketEsc(marketType)} 기준이며 실제 매물·성공 순위가 아니에요.${budget.active?' 예산 초과 '+budget.over+'곳 제외.':''}</p><div class="market-cards">${ordered.slice(0,industryLimit).map(r=>card(r)).join('')}</div>${!ordered.length?'<p class="empty">확인된 예산 내 후보가 없어요. 예산·지역·비교 면적을 바꾸거나 월세 미확인 후보를 살펴보세요.</p>':''}`+(unknownRows.length?`<details class="market-startup" id="unconfirmedRent"><summary>월세 확인이 필요한 후보 ${unknownRows.length}곳</summary><p class="src">고객층 근거가 있는 후보부터 보여줘요. 예산 적합 여부는 중개사에게 확인해 주세요.</p><div class="market-cards">${unknownRows.slice(0,industryLimit).map(r=>card(r,true)).join('')}</div></details>`:'');
+ $('marketMore').hidden=Math.max(ordered.length,unknownRows.length)<=industryLimit;$('src').textContent='';
 }
 let quickSearchSeq=0;
 async function quickCandidateSearch(){
  const request=++quickSearchSeq;
- const value=$('quickBudget').value.trim(),region=$('industryGu').value;
+ const value=$('quickBudget').value.trim(),region=$('industryGu').value,broker={...marketBroker};
  if(value!==''&&(!Number.isFinite(Number(value))||Number(value)<=0)){$('out').textContent='월세 예산은 0보다 큰 숫자로 입력해 주세요.';return;}
  await run();if(request!==quickSearchSeq||!industryData)return;
- marketOperating.budget=value;$('quickBudget').value=value;if(region&&!Array.from($('industryGu').options).some(o=>o.value===region))$('industryGu').add(new Option(region,region));$('industryGu').value=region;$('isort').value='budget';industryLimit=6;
+ Object.assign(marketBroker,broker);syncBrokerForm();marketOperating.budget=value;$('quickBudget').value=value;if(region&&!Array.from($('industryGu').options).some(o=>o.value===region))$('industryGu').add(new Option(region,region));$('industryGu').value=region;$('isort').value='budget';industryLimit=6;
  renderMarketCompare();renderIndustryResults();saveMarketState();$('out').scrollIntoView({block:'start',behavior:'smooth'});
 }
 function renderIndustryResults(){
@@ -2414,7 +2439,7 @@ function cleanMarketProfile(raw,rows){
   const decimal=(v,max)=>typeof v==='string'&&/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(v)&&Number(v)<=max?v:'';
   const time=(v,end)=>typeof v==='string'&&v!==''&&Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=(end?24:23.5)&&Number(v)*2%1===0?v:'';
   const op=x.operating||{},start=x.startup||{};
-  return {area:numeric(x.area,1,1000)?x.area:20,type:['소규모','집합','중대형'].includes(x.type)?x.type:'소규모',
+  return {broker:cleanBroker(x.broker),area:numeric(x.area,1,1000)?x.area:20,type:['소규모','집합','중대형'].includes(x.type)?x.type:'소규모',
     region:typeof x.region==='string'?x.region:'',sort:['budget','sales','cash70','operating','net','net_asc','close','close_asc','pop'].includes(x.sort)?x.sort:'budget',
     codes:[...new Set(Array.isArray(x.codes)?x.codes:[])].filter(c=>valid.has(c)).slice(0,3),
     quotes:(Array.isArray(x.quotes)?x.quotes:[]).filter(v=>Array.isArray(v)&&valid.has(v[0])&&numeric(v[1],0,1000000)),
@@ -2432,7 +2457,7 @@ function restoreMarketSaved(d){
   compareCodes=new Set(saved.codes);marketArea=saved.area;marketType=saved.type;
   marketQuotedRent.clear();saved.quotes.forEach(([k,v])=>marketQuotedRent.set(k,v));
   marketLocations.clear();saved.locations.forEach(([k,v])=>marketLocations.set(k,v));
-  Object.assign(marketOperating,saved.operating);Object.assign(marketStartup,saved.startup);$('isort').value=saved.sort;
+  Object.assign(marketBroker,saved.broker);syncBrokerForm();Object.assign(marketOperating,saved.operating);Object.assign(marketStartup,saved.startup);$('isort').value=saved.sort;
   return saved.region;
 }
 function refreshSavedMarkets(){
@@ -2445,7 +2470,7 @@ function refreshSavedMarkets(){
 }
 function saveMarketState(){
   if(!industryData||!compareIndustry)return;
-  const d=readMarketSaved(),profile={industry:compareIndustry,updated:Date.now(),area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating,ages:[...marketOperating.ages]},startup:{...marketStartup}};
+  const d=readMarketSaved(),profile={industry:compareIndustry,updated:Date.now(),area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating,ages:[...marketOperating.ages]},startup:{...marketStartup},broker:{...marketBroker}};
   try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify({...d,version:1,last:compareIndustry,profiles:[profile,...d.profiles.filter(p=>p&&p.industry!==compareIndustry)]}));$('marketSaveStatus').textContent='현재 작업 자동 저장됨 · 이름 붙인 조건은 별도로 보관해요. 같은 브라우저에서 다시 볼 수 있어요.';refreshSavedMarkets();}
   catch(_){$('marketSaveStatus').textContent='브라우저 저장을 사용할 수 없어 이번 조건을 보관하지 못했어요.';}
 }
@@ -2460,7 +2485,7 @@ function makeMarketScenario(workspace,profile,name,id,update=false){
 function saveNamedScenario(update){
   if(!industryData)return;
   saveMarketState();const workspace=readMarketSaved();
-  const profile={industry:compareIndustry,area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating},startup:{...marketStartup}};
+  const profile={industry:compareIndustry,area:marketArea,type:marketType,region:$('industryGu').value,sort:$('isort').value,codes:[...compareCodes],quotes:[...marketQuotedRent],locations:[...marketLocations],operating:{...marketOperating},startup:{...marketStartup},broker:{...marketBroker}};
   const result=makeMarketScenario(workspace,profile,$('scenarioName').value,update?activeScenario:crypto.randomUUID(),update);
   if(result.error){$('marketSaveStatus').textContent=result.error;return;}
   try{localStorage.setItem(MARKET_SAVE_KEY,JSON.stringify(result.data));activeScenario=result.snapshot.id;refreshSavedMarkets();$('marketSaveStatus').textContent=result.snapshot.name+' · '+(update?'업데이트했어요.':'새 조건으로 저장했어요.');}catch(_){$('marketSaveStatus').textContent='저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.';}
@@ -2750,6 +2775,7 @@ function mountBusinessCompare(){
   $('dongBackground').open=MODE!=='shop';
   if(industryData&&!$('dongIndustry').value){$('dongIndustry').value=industryData.query||industryData.industry;$('dongIndustry').dispatchEvent(new Event('hicceindustry'));}
   const host=dongView?$('dongCompareHost'):$('industryCompareHost');
+  (dongView?host:$('out')).before($('brokerConditions'));
   host.append($('marketSavedControls'),$('marketCompare'));
   if(industryData)renderMarketCompare();
   $('dongBusinessStatus').textContent=$('gu').value&&$('dg').value?`${$('gu').value} ${$('dg').value} 선택 · 매출·인구는 연결된 행정동 기준이며 실제 매물 조건은 별도로 확인해요.`:'자치구와 동네를 먼저 골라 주세요.';
@@ -2838,7 +2864,7 @@ function marketUpdateNumbers(){
     updateStartupAnswer(card,calc.monthly);
     const checks=[quoted==null?'실제 매물 월세·관리비·보증금 확인':'입력한 월세의 면적·층·관리비 포함 여부 확인',marketStartup.setup===''?'권리금·공사·설비 견적 확인':'입력한 준비비에 빠진 공사·설비 비용 확인','선택한 영업시간에 목표 고객이 다니는지 현장 확인','업종 영업 가능 여부·전력·급배수·환기·주차 확인'];
     const requestNote=`희망 행정동 ${r.adstrd}. 영업 ${marketOperating.start||'미정'}~${marketOperating.end||'미정'}시, 고객 ${marketOperating.ages.join('·')||'미정'}. 유형 ${marketType}. 확인 요청: 실제 월세·관리비·권리금, 영업 가능 용도·시설.`;
-    const q=new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc?.gu||'',dong:loc?.dong||'',area:String(marketArea),rent:marketOperating.budget||'',deposit:marketStartup.deposit||'',note:requestNote});
+    const q=new URLSearchParams({deal:'월세',product:'상가',biz:industryData.query||industryData.industry,gu:loc?.gu||'',dong:loc?.dong||'',area:String(marketArea),rent:marketOperating.budget||'',...brokerParams(),note:requestNote});
     card.querySelector('.market-next-answer').innerHTML=`<span>더 확인할 것</span><small>${checks.map(marketEsc).join('<br>')}</small><a class="market-request" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">이 조건으로 중개사에게 매물 요청하기</a><small>다음 화면에서 조건을 확인하고 요청해요. 받은 실제 임대조건으로 다시 비교할 수 있어요.</small>`;
     updateOperatingAnswer(card,r);
   }
@@ -2888,6 +2914,9 @@ $('q').addEventListener('input',()=>{
   $('out').innerHTML='<div class="empty">업종을 고르고 후보 보기를 눌러 주세요.</div>'; $('src').textContent=''; $('marketMore').hidden=true;
 });
 $('industryCompareHost').before($('out'),$('marketMore'));
+document.addEventListener('click',e=>{if(e.target.closest('.market-request')&&!$('broker_deposit').checkValidity()){e.preventDefault();$('brokerConditions').open=true;$('broker_deposit').reportValidity();}});
+function updateBroker(e){const key=e.target.dataset.broker;if(!key)return;const raw=e.target.type==='checkbox'?e.target.checked:e.target.value.trim();const clean=cleanBroker({...marketBroker,[key]:raw});if(key==='deposit'&&raw!==''&&clean.deposit===''){e.target.setCustomValidity('보증금은 0~100,000,000만원 사이 숫자로 입력해 주세요.');$('brokerStatus').textContent=e.target.validationMessage;return;}e.target.setCustomValidity('');Object.assign(marketBroker,clean);$('brokerStatus').textContent='요청 화면에 함께 전달돼요.';if(industryData){renderIndustryResults();marketUpdateNumbers();saveMarketState();}}
+$('brokerConditions').addEventListener('input',updateBroker);$('brokerConditions').addEventListener('change',updateBroker);
  document.querySelector('.quick-controls').after($('go'));
  $('go').style.margin='14px 0';
 GUS_READY.then(()=>{if(!industryData){$('industryGu').replaceChildren(new Option('서울 전체',''),...Array.from($('gu').options).filter(o=>o.value).map(o=>new Option(o.textContent,o.value)));}});
