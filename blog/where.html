@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 9d7485ef6b962cc4 -->
+<!-- baked-from-b2c-where: 406ff33996be3a05 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -974,6 +974,15 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
  #out2 .slsg .so .dl::before{content:'분기 폐업률 ';}
  #out2 .slsg .pv::before{content:'가게당 월매출 ';color:var(--soft);font:400 13px var(--ff)}
 }
+
+#headAns .qa-calc{margin:14px 0;grid-template-columns:minmax(0,1fr) auto;padding:14px;gap:12px;background:var(--paper)}
+#headAns .qa-calc>span{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:14px;line-height:1.6}
+#headAns .qa-calc .numin{box-sizing:border-box;width:76px;min-height:44px;font-size:18px;padding:8px;text-align:center}
+#headAns .qa-calc>b{font-size:16px;line-height:1.5;word-break:keep-all}
+#headAns .qa-calc>.qa-why{grid-column:1/-1;grid-row:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;border-radius:8px;padding:10px 12px;font-size:14px;text-align:left}
+#headAns .qa-calc .qa-det{border-top:1px solid var(--rule);padding-top:12px}
+#headAns .qa-calc .ansnote,#headAns .qa-calc .src{font-size:13px;line-height:1.7}
+@media(max-width:600px){#headAns .qa-calc{grid-template-columns:minmax(0,1fr);padding:12px}#headAns .qa-calc>b{grid-column:1}#headAns .qa-calc .sz2{grid-template-columns:minmax(0,1fr);gap:16px}}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -1893,8 +1902,8 @@ function shopHead(){
   const SZ=[[0,10,'~10평'],[10,15,'10~15평'],[15,20,'15~20평'],[20,30,'20~30평'],[30,50,'30~50평'],[50,80,'50평~']];
   const rowsz=SZ.map(x=>{const mid=(x[0]+x[1])/2; return {lab:x[2], man:Math.round(mid*P2M*per)};});
   const fits=rowsz.filter(r=>r.man<=_BUD).length;
-  h+=`<div class="qa-calc${_CALC_OPEN?' open':''}"><span>예산이 월 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만이면</span>
-      <b>${pyv.toFixed(1)}평 · ${C.reb_type} 상가</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">자세히<b>▾</b></button>
+  h+=`<div class="qa-calc${_CALC_OPEN?' open':''}"><span>예산이 월 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만원</span>
+      <b>약 ${pyv.toFixed(1)}평 · ${C.reb_type} 상가</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">월세 계산 기준·면적별 금액<b>▾</b></button>
     <div class="qa-det">
       <p class="ansnote" style="margin-top:8px">${C.sangkwon} 상권 <b>${C.reb_type} 상가</b> 1㎡ 월세 <b>${per.toFixed(1)}만</b> 기준이에요. 상가는 건물마다 실거래가 없어서 <b>상권 평균 조사값</b>으로 계산했어요.${C.vacancy_pct!=null?` 빈 가게 비율은 <b>${C.vacancy_pct}%</b>예요.`:''}</p>
       <div class="ansq warn" style="margin-top:12px"><i></i><span>거꾸로, <input class="numin" id="spyIn" inputmode="decimal" value="${_SPY}"> 평(${Math.round(_SPY*P2M)}㎡)을 하려면</span></div>
@@ -2913,7 +2922,9 @@ function parkDongTools(){
 function placeDongTools(){
   if(MODE!=='shop'||$('p-dong').hidden)return;
   const pick=document.querySelector('#headAns .indpick'),head=$('headAns');
-  if(pick&&$('dongIndustryTools'))pick.after($('dongIndustryTools'));
+  const rentCalc=head&&head.querySelector('.qa-calc');
+  if(pick&&rentCalc)pick.after(rentCalc);
+  if(pick&&$('dongIndustryTools'))(rentCalc||pick).after($('dongIndustryTools'));
   const standing=$('dongStanding'),watch=head&&head.querySelector('.dong-watch');
   if(standing&&watch)watch.after(standing);
   const check=head&&(head.querySelector('.dong-neighborhood-peek')||head.querySelector('.qa-check'));
