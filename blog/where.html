@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: e6dc525e727ea954 -->
+<!-- baked-from-b2c-where: 6cfb5f765a6a1ecd -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2977,6 +2977,60 @@ if($('isort')) $('isort').addEventListener('change',()=>{industryLimit=30;if(ind
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show);
   else show();
+})();
+
+</script>
+
+<script>
+(()=>{
+const host=document.getElementById('p-ind'),base=renderIndustryResults;
+const state={step:0,region:'',budget:'',area:20,start:'',end:'',ages:[],limit:3};
+let lastData=null;
+function syncConditions(){state.region=$('industryGu').value;state.budget=marketOperating.budget;state.area=marketArea;state.start=String(marketOperating.start);state.end=String(marketOperating.end);state.ages=[...marketOperating.ages];}
+const labels=['어느 지역에서 찾을까요?','월세는 얼마까지 생각하세요?','주로 몇 시에 영업할까요?','어떤 연령대의 손님을 생각하세요?','이 조건에서 얼마나 남을까요?'];
+const box=document.createElement('section');box.id='guidedFlow';host.querySelector('.bar').after(box);
+const style=document.createElement('style');style.textContent=`#p-ind.guided>:not(.bar):not(#guidedFlow):not(.industry-matches){display:none!important}#p-ind.guided .bar{margin-bottom:20px}#guidedFlow{font-size:15px;line-height:1.6}#guidedFlow .question{border:1px solid var(--rule);border-radius:14px;padding:18px;margin:18px 0;background:var(--field)}#guidedFlow h2{font-size:20px;margin:4px 0 14px}#guidedFlow h3{font-size:20px;margin:0}#guidedFlow .answers{display:flex;flex-wrap:wrap;gap:7px}#guidedFlow button{min-height:44px;white-space:normal}#guidedFlow input,#guidedFlow select{min-width:0;width:100%;box-sizing:border-box;font-size:16px;padding:10px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink)}#guidedFlow .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}#guidedFlow label{display:block;font-size:13px}#guidedFlow .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}#guidedFlow article{padding:18px;border:1px solid var(--rule);border-radius:14px;background:var(--field);margin:12px 0}#guidedFlow .money{font-size:18px;font-weight:700;margin:8px 0}#guidedFlow p{font-size:14px;margin:8px 0}#guidedFlow small{display:block;font-size:12px;color:var(--soft)}#guidedFlow summary{padding:10px 0;min-height:44px;color:var(--seal)}#guidedFlow .reason{color:#356149}#guidedFlow .warn{color:#946a20}#guidedFlow .ages{display:flex;flex-wrap:wrap;gap:10px}#guidedFlow .ages label{display:flex;gap:5px;align-items:center;min-height:44px}#guidedFlow input[type=checkbox]{width:18px;height:18px}#guidedFlow .preview-tag{font-size:12px;color:var(--soft)}#guidedFlow #flowError{color:#a33333}#guidedFlow .question button{margin-top:8px}#p-ind.guided.show-deep #industryCompareHost{display:block!important}`;document.head.append(style);host.classList.add('guided');
+function options(){return '<option value="">서울 전체</option>'+[...new Set((industryData?.rows||[]).flatMap(r=>(r.locations||[]).map(l=>l.gu)))].sort().map(g=>`<option ${state.region===g?'selected':''}>${marketEsc(g)}</option>`).join('');}
+function question(){let fields='';if(state.step===0)fields=`<label>희망 지역<select id="flowRegion">${options()}</select></label>`;
+if(state.step===1)fields=`<div class="fields"><label>한 달 월세는 최대 · 만원<input id="flowBudget" inputmode="decimal" placeholder="예: 300" value="${state.budget}"></label><label>가게 크기 · 평<input id="flowArea" inputmode="decimal" value="${state.area}"></label></div><small>면적을 바꿔 같은 기준으로 비교해요. 관리비·보증금은 별도예요.</small>`;
+if(state.step===2)fields=`<div class="fields"><label>영업 시작<input id="flowStart" type="time" value="${state.start!==''?operatingTime(state.start):''}"></label><label>영업 종료<input id="flowEnd" type="time" value="${state.end!==''?operatingTime(state.end):''}"></label></div><small>종료가 더 이르면 다음 날까지 영업하는 것으로 봐요.</small>`;
+if(state.step===3)fields=`<div class="ages">${['10대','20대','30대','40대','50대','60대+'].map(a=>`<label><input type="checkbox" value="${a}" ${state.ages.includes(a)?'checked':''}>${a.replace('+',' 이상')}</label>`).join('')}</div><small>여러 개 골라도 돼요. 거주인구·직장인구·유동인구를 나눠 살펴봐요.</small>`;
+if(state.step===4)fields='<p>후보를 비교에 담고, 내 비용을 넣어 매달 남는 돈·창업에 필요한 돈·적자를 버틸 기간을 확인해 보세요.</p><small>동네 가게들의 평균만큼 판다고 가정한 계산이에요. 내 가게가 실제로 그만큼 번다는 뜻은 아니에요.</small><button data-deep>비용·매출 질문 이어가기</button>';
+return `<div class="question"><small>${state.step+1} / 5 · 모르는 조건은 건너뛰어도 돼요</small><h2>${labels[state.step]}</h2>${fields}<p id="flowError" role="alert"></p>${state.step<4?'<div class="actions"><button data-next>적용하고 다음 질문 →</button><button data-skip>아직 모르겠어요</button></div>':''}</div>`;}
+function fit(r){
+ const c=r.customer_match;
+ return c&&!c.parent_reference&&c.status==='available'&&Number.isFinite(c.index)&&c.index>0?c.index:null;
+}
+function orderGuidedCandidates(rows){
+ return [...rows].sort((a,b)=>{const x=fit(a),y=fit(b);return Number(y!==null)-Number(x!==null)||(y??0)-(x??0)||a.adstrd.localeCompare(b.adstrd,'ko');});
+}
+function render(){if(!industryData){box.innerHTML='<p>업종을 검색하면 후보를 보면서 조건을 하나씩 맞춰갈 수 있어요.</p>';return;}
+if(lastData!==industryData){syncConditions();lastData=industryData;}
+const rows=industryData.rows.filter(r=>!state.region||(r.locations||[]).some(l=>l.gu===state.region));
+const budget=budgetFilter(rows,state.budget||'1000000',state.area,marketType,marketRentCache,marketLocations,marketQuotedRent);
+const settings={start:state.start,end:state.end,ages:state.ages,budget:state.budget};
+let known=state.budget?budget.rows:rows;const ranked=rankOperatingRows(known,settings);
+let orderNote='내 업종 고객층과 동네 소비층이 비슷한 곳부터 보여줘요. 비교할 자료가 없는 동네도 남겨 두었어요.';
+if(!ranked.error){known=ranked.rows;orderNote='영업할 시간에 사람들이 얼마나 오가는지, 그 동네에 원하는 연령대가 얼마나 있는지를 함께 비교해요.';}else if(state.start!==''||state.ages.length){const value=r=>{const n=operatingNumbers(r.population||{},settings);return state.start!==''?n.hours?.pct:n.footPct;};known=[...known].sort((a,b)=>(value(b)??-1)-(value(a)??-1));orderNote=state.start!==''?'하루 중 내가 영업할 시간에 사람들의 이동이 더 집중되는 동네부터 보여줘요. 확인할 자료가 없는 곳은 뒤에 있어요.':'유동인구 중 내가 고른 연령대의 비율이 높은 동네부터 보여줘요. 확인할 자료가 없는 곳은 뒤에 있어요.';}else known=orderGuidedCandidates(known);
+function card(r,unknown=false){const c=r.customer_match||{},n=operatingNumbers(r.population||{},settings),rent=budget.details.get(r.adstrd_cd),ageLabels=c.ages||[];
+let reasons=[];if(state.region)reasons.push('선택한 '+marketEsc(state.region)+' 안의 동네예요.');
+if(state.start!==''&&state.end!=='')reasons.push(n.hours?.pct!=null?`${operatingTime(state.start)}~${Number(state.end)<Number(state.start)?'다음 날 ':''}${operatingTime(state.end)}에 하루 동안의 유동인구 이동 중 <b>${n.hours.pct}%</b>가 잡혀요.${n.hours.partial?' (일부 시간은 나눠 계산한 값이에요)':''}`:'이 시간에 사람들이 얼마나 오가는지는 자료가 없어 확인이 필요해요.');
+if(state.ages.length)reasons.push(`내가 고른 연령대가 차지하는 비율<br>거주인구 ${n.residentPct==null?'자료 없음':n.residentPct+'%'} · 직장인구 ${n.workPct==null?'자료 없음':n.workPct+'%'} · 유동인구 ${n.footPct==null?'자료 없음':n.footPct+'%'}`);
+else if(ageLabels.length){const a=ageLabels.map(a=>marketEsc(a.label.replace('+',' 이상'))).join('·');const share=k=>ageLabels.every(a=>Number.isFinite(a[k]))?Math.round(ageLabels.reduce((s,a)=>s+a[k],0)*10)/10+'%':'미확인';reasons.push(`${c.parent_reference?marketEsc(c.basis_industry||industryData.industry)+' 전체':'이 업종'}에서 매출 비중이 큰 연령대: ${a}<br>이 연령대: 거주인구 ${share('resident_pct')} · 직장인구 ${share('work_pct')} · 유동인구 ${share('foot_pct')}`);}
+if(!reasons.length)reasons.push('업종 고객층 자료가 부족해 추가 확인이 필요해요.');
+const caution=unknown?'월세를 확인해야 예산 안에 드는지 알 수 있어요.':c.parent_reference?'선택한 세부 업종만의 매출은 없어요. 더 넓은 업종 전체의 자료이므로 내 가게와 다를 수 있어요.':rent&&state.budget&&Number(state.budget)-rent.monthly<30?'예산 여유가 30만원 미만이에요. 관리비를 더하면 초과할 수 있어요.':'평균 월세와 실제 자리 가격은 달라요. 관리비·주변 경쟁을 확인하세요.';
+return `<article><h3>${marketEsc(r.adstrd)}</h3><div class="money">${rent?'월세 약 '+marketValue(rent.monthly,'만원'):'월세 확인 필요'}</div><small>${state.area}평 · ${marketEsc(marketType)} · ${rent?.quoted?'직접 입력':marketEsc(rent?.region||'')+' 주변 지역 조사 평균 · 실제 매물 가격 아님'}</small><p class="reason">${reasons.join('<br>')}</p><p class="warn">${caution}</p><details><summary>왜 이렇게 봤나요?</summary><p>${fit(r)!==null?(fit(r)>=1.1?'이 동네 소비자의 연령·성별 구성이 이 업종 고객층과 비슷한 편이에요.':fit(r)<=0.9?'이 동네 소비자의 연령·성별 구성은 이 업종 고객층과 차이가 있는 편이에요.':'이 업종 고객층과 동네 소비층의 닮은 정도는 서울의 보통 수준이에요.'):'이 업종의 고객과 동네 소비층을 비교할 자료가 부족해요. 잘 맞는 동네라고 판단하기는 아직 어려워요.'} 이 사람들이 내 가게에 방문하거나 매출로 이어진다는 뜻은 아니에요.</p><details><summary>계산 방식과 숫자 확인</summary><p>${fit(r)!==null?'고객층 구성 지수 '+fit(r).toFixed(2)+' · 서울 기준 1.00. 서울의 업종 고객층과 해당 업종을 제외한 동네 소비자의 연령·성별 매출 구성을 비교한 값이에요. 고객이 그 배수만큼 많다는 뜻은 아니에요.':'고객층 구성 지수는 자료가 없어 계산하지 않았어요.'}</p><p>${!ranked.error?'영업시간에 해당하는 이동 비율과 선택 연령대의 이동 비율을 각각 동네끼리 비교한 뒤, 두 순위를 절반씩 반영해요. 해당 시간에 그 연령대가 몇 명 오는지를 계산한 값은 아니에요.':state.start!==''?'하루 전체 이동량 중 선택한 영업시간에 해당하는 비율을 비교해요. 시간 구간의 일부만 겹치면 겹친 시간만큼 나누어 계산해요.':state.ages.length?'전체 유동인구 중 선택한 연령대가 차지하는 비율로 비교해요.':'고객층 구성이 더 비슷한 곳을 먼저 보여주고, 자료가 없는 곳은 뒤에 둬요.'}</p></details><small>매출 자료 시점 ${marketPeriod(industryData.quarter)} · 월세 ${marketEsc(rent?.quarter||'미확인')} · 인구 자료별 시점은 상세 비교에서 확인해요.</small></details><button data-pick="${marketEsc(r.adstrd_cd)}">${compareCodes.has(r.adstrd_cd)?'비교에서 빼기':'비교에 담기'}</button></article>`;}
+box.innerHTML='<div class="preview-tag">답변을 바꾸면 후보와 비교 근거도 달라져요.</div><div class="answers">'+['지역: '+(state.region||'미정'),'월세: '+(state.budget?state.budget+'만원':'미정'),'영업시간: '+(state.start!==''?operatingTime(state.start)+'~'+operatingTime(state.end):'미정'),'고객: '+(state.ages.join('·')||'미정')].map((t,i)=>`<button data-edit="${i}">${t}</button>`).join('')+'</div>'+question()+`<h2>지금 조건에서 볼 동네 ${known.length}곳</h2><small>${state.budget?'예산 초과 '+budget.over+'곳 제외 · 월세 미확인 '+budget.missing+'곳은 아래에 별도 표시. ':''}${orderNote}</small>`+known.slice(0,state.limit).map(r=>card(r,!budget.details.has(r.adstrd_cd))).join('')+(known.length?'':'<p>확인된 예산 내 후보가 없어요. 조건을 바꾸거나 월세 미확인 후보를 확인하세요.</p>')+(state.budget&&budget.unconfirmed.length?`<details><summary>월세 확인이 필요한 동네 ${budget.unconfirmed.length}곳</summary>${budget.unconfirmed.slice(0,state.limit).map(r=>card(r,true)).join('')}</details>`:'')+`<div class="actions">${Math.max(known.length,state.budget?budget.unconfirmed.length:0)>state.limit?'<button data-more>동네 더 보기</button>':''}<button data-deep>담은 ${compareCodes.size}곳 비교·비용 확인</button></div>`;
+}
+renderIndustryResults=function(){if(!host.hidden){syncConditions();render();}else base();};
+const originalRun=run;run=async function(...args){box.innerHTML='<p role="status">업종 자료를 불러오는 중이에요…</p>';await originalRun(...args);if(!industryData)box.innerHTML=$('out').innerHTML;};
+const originalTab=tab;tab=function(which){originalTab(which);if(which==='ind'){syncConditions();render();}};
+box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-edit')){state.step=Number(b.dataset.edit);render();return;}if(b.hasAttribute('data-pick')){let code=b.dataset.pick;if(compareCodes.has(code))compareCodes.delete(code);else if(compareCodes.size<3)compareCodes.add(code);else{$('flowError').textContent='최대 세 곳까지 담을 수 있어요.';return;}saveMarketState();renderMarketCompare();render();return;}if(b.hasAttribute('data-more')){state.limit+=3;render();return;}if(b.hasAttribute('data-deep')){host.classList.add('show-deep');renderMarketCompare();$('marketCompare').scrollIntoView({block:'start',behavior:'smooth'});return;}
+if(b.hasAttribute('data-next')||b.hasAttribute('data-skip')){if(b.hasAttribute('data-next')){if(state.step===0)state.region=$('flowRegion').value;if(state.step===1){const v=$('flowBudget').value.trim(),a=Number($('flowArea').value);if((v&&(!Number.isFinite(Number(v))||Number(v)<=0))||!Number.isFinite(a)||a<1||a>1000){$('flowError').textContent='월세는 0보다 큰 금액, 가게 크기는 1~1,000평으로 입력해 주세요.';return;}state.budget=v;state.area=a;}if(state.step===2){const s=$('flowStart').value,t=$('flowEnd').value;if(!s||!t||s===t){$('flowError').textContent='시작·종료를 다르게 입력하거나 건너뛰어 주세요.';return;}const hour=v=>String(Number(v.split(':')[0])+Number(v.split(':')[1])/60);state.start=hour(s);state.end=hour(t);}if(state.step===3)state.ages=[...box.querySelectorAll('input[type=checkbox]:checked')].map(el=>el.value);}if(b.hasAttribute('data-skip')){if(state.step===0)state.region='';if(state.step===1)state.budget='';if(state.step===2){state.start='';state.end='';}if(state.step===3)state.ages=[];}state.step=Math.min(4,state.step+1);state.limit=3;Object.assign(marketOperating,{start:state.start,end:state.end,ages:state.ages,budget:state.budget});marketArea=state.area;$('industryGu').value=state.region;saveMarketState();renderMarketCompare();render();}});
+$('q').addEventListener('input',()=>{state.step=0;host.classList.remove('show-deep');render();});
+$('marketCompare').addEventListener('change',()=>{syncConditions();render();});
+$('marketCompare').addEventListener('click',e=>{if(e.target.closest('.market-remove'))render();});
+render();
 })();
 
 </script>
