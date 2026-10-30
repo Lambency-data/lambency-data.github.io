@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 9c85df56afc398f1 -->
+<!-- baked-from-b2c-where: 2c42d40658c48ba0 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -870,6 +870,10 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
  .market-note{padding:14px}.market-startup{padding:12px}
 }
 
+
+#dongBackground.dong-data-first{border:0;padding:0;background:transparent;margin-top:16px}
+#dongBackground.dong-data-first>summary{display:none}
+#dongBusiness>.market-startup{margin-top:16px}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -931,7 +935,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   </div>
   <div class="sug" id="sug2" style="display:none"></div>
   <p class="scopenote2">여기선 <b>동네 평균</b>만 나와요. 집이나 건물 하나하나의 값은 <a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a>에서 보세요.</p>
-  <section id="dongBusiness" hidden><p class="lead">이 동네에서 내 가게를 운영할 수 있을까요? 업종을 고르면 고객·월세·창업자금·손익과 확인할 조건을 함께 살펴봐요.</p><div class="bar"><input id="dongIndustry" aria-label="동네에서 창업할 업종" placeholder="업종 검색 · 예: 카페, 돼지고기" maxlength="30"><datalist id="dongIndustries"></datalist><button id="dongBusinessGo" type="button">내 조건으로 확인</button></div><p id="dongBusinessStatus" class="src" role="status"></p><div id="dongCompareHost"></div></section>
+  <section id="dongBusiness" hidden><details class="market-startup"><summary>다른 업종·세부 업종 찾기</summary><div class="bar"><input id="dongIndustry" aria-label="동네에서 창업할 업종" placeholder="업종 검색 · 예: 카페, 돼지고기" maxlength="30"><datalist id="dongIndustries"></datalist><button id="dongBusinessGo" type="button">내 조건으로 확인</button></div><p id="dongBusinessStatus" class="src" role="status"></p></details><details id="dongCompareHost" class="market-startup"><summary>내 조건을 더해 확인하기</summary></details></section>
   <details id="dongBackground" class="market-startup" open><summary>동네 월세·상권 기초자료 자세히 보기</summary><div id="out2" class="empty">동네를 고르는 중…</div></details>
 </section>
 
@@ -1661,12 +1665,12 @@ function indRow(nm){
 }
 function shopHead(){
   const C=(_D&&_D.commercial)||{};
-  const names=(_ALLIND||[]).map(x=>x.industry);
+  const names=[...new Set((_ALLIND||[]).map(x=>x.industry))];
   if(_IND&&!names.includes(_IND)) names.push(_IND);
   names.sort((a,b)=>a.localeCompare(b,'ko'));
   const _grpOf={}; (_ALLIND||[]).forEach(x=>{ if(x.group) _grpOf[x.industry]=x.group; });
   const _byG = Object.keys(_grpOf).length
-    ? SALES_GROUPS.concat(['기타']).map(g=>[g, names.filter(nm=>(_grpOf[nm]||'기타')===g)]).filter(([,a])=>a.length) : null;
+    ? [...new Set(SALES_GROUPS.concat(['기타']))].map(g=>[g, names.filter(nm=>(_grpOf[nm]||'기타')===g)]).filter(([,a])=>a.length) : null;
   const _opt = nm => `<option value="${marketEsc(nm)}"${nm===_IND?' selected':''}>${marketEsc(nm)}${indRow(nm)?'':' (자료 부족)'}</option>`;
   if(!_IND) _IND = names.includes('커피-음료') ? '커피-음료' : (names[0]||'');
   const c=indRow(_IND);
@@ -1838,7 +1842,14 @@ function pairsRow(ind, row, pill){
   if(good.length && bad.length) pills=pill('bad',`${bad[0].with} 옆이면 더 닫음 ${pc(bad[0])}%`);
   return row(5,'옆에 뭐가 있으면 좋나', v, small, pills, pairsLine(ind));
 }
-window.setInd=function(v){ _IND=v; _REQUESTED_IND=v; renderHead(); };
+window.setInd=function(v){
+  _IND=v; _REQUESTED_IND=v; renderHead();
+  if(MODE==='shop'&&!$('p-dong').hidden){
+    $('dongIndustry').value=v;
+    $('dongIndustry').dispatchEvent(new Event('hicceindustry'));
+    runDongBusiness();
+  }
+};
 function pairsLine(ind){
   const P=_PAIRS&&_PAIRS.pairs&&_PAIRS.pairs[ind];
   const M=_CUBE&&_CUBE.industry&&_CUBE.industry[ind]; const SV=ind==='일반의원'?[]:(M&&M.partner_survival)||[];
@@ -2305,7 +2316,9 @@ async function run(ind,more=false){
   if(!d||!d.ok){ industryData=null;renderMarketCompare();$('marketEvidence').replaceChildren(); $('out').innerHTML=`<div class="empty">${marketEsc((d&&d.reason)||'불러오지 못했어요.')}<br>예시 버튼이나 자동완성에서 골라 보세요.</div>`; for(const name of (d&&d.suggestions)||[]){const b=document.createElement('button');b.textContent=name;b.onclick=()=>run(name);$('out').append(b)} return; }
   Object.entries(d.rents||{}).forEach(([key,data])=>marketRentCache.set(key,{data}));
   const shareURL=new URL(location.href);shareURL.searchParams.set('view',$('p-dong').hidden?'ind':'dong');shareURL.searchParams.set('ind',d.query||d.industry);shareURL.searchParams.set('mode','shop');history.replaceState(null,'',shareURL);
-  industryData=d; _REQUESTED_IND=d.industry; if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
+  industryData=d; _REQUESTED_IND=d.industry; _IND=d.industry;
+  if(MODE==='shop'&&!$('p-dong').hidden){$('dongIndustry').value=d.query||d.industry; $('dongIndustry').dispatchEvent(new Event('hicceindustry')); renderHead();}
+  if($('q').value.trim()===q)$('q').value=d.query||d.industry; $('q').dispatchEvent(new Event('hicceindustry')); renderMarketEvidence();
   let region=$('industryGu').value;
   if(compareIndustry!==(d.query||d.industry)||pendingScenario){
     compareIndustry=d.query||d.industry;
@@ -2750,7 +2763,10 @@ function marketPeople(r,row){
 function mountBusinessCompare(){
   const dongView=!$('p-dong').hidden;
   $('dongBusiness').hidden=MODE!=='shop';
-  $('dongBackground').open=MODE!=='shop';
+  $('dongBackground').open=true;
+  $('dongBackground').classList.toggle('dong-data-first',MODE==='shop');
+  if(MODE==='shop')$('dongBusiness').before($('dongBackground'));
+  else $('dongBusiness').after($('dongBackground'));
   if(industryData&&!$('dongIndustry').value){$('dongIndustry').value=industryData.query||industryData.industry;$('dongIndustry').dispatchEvent(new Event('hicceindustry'));}
   const host=dongView?$('dongCompareHost'):$('industryCompareHost');
   host.append($('marketSavedControls'),$('marketCompare'));
