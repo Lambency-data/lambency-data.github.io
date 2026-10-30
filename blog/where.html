@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: a0108aae3832b8da -->
+<!-- baked-from-b2c-where: 8c0fa82450ca32ac -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -2554,10 +2554,12 @@ function updateStartupAnswer(card,rent){
   const seventy=cashAtSeventy(r,industryData,marketStartup,rent);
   const cash=base?`${base.cash<0?'월 부족 ':''}${money(Math.abs(base.cash))}`:rent==null?'월세 확인 필요':'매출·비용 입력 필요';
   const runway=p.available==null?'조달자금·초기비용 입력 필요':p.available<0?'개업 자금 부족':!base?'매출·비용 입력 필요':base.cash<0?`약 ${(Math.floor(base.runway*10)/10).toLocaleString()}개월`:'현재 가정에서는 현금 감소 없음';
-  if(summary)summary.innerHTML=`<span>필요한 창업자금</span><b>${p.total==null?'초기 자금 입력 필요':money(p.total)}</b>${p.shortfall>0?`<small>조달 자금보다 ${money(p.shortfall)} 부족</small>`:''}<span>평균의 70% 매출일 때</span><b>${seventy?`${seventy.cash<0?'월 부족':'월 잔액'} ${money(Math.abs(seventy.cash))}`:'같은 업종 매출·월세·비용 확인 필요'}</b><span>매달 남는 돈${basis.reference?' · 평균 매출 대입':''}</span><b>${cash}</b><span>버틸 기간</span><b>${runway}</b><small>${basisLabel} · 대출 상환 후 · 세금·추가 투자 별도</small>${basis.reference?`<small>참고 매출 월 ${money(basis.average*0.7)}~${money(basis.average*1.2)}<br>동네 평균 ${money(basis.average)}의 70~120%를 가정한 범위예요. 실제 매출 분포·내 가게 예측이 아니에요.</small>`:marketStartup.sales===''?'<small>같은 업종 매출 자료가 없어 직접 매출 가정이 필요해요. 세부 업종에 상위 업종 평균을 대신 쓰지 않아요.</small>':''}`;
-  if(summary&&$('p-ind').classList.contains('guided')&&!$('p-ind').hidden){
-    if(!n||p.total==null||!base){const missing=[rent==null?'실제 월세':null,marketStartup.deposit===''?'계약 보증금':null,marketStartup.setup===''?'공사·설비 등 준비비':null,marketStartup.fixed===''?'월 고정비':null,marketStartup.variable===''?'변동비율':null,marketStartup.capital===''?'조달 가능한 자금':null].filter(Boolean);summary.innerHTML=`<span>필요한 돈과 버틸 조건</span><p>${p.total!=null?'예상 필요자금 '+money(p.total):'보증금·준비비·운영자금을 합쳐 시작할 돈을 계산해요.'}</p><small>${missing.length?'아직 확인할 항목: '+missing.join(', '):'매출·비용 가정을 더 넣으면 계산할 수 있어요.'}</small><button type="button" class="market-pick" data-guided-costs>예시를 보며 내 비용 계산하기</button>`;}
-    else summary.insertAdjacentHTML('beforeend','<button type="button" class="market-pick" data-guided-costs>계산 조건·매출별 손익 보기</button>');
+  if(summary){
+    const answers=[];
+    if(p.total!=null)answers.push(`<span>시작할 때 필요한 돈</span><b>${money(p.total)}</b>`);
+    if(base)answers.push(`<span>한 달에 ${base.cash<0?'부족한':'남는'} 돈</span><b>${money(Math.abs(base.cash))}</b>`);
+    if(base&&p.available!=null)answers.push(`<span>적자일 때 버틸 기간</span><b>${runway}</b>`);
+    summary.innerHTML=answers.length?answers.join('')+`<small>입력한 비용과 ${basis.reference?'동네 평균 매출':'가정한 매출'}로 계산했어요. 실제 수입 예측은 아니에요.</small><button type="button" class="market-pick" data-guided-costs>계산 조건 보기</button>`:'<b>이 동네에서 장사하면 얼마나 남을까요?</b><p>내 월세와 운영비를 넣어 계산해 보세요.</p><button type="button" class="market-pick" data-guided-costs>내 비용 넣어보기</button>';
   }
   el.innerHTML=(basis.reference?`<small>${marketEsc(r.adstrd)} · ${marketEsc(industryData.industry)} ${marketValue(r.stores,'곳')} · ${marketPeriod(industryData.quarter)}. 서울 상권분석 추정매출을 점포 수로 나눈 월평균이에요. 매장 크기·층·영업연수 차이는 보정하지 않았어요. 70%·100%·120%는 비교용 가정이며 통계적 하한·상한이 아니에요.</small>`:'')+(n?`<span>월세 포함 월 고정비 / 손익분기 매출</span><b>${money(n.monthly)} / ${money(Math.ceil(n.revenue))}</b><span>손익분기점에 필요한 하루 고객</span><b>${n.customers==null?'영업일·결제액 입력 필요':n.customers.toLocaleString()+'명'}</b><small>대출 상환 전 기준. 본인 보수는 입력한 고정비에 포함해 주세요.</small>`:`<span>내 비용으로 계산하기</span><small>${rent==null?'월세 확인 후 계산할 수 있어요. 알아본 월세를 입력해 주세요.':'월 고정비와 변동비율(0 이상 100% 미만)을 입력해 주세요.'}</small>`)+
     `<span>총 창업자금 · 보증금 + 준비비 + 운영자금</span><b>${p.total==null?'초기 자금 항목 입력 필요':money(p.total)}</b><small>${p.shortfall==null?'조달 가능한 자금까지 넣으면 부족액을 계산해요.':p.shortfall>0?'조달 자금보다 '+money(p.shortfall)+' 부족해요.':'입력한 조달 자금 안에 들어요.'}</small>`+
@@ -2842,7 +2844,8 @@ function marketUpdateNumbers(){
     updateStartupAnswer(card,calc.monthly);
     const checks=[quoted==null?'실제 매물 월세·관리비·보증금 확인':'입력한 월세의 면적·층·관리비 포함 여부 확인',marketStartup.setup===''?'권리금·공사·설비 견적 확인':'입력한 준비비에 빠진 공사·설비 비용 확인','선택한 영업시간에 목표 고객이 다니는지 현장 확인','업종 영업 가능 여부·전력·급배수·환기·주차 확인'];
     const q=marketRequestParams({adstrd:r.adstrd,industry:industryData.query||industryData.industry,gu:loc?.gu,dong:loc?.dong,area:marketArea,rent:marketOperating.budget,hours:marketOperating.start!==''&&marketOperating.end!==''?operatingTime(marketOperating.start)+'~'+operatingTime(marketOperating.end):'',ages:marketOperating.ages.join('·')},$('p-ind').classList.contains('guided')&&!$('p-ind').hidden?marketSpace:{deposit:marketStartup.deposit});
-    card.querySelector('.market-next-answer').innerHTML=`<span>중개사에게 확인받을 것</span><small>${checks.filter((_,i)=>i!==2).map(marketEsc).join('<br>')}</small><span>직접 현장에서 확인할 것</span><small>${marketEsc(checks[2])}</small><a class="market-request" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">이 조건의 공간을 중개사에게 요청하기</a><small>다음 화면에서 조건을 확인하고 요청해요. 받은 실제 임대조건으로 다시 비교할 수 있어요.</small>`;
+    card.querySelector('.market-next-answer').innerHTML=`<p>보증금·실제 월세·관리비·권리금은 중개사에게 확인받으세요.</p><a class="market-request" href="https://hicce.co.kr/b2c/want?${marketEsc(q.toString())}&from=blog-where">내 예산에 맞는 공간 요청하기</a><details><summary>현장에서 더 확인할 것</summary><small>${marketEsc(checks[2])}<br>${marketEsc(checks[3])}</small></details>`;
+
     updateOperatingAnswer(card,r);
   }
 }
