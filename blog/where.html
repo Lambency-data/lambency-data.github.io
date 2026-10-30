@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 24db892f9345310e -->
+<!-- baked-from-b2c-where: e775d2861b237f80 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1006,6 +1006,19 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 #headAns .qa-calc .sz2 h4{font:600 14px/1.5 var(--ff)}
 #headAns .qa-calc .sz2 .r{font:400 13px/1.6 var(--ff)}
 #headAns .qa-calc .sz2 .r b{font-size:14px;font-weight:600}
+
+#headAns .qa-calc{grid-template-columns:auto minmax(0,1fr);column-gap:10px}
+#headAns .qa-calc>span{flex-wrap:nowrap;white-space:nowrap}
+#headAns .qa-calc>b{grid-column:2;grid-row:1;justify-self:end;white-space:nowrap;font-size:14px}
+#headAns .qa-calc .ftab,#headAns .qa-calc .ftab .c2,#headAns .qa-calc .ftab .c3,#headAns .qa-calc .ftab b,#headAns .qa-calc .ftab em{font-family:var(--ff);letter-spacing:0}
+#headAns .qa-calc .ftab{grid-template-columns:minmax(0,1fr) 80px 100px;gap:12px;font-size:14px;line-height:1.5}
+#headAns .qa-calc .ftab>span{min-width:0}
+#headAns .qa-calc .ftab>span:first-child em{display:block;font-size:12px;font-style:normal;color:var(--soft);word-break:keep-all}
+#headAns .qa-calc .ftab .c2{font-size:14px;white-space:nowrap}
+#headAns .qa-calc .ftab .c3 b{font-size:16px;font-weight:600;white-space:nowrap}
+#headAns .qa-calc .ftab .c3 em{font-size:12px;font-style:normal}
+#headAns .qa-calc .ftab.hd span{font-size:12px}
+@media(max-width:600px){#headAns .qa-calc{grid-template-columns:auto minmax(0,1fr);column-gap:6px}#headAns .qa-calc>span{font-size:12px;gap:3px}#headAns .qa-calc .numin{width:48px;font-size:16px;padding:4px}#headAns .qa-calc>b{font-size:12px;grid-column:2;grid-row:1}#headAns .qa-calc .ftab{grid-template-columns:minmax(0,1fr) 52px 62px;gap:6px;font-size:13px}#headAns .qa-calc .ftab .c2{font-size:13px}#headAns .qa-calc .ftab .c3 b{font-size:14px}}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -1917,7 +1930,7 @@ function shopHead(){
   const TYPEN={'소규모':'소규모 상가 <em>2층 이하 작은 건물</em>','집합':'집합상가 <em>상가건물 한 칸</em>','중대형':'중대형 상가 <em>3층 이상 큰 건물</em>'};
   const main=types.find(t=>t.type===C.reb_type)||types[0]||null;
   if(!main){
-    h+=`<div class="qa-calc"><span>예산이 월 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만이면</span><b>이 동네는 임대료 조사가 없어요</b></div>`;
+    h+=`<div class="qa-calc"><span>월세 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만원</span><b>이 동네는 임대료 조사가 없어요</b></div>`;
     if(szBlock) h+=`<details class="secfold rentmore"><summary><h3>월세 더 보기 <small>이 동네 가게 크기</small></h3></summary>${szBlock}</details>`;
     return h+`</div>`;
   }
@@ -1925,8 +1938,8 @@ function shopHead(){
   const SZ=[[0,10,'~10평'],[10,15,'10~15평'],[15,20,'15~20평'],[20,30,'20~30평'],[30,50,'30~50평'],[50,80,'50평~']];
   const rowsz=SZ.map(x=>{const mid=(x[0]+x[1])/2; return {lab:x[2], man:Math.round(mid*P2M*per)};});
   const fits=rowsz.filter(r=>r.man<=_BUD).length;
-  h+=`<div class="qa-calc${_CALC_OPEN?' open':''}"><span>예산이 월 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만원</span>
-      <b>약 ${pyv.toFixed(1)}평 · ${C.reb_type} 상가</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">계산 기준 보기<b>▾</b></button>
+  h+=`<div class="qa-calc${_CALC_OPEN?' open':''}"><span>월세 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만원</span>
+      <b>약 ${pyv.toFixed(1)}평 · ${C.reb_type}</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">계산 기준 보기<b>▾</b></button>
     <div class="qa-det">
       <p class="ansnote" style="margin-top:8px">${C.sangkwon} 상권 <b>${C.reb_type} 상가</b> 1㎡ 월세 <b>${per.toFixed(1)}만</b> 기준이에요. 상가는 건물마다 실거래가 없어서 <b>상권 평균 조사값</b>으로 계산했어요.${C.vacancy_pct!=null?` 빈 가게 비율은 <b>${C.vacancy_pct}%</b>예요.`:''}</p>
       <div class="ansq warn" style="margin-top:12px"><i></i><span>거꾸로, <input class="numin" id="spyIn" inputmode="decimal" value="${_SPY}"> 평(${Math.round(_SPY*P2M)}㎡)을 하려면</span></div>
@@ -1941,7 +1954,7 @@ function shopHead(){
         <div><h4>건물 유형마다 1㎡ 월세</h4>${types.map(t=>`<div class="r${t===main?'':' dim'}"><span>${t.type} 상가${t.vacancy_pct!=null?` · 빈 가게 ${t.vacancy_pct}%`:''}</span><b>${(t.per_m2_thousand/10).toFixed(1)}만/㎡</b></div>`).join('')}
           <p class="src" style="margin-top:6px">같은 예산이라도 <b>건물 유형</b>에 따라 쓸 수 있는 크기가 달라져요.</p></div>
       </div>
-      <div class="ftab hd" style="margin-top:14px"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">이 예산으로 되는 크기</span></div>
+      <div class="ftab hd" style="margin-top:14px"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">가능 면적</span></div>
       ${types.map(t=>{const p2=t.per_m2_thousand/10,a=_BUD/p2; return `<div class="ftab${t===main?'':' dim'}"><span>${TYPEN[t.type]||t.type}</span><span class="c2">${p2.toFixed(1)}만</span><span class="c3"><b>${(a/P2M).toFixed(1)}평</b><em>${a.toFixed(1)}㎡</em></span></div>`;}).join('')}
       <p class="src"><span class="exflag" style="float:none;margin-right:6px">⚠ 층별은 준비 중</span>부동산원이 <b>1층만</b> 조사해서 2층이나 지하는 얼마나 다른지 아직 몰라요.</p>
       ${szBlock}
