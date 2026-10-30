@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: e775d2861b237f80 -->
+<!-- baked-from-b2c-where: c6223d7ff01dc891 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1462,10 +1462,10 @@ async function renderPick(gu, dg, seq){
   const refold=el=>{ if(el){ delete el.dataset.folded; } };
   if(!sec) return;
   if(!p||!p.ok){
-    sec.innerHTML=`<h2>🏪 이 동네에 아직 부족한 가게</h2><p class="src">${(p&&p.reason)||'지금은 보여 드릴 수 없어요'}.</p>`;
-    if(ovs) ovs.innerHTML=`<h2>📊 이 동네 가게, 한눈에</h2><p class="src">${(p&&p.reason)||'지금은 보여 드릴 수 없어요'}.</p>`;
+    sec.innerHTML=`<h2>이 동네에 아직 부족한 가게</h2><p class="src">${(p&&p.reason)||'지금은 보여 드릴 수 없어요'}.</p>`;
+    if(ovs) ovs.innerHTML=`<h2>이 동네 가게, 한눈에</h2><p class="src">${(p&&p.reason)||'지금은 보여 드릴 수 없어요'}.</p>`;
     refold(sec); refold(ovs); foldSections(); return; }
-  if(ovs){ ovs.innerHTML=`<h2>📊 이 동네 가게, 한눈에 <small>업종별 매출이랑 문 열고 닫은 걸로 보면</small></h2>`
+  if(ovs){ ovs.innerHTML=`<h2>이 동네 가게, 한눈에 <small>업종별 매출이랑 문 열고 닫은 걸로 보면</small></h2>`
     + (overviewHTML(p.overview, _VACANCY) || '<p class="src">이 동네는 업종별 자료가 적어요.</p>');
     refold(ovs); }
   const col=v=>v==null?'':(v>=5?'var(--up,#1F6F45)':v<=-15?'var(--down,#B33A3A)':'inherit');
@@ -1477,8 +1477,8 @@ async function renderPick(gu, dg, seq){
       <td class="n">${eok(c.per_store_month_man)}</td>
       <td class="n"><span class="pct ${bcls(c.burden_pct)}" style="display:inline-block;min-width:3.2em;text-align:center">${c.burden_pct==null?'—':c.burden_pct+'%'}</span></td>
       <td class="n" style="color:${col(c.yoy_pct)}">${pc(c.yoy_pct)}</td>
-      <td class="n">${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</td></tr>${c.hint?`<tr class="pkhr"><td colspan="6" class="pkhint">⚠ ${c.hint}</td></tr>`:''}`;
-  sec.innerHTML=`<h2>🏪 이 동네에 아직 부족한 가게 <small>비슷한 동네엔 있는데 여기엔 없는 것</small></h2>
+      <td class="n">${c.close_rate_pct==null?'—':c.close_rate_pct+'%'}</td></tr>${c.hint?`<tr class="pkhr"><td colspan="6" class="pkhint">${c.hint}</td></tr>`:''}`;
+  sec.innerHTML=`<h2>이 동네에 아직 부족한 가게 <small>비슷한 동네엔 있는데 여기엔 없는 것</small></h2>
     <p class="cap" style="margin:0 0 8px">${dg}${((dg.charCodeAt(dg.length-1)-0xAC00)%28)?'과':'와'} 닮은 동네 ${p.peers.length}곳(${p.peers.map(x=>x.dong).join(', ')})에 어떤 가게가 얼마나 있는지 보고 이 동네에 있어야 할 수를 셌어요. 거기에 가게당 월매출, ${p.rent_man
         ? '월세 부담률, '
         : ''}전년 대비, 폐업률을 같이 보고 골랐어요.${p.rent_man
@@ -1956,7 +1956,7 @@ function shopHead(){
       </div>
       <div class="ftab hd" style="margin-top:14px"><span>어떤 건물</span><span class="c2">1㎡ 월세</span><span class="c3">가능 면적</span></div>
       ${types.map(t=>{const p2=t.per_m2_thousand/10,a=_BUD/p2; return `<div class="ftab${t===main?'':' dim'}"><span>${TYPEN[t.type]||t.type}</span><span class="c2">${p2.toFixed(1)}만</span><span class="c3"><b>${(a/P2M).toFixed(1)}평</b><em>${a.toFixed(1)}㎡</em></span></div>`;}).join('')}
-      <p class="src"><span class="exflag" style="float:none;margin-right:6px">⚠ 층별은 준비 중</span>부동산원이 <b>1층만</b> 조사해서 2층이나 지하는 얼마나 다른지 아직 몰라요.</p>
+      <p class="src"><span class="exflag" style="float:none;margin-right:6px">층별은 준비 중</span>부동산원이 <b>1층만</b> 조사해서 2층이나 지하는 얼마나 다른지 아직 몰라요.</p>
       ${szBlock}
     </div></div>
     <a class="pill" id="wantCta" href="https://hicce.co.kr/b2c/want?${new URLSearchParams(Object.entries({deal:'월세', product:'상가', gu:_GU, dong:_DG, biz:ind,
@@ -2139,7 +2139,7 @@ function peopleSec(d, dg){
         <span><i>가장 많은 나이</i><b>${WK.top_age||'—'}</b></span>
         <span><i>작년보다</i><b>${WK.yoy_pct==null?'—':(WK.yoy_pct>0?'+':'')+WK.yoy_pct+'%'}</b></span></div>`:'')
     + `</div>`;
-  const chips = FC.ok ? `<div data-mode="${'home'}"><h3 style="margin:16px 0 0;font:600 13.5px var(--ff)">🏛 걸어서 닿는 것</h3>
+  const chips = FC.ok ? `<div data-mode="${'home'}"><h3 style="margin:16px 0 0;font:600 13.5px var(--ff)">걸어서 닿는 것</h3>
       <div class="chips">${FC.items.filter(x=>x.n>0).map(x=>`<span>${x.label} <b>${x.n}</b></span>`).join('')}</div>
       <p class="src">행정동 ${(FC.adong||[]).join(' · ')} 안에 있는 수예요. 공원·어린이집·치안은 아직 없어요.
         <b>주차랑 엘리베이터는 건물마다 달라요.</b> <a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a>에 지번을 넣으면
@@ -2149,7 +2149,7 @@ function peopleSec(d, dg){
   let bars='';
   if(cr.ok && (cr.hourly||[]).length){
     const h=cr.hourly, mxh=Math.max.apply(null,h.concat([1])), nv=cr.night_vs_day_pct;
-    bars=`<h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">👥 사람은 언제 있나 <small style="font-weight:400;color:var(--soft)">생활인구 24시간</small></h3>
+    bars=`<h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">사람은 언제 있나 <small style="font-weight:400;color:var(--soft)">생활인구 24시간</small></h3>
       <p class="src" style="margin:4px 0 6px"><b>${cr.peak_hour}시</b>에 가장 많아요.
         밤(19–23시)에는 낮(11–15시)보다 <b>${nv==null?'—':(nv>0?nv+'% 많아요':Math.abs(nv)+'% 적어요')}</b>.</p>
       <div class="hrs">${h.map((v,i)=>`<span class="${i===cr.peak_hour?'pk':''}" style="height:${Math.max(4,v/mxh*100)}%" title="${i}시 ${v.toLocaleString()}명"></span>`).join('')}</div>
@@ -2161,7 +2161,7 @@ function peopleSec(d, dg){
     }
     bars+=`<p class="src">${cr.caveat||''}</p>`;
   }
-  return `<section class="sec"><h2>🏗 재개발 · 사람 <small>지도, 걸어서 닿는 것, 사람이 언제 있나</small></h2>
+  return `<section class="sec"><h2>재개발 · 사람 <small>지도, 걸어서 닿는 것, 사람이 언제 있나</small></h2>
     <div id="dongMap" class="dmap"></div>
     <div class="legend" id="dongMapLegend"></div>
     <p class="src">지도의 등대는 동네 한가운데예요. 주소를 안 넣어서 집 위치는 안 찍혀요.
@@ -2313,7 +2313,7 @@ async function runDong(){
   let html='';
   const TR=d.transit;
   if(TR && TR.ok){
-    html+=`<div class="trrow"><span class="ic" aria-hidden="true">🚇</span>
+    html+=`<div class="trrow">
       <span><b>${TR.station}</b>까지 <b class="num">${TR.dist_m}m</b>${
         TR.n_stations_500m>0?` · 500m 안에 역 <b class="num">${TR.n_stations_500m}</b>곳`:''}
       <span class="tn">${TR.basis}</span></span></div>`;
@@ -2326,17 +2326,17 @@ async function runDong(){
   const PE=d.price_effect;
 
   html+=`<button type="button" class="dongall-btn" data-mode="shop" onclick="dongAllToggle(this)">동네 전체 보기 <small>부족한 업종 · 월세 부담 · 매출 변화 · 폐업</small></button><div id="dongAll" class="dongall" data-mode="shop">`;
-  html+=`<section class="sec" data-mode="shop" data-open="1" id="ovSec" data-needs="api:dong-pick"><h2>📊 이 동네 가게, 한눈에
+  html+=`<section class="sec" data-mode="shop" data-open="1" id="ovSec" data-needs="api:dong-pick"><h2>이 동네 가게, 한눈에
       <small>업종별 매출이랑 문 열고 닫은 걸로 보면</small></h2><p class="src">계산 중…</p></section>`;
-  html+=`<section class="sec" data-mode="shop" id="pickSec" data-needs="api:dong-pick"><h2>🏪 이 동네에 아직 부족한 가게
+  html+=`<section class="sec" data-mode="shop" id="pickSec" data-needs="api:dong-pick"><h2>이 동네에 아직 부족한 가게
       <small>비슷한 동네엔 있는데 여기엔 없는 것</small></h2><p class="src">계산 중…</p></section>`;
-  html+=`<section class="sec" data-mode="shop"><h2>📈 업종별로 자세히 <small>가게 하나가 얼마 버는지, 카드 매출로</small></h2>
+  html+=`<section class="sec" data-mode="shop"><h2>업종별로 자세히 <small>가게 하나가 얼마 버는지, 카드 매출로</small></h2>
     <div id="salesBody"><p class="src">불러오는 중…</p></div></section>`;
   const c=d.commercial;
   if(c && c.ok){
     const rows=c.rows||[];
     const mx=Math.max(...rows.map(r=>r.burden_pct||0),30);
-    html+=`<section class="sec" data-mode="shop"><h2>💰 업종마다 월세 부담 <small>매출에서 월세가 몇 %나 나가나</small></h2>
+    html+=`<section class="sec" data-mode="shop"><h2>업종마다 월세 부담 <small>매출에서 월세가 몇 %나 나가나</small></h2>
       <div class="hero"><div class="big">${man(c.monthly_rent_man)}만원</div>
         <div class="cap">1층 <b>${c.area_m2}㎡</b>(${(c.area_m2/3.3058).toFixed(0)}평) 기준 월세예요.
           ${c.scope==='권역'
@@ -2383,12 +2383,12 @@ async function runDong(){
       업종 ${c.n_industries}개${c.dropped_thin?`. 매출 자료가 적은 ${c.dropped_thin}개는 뺐어요.`:''}<br>
       ${c.caveat.replace(/\*\*/g,'')}</p></section>`;
   } else {
-    html+=`<section class="sec" data-mode="shop"><h2>💰 업종마다 월세 부담</h2>
+    html+=`<section class="sec" data-mode="shop"><h2>업종마다 월세 부담</h2>
       <p class="empty">${(c&&c.reason)||'이 동네는 상가 자료가 적어요'}</p></section>`;
   }
 
   if(ST.ok && (ST.top||[]).length){
-    html+=`<section class="sec" id="dongStanding" data-open="1" data-mode="shop"><h2>🗺 서울에서 이 동네는 <small>336개 동 중에 어디쯤인지</small></h2>
+    html+=`<section class="sec" id="dongStanding" data-open="1" data-mode="shop"><h2>서울에서 이 동네는 <small>336개 동 중에 어디쯤인지</small></h2>
       <p class="lead" style="font-size:12.5px;color:var(--soft);margin:2px 0 2px">
         서울과 비교해 가장 눈에 띄는 항목 <b>${ST.top.length}개</b>예요.${
           ST.top.length<3?' <span style="color:var(--warn)">이 동네는 생활인구나 상가 자료가 없어서 비교할 항목이 적어요.</span>':''}</p>`
