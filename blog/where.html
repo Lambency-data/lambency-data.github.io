@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 406ff33996be3a05 -->
+<!-- baked-from-b2c-where: 48ab24686d6f259a -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1930,6 +1930,13 @@ function shopHead(){
     </div>`;
   return h;
 }
+document.addEventListener('input',e=>{
+  if(e.target.id!=='budIn'&&e.target.id!=='spyIn')return;
+  const id=e.target.id,value=e.target.value,n=Number(value),cursor=e.target.selectionStart;
+  if(value.trim()===''||!Number.isFinite(n)||n<=0||n>=(id==='budIn'?100000:3000))return;
+  if(id==='budIn'){_BUD=n;_BUD_USER=true;}else{_SPY=n;_SPY_USER=true;}
+  renderHead();const field=$(id);if(field){field.focus({preventScroll:true});field.setSelectionRange(cursor,cursor);}
+});
 let _CALC_OPEN=false;
 window.dongAllToggle=function(btn){ const box=document.getElementById(btn.dataset.target||'dongAll'); if(!box) return; const on=!box.classList.contains('open');
   box.classList.toggle('open',on); btn.firstChild.textContent = on?'동네 전체 접기 ':'동네 전체 보기 ';
