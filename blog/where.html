@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 0c017d8c137068b4 -->
+<!-- baked-from-b2c-where: c68f9c05ced8cc2a -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -888,6 +888,16 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 #marketSaveStatus{font-size:12px;line-height:1.5;color:var(--muted)}
 @media(max-width:480px){#dongCompareHost{padding:10px 12px}#dongIndustryTools .bar{display:flex;flex-direction:column;align-items:stretch;gap:8px}#dongIndustryTools input,#dongIndustryTools button{width:100%;min-width:0;box-sizing:border-box}}
 
+
+#dongConditionsToggle{display:flex!important;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;height:auto;margin:0;padding:10px 12px;border:1px solid var(--seal);border-radius:10px;background:var(--paper);color:var(--seal);font:600 16px/1.5 var(--ff);text-align:left}
+#dongCompareHost{display:block!important;padding:0;border:0;background:transparent}
+#dongCompareBody[hidden]{display:none!important}
+#dongCompareBody:not([hidden]){display:block;padding:12px 0}
+#headAns .dongall-btn{margin:8px 0 14px;align-items:flex-start;text-align:left;min-height:48px;border:1px solid var(--rule);font-size:15px;padding:10px 12px}
+.dong-watch,.dong-neighborhood-peek{margin:14px 0;padding:12px 0;border-top:1px solid var(--rule);font-size:13px;line-height:1.65}
+.dong-watch>p{margin:6px 0;color:#8b4b26}.dong-watch small,.dong-neighborhood-peek small{display:block;color:var(--soft);font-size:12px;line-height:1.6}
+.dong-alternatives{margin-top:12px}.dong-alternatives a{color:var(--seal);font-weight:600}.dong-alternatives p{margin:8px 0}
+#headAns #dongAll{max-width:100%;min-width:0}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -949,7 +959,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   </div>
   <div class="sug" id="sug2" style="display:none"></div>
   <p class="scopenote2">여기선 <b>동네 평균</b>만 나와요. 집이나 건물 하나하나의 값은 <a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a>에서 보세요.</p>
-  <section id="dongBusiness" hidden><details id="dongIndustryTools" class="market-startup"><summary>다른 업종·세부 업종 찾기</summary><div class="bar"><input id="dongIndustry" aria-label="동네에서 창업할 업종" placeholder="업종 검색 · 예: 카페, 돼지고기" maxlength="30"><datalist id="dongIndustries"></datalist><button id="dongBusinessGo" type="button">내 조건으로 확인</button></div><p id="dongBusinessStatus" class="src" role="status"></p></details><details id="dongCompareHost" class="market-startup"><summary>내 조건을 더해 확인하기</summary></details></section>
+  <section id="dongBusiness" hidden><details id="dongIndustryTools" class="market-startup"><summary>다른 업종·세부 업종 찾기</summary><div class="bar"><input id="dongIndustry" aria-label="동네에서 창업할 업종" placeholder="업종 검색 · 예: 카페, 돼지고기" maxlength="30"><datalist id="dongIndustries"></datalist><button id="dongBusinessGo" type="button">내 조건으로 확인</button></div><p id="dongBusinessStatus" class="src" role="status"></p></details><section id="dongCompareHost" class="market-startup"><button id="dongConditionsToggle" type="button" aria-expanded="false" aria-controls="dongCompareBody">내 조건 넣기 <span aria-hidden="true">＋</span></button><div id="dongCompareBody" hidden></div></section></section>
   <details id="dongBackground" class="market-startup" open><summary>동네 월세·상권 기초자료 자세히 보기</summary><div id="out2" class="empty">동네를 고르는 중…</div></details>
 </section>
 
@@ -1677,6 +1687,37 @@ function indRow(nm){
           yoy_pct: r.qoq_pct, close_rate_pct: r.close_rate_pct,
           floor: null, hint: null, _partial: true};
 }
+function dongIndustryWatch(c){
+  const lines=[];
+  if(c.burden_pct!=null&&c.burden_pct>=30)lines.push(`조사 월세가 평균 매출의 <b>${c.burden_pct}%</b>예요. 다른 비용까지 감당할지 확인하세요.`);
+  if(c.yoy_pct!=null&&c.yoy_pct<0)lines.push(`이 업종 전체 매출이 전년 동기보다 <b>${Math.abs(c.yoy_pct)}% 줄었어요.</b>`);
+  if(c.close_rate_pct!=null&&c.close_rate_pct>=5)lines.push(`최근 분기 폐업률은 <b>${c.close_rate_pct}%</b>예요.`);
+  if(c.expected!=null&&c.stores>c.expected)lines.push(`같은 업종 ${c.stores}곳으로, 닮은 동네 기준보다 <b>약 ${Math.round(c.stores-c.expected)}곳 많아요.</b>`);
+  return `<div class="dong-watch"><b>${marketEsc(_IND)} 선택 전 확인하세요</b>${lines.length?lines.map(t=>`<p>${t}</p>`).join(''):'<p>확인된 지표에서 큰 경고는 없지만, 실제 월세와 비용은 따로 확인하세요.</p>'}<small>조사 월세·평균 매출의 참고 비교이며 개별 가게의 손익이나 폐업 예측은 아니에요.</small>${dongAlternatives()}<p><a class="dong-compare-link" href="https://hicce.co.kr/b2c/where?${new URLSearchParams({view:'ind',ind:(industryData&&industryData.industry===_IND?industryData.query:null)||_IND,mode:'shop'})}&from=blog-where">이 업종으로 다른 동네 비교하기 →</a></p></div>`;
+}
+function comparableDongAlternatives(rows,gu,dong){
+  const linked=rows.filter(r=>(r.locations||[]).some(l=>l.gu===gu&&l.dong===dong));
+  const current=linked.length===1&&linked[0].adstrd===dong?linked[0]:null;
+  if(!current||![current.per_store_month_man,current.yoy_pct,current.close_rate_pct].every(Number.isFinite))return {current:null,rows:[]};
+  const candidates=rows.filter(r=>r.adstrd_cd!==current.adstrd_cd&&r.stores>=3&&(r.locations||[]).some(l=>l.gu===gu)&&[r.per_store_month_man,r.yoy_pct,r.close_rate_pct].every(Number.isFinite)&&r.per_store_month_man>=current.per_store_month_man&&r.yoy_pct>=current.yoy_pct&&r.close_rate_pct<=current.close_rate_pct&&(r.yoy_pct>current.yoy_pct||r.close_rate_pct<current.close_rate_pct));
+  candidates.sort((a,b)=>a.close_rate_pct-b.close_rate_pct||b.yoy_pct-a.yoy_pct||String(a.adstrd_cd).localeCompare(String(b.adstrd_cd)));
+  return {current,rows:candidates.slice(0,2)};
+}
+function dongAlternatives(){
+  if(!industryData||industryData.industry!==_IND||industryData.specialty||industryData.subclass)return '';
+  const result=comparableDongAlternatives(industryData.rows||[],_GU,_DG),base=result.current;
+  if(!base||!result.rows.length)return '';
+  return `<div class="dong-alternatives"><b>같은 업종으로 함께 살펴볼 동네</b>${result.rows.map(r=>{
+    const loc=(r.locations||[]).find(l=>l.gu===_GU&&l.dong===r.adstrd)||(r.locations||[]).find(l=>l.gu===_GU);
+    const q=new URLSearchParams({gu:loc.gu,dong:loc.dong,ind:industryData.query||_IND,view:'dong',mode:'shop'});
+    return `<p><a href="https://hicce.co.kr/b2c/where?${q}&from=blog-where">${marketEsc(r.adstrd)} 살펴보기 →</a><br><small>가게당 월매출 ${_n(r.per_store_month_man)}만 (${marketEsc(_DG)} ${_n(base.per_store_month_man)}만) · 전년 동기 ${r.yoy_pct}% (${base.yoy_pct}%) · 분기 폐업률 ${r.close_rate_pct}% (${base.close_rate_pct}%)</small></p>`;
+  }).join('')}<small>같은 구·같은 업종의 행정동 자료를 비교했어요. 월매출·매출 변화·폐업률이 모두 뒤처지지 않는 후보 중 폐업률이 낮은 순이에요. 월세·고객층 적합도는 별도 확인이 필요해요.</small></div>`;
+}
+function dongNeighborhoodPeek(){
+  const p=_PICK;if(!p||!p.ok)return '';
+  const top=(p.top||[]).slice(0,3),avoid=(p.avoid||[]).slice(0,3);
+  return `<div class="dong-neighborhood-peek"><b>이 동네에서 함께 확인할 업종</b>${top.length?`<p>닮은 동네보다 적은 업종: ${top.map(r=>marketEsc(r.industry)+` ${r.stores}곳 / 비교 기준 약 ${Math.round(r.expected)}곳`).join(' · ')}</p>`:'<p>닮은 동네와 비교해 뚜렷하게 부족한 업종은 없어요.</p>'}${avoid.length?`<p>주의해서 볼 업종: ${avoid.map(r=>marketEsc(r.industry)+(r.burden_pct>=30?` (월세가 매출의 ${r.burden_pct}%)`:r.yoy_pct<0?` (매출 전년 동기 ${r.yoy_pct}%)`:r.close_rate_pct>=5?` (분기 폐업률 ${r.close_rate_pct}%)`:' (가게 수·매출 확인 필요)')).join(' · ')}</p>`:''}<small>가게 수가 적다고 창업에 유리하다는 뜻은 아니에요. 전체 근거는 ‘동네 전체 보기’에서 확인하세요.</small></div>`;
+}
 function shopHead(){
   const C=(_D&&_D.commercial)||{};
   const names=[...new Set((_ALLIND||[]).map(x=>x.industry))];
@@ -1711,6 +1752,7 @@ function shopHead(){
   } else {
     const hasExp=(c.expected!=null), gap=hasExp?Math.round(c.expected-(c.stores||0)):null, b=c.burden_pct;
     const few=(c.stores||0)<8;
+    h+=dongIndustryWatch(c);
     const spr=CB&&CB.sales_pr!=null?CB.sales_pr:null;
     let det1=`<div class="n4">${cell('가게당 월매출',eok(c.per_store_month_man),'카드 매출로 추정')}${cell('가게 수',(c.stores||0)+'곳',few?'8곳이 안 돼 참고만':'')}${
       cell('서울 동네 중',spr==null?null:rkS(spr),CB&&CB.sales_n_dong?`${ind} 가게 3곳 이상 ${_n(CB.sales_n_dong)}개 동 중`:'')}</div>
@@ -1732,7 +1774,7 @@ function shopHead(){
     let p3=''; if(hasExp) p3+= gap<=0?pill('bad','많이 몰림'):pill('ok',`비슷한 동네보다 ${gap}곳 적음`);
     if(s5!=null) p3+=pill(sk,`5년 뒤 ${Math.round(s5)}% 남음${s5s!=null?` · 서울 ${Math.round(s5s)}%`:''}`);
     const det3=`<div class="n4">${cell('비슷한 동네만큼이면',hasExp?Math.round(c.expected)+'곳':null,hasExp?'닮은 동네 가게 비율로 계산':'가게가 적어 비교 못 함')}${
-        cell('작년보다',c.yoy_pct==null?null:(c.yoy_pct>0?'+':'')+c.yoy_pct+'%','가게 수 변화',c.yoy_pct==null?'':(c.yoy_pct>0?'ok':c.yoy_pct<-10?'bad':'mid'))}${
+        cell('매출 전년 동기 대비',c.yoy_pct==null?null:(c.yoy_pct>0?'+':'')+c.yoy_pct+'%','업종 전체 매출 변화',c.yoy_pct==null?'':(c.yoy_pct>0?'ok':c.yoy_pct<-10?'bad':'mid'))}${
         cell('최근 3개월 문 닫음',c.close_rate_pct==null?null:c.close_rate_pct+'%','',c.close_rate_pct!=null&&c.close_rate_pct>=5?'bad':'')}</div>
       ${survLine(ind)}${c.floor_mix?(()=>{const fm=c.floor_mix,order=['1층','2층','3층+','지하'];return `<p class="src">이 업종 가게가 있는 층은 <b>${fm.scope}</b> 기준 ${order.map(x=>`${x} <b>${fm.mix[x]}%</b>`).join(' · ')}예요. 층이 적힌 가게 ${_n(fm.n_floor)}곳 기준이에요.</p>`;})():''}
       <p class="src">이 동네에 아직 없는 업종은 아래 "동네 전체 보기" 안 "아직 부족한 가게" 에 있어요.</p>`;
@@ -1741,6 +1783,7 @@ function shopHead(){
     h+=pairsRow(ind, row, pill);
     h+=`</ol>`;
   }
+  h+=dongNeighborhoodPeek();
   h+=`<div class="qa-check"><b>이건 직접 확인하세요. 저희 자료엔 없어요</b>
     <p>이 자리에서 ${ind||'그 업종'}을 할 수 있는지는 건물 용도, 정화조, 업종 제한에 달려 있어요. 계약하기 전에 꼭 보세요.</p>
     <div class="chips"><a href="https://cloud.eais.go.kr" target="_blank" rel="noopener">건축물대장 용도 ↗</a><a href="https://www.localdata.go.kr" target="_blank" rel="noopener">구청 인허가 ↗</a><span>권리금 특약</span><span>등기부 근저당</span><span>계약 기간·갱신</span></div></div>`;
@@ -2148,7 +2191,7 @@ async function runDong(){
     +'<b>예시</b>로 마포구 서교동을 띄워 놨어요. 위에서 동네를 고르면 바뀌어요.</div>'+html;
   const PE=d.price_effect;
 
-  html+=`<button type="button" class="dongall-btn" data-mode="shop" onclick="dongAllToggle(this)">동네 전체 보기 <small>매출표 · 늘고 줄고 · 없는 업종 · 재개발 · 서울 비교</small></button><div id="dongAll" class="dongall" data-mode="shop">`;
+  html+=`<button type="button" class="dongall-btn" data-mode="shop" onclick="dongAllToggle(this)">동네 전체 보기 <small>부족한 업종 · 월세 부담 · 매출 변화 · 폐업</small></button><div id="dongAll" class="dongall" data-mode="shop">`;
   html+=`<section class="sec" data-mode="shop" data-open="1" id="ovSec" data-needs="api:dong-pick"><h2>📊 이 동네 가게, 한눈에
       <small>업종별 매출이랑 문 열고 닫은 걸로 보면</small></h2><p class="src">계산 중…</p></section>`;
   html+=`<section class="sec" data-mode="shop" id="pickSec" data-needs="api:dong-pick"><h2>🏪 이 동네에 아직 부족한 가게
@@ -2779,6 +2822,8 @@ function marketPeople(r,row){
 }
 
 function parkDongTools(){
+  const out=$('out2'),head=$('headAns');
+  if(out&&head)for(const el of [head.querySelector('.dongall-btn'),head.querySelector('#dongAll')])if(el)out.append(el);
   const home=$('dongBusiness');
   if(home)for(const id of ['dongIndustryTools','dongCompareHost']){const el=$(id);if(el)home.append(el);}
 }
@@ -2786,9 +2831,11 @@ function placeDongTools(){
   if(MODE!=='shop'||$('p-dong').hidden)return;
   const pick=document.querySelector('#headAns .indpick'),head=$('headAns');
   if(pick&&$('dongIndustryTools'))pick.after($('dongIndustryTools'));
-  const check=head&&head.querySelector('.qa-check');
+  const check=head&&(head.querySelector('.dong-neighborhood-peek')||head.querySelector('.qa-check'));
   if(check&&$('dongCompareHost'))check.before($('dongCompareHost'));
   else if(head&&head.firstElementChild&&$('dongCompareHost'))head.after($('dongCompareHost'));
+  const all=document.querySelector('#out2 .dongall-btn'),body=$('dongAll');
+  if(all&&body&&check){$('dongCompareHost').after(all);all.after(body);}
 }
 function mountBusinessCompare(){
   const dongView=!$('p-dong').hidden;
@@ -2799,7 +2846,7 @@ function mountBusinessCompare(){
   if(MODE==='shop')$('dongBusiness').before($('dongBackground'));
   else $('dongBusiness').after($('dongBackground'));
   if(industryData&&!$('dongIndustry').value){$('dongIndustry').value=industryData.query||industryData.industry;$('dongIndustry').dispatchEvent(new Event('hicceindustry'));}
-  const host=dongView?$('dongCompareHost'):$('industryCompareHost');
+  const host=dongView?$('dongCompareBody'):$('industryCompareHost');
   host.append($('marketSavedControls'),$('marketCompare'));
   if(industryData)renderMarketCompare();
   placeDongTools();
@@ -2813,6 +2860,10 @@ async function runDongBusiness(){
   await run(name);
   mountBusinessCompare();
 }
+$('dongConditionsToggle').addEventListener('click',()=>{
+  const body=$('dongCompareBody'),button=$('dongConditionsToggle');body.hidden=!body.hidden;
+  button.setAttribute('aria-expanded',String(!body.hidden));button.querySelector('span').textContent=body.hidden?'＋':'−';
+});
 hicceIndustrySearch($('dongIndustry'),$('dongIndustries'));
 $('dongBusinessGo').addEventListener('click',runDongBusiness);
 $('dongIndustry').addEventListener('hicceindustryselect',runDongBusiness);
