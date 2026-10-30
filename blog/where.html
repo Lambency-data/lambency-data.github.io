@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 05b682517c98ef1b -->
+<!-- baked-from-b2c-where: 9d7485ef6b962cc4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -946,6 +946,34 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 @keyframes calculation-flash{from{background:#e8edee}to{background:transparent}}
 .calculation-updated{animation:calculation-flash 1.2s ease-out}
 @media(prefers-reduced-motion:reduce){.calculation-updated{animation:none;border-left:2px solid var(--seal)}}
+
+#dongStanding{margin:16px 0;padding:14px 0;border-top:1px solid var(--rule)}
+#dongStanding h2{font-size:17px;line-height:1.5}
+#out2 .n4>div{min-width:0}
+@media(max-width:600px){
+ #out2 .indbox .n4,#out2 .n4{grid-template-columns:minmax(0,1fr)!important;gap:12px}
+ #out2 .n4>div{padding:8px 0;border-bottom:1px solid var(--rule)}
+ #out2 .indbox .n4 .nv,#out2 .n4 .nv{font-size:22px;white-space:normal;overflow-wrap:anywhere;line-height:1.4}
+ #out2 .n4 .nl,#out2 .n4 .ns{font-size:13px;line-height:1.6}
+ #out2 .stand{grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;font-size:14px;padding:12px 0}
+ #out2 .stand .ind{grid-column:1/-1;font-size:13px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+ #out2 .stand .ps{font-size:13px;white-space:nowrap}
+ #out2 .fa{grid-template-columns:minmax(0,1fr);gap:6px;font-size:14px;line-height:1.7}
+ #out2 .fa .lb{font-size:14px}
+ #out2 .slsq input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;font-size:16px}
+ #out2 .slsg .g{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px 0}
+ #out2 .slsg .g.hd{display:none}
+ #out2 .slsg .nm{font-size:15px;white-space:normal;overflow:visible;word-break:keep-all}
+ #out2 .slsg .bar{display:block;height:auto;min-height:0;width:auto;margin:0;padding:0;border:0;background:transparent;overflow:visible;font-size:13px}
+ #out2 .slsg .bar i{display:none}
+ #out2 .slsg .bar b{position:static;font-size:14px;line-height:1.6}
+ #out2 .slsg .bar::before{content:'업종 전체 월매출 ';color:var(--soft)}
+ #out2 .slsg .so .bar::before{content:'가게 수 · 개폐업 ';}
+ #out2 .slsg .dl,#out2 .slsg .pv{font-size:14px;text-align:left;white-space:normal}
+ #out2 .slsg .dl::before{content:'매출 전년 동기 ';color:var(--soft);font:400 13px var(--ff)}
+ #out2 .slsg .so .dl::before{content:'분기 폐업률 ';}
+ #out2 .slsg .pv::before{content:'가게당 월매출 ';color:var(--soft);font:400 13px var(--ff)}
+}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -2108,6 +2136,10 @@ function renderHead(){
   parkDongTools();
   box.innerHTML = (MODE==='home') ? homeHead() : shopHead();
   placeDongTools();
+  if(MODE==='shop'){
+    const list=box.querySelector('ol.qa'),customer=box.querySelector('.qa-row[data-q="4"]');
+    if(list&&customer){list.prepend(customer);customer.classList.add('open');customer.querySelector('.qa-why')?.setAttribute('aria-expanded','true');[...list.children].forEach((r,i)=>{const n=r.querySelector('.qa-no');if(n)n.textContent=i+1;});}
+  }
   const pi=document.getElementById('pyIn');
   if(pi) pi.addEventListener('change', ()=>{ const v=parseFloat(pi.value);
     if(v>0&&v<200){ _PY=v; renderHead(); } else { pi.value=_PY; } });
@@ -2304,7 +2336,7 @@ async function runDong(){
   }
 
   if(ST.ok && (ST.top||[]).length){
-    html+=`<section class="sec" data-mode="shop"><h2>🗺 서울에서 이 동네는 <small>336개 동 중에 어디쯤인지</small></h2>
+    html+=`<section class="sec" id="dongStanding" data-open="1" data-mode="shop"><h2>🗺 서울에서 이 동네는 <small>336개 동 중에 어디쯤인지</small></h2>
       <p class="lead" style="font-size:12.5px;color:var(--soft);margin:2px 0 2px">
         서울과 비교해 가장 눈에 띄는 항목 <b>${ST.top.length}개</b>예요.${
           ST.top.length<3?' <span style="color:var(--warn)">이 동네는 생활인구나 상가 자료가 없어서 비교할 항목이 적어요.</span>':''}</p>`
@@ -2874,7 +2906,7 @@ function marketPeople(r,row){
 
 function parkDongTools(){
   const out=$('out2'),head=$('headAns');
-  if(out&&head)for(const el of [head.querySelector('.dongall-btn'),head.querySelector('#dongAll')])if(el)out.append(el);
+  if(out&&head)for(const el of [head.querySelector('.dongall-btn'),head.querySelector('#dongAll'),head.querySelector('#dongStanding')])if(el)out.append(el);
   const home=$('dongBusiness');
   if(home)for(const id of ['dongIndustryTools','dongCompareHost']){const el=$(id);if(el)home.append(el);}
 }
@@ -2882,6 +2914,8 @@ function placeDongTools(){
   if(MODE!=='shop'||$('p-dong').hidden)return;
   const pick=document.querySelector('#headAns .indpick'),head=$('headAns');
   if(pick&&$('dongIndustryTools'))pick.after($('dongIndustryTools'));
+  const standing=$('dongStanding'),watch=head&&head.querySelector('.dong-watch');
+  if(standing&&watch)watch.after(standing);
   const check=head&&(head.querySelector('.dong-neighborhood-peek')||head.querySelector('.qa-check'));
   if(check&&$('dongCompareHost'))check.before($('dongCompareHost'));
   else if(head&&head.firstElementChild&&$('dongCompareHost'))head.after($('dongCompareHost'));
