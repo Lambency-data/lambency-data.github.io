@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: c8500d598cd83aec -->
+<!-- baked-from-b2c-where: 6ff5487bbe9c226f -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1051,6 +1051,16 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
  #out2 .dong-people{padding:16px}
  #out2 .dong-people .secfold>summary h2{font-size:15px}
 }
+
+.hour-range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.hour-range span{font-size:12px;color:var(--soft)}
+.hour-range b{display:block;font-size:15px;font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+.hour-note{font-size:12px;color:var(--soft);line-height:1.7;margin:8px 0}
+.hour-values{margin-top:8px;border-top:1px solid var(--rule);font-size:13px}
+.hour-values summary{min-height:44px;align-content:center;color:var(--seal);cursor:pointer}
+.hour-values dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.hour-values dl>div{display:flex;justify-content:space-between;gap:6px;padding:7px 0;border-top:1px solid var(--rule)}
+.hour-values dd{margin:0;font-variant-numeric:tabular-nums}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -2181,11 +2191,17 @@ function peopleSec(d, dg){
   let bars='';
   if(cr.ok && (cr.hourly||[]).length){
     const h=cr.hourly, mxh=Math.max.apply(null,h.concat([1])), nv=cr.night_vs_day_pct;
+    const low=Math.min(...h),high=Math.max(...h),lowHour=h.indexOf(low),highHour=h.indexOf(high),gap=high-low;
+    const gapPct=low>0?(gap/low*100).toFixed(1):null;
     bars=`<h3 style="margin:18px 0 0;font:600 13.5px var(--ff)">사람은 언제 있나 <small style="font-weight:400;color:var(--soft)">생활인구 24시간</small></h3>
       <p class="src" style="margin:4px 0 6px"><b>${cr.peak_hour}시</b>에 가장 많아요.
         밤(19–23시)에는 낮(11–15시)보다 <b>${nv==null?'—':(nv>0?nv+'% 많아요':Math.abs(nv)+'% 적어요')}</b>.</p>
-      <div class="hrs">${h.map((v,i)=>`<span class="${i===cr.peak_hour?'pk':''}" style="height:${Math.max(4,v/mxh*100)}%" title="${i}시 ${v.toLocaleString()}명"></span>`).join('')}</div>
-      <div class="hrlab"><span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span></div>`;
+      <div class="hour-range"><span>가장 많을 때 <b>${highHour}시 · ${_n(high)}명</b></span><span>가장 적을 때 <b>${lowHour}시 · ${_n(low)}명</b></span></div>
+      <p class="hour-note">하루 중 최대 차이는 <b>${_n(gap)}명${gapPct!==null?' · '+gapPct+'%':''}</b>예요.${gapPct!==null&&Number(gapPct)<10?' 시간대별 인원이 비슷해서 막대 높이도 비슷해요.':''}</p>
+      <div class="hrs" role="img" aria-label="시간별 생활인구. 가장 많은 ${highHour}시 ${_n(high)}명, 가장 적은 ${lowHour}시 ${_n(low)}명. 막대는 0명부터 같은 비율로 표시합니다.">${h.map((v,i)=>`<span class="${i===cr.peak_hour?'pk':''}" style="height:${Math.max(4,v/mxh*100)}%" title="${i}시 ${v.toLocaleString()}명"></span>`).join('')}</div>
+      <div class="hrlab"><span>0시</span><span>6시</span><span>12시</span><span>18시</span><span>23시</span></div>
+      <p class="hour-note">막대는 0명부터 같은 비율로 표시해요. 생활인구는 이곳에 머무는 사람을 포함하며, 길을 지나는 사람 수와는 달라요.</p>
+      <details class="hour-values"><summary>시간별 인원 보기</summary><dl>${h.map((v,i)=>`<div><dt>${i}시</dt><dd>${_n(v)}명</dd></div>`).join('')}</dl></details>`;
     if((cr.age||[]).length){
       const top=cr.age.reduce((a,b)=>b.pct>a.pct?b:a);
       bars+=`<div class="ages">${cr.age.map(a=>`<b class="${a===top?'mx':''}" style="flex:${a.pct}" title="${a.label} ${a.pct}%">${a.pct>=11?a.label:''}</b>`).join('')}</div>
