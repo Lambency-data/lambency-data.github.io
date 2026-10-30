@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 7a9f60268b0a294d -->
+<!-- baked-from-b2c-where: 675ea654ac1e0a11 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -906,6 +906,34 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 .dong-neighborhood-peek li strong{font-size:16px;line-height:1.5}
 .dong-neighborhood-peek li span{font-size:14px;line-height:1.6;color:var(--ink)}
 .dong-neighborhood-peek .dong-caution-list b{color:#8b4b26}
+
+
+#dongCompareHost{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper)}
+#dongCompareHost #dongConditionsToggle{border:0;border-radius:0;padding:14px 16px;background:transparent}
+#dongCompareHost #dongConditionsToggle[aria-expanded=true]{border-bottom:1px solid var(--rule)}
+#dongCompareBody:not([hidden]){padding:0 16px 16px}
+#dongCompareBody .market-comparison-heading{display:none}
+#dongCompareBody #marketCompare{margin:12px 0 0}
+#dongCompareBody #marketCompare>.lead{font-size:12px;line-height:1.6;margin:0 0 16px;color:var(--soft)}
+#dongCompareBody #marketSavedControls{margin:10px 0 0}
+#dongCompareBody #marketCompare>.market-controls,#dongCompareBody .market-operating-form .market-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+#dongCompareBody #marketCompare .market-controls label{display:flex;flex-direction:column;align-items:stretch;gap:7px;font-size:14px;line-height:1.5;margin:0}
+#dongCompareBody #marketCompare .market-controls input,#dongCompareBody #marketCompare .market-controls select{width:100%;height:44px;min-height:44px;max-height:44px;flex:0 0 auto;font-size:16px;padding:8px 10px;border-radius:8px;background:var(--bg)}
+#dongCompareBody .condition-value{display:flex;align-items:center;gap:8px;min-width:0;width:100%}
+#dongCompareBody #marketCompare .condition-value input{flex:1 1 0;width:0;min-width:0}
+.condition-unit{white-space:nowrap;font-size:13px;flex:none}
+#dongCompareBody .market-controls>small{grid-column:1/-1;font-size:12px;line-height:1.5}
+#dongCompareBody .market-operating-form{border:0;border-top:1px solid var(--rule);border-radius:0;padding:14px 0;margin:16px 0}
+#dongCompareBody .market-operating-form>summary{font-size:15px;min-height:36px}
+#dongCompareBody #marketCompare .operating-ages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;width:100%}
+#dongCompareBody #marketCompare .operating-ages label{min-width:0;min-height:44px;gap:8px;font-size:14px}
+#dongCompareBody #marketCompare .operating-ages legend{font-size:14px;line-height:1.5}
+#dongCompareBody .market-cards{grid-template-columns:minmax(0,1fr)}
+@media(max-width:480px){#dongCompareBody:not([hidden]){padding:0 12px 12px}#dongCompareBody #marketCompare>.market-controls,#dongCompareBody .market-operating-form .market-controls{grid-template-columns:minmax(0,1fr)}}
+
+#dongCompareBody .condition-value{height:44px;box-sizing:border-box;border:1px solid var(--rule);border-radius:8px;background:var(--bg);padding-right:10px;gap:4px}
+#dongCompareBody #marketCompare .condition-value input{height:42px;min-height:42px;max-height:42px;border:0;background:transparent}
+#dongCompareBody .condition-value:focus-within{outline:2px solid var(--seal);outline-offset:1px}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -2763,7 +2791,7 @@ document.addEventListener('click',event=>{
 
 function marketOperatingForm(){
   const options=(key,end)=>'<option value="">선택</option>'+Array.from({length:end?49:48},(_,i)=>i/2).map(h=>`<option value="${h}" ${marketOperating[key]===String(h)?'selected':''}>${String(Math.floor(h)).padStart(2,'0')}:${h%1?'30':'00'}</option>`).join('');
-  return `<details class="market-startup" open><summary>내 가게 운영조건으로 비교하기</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"> 만원 이하</label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령은 별도의 생활인구 자료가 있는 동네에서 비교해요. 하루 참고값이며 실제 방문 고객 수는 아니에요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
+  return `<details class="market-startup market-operating-form" open><summary>영업시간과 고객층</summary><div class="market-controls"><label>영업 시작 <select id="operating-start" aria-label="영업 시작" data-operating="start" data-selx="1">${options('start',false)}</select></label><label>영업 종료 <select id="operating-end" aria-label="영업 종료" data-operating="end" data-selx="1">${options('end',true)}</select></label></div><div class="market-controls"><label>월세 예산 <span class="condition-value"><input id="operating-budget" aria-label="월세 예산" data-operating="budget" type="text" inputmode="decimal" placeholder="제한 없음" value="${marketEsc(marketOperating.budget)}"><span class="condition-unit">만원 이하</span></span></label></div><fieldset class="operating-ages"><legend>주 고객 연령대 · 여러 개 선택 가능</legend>${['10대','20대','30대','40대','50대','60대+'].map(age=>`<label><input type="checkbox" data-operating-age="${age}" ${marketOperating.ages.includes(age)?'checked':''}>${age==='60대+'?'60대 이상':age}</label>`).join('')}</fieldset><p class="src">종료가 시작보다 이르면 다음 날까지 영업하는 것으로 봐요. 시간대별 유동량과 고객 연령 비중은 따로 비교해요. 시간대×연령은 별도의 생활인구 자료가 있는 동네에서 비교해요. 하루 참고값이며 실제 방문 고객 수는 아니에요.</p><button type="button" class="market-pick" data-operating-sort="1">이 조건에 맞는 동네 보기</button><p class="src" id="operating-note" role="status"></p></details>`;
 }
 function jointAudience(pop, settings){
   const j=pop.living_joint,ages=[...new Set(settings.ages||[])];
@@ -2910,7 +2938,7 @@ function renderMarketCompare(){
   const guided=!dongView&&$('p-ind').classList.contains('guided');
   const rows=dongView?d.rows.filter(r=>(r.locations||[]).some(l=>l.gu===$('gu').value&&l.dong===$('dg').value)):d.rows.filter(r=>compareCodes.has(r.adstrd_cd));
   if(dongView)rows.forEach(r=>{const i=(r.locations||[]).findIndex(l=>l.gu===$('gu').value&&l.dong===$('dg').value);if(i>=0)marketLocations.set(r.adstrd_cd,i);});
-  box.innerHTML=`<h2>내 조건으로 후보 동네 비교 <small>${dongView?marketEsc($('dg').value)+' 관련 행정동':rows.length+'/3'}</small></h2><p class="market-journey">내 조건 입력 → 후보 최대 3곳 비교 → 확인할 조건 정리 → 중개사에게 공간 요청</p><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p>${guided?guidedAppliedConditions():`<div class="market-controls"><label>비교할 크기 <input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"> 평</label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`}`+marketGuide()+(guided?marketSpaceForm():marketOperatingForm())+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
+  box.innerHTML=`<div class="market-comparison-heading"><h2>내 조건으로 후보 동네 비교 <small>${dongView?marketEsc($('dg').value)+' 관련 행정동':rows.length+'/3'}</small></h2><p class="market-journey">내 조건 입력 → 후보 최대 3곳 비교 → 확인할 조건 정리 → 중개사에게 공간 요청</p></div><p class="lead">${marketEsc(d.query||d.industry)} · ${String(d.quarter).slice(0,4)}년 ${String(d.quarter).slice(4)}분기 매출·개폐업 자료예요.${d.specialty||d.subclass?' 선택한 세부 업종 매출 자료는 없어요. 아래 매출·경쟁은 '+marketEsc(d.industry)+' 전체 참고값이에요.':''}</p>${guided?guidedAppliedConditions():`<div class="market-controls"><label>가게 크기 <span class="condition-value"><input id="marketArea" type="text" min="1" max="1000" step="0.5" value="${marketArea}" inputmode="decimal"><span class="condition-unit">평</span></span></label><label>건물 유형 <select id="marketType" data-selx="1">${['소규모','집합','중대형'].map(t=>`<option ${t===marketType?'selected':''}>${t}</option>`).join('')}</select></label><small>20평은 시작 예시예요. 원하는 크기로 바꿔 보세요.</small></div>`}`+marketGuide()+(guided?marketSpaceForm():marketOperatingForm())+marketStartupForm()+(rows.length?'<div class="market-cards">'+rows.map(r=>{
     const locations=r.locations||[];
     const selected=marketLocations.get(r.adstrd_cd)||0;
     const loc=locations[selected]||locations[0];
