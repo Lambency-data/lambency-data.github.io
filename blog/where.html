@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 2d6367ad7d4fe6f4 -->
+<!-- baked-from-b2c-where: c8500d598cd83aec -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -1019,6 +1019,38 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 #headAns .qa-calc .ftab .c3 em{font-size:12px;font-style:normal}
 #headAns .qa-calc .ftab.hd span{font-size:12px}
 @media(max-width:600px){#headAns .qa-calc{grid-template-columns:auto minmax(0,1fr);column-gap:6px}#headAns .qa-calc>span{font-size:12px;gap:3px}#headAns .qa-calc .numin{width:48px;font-size:16px;padding:4px}#headAns .qa-calc>b{font-size:12px;grid-column:2;grid-row:1}#headAns .qa-calc .ftab{grid-template-columns:minmax(0,1fr) 52px 62px;gap:6px;font-size:13px}#headAns .qa-calc .ftab .c2{font-size:13px}#headAns .qa-calc .ftab .c3 b{font-size:14px}}
+
+
+#out2>.dong-people{background:var(--field);border-radius:12px;padding:16px;margin-top:16px;min-width:0}
+.dong-people h2{flex-wrap:wrap;gap:2px 8px}
+.dong-people h2 small{flex-basis:100%;line-height:1.6}
+.dong-people .dmap{width:100%;min-width:0}
+@media(max-width:600px){
+ #p-dong>.bar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #p-dong>.bar>.barlab{grid-column:1/-1}
+ #p-dong>.bar>.selx{width:100%;min-width:0}
+ #p-dong>.bar>.selx>.selx-btn{width:100%!important;min-width:0!important;min-height:44px!important;font:500 16px/1.3 var(--ff)!important;padding:8px 10px!important;border:1px solid var(--rule)!important;border-radius:8px;background:var(--field)!important;justify-content:space-between}
+ #p-dong>.bar>.selx .selx-pop{left:0;min-width:100%;width:100%}
+ #p-dong>.bar .modeseg{display:flex}
+ #p-dong>.bar .modeseg button{flex:1;min-height:44px}
+ #p-dong>.bar #go2{min-height:44px}
+ #out2 .secfold>summary,#marketCompare summary{min-height:44px;align-content:center}
+ #out2 .qa-why{min-height:40px;height:auto}
+ #out2 .qa-det{grid-column:1/-1;min-width:0}
+ #out2 .qa-v,#out2 .src,#out2 .sec{overflow-wrap:anywhere}
+ #out2 .qa-j{min-width:0}
+ #out2 .qa-v small{white-space:normal;overflow-wrap:anywhere}
+ #out2 .qa-body{min-width:0}
+ #out2 .agebar{grid-template-columns:minmax(0,1fr) auto;gap:4px 8px}
+ #out2 .agebar .tk{grid-column:1;grid-row:2;min-width:0}
+ #out2 .agebar .pc{grid-column:2;grid-row:1}
+ #out2 .agebar .rl{grid-column:2;grid-row:2;white-space:normal}
+ #out2 .qp{white-space:normal;height:auto;min-height:24px}
+ #out2 .ansq{gap:6px;font-size:14px}
+ #out2 input.numin{font-size:16px;min-height:40px}
+ #out2 .dong-people{padding:16px}
+ #out2 .dong-people .secfold>summary h2{font-size:15px}
+}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -2161,7 +2193,7 @@ function peopleSec(d, dg){
     }
     bars+=`<p class="src">${cr.caveat||''}</p>`;
   }
-  return `<section class="sec"><h2>재개발 · 사람 <small>지도, 걸어서 닿는 것, 사람이 언제 있나</small></h2>
+  return `<section class="sec dong-people"><h2>재개발 · 사람 <small>지도, 걸어서 닿는 것, 사람이 언제 있나</small></h2>
     <div id="dongMap" class="dmap"></div>
     <div class="legend" id="dongMapLegend"></div>
     <p class="src">지도의 등대는 동네 한가운데예요. 주소를 안 넣어서 집 위치는 안 찍혀요.
@@ -2262,6 +2294,7 @@ function foldSections(){
     sec.dataset.folded='1';
     const det=document.createElement('details');
     det.className='secfold';
+    if(sec.classList.contains('dong-people')) det.addEventListener('toggle',()=>{if(det.open&&_MAP) requestAnimationFrame(()=>_MAP.invalidateSize());});
     if(sec.dataset.open==='1') det.open=true;
     const sum=document.createElement('summary');
     sum.appendChild(h2);
