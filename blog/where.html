@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 48ab24686d6f259a -->
+<!-- baked-from-b2c-where: 45dba8b280afa5b4 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -983,6 +983,14 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 #headAns .qa-calc .qa-det{border-top:1px solid var(--rule);padding-top:12px}
 #headAns .qa-calc .ansnote,#headAns .qa-calc .src{font-size:13px;line-height:1.7}
 @media(max-width:600px){#headAns .qa-calc{grid-template-columns:minmax(0,1fr);padding:12px}#headAns .qa-calc>b{grid-column:1}#headAns .qa-calc .sz2{grid-template-columns:minmax(0,1fr);gap:16px}}
+
+#headAns .qa-calc{padding:10px 12px;gap:4px 12px;margin:10px 0;border-radius:10px}
+#headAns .qa-calc>span{font-size:13px;gap:5px}
+#headAns .qa-calc .numin{width:64px;min-height:40px;height:40px;padding:6px;font-size:16px;font-weight:500}
+#headAns .qa-calc>b{font-size:14px;font-weight:600}
+#headAns .qa-calc>.qa-why{width:auto;justify-self:start;justify-content:flex-start;gap:8px;min-height:36px;margin:0;padding:4px 0;border:0;border-radius:0;background:transparent;color:var(--soft);font-size:12px}
+#headAns .qa-calc.open>.qa-why{background:transparent;color:var(--seal)}
+@media(max-width:600px){#headAns .qa-calc{padding:8px 10px;gap:2px 8px}#headAns .qa-calc>.qa-why{min-height:40px}}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -1903,7 +1911,7 @@ function shopHead(){
   const rowsz=SZ.map(x=>{const mid=(x[0]+x[1])/2; return {lab:x[2], man:Math.round(mid*P2M*per)};});
   const fits=rowsz.filter(r=>r.man<=_BUD).length;
   h+=`<div class="qa-calc${_CALC_OPEN?' open':''}"><span>예산이 월 <input class="numin" id="budIn" inputmode="decimal" value="${_BUD}"> 만원</span>
-      <b>약 ${pyv.toFixed(1)}평 · ${C.reb_type} 상가</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">월세 계산 기준·면적별 금액<b>▾</b></button>
+      <b>약 ${pyv.toFixed(1)}평 · ${C.reb_type} 상가</b><button type="button" class="qa-why" onclick="calcToggle(this)" aria-expanded="${_CALC_OPEN?'true':'false'}">계산 기준 보기<b>▾</b></button>
     <div class="qa-det">
       <p class="ansnote" style="margin-top:8px">${C.sangkwon} 상권 <b>${C.reb_type} 상가</b> 1㎡ 월세 <b>${per.toFixed(1)}만</b> 기준이에요. 상가는 건물마다 실거래가 없어서 <b>상권 평균 조사값</b>으로 계산했어요.${C.vacancy_pct!=null?` 빈 가게 비율은 <b>${C.vacancy_pct}%</b>예요.`:''}</p>
       <div class="ansq warn" style="margin-top:12px"><i></i><span>거꾸로, <input class="numin" id="spyIn" inputmode="decimal" value="${_SPY}"> 평(${Math.round(_SPY*P2M)}㎡)을 하려면</span></div>
