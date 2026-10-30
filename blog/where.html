@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: c68f9c05ced8cc2a -->
+<!-- baked-from-b2c-where: 7a9f60268b0a294d -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -898,6 +898,14 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
 .dong-watch>p{margin:6px 0;color:#8b4b26}.dong-watch small,.dong-neighborhood-peek small{display:block;color:var(--soft);font-size:12px;line-height:1.6}
 .dong-alternatives{margin-top:12px}.dong-alternatives a{color:var(--seal);font-weight:600}.dong-alternatives p{margin:8px 0}
 #headAns #dongAll{max-width:100%;min-width:0}
+
+.dong-neighborhood-peek h3{font-size:18px!important;line-height:1.5;margin:0 0 16px!important}
+.dong-neighborhood-peek h4{font-size:15px;margin:18px 0 8px;color:var(--seal)}
+.dong-neighborhood-peek ul{list-style:none;padding:0;margin:0 0 12px}
+.dong-neighborhood-peek li{display:flex;flex-direction:column;gap:4px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.dong-neighborhood-peek li strong{font-size:16px;line-height:1.5}
+.dong-neighborhood-peek li span{font-size:14px;line-height:1.6;color:var(--ink)}
+.dong-neighborhood-peek .dong-caution-list b{color:#8b4b26}
 </style>
 <style id="blog-static-gaps">
   /* 받을 서버가 없는 폼 — 입력이 조용히 사라지면 «신청한 줄 알고» 떠난다 */
@@ -1716,8 +1724,10 @@ function dongAlternatives(){
 function dongNeighborhoodPeek(){
   const p=_PICK;if(!p||!p.ok)return '';
   const top=(p.top||[]).slice(0,3),avoid=(p.avoid||[]).slice(0,3);
-  return `<div class="dong-neighborhood-peek"><b>이 동네에서 함께 확인할 업종</b>${top.length?`<p>닮은 동네보다 적은 업종: ${top.map(r=>marketEsc(r.industry)+` ${r.stores}곳 / 비교 기준 약 ${Math.round(r.expected)}곳`).join(' · ')}</p>`:'<p>닮은 동네와 비교해 뚜렷하게 부족한 업종은 없어요.</p>'}${avoid.length?`<p>주의해서 볼 업종: ${avoid.map(r=>marketEsc(r.industry)+(r.burden_pct>=30?` (월세가 매출의 ${r.burden_pct}%)`:r.yoy_pct<0?` (매출 전년 동기 ${r.yoy_pct}%)`:r.close_rate_pct>=5?` (분기 폐업률 ${r.close_rate_pct}%)`:' (가게 수·매출 확인 필요)')).join(' · ')}</p>`:''}<small>가게 수가 적다고 창업에 유리하다는 뜻은 아니에요. 전체 근거는 ‘동네 전체 보기’에서 확인하세요.</small></div>`;
+  const entry=(r,note)=>`<li><strong>${marketEsc(r.industry)}</strong><span>${note}</span></li>`;
+  return `<div class="dong-neighborhood-peek"><h3>이 동네에서 함께 확인할 업종</h3><h4>닮은 동네보다 적은 업종</h4>${top.length?`<ul>${top.map(r=>entry(r,`현재 <b>${r.stores}곳</b> · 닮은 동네 기준 약 ${Math.round(r.expected)}곳`)).join('')}</ul>`:'<p>뚜렷하게 부족한 업종은 없어요.</p>'}${avoid.length?`<h4>주의해서 볼 업종</h4><ul class="dong-caution-list">${avoid.map(r=>entry(r,r.burden_pct>=30?`조사 월세가 평균 매출의 <b>${r.burden_pct}%</b>`:r.yoy_pct<0?`매출이 전년 동기보다 <b>${Math.abs(r.yoy_pct)}% 감소</b>`:r.close_rate_pct>=5?`최근 분기 폐업률 <b>${r.close_rate_pct}%</b>`:'가게 수와 매출 확인 필요')).join('')}</ul>`:''}<small>가게 수가 적다고 창업에 유리하다는 뜻은 아니에요. 전체 근거는 ‘동네 전체 보기’에서 확인하세요.</small></div>`;
 }
+
 function shopHead(){
   const C=(_D&&_D.commercial)||{};
   const names=[...new Set((_ALLIND||[]).map(x=>x.industry))];
@@ -2860,9 +2870,15 @@ async function runDongBusiness(){
   await run(name);
   mountBusinessCompare();
 }
-$('dongConditionsToggle').addEventListener('click',()=>{
+$('dongConditionsToggle').addEventListener('click',async()=>{
   const body=$('dongCompareBody'),button=$('dongConditionsToggle');body.hidden=!body.hidden;
   button.setAttribute('aria-expanded',String(!body.hidden));button.querySelector('span').textContent=body.hidden?'＋':'−';
+  if(!body.hidden){
+    if(!industryData||industryData.industry!==_IND){
+      $('dongIndustry').value=_IND||$('dongIndustry').value||'커피-음료';
+      await runDongBusiness();
+    }else renderMarketCompare();
+  }
 });
 hicceIndustrySearch($('dongIndustry'),$('dongIndustries'));
 $('dongBusinessGo').addEventListener('click',runDongBusiness);
@@ -2886,7 +2902,10 @@ function renderMarketCompare(){
   const editing=box.contains(active)&&active.tagName==='INPUT'?{value:active.value,start:active.selectionStart,end:active.selectionEnd}:null;
   const focusId=box.contains(active)?active.id:'';
   const focusCode=box.contains(active)&&active.matches('.market-quoted')?active.dataset.code:null;
-  if(!industryData){box.innerHTML='';return;}
+  if(!industryData){
+    box.innerHTML='<p role="status">선택한 업종의 조건 입력 화면을 불러오지 못했어요.</p><button type="button" class="market-pick" id="dongConditionsRetry">조건 입력 다시 불러오기</button>';
+    $('dongConditionsRetry').onclick=()=>{ $('dongIndustry').value=_IND||$('dongIndustry').value||'커피-음료';runDongBusiness();};return;
+  }
   const d=industryData, dongView=!$('p-dong').hidden;
   const guided=!dongView&&$('p-ind').classList.contains('guided');
   const rows=dongView?d.rows.filter(r=>(r.locations||[]).some(l=>l.gu===$('gu').value&&l.dong===$('dg').value)):d.rows.filter(r=>compareCodes.has(r.adstrd_cd));
