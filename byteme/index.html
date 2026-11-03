@@ -547,6 +547,27 @@ footer img{width:108px;height:18px;object-fit:contain}
   .hero .hero-text .ctas .btn{width:100%;min-height:48px;padding:12px;font-size:15.5px;text-align:center;justify-content:center}
   .hero .hero-vid{order:5}
 }
+/* 2026-11-03 카프 "그런거 반영해서 우리 랜딩 페이지에도 적용해봐" — 카드뉴스 "광고정지 10가지"(facter_kr 꼴: 검은 카드 · 번호 제목 · 핵심 한 구절 굵게)를 가격 앞에.
+   숫자 근거 = 식약처 화장품 행정처분 공개 198건(처분일 2025-10-16~2026-10-01) 중 광고 137건 · 원고 byteme/docs/카드뉴스_광고정지10가지_2026-11-03.md */
+#stops .stop-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px;padding:0;list-style:none}
+#stops .stop{background:#0D0F12;color:#F4F5F2;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+#stops .stop .ph{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;background:#1B1E22}
+#stops .stop .tx{padding:18px 18px 22px;display:flex;flex-direction:column;gap:10px}
+#stops .stop h3{font-size:17px;line-height:1.4;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+#stops .stop h3 .no{display:block;font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:26px;color:var(--lime);margin-bottom:4px}
+#stops .stop p{font-size:14px;line-height:1.65;color:#B9BEB5}
+#stops .stop p b{color:#FFFFFF;font-weight:700}
+#stops .stop-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:26px}
+#stops .stop-cta p{font-size:17px;font-weight:700}
+#stops .stop-swipe{display:none}
+@media (max-width:1100px){#stops .stop-row{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){
+  #stops .stop-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:24px -20px 0;padding:4px 20px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #stops .stop-row::-webkit-scrollbar{display:none}
+  #stops .stop{flex:0 0 80%;scroll-snap-align:center}
+  #stops .stop-swipe{display:block;margin-top:10px;font-size:14px;font-weight:700;color:var(--green-ink);text-align:right}
+  #stops .stop-cta p{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -715,6 +736,30 @@ footer img{width:108px;height:18px;object-fit:contain}
       </div>
       <p class="note">판매처가 여러 곳이면 이 점검을 판매처마다 다시 해야 합니다. 그 반복을 간단 검진이 대신합니다.</p>
     </div>
+  </div>
+</section>
+<section id="stops">
+  <div class="wrap">
+    <p class="eyebrow">공개 처분 137건에서 · 실제 사례</p>
+    <h2 class="h2">화장품 대표님이 모르는<br>광고정지 10가지</h2>
+    <ol class="stop-row">
+      <li class="stop"><img class="ph" src="assets/stops/01.webp" alt="빨간 도장이 찍힌 처분 통지서와 화장품 병" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">1</span>화장품 광고 위반은 경고가 아니라 정지로 끝난다</h3><p>최근 1년 공개된 화장품 광고 위반 처분 137건 중 135건이 해당 품목 광고업무정지였습니다. <b>시정명령으로 끝난 건은 없었습니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/02.webp" alt="두 달 치 날짜에 빨간 줄이 그어진 달력" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">2</span>정지는 2~3개월이 보통이다</h3><p>2개월 49건, 3개월 64건, 4개월 이상 22건. 그동안 그 품목은 광고를 못 하고, <b>처분 사실은 반년 넘게 공개됩니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/03.webp" alt="작은 화장품 회사 사무실에서 노트북을 보며 걱정하는 대표" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">3</span>처분은 판매처가 아니라 브랜드가 받는다</h3><p>137건 모두 처분을 받은 곳은 화장품책임판매업자, 즉 브랜드였습니다. <b>대행사나 판매처가 받은 건은 없었습니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/04.webp" alt="약 포장과 나란히 놓인 크림 통" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">4</span>가장 많이 걸리는 건 약처럼 들리는 말이다</h3><p>137건 중 81건이 의약품으로 잘못 인식할 우려였습니다. 염증, 재생, 가려움, 통증처럼 <b>몸의 증상을 고친다고 읽히는 말</b>입니다.</p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/05.webp" alt="화장품 병 뒷면 성분 표시를 가리키는 손끝" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">5</span>성분 소개 칸도 광고다</h3><p>보존제로 넣은 BHA를 "묵은 각질에 효과적"이라고 소개한 제품이 광고업무정지 2개월. <b>성분 설명도 그 제품의 광고로 봅니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/06.webp" alt="주사기와 앰플이 놓인 피부과 시술실" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">6</span>시술을 떠올리게 하면 화장품이 아니다</h3><p>"PDLLA로 깨우는 피부 속 콜라겐", "콜라겐 생성 지표 +60.2%"로 광고업무정지 3개월. <b>시술 성분과 생체 지표 수치를 함께 쓰면 의약품처럼 읽힙니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/07.webp" alt="의자에 걸린 의사 가운과 촬영용 링라이트" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">7</span>의사가 만들었다는 이야기도 걸린다</h3><p>"병원을 개업하고 첫날 환자가 나에게 했던 말이다…" 의사 창업 이야기를 담은 유튜브 쇼츠가 <b>광고업무정지 2개월</b>을 받았습니다.</p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/08.webp" alt="팔 안쪽 피부를 측정하는 시험 장면" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">8</span>임상 출처를 적어도 안전한 건 아니다</h3><p>대상, 기간, 시험기관까지 적은 앰플이 상세페이지 임상 내용 일부 항목으로 광고업무정지 2개월. <b>출처 줄은 표현이 맞다는 보증이 아닙니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/09.webp" alt="빨간 도장이 찍힌 봉투 두 장, 두 번째가 더 큰 도장" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">9</span>두 번째는 더 길다</h3><p>같은 브랜드가 다시 걸리자 다른 품목은 3개월, 그 품목은 2차 위반 가중으로 6개월이었습니다. <b>한 번 걸린 브랜드일수록 다음이 더 비쌉니다.</b></p></div></li>
+      <li class="stop"><img class="ph" src="assets/stops/10.webp" alt="같은 상품 페이지를 띄운 휴대폰 여러 대와 노트북" width="640" height="794" loading="lazy" decoding="async"><div class="tx"><h3><span class="no">10</span>자사몰을 고쳐도 판매처에는 남아 있다</h3><p>한 브랜드는 같은 "염증" 문구가 판매처 7곳, 페이지 15개에 있었습니다. <b>같은 상세 이미지가 판매처마다 그대로 붙어 있습니다.</b></p></div></li>
+    </ol>
+    <p class="stop-swipe" aria-hidden="true">옆으로 넘겨 보세요 →</p>
+    <div class="stop-cta">
+      <p>이 열 가지가 우리 판매 페이지 어디에 있는지,<br>판매처마다 찾아 고칠 곳과 요청문까지 드립니다.</p>
+      <a class="btn btn-gold" href="#apply">간단 검진 신청하기</a>
+    </div>
+    <p class="note">출처: 식약처 화장품 행정처분 공개(처분일 2025년 10월~2026년 10월, 광고 위반 137건). 정지 기간은 처분 한 건의 첫 품목 기준입니다. 10번은 BYTEME 감사(2026년 11월)이며 브랜드·제품 이름은 가렸습니다. 사진은 AI로 만든 이미지입니다. 위법인지는 판단하지 않습니다.</p>
   </div>
 </section>
 <section id="price">
