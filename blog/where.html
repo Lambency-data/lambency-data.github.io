@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 1ec0834c65d0f149 -->
+<!-- baked-from-b2c-where: d9bbe0584959b315 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -200,6 +200,10 @@ a:hover{color:#7A5310}
   input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea{font-size:16px !important}
   
   button:not(.hd button), a.pill, [role=tab]{min-height:44px}
+  
+  .gobar{position:sticky;bottom:0;z-index:20;background:var(--paper);padding:10px 0 calc(10px + env(safe-area-inset-bottom, 0px));box-shadow:0 -1px 0 var(--rule)}
+  .gobar > .go{margin-top:0}
+  .gobar > p:empty{display:none}   
 }
 
 .ft{border-top:1px solid var(--rule)}
