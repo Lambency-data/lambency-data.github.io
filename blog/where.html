@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 1765848d4fdf9a7d -->
+<!-- baked-from-b2c-where: 3d4d2e456b1bb4a8 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -185,10 +185,21 @@ a:hover{color:#7A5310}
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
     margin-inline:calc(-1 * clamp(18px,4vw,44px));padding-inline:clamp(18px,4vw,44px)}
   .hd nav::-webkit-scrollbar{display:none}
-  .hd nav a{padding:7px 12px;line-height:1.5;white-space:nowrap;flex:none}
+  .hd nav a{padding:12px 12px;line-height:20px;white-space:nowrap;flex:none}   
   .hd nav a + a::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
     width:1px;height:11px;background:var(--rule);opacity:.7}
   .hd nav a:first-child{padding-left:0}
+  
+  .hd{padding-top:4px;padding-bottom:0;row-gap:0}
+  .hd .tag{display:none}
+  .hd .left{min-height:44px}
+  .hd .lockup{min-height:44px;align-items:center}
+}
+
+@media (max-width:640px){
+  input:not([type=checkbox]):not([type=radio]):not([type=range]), select, textarea{font-size:16px !important}
+  
+  button:not(.hd button), a.pill, [role=tab]{min-height:44px}
 }
 
 .ft{border-top:1px solid var(--rule)}
