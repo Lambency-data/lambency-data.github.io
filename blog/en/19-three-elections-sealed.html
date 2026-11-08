@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average | Lambency</title>
+<meta name="description" content="Forecasts for Brazil's runoff, Israel's general election and the US midterms were hash-sealed before the vote and scored as sealed after the count. In the US our main call averaged 3.52 points of error across five states and did not beat the polling average, 2.99. In Brazil we called 26 of 27 state winners and got the national winner wrong. In Israel the bloc seat error was 4.0, with only the Arab bloc outside the interval. In all three the polls under-read one side, and so did we.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/19-three-elections-sealed.html">
+<meta property="og:title" content="Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average">
+<meta property="og:description" content="Forecasts for Brazil's runoff, Israel's general election and the US midterms were hash-sealed before the vote and scored as sealed after the count. In">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average">
+<meta name="twitter:description" content="Forecasts for Brazil's runoff, Israel's general election and the US midterms were hash-sealed before the vote and scored as sealed after the count. In">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/19-three-elections-sealed.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/19-three-elections-sealed.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/19-three-elections-sealed.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/19-three-elections-sealed.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/19-three-elections-sealed.html#post",
+   "headline": "Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average",
+   "url": "https://lambency-data.github.io/blog/en/19-three-elections-sealed.html",
+   "datePublished": "2026-11-09",
+   "dateModified": "2026-11-09",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, election forecasting, pre-registration, synthetic panel, polling average, Brazil runoff, Israel election, US midterms",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/19-three-elections-sealed.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "Forecasts for Brazil's runoff, Israel's general election and the US midterms were hash-sealed before the vote and scored as sealed after the count. In the US our main call averaged",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="../bytemescan.html">bytemescan</a>
+    <a href="../../byteme/blog/">byteme</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../19-three-elections-sealed.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 19 · Synthetic panel</div>
+  <h1>Three Elections, Sealed Before the Vote<br>We Did Not Beat the Polling Average
+    <span class="h1sub">Brazil's runoff · Israel's general election · the US midterms · hash-sealed forecasts scored as sealed after the count</span>
+  </h1>
+  <div class="meta">
+    Caff · November 2026<br>
+    Data used — three forecast files sealed before the vote and the official counts (Brazil TSE, Israel Central Elections Committee, US en.wikipedia tallies, provisional). Polls from public aggregation tables. <strong>Zero internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>The night of November 1, two days before the US vote. Running a last audit of the sealed numbers, I found a missing term in Nebraska. A candidate-strength term,
+worth more than two points. Adding it would fix the call; the arithmetic was right there. I did not add it. The file had gone to a public repository with its hash the day before,
+and changing a number there would turn the previous two months into decoration. Two days later, Nebraska was wrong.</p>
+  </div>
+
+  <p>Over the past two months I locked three elections this way. Brazil's runoff on October 25, Israel's general election on October 27, the US midterms on November 3.
+The results first. In the US, our main call had a mean error of <strong>3.52</strong> points across five Senate states, and it did not beat the baseline that used only the
+polling average, <strong>2.99</strong>. In Brazil we called the winner in 26 of 27 states and got the national winner wrong. In Israel the bloc seat error was <strong>4.0</strong> seats,
+and only the Arab bloc fell outside the 80% interval. Set side by side, the three show the same shape. The polls under-read one side, and so did we. The only differences are that
+we had locked the numbers in advance, and that three times, when we wanted to change them, we did not. This piece is about those three times, the one thing you only see with the
+three countries together, and what we carry into Korea's 2028 general election.</p>
+
+  <h2><span class="num">01</span>What sealing means, and the first temptation</h2>
+
+  <p>Sealing is simple. The forecasts and the rules go into a file, and the file's SHA-256 hash is published before the vote. After the count, that file is scored as it is.
+One more thing is sealed alongside it: the baseline. A version that uses only the polling average, or last election's result unchanged, something anyone could build, is locked
+at the same moment. If our version does not beat it, we write that it did not. That is where the title of this piece comes from.</p>
+
+  <p>The first temptation came on September 2, right after the first US seal went up. In Maine and Nebraska the two methods split wide open. Coefficients measured from past counts
+and what the AI knew about the candidates gave answers more than 11 points apart. The first reaction was "those two are clearly off, shouldn't we fix them?" We did not.
+There was no basis for a fix. Two methods disagreed, and the answer existed only on November 3. We left the split alone and decided to learn from the scoring. That is what a seal means.
+Fix the uncomfortable numbers and the system has no reason to exist.</p>
+
+  <p>From the US onward, the hashes did not stay only in our repository. On the morning of November 1, the main-call seal file, the rules and the scoring code went to the
+OSF (Open Science Framework) as a pre-registration. Registration tup6z; the seven additional states the same day as x85tm; the House national vote on November 3 as ghuj6.
+All three are public and carry a DOI. A commit time in our account is our record; a registration time at OSF is someone else's. Brazil and Israel only have hashes. We were
+not ready in time for them, and that is on us.</p>
+
+  <h2><span class="num">02</span>Scorecard for three countries</h2>
+
+  <div class="tw">
+<table>
+  <thead><tr><th></th><th>What was sealed</th><th>Our call</th><th>Baseline sealed with it</th><th>Side the polls under-read</th></tr></thead>
+  <tbody><tr><td>Brazil runoff (Oct 25)</td><td>Two-party share in 27 states</td><td>State mean error 1.83 pts · winners 26/27</td><td>Version adding last polling error 3.57</td><td>Lula by 2.89 pts</td></tr><tr><td>Israel general (Oct 27)</td><td>120 seats across three blocs</td><td>Bloc mean error 4.0 seats</td><td>2022 result unchanged 7.33</td><td>Arab bloc by 5 seats</td></tr><tr><td>US midterms (Nov 3)</td><td>Two-party share in five Senate states</td><td>Mean error 3.52 pts · winners 4/5</td><td>Polling average 2.99 · winners 5/5</td><td>Democrats by 1.88 pts</td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 680 248" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mean absolute error (lower is better)" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">Mean absolute error (lower is better)</text><rect x="24" y="37" width="12" height="12" rx="2" fill="#22a37c"/><text x="41.0" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Our call</text><rect x="120.60000000000001" y="37" width="12" height="12" rx="2" fill="#bf8329"/><text x="137.6" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Baseline sealed with it</text><text x="240.0" y="79.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">US · 5 Senate states (pts)</text><path d="M250.0,66.0 h163.2 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-163.2 z" fill="#22a37c"></path><text x="423.2" y="78.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">3.52</text><path d="M250.0,83.0 h138.0 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-138.0 z" fill="#bf8329"></path><text x="398.0" y="95.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">2.99</text><text x="240.0" y="96.0" font-size="10.5" fill="#a89e8a" text-anchor="end" font-weight="normal">polling average</text><text x="240.0" y="139.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Brazil · 27 states (pts)</text><path d="M250.0,126.0 h82.9 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-82.9 z" fill="#22a37c"></path><text x="342.9" y="138.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">1.83</text><path d="M250.0,143.0 h165.6 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-165.6 z" fill="#bf8329"></path><text x="425.6" y="155.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">3.57</text><text x="240.0" y="156.0" font-size="10.5" fill="#a89e8a" text-anchor="end" font-weight="normal">last polling error added</text><text x="240.0" y="199.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Israel · 3 blocs (seats)</text><path d="M250.0,186.0 h186.0 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-186.0 z" fill="#22a37c"></path><text x="446.0" y="198.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">4.00</text><path d="M250.0,203.0 h344.2 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 h-344.2 z" fill="#bf8329"></path><text x="604.2" y="215.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">7.33</text><text x="240.0" y="216.0" font-size="10.5" fill="#a89e8a" text-anchor="end" font-weight="normal">2022 result unchanged</text></svg>
+<p class="figcap">Figure 1 · Our call and the baseline sealed with it, three countries. Only in the US did the baseline win; in Brazil and Israel our call did</p>
+</div>
+
+  <p>Reading this as "lost the US, won Brazil and Israel" is half right. The baselines differ. The US baseline is the polling average, the hardest opponent there is; Israel's baseline
+is a four-year-old result, the easiest. Brazil's comparison is another version we sealed ourselves. The three rows are not measured with the same ruler. So each country gets its own
+section, in order of the calendar, with what we refrained from doing in each.</p>
+
+  <h2><span class="num">03</span>Brazil — watching the polls flip within three weeks</h2>
+
+  <p>In early October, right after the first round, we sealed the right-wing candidate's two-party share in 27 states. Nationally 50.19, a narrow edge for the right. We sealed one more
+version alongside: in the first round the polls had under-read the right by 1.9 points, so this version assumed the runoff polls would too and added that much, nationally 52.09.
+Then for three weeks we watched the runoff polls come in. They moved against us. The last week's 35 polls averaged 51.1 for the right, and the count came in at 48.21. The polls had
+over-read the right by 2.89 points. Polls that under-read in the first round over-read in the runoff. The sign flipped.</p>
+
+  <p>What happened in those three weeks? In the first round on October 4, Flávio Bolsonaro finished nearly 2 points ahead of Lula, and on October 18 the first televised debate took place.
+<a href="https://www.brasildefato.com.br/2026/10/19/flavio-bolsonaro-mostrou-discurso-raso-e-sugou-lula-para-seu-baixo-nivel-no-debate-avaliam-analistas/">Brazilian commentary</a> rated it badly for Flávio; many said he dodged questions and spoke thinly.
+The second debate on October 23 drew <a href="https://www.metropoles.com/brasil/flavio-bolsonaro-ou-lula-colunistas-do-metropoles-analisam-quem-venceu-debate-da-globo-veja-notas">split reviews</a>. How did the polls move?
+The weekly average went from 52.1 to 50.9 in the debate week, then stopped at 51.1 in the final week. The debate did move the polls by about a point. The count then went another 2.9 points.
+It would be convenient to write that the debate decided it, but our data does not allow it. The movement the polls caught was small; the movement they missed was large.</p>
+
+  <p>Where the missed movement sat shows up in the vote accounting. The 9.32 million votes of the candidates eliminated in the first round plus 4.78 million new valid votes, 14.10 million in all,
+were split between the two finalists in the runoff. Lula's side took 10.38 million of them, 74%. The eliminated candidates mostly carried centrist or right-wing labels. Votes labelled right did not go right.
+The polls believed the label, and so did we. This is net accounting, not proof of where any individual moved. It does say which pocket the 2.9 points came from.</p>
+
+  <p>The map was right. State mean error 1.83 points, state winners 26/27, and with the national level removed, 0.36 on relative position. One thing was wrong, the national level,
+and that one thing got the national winner wrong. The added version was worse: 3.57, double. Carrying last error into this election was dropped here. But dropping it can be post-hoc
+revision too. That thought carried over to Israel two days later.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brazil runoff · mean error across 27 states (pts)" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">Brazil runoff · mean error across 27 states (pts)</text><text x="260.0" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Rule version (main call)</text><path d="M270.0,48.0 h160.7 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-160.7 z" fill="#22a37c"></path><text x="441.7" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">1.83</text><text x="260.0" y="96.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Last polling error added</text><path d="M270.0,82.0 h317.3 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-317.3 z" fill="#bf8329"></path><text x="598.3" y="96.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">3.57</text><text x="260.0" y="130.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Rule version · level removed</text><path d="M270.0,116.0 h28.4 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-28.4 z" fill="#3f86d8"></path><text x="309.4" y="130.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">0.36</text><text x="24.0" y="158.0" font-size="11" fill="#a89e8a" text-anchor="start" font-weight="normal">National two-party share sealed 50.19 · actual 48.21</text></svg>
+<p class="figcap">Figure 2 · State mean error of three Brazilian versions. The version that added the last polling error doubled the error</p>
+</div>
+
+  <h2><span class="num">04</span>Israel — the morning after a failure, sealing the same kind of version again</h2>
+
+  <p>Israel was sealed on the morning of October 26, the day after Brazil's runoff. Three blocs' seats. The main call used the last ten days of polls as they were: coalition camp 52,
+Arab parties 14, the rest 54. And one test version: over the last five elections the polls had missed the same blocs in the same direction, so this version added that much.
+Twelve hours earlier we had watched exactly that kind of correction double the error in Brazil. I wanted to pull it. I did not. Changing the rule on one result is post-hoc revision as well.
+Instead it went into the seal document: this version is a test, and the score is the main call.</p>
+
+  <p>The count: 53, 19, 48. The main call's bloc mean error was 4.0 seats; the baseline that used the 2022 result unchanged scored 7.33. We had the coalition short of the 61-seat majority,
+and the sealed probability of a majority was 0.056. Two of the three blocs landed inside the 80% interval; only the Arab bloc fell outside. The polls under-read the Arab parties by 5 seats,
+and we followed the polls.</p>
+
+  <p>Why were 5 seats missed? Turnout. By the Central Elections Committee's count, national turnout was 77.7%, the highest since 1999. Arab turnout rose from about 53% in 2022 to
+<a href="https://www.jpost.com/israel-election-2026/article-913616">about 77% this time</a>. Pre-election polls had been assuming around 65%.
+Our own decomposition puts 3.4 seats of the gain on the Arab lists merging so that no votes were wasted below the threshold, and 5.5 seats on the votes themselves increasing. The polls missed the second part.
+All 24 polls from 8 pollsters in the sealing window had the Arab bloc at 13 to 16 seats. This was not an error you could avoid by choosing a pollster. Reports offered several reasons for the surge,
+and our data cannot say how many seats each one was worth. What can be written down is this: a turnout jump of more than 20 points in one group did not exist in the error distribution of the last five
+elections, so it did not exist in our interval either.</p>
+
+  <p>The polls missed one more thing in the same election: Likud. Our rule version had it at 22 seats; the actual was 27. As a single party, that is a large error. Grouped into the coalition bloc,
+the error shrank to 1 seat, because one party in the bloc rose while others fell. Sealing at bloc level was lucky this time, and I do not claim it will be next time.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 234" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Israel · bloc seats (of 120)" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">Israel · bloc seats (of 120)</text><rect x="24" y="37" width="12" height="12" rx="2" fill="#ece5d8"/><text x="41.0" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Actual</text><rect x="106.2" y="37" width="12" height="12" rx="2" fill="#22a37c"/><text x="123.2" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Main call (sealed)</text><rect x="274.8" y="37" width="12" height="12" rx="2" fill="#3f86d8"/><text x="291.8" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Test version (sealed)</text><text x="160.0" y="80.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Coalition camp</text><path d="M170.0,66.0 h298.9 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-298.9 z" fill="#ece5d8"></path><text x="478.9" y="76.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">53</text><path d="M170.0,81.0 h293.1 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-293.1 z" fill="#22a37c"></path><text x="473.1" y="91.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">52</text><path d="M170.0,96.0 h310.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-310.3 z" fill="#3f86d8"></path><text x="490.3" y="106.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">55</text><text x="160.0" y="136.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Arab parties</text><path d="M170.0,122.0 h104.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-104.6 z" fill="#ece5d8"></path><text x="284.6" y="132.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">19</text><path d="M170.0,137.0 h76.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-76.0 z" fill="#22a37c"></path><text x="256.0" y="147.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">14</text><path d="M170.0,152.0 h81.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-81.7 z" fill="#3f86d8"></path><text x="261.7" y="162.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">15</text><text x="318.6" y="132.5" font-size="10.5" fill="#bf8329" text-anchor="start" font-weight="normal">■ outside 80% interval</text><text x="160.0" y="192.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">The rest</text><path d="M170.0,178.0 h270.3 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-270.3 z" fill="#ece5d8"></path><text x="450.3" y="188.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">48</text><path d="M170.0,193.0 h304.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-304.6 z" fill="#22a37c"></path><text x="484.6" y="203.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">54</text><path d="M170.0,208.0 h281.7 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-281.7 z" fill="#3f86d8"></path><text x="461.7" y="218.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">50</text></svg>
+<p class="figcap">Figure 3 · Sealed values and actual seats for Israel's three blocs. Only the Arab bloc is outside the interval</p>
+</div>
+
+  <p>The test version scored 2.67. Better than the main call. This is the third temptation. "The correction worked in Israel, let's record 2.67" comes out immediately. We do not.
+Re-labelling a version we had written down as a test, after seeing the result, is precisely what post-hoc revision is. Our score is 4.0. The fact that the test version did better is
+recorded separately, and what it means is read in 06, next to Brazil.</p>
+
+  <div class="pull">
+  <p>In Brazil, adding the last polling error doubled the error. In Israel, the same correction cut it by a third. Only with the two side by side does the condition show.</p>
+</div>
+
+  <h2><span class="num">05</span>The US — we did not beat the polling average</h2>
+
+  <p>We sealed the Democratic two-party share in five Senate states on October 31, three days before the vote, and registered it at OSF the next day. Scored: mean error 3.52 points,
+winners 4/5. The polling average sealed at the same moment: 2.99, winners 5/5. We did not beat it. In the seven additional states, six are scored so far, and there it was nearly even,
+2.32 against 2.38. The comparison version whose rules were frozen on September 1 scored 3.9, inside the pass line of 4 we had set in advance, but still worse than the polling average.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US five states · error = forecast − actual (Democratic two-party share, pts)" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12" fill="#ece5d8" text-anchor="start" font-weight="bold">US five states · error = forecast − actual (Democratic two-party share, pts)</text><rect x="24" y="37" width="12" height="12" rx="2" fill="#22a37c"/><text x="41.0" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Our main call</text><rect x="156.60000000000002" y="37" width="12" height="12" rx="2" fill="#bf8329"/><text x="173.6" y="47.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">Polling average only</text><text x="180.0" y="79.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">North Carolina</text><path d="M226.8,66.0 h109.2 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-109.2 z" fill="#22a37c"></path><text x="220.8" y="76.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-4.53</text><path d="M225.5,81.0 h110.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-110.5 z" fill="#bf8329"></path><text x="219.5" y="91.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-4.58</text><text x="180.0" y="121.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Georgia</text><path d="M206.5,108.0 h129.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-129.5 z" fill="#22a37c"></path><text x="200.5" y="118.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-5.34</text><path d="M226.5,123.0 h109.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-109.5 z" fill="#bf8329"></path><text x="220.5" y="133.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-4.54</text><text x="180.0" y="163.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Maine</text><path d="M262.0,150.0 h74.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-74.0 z" fill="#22a37c"></path><text x="256.0" y="160.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-3.12</text><path d="M294.5,165.0 h41.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-41.5 z" fill="#bf8329"></path><text x="288.5" y="175.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-1.82</text><text x="180.0" y="205.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Ohio</text><path d="M327.2,192.0 h8.8 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-8.8 z" fill="#22a37c"></path><text x="321.2" y="202.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-0.51</text><path d="M320.5,207.0 h15.5 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-15.5 z" fill="#bf8329"></path><text x="314.5" y="217.5" font-size="10.5" fill="#ece5d8" text-anchor="end" font-weight="normal">-0.78</text><text x="180.0" y="247.0" font-size="11.5" fill="#ece5d8" text-anchor="end" font-weight="normal">Nebraska</text><path d="M340.0,234.0 h98.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-98.0 z" fill="#22a37c"></path><text x="448.0" y="244.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">+4.08</text><path d="M340.0,249.0 h77.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-77.0 z" fill="#bf8329"></path><text x="427.0" y="259.5" font-size="10.5" fill="#ece5d8" text-anchor="start" font-weight="normal">+3.24</text><line x1="340" y1="58" x2="340" y2="276" stroke="#a89e8a" stroke-width="1"/><text x="332.0" y="290.0" font-size="10.5" fill="#a89e8a" text-anchor="end" font-weight="normal">← Democrats under-estimated</text><text x="348.0" y="290.0" font-size="10.5" fill="#a89e8a" text-anchor="start" font-weight="normal">over-estimated →</text></svg>
+<p class="figcap">Figure 4 · Errors in the five US states. Negative means the Democratic share was under-estimated. Four of five point the same way</p>
+</div>
+
+  <p>The state we got wrong is Nebraska, the one from the opening. We put the Democratic side 4.08 points too high. With the missing term, the call would have been right. Without it,
+it was wrong. This should not read as a grievance. Without the rule that a mistake found before the election still cannot change the seal, nothing stops anyone from saying "we actually knew"
+after the election. Nebraska is the price of that rule.</p>
+
+  <p>The direction matters more. In nine of the eleven states scored so far, we under-estimated the Democratic side. That is not a different mistake in each state; it looks like one common
+factor underneath, and the polling average missed in the same direction. The House national vote tells the same story. We put the Democratic two-party share at 53.54; the count so far
+says 56.55. The probability layer held up. Every state where we gave the favourite 0.80 or more came in, and the 80% intervals contained the actual value in all five states.</p>
+
+  <p>We were not alone. <a href="https://pewresearch.org/short-reads/2026/11/06/a-first-look-at-polling-performance-in-2026">Pew's</a> first look found that the polls got the direction right but understated
+the size of the Democratic advantage. One tally of 216 Senate and governor polls put the average tilt at 4.1 points toward Republicans (<a href="https://pushbuild.com/apis/analysis/2026-polls-vs-results/">Pushbuild</a>);
+another had Democrats under-estimated in 14 of 15 key Senate races (<a href="https://www.allsides.com/blog/what-polls-missed-about-midterms">AllSides</a>). Three explanations are circulating:
+likely-voter models built on the 2024 electorate, conservative respondents weighted too heavily, and an over-correction for the last two cycles' misses. All of them are hypotheses until the final counts.
+Our version carries one assumption of the same kind. Age-group turnout was weighted on the 2022 midterm pattern, when turnout was 25.6% among 18 to 24 year olds and 64.6% among those 65 and over.
+If younger voters turned out above that this time, part of our error lives there. That gets checked when the turnout statistics are published.</p>
+
+  <p>One thing to state plainly. This version was not built from LLM personas. A diagnostic run in September using LLM personas alone scored 8.2, and under the sealing rules that is
+published as a failure. Since then, election forecasting is done with a structural model anchored on polls, and personas are used only for diagnosis.</p>
+
+  <h2><span class="num">06</span>What you only see with the three together</h2>
+
+  <p><strong>Carrying last polling error into this election is conditional.</strong> Brazil carried the first-round error into the runoff within the same election, the sign flipped, and it failed.
+Israel carried an error that had kept the same sign in four of the last five elections, and it worked. Add it only when several elections point the same way. Never within the same election.
+This sentence exists because the test version was not pulled the morning after Brazil. Pulled, the conclusion would have been one line, "corrections don't work", and it would have been wrong.
+Three countries are not a law; only the shape of the condition is recorded.</p>
+
+  <p><strong>The biggest error is the whole polling industry missing together.</strong> In Brazil all 35 final-week runoff polls missed to the same side; in the US nine of eleven states missed
+in the same direction. That cannot be fixed state by state. The only answer is to seal not a point but a probability layer with a separate common-error term. The reason the US 80% intervals
+held all five states is that layer.</p>
+
+  <p><strong>A simple baseline is hard to beat.</strong> In the US the polling average was better than our version. That is why the baseline is sealed alongside, and any layer that does not
+beat it is dropped from the next seal. The easiest way to look like a winner is to not seal the baseline.</p>
+
+  <h2><span class="num">07</span>What we carry into Korea's 2028 general election</h2>
+
+  <p>These three were practice. The real test is the 23rd general election on April 12, 2028. We do not transplant the three countries' values into Korea. We carry the axes and the signs,
+re-measure them on past Korean elections, and use them only where the error goes down. What we have decided to carry so far:</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Lesson</th><th>Where</th><th>How, for Korea 2028</th></tr></thead>
+  <tbody><tr><td>The industry-wide polling miss is the largest error</td><td>All 35 in Brazil · 9 of 11 US states</td><td>A common-error probability layer in every seal. Seat ranges are dominated by the national common error</td></tr><tr><td>Baselines are hard to beat</td><td>US 2.99 against 3.52</td><td>Always seal polling average, last value and last result unchanged alongside; drop layers that do not beat them</td></tr><tr><td>Correcting for past polling error is conditional</td><td>Brazil doubled · Israel cut by a third</td><td>Only when several elections share the sign. No carry-over within one election</td></tr><tr><td>Turnout shocks in specific groups are a separate axis</td><td>Israel's Arab bloc, 5 seats</td><td>Age and regional turnout scenarios as an axis separate from the common error</td></tr><tr><td>Candidate terms by full enumeration and code; unknown means blank</td><td>Nebraska</td><td>Code-audit the inclusion rule across all 254 districts. An unmeasured term is missing, not zero</td></tr><tr><td>LLM personas alone do not call elections</td><td>US diagnostic run 8.2</td><td>Structural model anchored on polls. Personas for diagnosis only</td></tr></tbody>
+</table>
+</div>
+
+  <p>After writing the table I asked one more question. Did data exist before the vote for the three places we were wrong? It did. Where Brazil's eliminated-candidate votes would go was in the
+poll crosstabs, not the poll averages. Brazilian pollsters publish, in every survey, the table of "whom did you vote for in the first round" against "whom will you vote for in the runoff".
+We used the 2022 runoff transfer rate trimmed by the poll average instead. Israel's Arab turnout had been tracked for weeks by surveys of Arab society specifically, not by national polls, and the
+seats saved by the lists merging were arithmetic that could be done before sealing. The US direction was outside the polls: how far one side had over-performed the baseline in the 2025 special
+elections, and which way the party registration of returned early ballots leaned before election day. Both existed three days out.</p>
+
+  <p>So from the next seal on, one more version is locked each time. A version that splits eliminated votes by crosstab, a version that weights turnout by group-specific surveys, a version that
+adds the special-election and early-vote direction. All as test versions, sealed at the same moment as the main call, with the same standing as a baseline. Win and it becomes the main call next time;
+lose and it is dropped. It is written down plainly that these were chosen after watching three elections. Picking "if only we had had this" after the result is exactly the post-hoc revision this
+piece warns about, and there is only one way to clear that suspicion: seal before the next election and be scored. In Korea the best of the three data sources is early-voting turnout. Early voting runs for two days starting five days
+before election day, and turnout by region is published during those two days. In 2028 we seal both a three-days-out call and a one-day-out call that uses it. The one-day-out call falls inside Korea's
+polling blackout period, so it is a private seal: hash only, no numbers, opened after the count.</p>
+
+  <h2><span class="num">08</span>Why these numbers are provisional, and what this piece does not do</h2>
+
+  <p>The US numbers are from the November 8, 2026 scoring run and the count is still in progress. Final scoring is on November 12, and on that day the same scorer is run again and the
+numbers in this piece are updated. Decimals may move. I do not expect the conclusions to move; that too will be written that day. Brazil and Israel are final.</p>
+
+  <p>This piece does not say which candidate or party is favoured. It records only where the method went wrong. It also does not say "AI predicted the election". The forecasts came from a
+structural model built on coefficients measured in past elections and on polls; AI personas were used for diagnosis. Taiwan's local elections were sealed as well, but no numbers appear until
+the local publication ban ends.</p>
+
+  <p>Back to the night of November 1: should the term have gone in? With it, Nebraska would have been right and the winners 5/5. The answer is still no. That number would have become one
+nobody could trust. What this method sells is not the forecast. It is the discipline: seal in advance, score against a baseline, and write it down when you lose. The price of that discipline is,
+now and then, a Nebraska. Elections are the most transparent test bed there is, because the answer is published, so that is where it is tried first. The same discipline goes into CRM message tests
+and product-response forecasts. The previous piece is <a href="/blog/14-synthetic-audience.html">post 14</a>.</p>
+
+  <p class="note">Method — in all three countries the forecast file was sealed before the vote with a SHA-256 hash. For the US, three OSF pre-registrations (osf.io/tup6z Senate main call · x85tm seven
+additional states · ghuj6 House national vote, November 1 and 3, 2026, public with DOIs). The US main-call seal hash begins b6b42eba, the seven additional states 0bb06485. Scoring sources: en.wikipedia
+vote tallies for the US (provisional, final on 2026-11-12), the TSE official runoff results for Brazil (100% counted), the Central Elections Committee final results for Israel. Error is mean absolute
+error (MAE). The US measure is the Democratic two-party share in five Senate states (points), Brazil the right-wing candidate's two-party share in 27 states (points), Israel seats across three blocs.
+The 80% intervals and probabilities come from the probability layer sealed with the forecasts. The Brazilian final-week poll average (35 polls, October 18 to 24) was re-collected from the pt.wikipedia
+polling table on October 26. Beyond the OSF registrations, seal files and scoring code are being prepared for release.</p>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="Related reading">
+    <div class="lb">Related reading</div>
+    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">The same model, playing two nationalities</span></a>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+    <a class="ritem" href="/blog/en/12-gym-survival.html"><span class="rno">12</span><span class="rtit">Four in Five Survive</span></a>
+  </nav>
+  <!-- RELATED:END -->
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
