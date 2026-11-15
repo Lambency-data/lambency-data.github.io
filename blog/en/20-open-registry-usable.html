@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Registry Was Open. The Efficacy Field Was 65% Empty | Lambency</title>
+<meta name="description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone and 65% looks empty; read three fields together and 94.7% is filled. 361 product names were reported by different companies, so a name cannot find a product. The three things between open data and usable data, and bytemescan, the open-source tool that opens the door in one line.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lambency">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
+<meta property="og:title" content="The Registry Was Open. The Efficacy Field Was 65% Empty">
+<meta property="og:description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone ">
+<meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Registry Was Open. The Efficacy Field Was 65% Empty">
+<meta name="twitter:description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone ">
+<meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
+<link rel="canonical" href="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
+<link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/20-open-registry-usable.html">
+<link rel="alternate" hreflang="en" href="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
+<link rel="alternate" hreflang="x-default" href="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://lambency-data.github.io/blog/en/20-open-registry-usable.html#post",
+   "headline": "The Registry Was Open. The Efficacy Field Was 65% Empty",
+   "url": "https://lambency-data.github.io/blog/en/20-open-registry-usable.html",
+   "datePublished": "2026-11-16",
+   "dateModified": "2026-11-16",
+   "inLanguage": "en",
+   "author": {
+    "@id": "https://lambency-data.github.io/#caff"
+   },
+   "publisher": {
+    "@id": "https://lambency-data.github.io/#organization"
+   },
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "isPartOf": {
+    "@id": "https://lambency-data.github.io/blog/#blog"
+   },
+   "keywords": "data consulting, growth analytics, experiment design, incrementality, functional cosmetics, MFDS registry, public data, data cleaning, open source",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lambency-data.github.io/blog/en/20-open-registry-usable.html"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://lambency-data.github.io/#organization",
+   "name": "Lambency",
+   "url": "https://lambency-data.github.io/",
+   "logo": "https://lambency-data.github.io/assets/logo.svg",
+   "image": "https://lambency-data.github.io/assets/og-en.png",
+   "description": "I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone and 65% looks empty; read thre",
+   "email": "caffrey.w.lee@gmail.com",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "South Korea"
+    },
+    {
+     "@type": "Country",
+     "name": "United States"
+    }
+   ],
+   "knowsAbout": [
+    "데이터 컨설팅",
+    "데이터 분석",
+    "그로스 애널리틱스",
+    "CRM 분석",
+    "고객 데이터 분석",
+    "실험 설계",
+    "A/B 테스트",
+    "인과추론",
+    "증분 측정",
+    "마케팅 성과 측정",
+    "RFM 분석",
+    "LTV 예측",
+    "리텐션 분석",
+    "고객 세그먼테이션",
+    "데이터 인프라",
+    "CDP",
+    "데이터 파이프라인",
+    "LLM 에이전트",
+    "응용 AI",
+    "AI 컨설팅",
+    "data consulting",
+    "data analytics",
+    "growth analytics",
+    "CRM analytics",
+    "experiment design",
+    "A/B testing",
+    "causal inference",
+    "incrementality",
+    "marketing measurement",
+    "RFM analysis",
+    "LTV modeling",
+    "retention analysis",
+    "customer segmentation",
+    "data infrastructure",
+    "customer data platform",
+    "LLM agents",
+    "applied AI",
+    "CDP 구축",
+    "고객 데이터 플랫폼",
+    "데이터 클렌징",
+    "데이터 정제",
+    "데이터 전처리",
+    "데이터 통합",
+    "데이터 품질",
+    "고객 데이터 통합",
+    "데이터 웨어하우스",
+    "ETL 파이프라인",
+    "CDP implementation",
+    "data cleansing",
+    "data cleaning",
+    "data preprocessing",
+    "data integration",
+    "data quality",
+    "data warehouse",
+    "ETL pipeline"
+   ],
+   "sameAs": [
+    "https://linkedin.com/in/caffrey-lee/",
+    "https://github.com/decaff46"
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "그로스 · CRM 애널리틱스",
+       "alternateName": "Growth & CRM Analytics"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "실험 설계 · 인과추론",
+       "alternateName": "Experiment Design & Causal Inference"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "응용 AI · LLM 에이전트",
+       "alternateName": "Applied AI & LLM Agents"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "데이터 인프라 · CDP",
+       "alternateName": "Data Infrastructure & CDP"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://lambency-data.github.io/#caff",
+   "name": "Caff",
+   "affiliation": {
+    "@id": "https://lambency-data.github.io/#organization"
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../index.html" aria-label="Lambency home">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <g transform="translate(66,66)">
+        <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+        <path d="M 10.1 57.1 A 58 58 0 0 1 -56 -15" fill="none" stroke="#f2cf8a" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(35)">
+          <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a"/>
+          <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".6"/>
+        </g>
+        <circle r="4.4" fill="#fdf3d7"/>
+      </g>
+    </svg>
+    <span>LAMBENCY</span>
+  </a>
+  <nav>
+    <a href="../../index.html#practice">Practice</a>
+    <a href="../../engagements.html">Engagements</a>
+    <a href="../../index.html#work">Work</a>
+    <a href="index.html">Insights (DeepCaffein)</a>
+    <a href="../bytemescan.html">bytemescan</a>
+    <a href="../../byteme/blog/">byteme</a>
+    <a href="../../index.html#contact">Contact</a>
+    <a class="langlink" href="../20-open-registry-usable.html">KO</a>
+  </nav>
+</header>
+
+<article>
+<div class="wrap">
+  <div class="kicker">DeepCaffein · Public Data Series · 20 · MFDS registry</div>
+  <h1>The Registry Was Open<br>The Efficacy Field Was 65% Empty
+    <span class="h1sub">Two public MFDS functional-cosmetics registries · 216,491 rows · why efficacy sits in three fields and two lists</span>
+  </h1>
+  <div class="meta">
+    Caff · November 2026<br>
+    Data used — full public-data-portal snapshots of the MFDS functional-cosmetics reported and reviewed lists (September 21, 2026) and the 198 administrative actions published on the MFDS portal (October 15, 2026). <strong>Zero internal data.</strong>
+  </div>
+
+  <div class="lede">
+    <p>"Whitening", "anti-wrinkle", "UV protection". You see these words on every product page. To use them, the product has to be reported to the
+Ministry of Food and Drug Safety (MFDS) for that function, and the report is open to anyone on Korea's public data portal. I wanted to ask
+"is this product really reported for whitening?" in one line of code. So I downloaded the whole registry. <strong>195,799</strong> rows in the
+reported list, <strong>20,692</strong> in the reviewed list, 216,491 rows in all. Downloading took less than half a day. Making it usable took
+a good while longer. Between "open" and "usable" there were three things. Efficacy is not in one field, there are two lists, and a product name
+does not point to a product. This piece measures each of the three, and at the end I release the tool that shrinks that entrance to one line.</p>
+  </div>
+
+  <h2><span class="num">01</span>Efficacy is not in one field</h2>
+
+  <p>At first I read only the efficacy document field. The name said so, so I assumed it was there. <strong>65%</strong> of it was empty.
+A reported list with no efficacy? I opened the other fields, and efficacy was scattered across three. Fill rate — rows with a value ÷ all rows — comes to 59.9% for the efficacy name field, 34.6% for the efficacy document field,
+21.1% for the sun protection factor (SPF) field. Read all three together and 94.7% of rows are filled;
+5.3% are empty in all three. Rows with an efficacy name but an empty document field alone number 117,327.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Field holding efficacy</th><th>Rows filled</th></tr></thead>
+  <tbody><tr><td>Efficacy name</td><td>59.9%</td></tr><tr><td>Efficacy document</td><td>34.6%</td></tr><tr><td>Sun protection factor (SPF)</td><td>21.1%</td></tr><tr><td><strong>Any of the three</strong></td><td><strong>94.7%</strong></td></tr><tr><td>Empty in all three</td><td>5.3%</td></tr></tbody>
+</table>
+</div>
+
+  <div class="fig">
+<svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reported list, 195,799 rows · fields holding efficacy" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">Reported list, 195,799 rows · fields holding efficacy</text><text x="240.0" y="62.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Efficacy name</text><path d="M250.0,48.0 h223.8 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-223.8 z" fill="#3f86d8"><title>Efficacy name 59.9%</title></path><text x="484.8" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">59.9%</text><text x="240.0" y="96.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Efficacy document</text><path d="M250.0,82.0 h127.5 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-127.5 z" fill="#3f86d8"><title>Efficacy document 34.6%</title></path><text x="388.5" y="96.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">34.6%</text><text x="240.0" y="130.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">SPF</text><path d="M250.0,116.0 h76.3 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-76.3 z" fill="#3f86d8"><title>SPF 21.1%</title></path><text x="337.3" y="130.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">21.1%</text><text x="240.0" y="164.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="bold">Any of the three</text><path d="M250.0,150.0 h356.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-356.0 z" fill="#22a37c"><title>Any of the three 94.7%</title></path><text x="617.0" y="164.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">94.7%</text><text x="240.0" y="198.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Empty in all three</text><path d="M250.0,184.0 h16.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-16.0 z" fill="#bf8329"><title>Empty in all three 5.3%</title></path><text x="277.0" y="198.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">5.3%</text></svg>
+<p class="figcap">Figure 1 · Where efficacy sits in the 195,799 reported rows. One field alone looks 65% empty; the three together are 94.7% filled</p>
+</div>
+
+  <p>A lookup that reads one field returns "no efficacy data" for six in ten products that were properly reported. Trust that answer and you can no longer tell
+"not reported" from "I read the wrong field". This is usually what makes data unusable. Not wrong values, but right values sitting in a field you are not reading.</p>
+
+  <h2><span class="num">02</span>There are two lists</h2>
+
+  <p>A functional cosmetic enters through one of two doors: "report" or "review". Make it with ingredients and amounts already on the official list and a report is enough;
+anything else goes to review. On the public data portal the two are separate services you apply for separately, and the field names differ. The reported list has 195,799 rows,
+the reviewed list 20,692, and only <strong>123</strong> names appear in both. The reviewed list has its efficacy document field filled in 90.8% of rows. So someone who looks at the
+reviewed list first comes to believe the document field is never empty, and that belief breaks the moment they move to the reported list.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 188" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The two lists" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">The two lists</text><text x="160.0" y="62.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Reported list</text><path d="M170.0,48.0 h356.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-356.0 z" fill="#3f86d8"><title>Reported list 195,799</title></path><text x="537.0" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">195,799 rows</text><text x="170.0" y="84.0" font-size="11" fill="#bf8329" text-anchor="start" font-weight="normal">document field filled 34.6%</text><text x="160.0" y="120.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Reviewed list</text><path d="M170.0,106.0 h34.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-34.0 z" fill="#3f86d8"><title>Reviewed list 20,692</title></path><text x="215.0" y="120.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">20,692 rows</text><text x="170.0" y="142.0" font-size="11" fill="#22a37c" text-anchor="start" font-weight="normal">document field filled 90.8%</text><text x="24.0" y="174.0" font-size="11.5" fill="#a89e8a" text-anchor="start" font-weight="normal">123 names appear in both</text></svg>
+<p class="figcap">Figure 2 · Size of the two lists and how often the efficacy document field is filled. 123 names appear in both</p>
+</div>
+
+  <p>Query one list and a product on the other comes back "not found". "Not found" is not the same as "not reported", but on screen they print the same.</p>
+
+  <h2><span class="num">03</span>A product name does not point to a product</h2>
+
+  <p>The third one took longest. I assumed searching by product name would do. In the reported list, after removing spaces, <strong>2,930</strong> names
+have two or more reports, covering <strong>6,214</strong> rows. For <strong>361</strong> of those names, different companies reported under the same name. Among names reported more than once, the share split between different companies — 361 ÷ 2,930 — is 12.3%. When a name repeats, about one time in eight someone else's product is in the pile.
+The same company filing the same name several times has its reasons — a different size, a different shade, a reformulation filed again. Different companies
+under one name, 361 times, is not a reason but a trap. Search by name, take the first row as "the product", and you end up judging your page against
+someone else's report.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reported list · same name (spaces removed) reported more than once" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">Reported list · same name (spaces removed) reported more than once</text><text x="260.0" y="62.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Such names</text><path d="M270.0,48.0 h165.7 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-165.7 z" fill="#3f86d8"><title>Such names 2,930</title></path><text x="446.7" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">2,930</text><text x="260.0" y="96.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Their rows</text><path d="M270.0,82.0 h356.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-356.0 z" fill="#3f86d8"><title>Their rows 6,214</title></path><text x="637.0" y="96.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">6,214</text><text x="260.0" y="130.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="bold">Names shared by different companies</text><path d="M270.0,116.0 h16.9 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-16.9 z" fill="#bf8329"><title>Names shared by different companies 361</title></path><text x="297.9" y="130.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">361</text></svg>
+<p class="figcap">Figure 3 · 2,930 names reported more than once, 6,214 rows, and 361 names shared by different companies</p>
+</div>
+
+  <p>So the name finds candidates and the report number makes the call. A name is not a key. This is not a registry quirk. Customer names in a company's ledgers
+and product names in its order book are the same trap.</p>
+
+  <div class="pull">
+  <p>Between open data and usable data there were three fields, two lists, and "a name is not a key".</p>
+</div>
+
+  <h2><span class="num">04</span>The entrance in one line — bytemescan</h2>
+
+  <p>I released a lookup that handles all three as open source (MIT). It is called bytemescan. It queries both lists at once, reads the three efficacy fields together,
+and when given only a product name it does not decide — it returns candidates with their report numbers. Ask again by number and you get "matches the report" or "does not".
+That is because of the 2,930 names in 03. In an AI coding tool such as Claude Code, one registration line lets you ask "is this product reported for this function?" directly.
+Installation, the verdict table and the order of use are on the <a href="/blog/bytemescan.html">tool page</a> and in the
+<a href="https://github.com/caffreywlee-decaff/bytemescan">repository</a>.</p>
+
+  <p>The number of candidates a name returns decides the next step. There is one line: two or more candidates from different companies, and no verdict is made without a number.</p>
+
+  <div class="tw">
+<table>
+  <thead><tr><th>Candidates found by name</th><th>What it means</th><th>What you do</th></tr></thead>
+  <tbody><tr><td>0</td><td>"Not found", which is not "not reported"</td><td>Search the other list and spacing variants. Still nothing: record "unverified", never "not reported"</td></tr><tr><td>1</td><td>One candidate</td><td>Ask again by report number and take "matches" or "does not". A matching name is not a verdict</td></tr><tr><td>2 or more, same company</td><td>Sizes, shades, refilings</td><td>Pick by report date and function, then confirm by number</td></tr><tr><td>2 or more, different companies</td><td>The 361 names live here</td><td>No verdict without a number. Get the report number from the seller</td></tr></tbody>
+</table>
+</div>
+
+  <h2><span class="num">05</span>What this tool does not do</h2>
+
+  <p><strong>It is not a legal verdict.</strong> "Does not match" means the page differs from what the public registry says was reported; the judgment after that is a person's.</p>
+
+  <p><strong>Most advertising penalties happen outside the registry.</strong> Of the <strong>198</strong> cosmetics administrative actions published on the MFDS portal
+(actions between October 2025 and October 2026, collected October 15, 2026), 137 were about advertising. The largest group, 81 cases (59%), was wording that could be
+mistaken for a medicine. Wording that looks like a functional claim on a product that is not a functional cosmetic was 7 cases (5%). Registry matching speaks directly to
+the 7. The 81 — does this sentence read like a drug? — is a judgment the registry does not contain. Of the 137 advertising cases, 135 were an advertising suspension for
+the product in question, most often for 3 months.</p>
+
+  <div class="fig">
+<svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="198 published administrative actions (collected 2026-10-15)" font-family="IBM Plex Mono, ui-monospace, Apple SD Gothic Neo, monospace"><text x="24.0" y="24.0" font-size="12.5" fill="#ece5d8" text-anchor="start" font-weight="bold">198 published administrative actions (collected 2026-10-15)</text><text x="260.0" y="62.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">All actions</text><path d="M270.0,48.0 h356.0 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-356.0 z" fill="#4a4336"><title>All actions 198</title></path><text x="637.0" y="62.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">198</text><text x="260.0" y="96.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">About advertising</text><path d="M270.0,82.0 h245.1 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-245.1 z" fill="#3f86d8"><title>About advertising 137</title></path><text x="526.1" y="96.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">137</text><text x="260.0" y="130.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="normal">Drug-like wording</text><path d="M270.0,116.0 h143.3 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-143.3 z" fill="#3f86d8"><title>Drug-like wording 81</title></path><text x="424.3" y="130.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="normal">81</text><text x="260.0" y="164.0" font-size="12" fill="#ece5d8" text-anchor="end" font-weight="bold">Functional-like wording</text><path d="M270.0,150.0 h8.7 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h-8.7 z" fill="#bf8329"><title>Functional-like wording 7</title></path><text x="289.7" y="164.0" font-size="11.5" fill="#ece5d8" text-anchor="start" font-weight="bold">7</text><text x="24.0" y="190.0" font-size="11" fill="#bf8329" text-anchor="start" font-weight="normal">■ what the registry speaks to</text></svg>
+<p class="figcap">Figure 4 · Of 198 published actions, 137 concerned advertising; 81 were drug-like wording and 7 functional-like wording. The registry speaks to the 7</p>
+</div>
+
+  <div class="pull">
+  <p>Of 137 advertising actions, registry matching speaks directly to 7. The largest group, 81, turned on whether a sentence reads like a drug.</p>
+</div>
+
+  <p><strong>It does not work out which product a page is.</strong> Sales pages rarely carry a report number. Grouping the same product across several sellers, reading the
+text inside detail images, and comparing document to document against the registry are outside this open tool.</p>
+
+  <h2><span class="num">06</span>So what do we do</h2>
+
+  <p>Public data is free; making it usable is not. For this registry, the work was merging three fields, joining two lists, and judging by number instead of name.
+Data inside a company is no different. The ad report, the order ledger and the CRM each hold the same customer in a different field under a different name,
+and joining them comes before any analysis. For the registry, that entrance is now open to anyone.</p>
+
+  <p>What comes after — grouping pages scattered across sellers into one reported product, reading the wording inside images, and comparing it against the registry —
+is done at <a href="https://lambency-data.github.io/byteme/">BYTEME sales-page checkup</a>. The case-by-case look at the 198 actions and the sales-page checklist
+are on the <a href="https://lambency-data.github.io/byteme/blog/">byteme blog</a> (in Korean).</p>
+
+  <p class="note">Method — full snapshots of the MFDS functional-cosmetics reported list (FtnltCosmRptPrdlstInfoService01) and reviewed list (FtnltCosmSrngPrdlstInfoService05)
+from the public data portal, collected September 21, 2026. "Filled" means the value is not empty. "Same name" means identical after removing all spaces inside the name
+(trimming only the ends gives 2,732 names, 5,801 rows and 353 different-company names; other spelling differences are not merged, so the true overlap may be larger).
+"Different companies" means the company names differ after removing spaces. Administrative actions are the 198 on the MFDS public list (collected October 15, 2026);
+where one case lists several violations, each is counted. Code at github.com/caffreywlee-decaff/bytemescan.</p>
+
+  <!-- RELATED:START -->
+  <nav class="related" aria-label="Related reading">
+    <div class="lb">Related reading</div>
+    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average</span></a>
+    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">The same model, playing two nationalities</span></a>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+  </nav>
+  <!-- RELATED:END -->
+
+  <div class="next">
+    <div class="lb">Next · weekly</div>
+    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+  </div>
+
+  <div class="subscribe">
+    <div class="lb">DeepCaffein · One a week</div>
+    <p>One industry, one bottleneck, public data only — straight to your inbox. Nothing else, ever.</p>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdK7tBmhNmSeO3R9ocAe332nYVgY_u9UtwagNR4wsaq055ACA/formResponse" method="POST" target="subscribe_sink"
+          onsubmit="setTimeout(()=>{this.style.display='none';this.parentElement.querySelector('.ok').style.display='block'},150)">
+      <input type="email" name="entry.332090966" placeholder="Email address" required>
+      <input type="text" name="entry.1612706788" placeholder="Company or industry (optional)">
+      <button type="submit">SUBSCRIBE</button>
+    </form>
+    <iframe name="subscribe_sink" style="display:none"></iframe>
+    <div class="ok">You're in. See you at the next piece.</div>
+  </div>
+
+  <div class="cta">
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
+  </div>
+
+</div>
+</article>
+
+<footer>
+  <svg viewBox="0 0 132 132" aria-hidden="true">
+    <g transform="translate(66,66)">
+      <path d="M 25.7 -30.6 A 40 40 0 0 1 20 34.6" fill="none" stroke="#f5d489" stroke-width="3.6" stroke-linecap="round" opacity=".7"/>
+      <g transform="rotate(35)">
+        <path d="M 0 -42 L 7.2 4.4 L -7.2 4.4 Z" fill="#f2cf8a" opacity=".7"/>
+        <path d="M 0 24 L 5.2 4.4 L -5.2 4.4 Z" fill="#c98a2e" opacity=".5"/>
+      </g>
+      <circle r="4.4" fill="#fdf3d7" opacity=".8"/>
+    </g>
+  </svg>
+  <p>© MMXXVI Lambency · DeepCaffein</p>
+</footer>
+
+<!-- Cloudflare Web Analytics — 쿠키 미사용, 동의 배너 불필요 -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "41e57f5bc21948e5b31967d7e66641e7"}'></script>
+</body>
+</html>
