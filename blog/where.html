@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 6dccdd5eabb6c929 -->
+<!-- baked-from-b2c-where: 6aa8fdcdb2f2b1f3 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -795,8 +795,11 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
   .indbox.ans a.pill.ghost{display:block;width:fit-content;margin-top:8px;background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
   .indbox.ans a.pill.ghost:hover{color:var(--ink);opacity:.8}
   
-  .indbox.ans a.pill#wantCta{display:block;text-align:left;word-break:keep-all;padding:12px 18px;border-radius:14px}
-  .indbox.ans a.pill#wantCta .pl{display:block;font-size:12px;font-weight:400;opacity:.8;margin-bottom:2px}
+  .indbox.ans a.pill#wantCta,.indbox.ans a.pill.nexttop{display:block;text-align:left;word-break:keep-all;padding:12px 18px;border-radius:14px}
+  .indbox.ans a.pill#wantCta .pl,.indbox.ans a.pill.nexttop .pl{display:block;font-size:12px;font-weight:400;opacity:.8;margin-bottom:2px}
+  .indbox.ans a.pill.nexttop{margin:10px 0 6px}
+  #nextSlot a.pill.nexttop{display:block;text-align:left;word-break:keep-all;padding:12px 18px;border-radius:14px;margin:12px 0 2px}
+  #nextSlot a.pill.nexttop .pl{display:block;font-size:12px;font-weight:400;opacity:.8;margin-bottom:2px}
   @media (max-width:420px){ .qa-v{font-size:17px} .qa-calc{grid-template-columns:minmax(0,1fr) auto} .qa-calc>b{grid-column:1} .qa-calc .qa-why{grid-column:2;grid-row:1 / span 2} }
   .dongall-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;margin:18px 0 0;min-height:46px;padding:9px 12px;border-radius:12px;border:1.5px solid var(--ink);background:var(--paper);font:600 14px var(--ff);color:var(--ink);cursor:pointer}
   .dongall-btn small{font:400 12px var(--ff);color:var(--soft)}
@@ -1167,6 +1170,7 @@ a.wordmark .dot,.wordmark .dot{color:var(--gold);margin-left:.02em}
     <button id="go2">보기</button>
   </div>
   <div class="sug" id="sug2" style="display:none"></div>
+  <div id="nextSlot"></div>
   <p class="scopenote2">여기선 <b>동네 평균</b>만 나와요. 집이나 건물 하나하나의 값은 <a href="https://hicce.co.kr/b2c/ask?from=blog-where">시세 브리핑</a>에서 보세요.</p>
   <section id="dongBusiness" hidden><details id="dongIndustryTools" class="market-startup"><summary>다른 업종·세부 업종 찾기</summary><div class="bar"><input id="dongIndustry" aria-label="동네에서 창업할 업종" placeholder="업종 검색 · 예: 카페, 돼지고기" maxlength="30"><datalist id="dongIndustries"></datalist><button id="dongBusinessGo" type="button">내 조건으로 확인</button></div><p id="dongBusinessStatus" class="src" role="status"></p></details><section id="dongCompareHost" class="market-startup"><button id="dongConditionsToggle" type="button" aria-expanded="false" aria-controls="dongCompareBody">내 조건 넣기 <span aria-hidden="true">＋</span></button><div id="dongCompareBody" hidden></div></section></section>
   <details id="dongBackground" class="market-startup" open><summary>동네 월세·상권 기초자료 자세히 보기</summary><div id="out2" class="empty">동네를 고르는 중…</div></details>
@@ -1756,7 +1760,8 @@ function homeHead(){
   const cur=rows.length?(bandOf(rows,m2)||rows[rows.length-1]):null;
   const n=cur?(cur.n_monthly||0):0, thin=!cur||n<30;
   let h=`<div class="indbox ans home">
-    <h3>${jong}에서 <input class="numin" id="pyIn" inputmode="decimal" value="${_PY}"> 평 집을 구한다면?</h3><ol class="qa">`;
+    <h3>${jong}에서 <input class="numin" id="pyIn" inputmode="decimal" value="${_PY}"> 평 집을 구한다면?</h3>
+    <a class="pill nexttop" data-at="top" href="https://hicce.co.kr/b2c/want?${new URLSearchParams(Object.entries({deal:'월세', product:'빌라', gu:_GU, dong:_DG}).filter(([,v])=>v)).toString()}&from=blog-where"><span class="pl">집을 구하고 있으면</span><b>이 동네에서 집 찾기</b></a><ol class="qa">`;
   if(!cur){
     h+=row(1,'월세는 얼마면 되나','월세 계약이 별로 없어요','', '',
       `<p class="src">${(H.reason)||'이 동네는 월세 계약이 적어서 크기별로 못 나눴어요.'} 다른 동을 골라 보세요.</p>`);
@@ -1954,7 +1959,9 @@ function shopHead(){
       <select id="indSel" onchange="setInd(this.value)">${
         _byG ? _byG.map(([g,a])=>`<optgroup label="${g}">${a.map(_opt).join('')}</optgroup>`).join('') : names.map(_opt).join('')
       }</select>
-      <span class="nt">업종 <b>${nAll}개</b> 중 <b>${nOk}개</b>는 매출이랑 가게 수가 다 있어요.</span></div>`;
+      <span class="nt">업종 <b>${nAll}개</b> 중 <b>${nOk}개</b>는 매출이랑 가게 수가 다 있어요.</span></div>
+    <a class="pill nexttop" data-at="top" href="https://hicce.co.kr/b2c/want?${new URLSearchParams(Object.entries({deal:'월세', product:'상가', gu:_GU, dong:_DG, biz:ind,
+        rent:_BUD_USER?_BUD:'', area:_SPY_USER?_SPY:''}).filter(([,v])=>v)).toString()}&from=blog-where"><span class="pl">가게 자리를 찾고 있으면</span><b>이 조건으로 가게 자리 찾기</b></a>`;
 
   if(!c){
     h+=`<div class="vdct non"><i></i><span>이 업종은 자료가 모자라요</span></div>
@@ -2282,6 +2289,8 @@ function renderHead(){
   parkDongTools();
   box.innerHTML = (MODE==='home') ? homeHead() : shopHead();
   placeDongTools();
+  { const nt=box.querySelector('a.nexttop'), slot=document.getElementById('nextSlot');
+    if(slot){ slot.innerHTML=''; if(nt) slot.appendChild(nt); } }
   if(MODE==='shop'){
     const list=box.querySelector('ol.qa'),customer=box.querySelector('.qa-row[data-q="4"]');
     if(list&&customer){list.prepend(customer);customer.classList.add('open');customer.querySelector('.qa-why')?.setAttribute('aria-expanded','true');[...list.children].forEach((r,i)=>{const n=r.querySelector('.qa-no');if(n)n.textContent=i+1;});}
@@ -3626,7 +3635,7 @@ render();
     if(t && t.id==='hicceNotice'){ ev('notice:outside',1); return; }
     var a=t.closest&&t.closest('a[href]');
     if(a){ var h=a.getAttribute('href')||'', m=h.match(/^\/b2c\/([a-z]+)/);
-      if(m && m[1]!=='where') ev((a.closest('nav')?'nav:':'go:')+m[1]);
+      if(m && m[1]!=='where') ev((a.closest('nav')?'nav:':'go:')+m[1]+(a.dataset&&a.dataset.at?':'+a.dataset.at:''));   /* 카드 맨 위 단추는 go:want:top */
       else if(/^https?:/.test(h)) ev('out:'+(a.hostname||'').replace(/^www\./,''));
       return; }
     var bt=t.closest&&t.closest('button,[role=tab]');
@@ -3634,7 +3643,7 @@ render();
       ev('btn:'+k, k!=='hicceNoticeOk' ? 0 : 1); }
   },true);
   document.addEventListener('change',function(e){ var s=e.target; if(s&&s.id) ev('pick:'+s.id,1); },true);
-  function isNext(a){ var h=a.getAttribute('href')||''; return /^\/b2c\/(want|consult)/.test(h) || (/^\/b2c\/ask/.test(h) && a.classList.contains('pill')); }
+  function isNext(a){ if(a.dataset&&a.dataset.at) return false; var h=a.getAttribute('href')||''; return /^\/b2c\/(want|consult)/.test(h) || (/^\/b2c\/ask/.test(h) && a.classList.contains('pill')); }
   function look(){
     var H=document.documentElement.scrollHeight||1, y=(window.scrollY||0)+innerHeight;
     if(window.scrollY>0){ if(y/H>=0.5) ev('scroll50',1); if(y/H>=0.9) ev('scroll90',1); }
