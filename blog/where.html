@@ -1,4 +1,4 @@
-<!-- baked-from-b2c-where: 55d848b5b6a09316 -->
+<!-- baked-from-b2c-where: cb5f3b53fecc9443 -->
 <!-- 자동 생성물 — 직접 수정하지 말 것 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -3611,5 +3611,38 @@ render();
   var b=JSON.stringify({sid:s,path:location.pathname,ref:document.referrer||(u?'utm:'+u:null),utm:(function(q){var n=new URLSearchParams((q.get('next')||'').split('?')[1]||''),g=function(k){return q.get(k)||n.get(k)||''},u=g('utm_source');return u?[u,g('utm_campaign'),g('utm_content')].filter(Boolean).join('/').slice(0,120):null})(new URLSearchParams(location.search))});
   if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/b2c/pv', new Blob([b],{type:'application/json'})); }
   else{ Promise.resolve() && fetch('/api/b2c/pv',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true}).catch(function(){}); }
+}catch(e){}})();
+</script>
+<script>(function(){try{
+  var sid=localStorage.getItem('hicce_sid'); if(!sid) return;
+  var sent={};
+  function ev(n,once){ if(once){ if(sent[n]) return; sent[n]=1; }
+    var b=JSON.stringify({event:('where:'+n).slice(0,80), sid:sid});
+    if(navigator.sendBeacon){ false && navigator.sendBeacon('/api/event', new Blob([b],{type:'application/json'})); }
+    else{ Promise.resolve() && fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:b,keepalive:true}).catch(function(){}); } }
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t && t.id==='hicceNotice'){ ev('notice:outside',1); return; }
+    var a=t.closest&&t.closest('a[href]');
+    if(a){ var h=a.getAttribute('href')||'', m=h.match(/^\/b2c\/([a-z]+)/);
+      if(m && m[1]!=='where') ev((a.closest('nav')?'nav:':'go:')+m[1]);
+      else if(/^https?:/.test(h)) ev('out:'+(a.hostname||'').replace(/^www\./,''));
+      return; }
+    var bt=t.closest&&t.closest('button,[role=tab]');
+    if(bt){ var k=bt.id||(bt.dataset&&bt.dataset.m?'m-'+bt.dataset.m:'')||(bt.className||'').toString().split(' ')[0]||'btn';
+      ev('btn:'+k, k!=='hicceNoticeOk' ? 0 : 1); }
+  },true);
+  document.addEventListener('change',function(e){ var s=e.target; if(s&&s.id) ev('pick:'+s.id,1); },true);
+  function isNext(a){ var h=a.getAttribute('href')||''; return /^\/b2c\/(want|consult)/.test(h) || (/^\/b2c\/ask/.test(h) && a.classList.contains('pill')); }
+  function look(){
+    var H=document.documentElement.scrollHeight||1, y=(window.scrollY||0)+innerHeight;
+    if(window.scrollY>0){ if(y/H>=0.5) ev('scroll50',1); if(y/H>=0.9) ev('scroll90',1); }
+    if(!sent['seen:next']){ var L=document.querySelectorAll('a[href]');
+      for(var i=0;i<L.length;i++){ if(!isNext(L[i])) continue; var r=L[i].getBoundingClientRect();
+        if(r.height>0 && r.top<innerHeight && r.bottom>0){ ev('seen:next',1); break; } } }
+  }
+  var tm=null; addEventListener('scroll',function(){ if(!tm) tm=setTimeout(function(){tm=null;look();},400); },{passive:true});
+  function boot(){ setTimeout(function(){ if(document.getElementById('hicceNotice')) ev('notice:shown',1); look(); },1500); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 }catch(e){}})();
 </script>
