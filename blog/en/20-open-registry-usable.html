@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Registry Was Open. The Efficacy Field Was 65% Empty | Lambency</title>
-<meta name="description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone and 65% looks empty; read three fields together and 94.7% is filled. 361 product names were reported by different companies, so a name cannot find a product. The three things between open data and usable data, and bytemescan, the open-source tool that opens the door in one line.">
+<title>The registry was open. The efficacy field was 65% empty | Lambency</title>
+<meta name="description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone and 65% looks empty; read three fields together and 94.7% is filled. 361 product names were reported by different companies, so a name cannot find a product. The three things between open data and usable data, and bytemescan, the open-source tool that does it in a single query.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
-<meta property="og:title" content="The Registry Was Open. The Efficacy Field Was 65% Empty">
+<meta property="og:title" content="The registry was open. The efficacy field was 65% empty">
 <meta property="og:description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone ">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Registry Was Open. The Efficacy Field Was 65% Empty">
+<meta name="twitter:title" content="The registry was open. The efficacy field was 65% empty">
 <meta name="twitter:description" content="I downloaded both public MFDS functional-cosmetics registries, 195,799 reported rows and 20,692 reviewed rows. Read the efficacy document field alone ">
 <meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
 <link rel="canonical" href="https://lambency-data.github.io/blog/en/20-open-registry-usable.html">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<meta name="keywords" content="data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -37,10 +37,10 @@
   {
    "@type": "BlogPosting",
    "@id": "https://lambency-data.github.io/blog/en/20-open-registry-usable.html#post",
-   "headline": "The Registry Was Open. The Efficacy Field Was 65% Empty",
+   "headline": "The registry was open. The efficacy field was 65% empty",
    "url": "https://lambency-data.github.io/blog/en/20-open-registry-usable.html",
    "datePublished": "2026-11-16",
-   "dateModified": "2026-11-16",
+   "dateModified": "2026-11-24",
    "inLanguage": "en",
    "author": {
     "@id": "https://lambency-data.github.io/#caff"
@@ -226,7 +226,7 @@
 <article>
 <div class="wrap">
   <div class="kicker">DeepCaffein · Public Data Series · 20 · MFDS registry</div>
-  <h1>The Registry Was Open<br>The Efficacy Field Was 65% Empty
+  <h1>The registry was open.<br>The efficacy field was 65% empty
     <span class="h1sub">Two public MFDS functional-cosmetics registries · 216,491 rows · why efficacy sits in three fields and two lists</span>
   </h1>
   <div class="meta">
@@ -235,18 +235,19 @@
   </div>
 
   <div class="lede">
-    <p>"Whitening", "anti-wrinkle", "UV protection". You see these words on every product page. To use them, the product has to be reported to the
+    <p>"Whitening", "anti-wrinkle", "UV protection". You see these words on every product page. To use them, the product has to be a functional cosmetic,
+a Korean regulatory category for products that make claims like these, and it has to be filed with the
 Ministry of Food and Drug Safety (MFDS) for that function, and the report is open to anyone on Korea's public data portal. I wanted to ask
 "is this product really reported for whitening?" in one line of code. So I downloaded the whole registry. <strong>195,799</strong> rows in the
-reported list, <strong>20,692</strong> in the reviewed list, 216,491 rows in all. Downloading took less than half a day. Making it usable took
+reported list, <strong>20,692</strong> in the reviewed list (the two filing routes are explained below), 216,491 rows in all. Downloading took less than half a day. Making it usable took
 a good while longer. Between "open" and "usable" there were three things. Efficacy is not in one field, there are two lists, and a product name
-does not point to a product. This piece measures each of the three, and at the end I release the tool that shrinks that entrance to one line.</p>
+does not point to a product. This piece measures each of the three, and at the end I release the tool that does it in a single query.</p>
   </div>
 
   <h2><span class="num">01</span>Efficacy is not in one field</h2>
 
   <p>At first I read only the efficacy document field. The name said so, so I assumed it was there. <strong>65%</strong> of it was empty.
-A reported list with no efficacy? I opened the other fields, and efficacy was scattered across three. Fill rate — rows with a value ÷ all rows — comes to 59.9% for the efficacy name field, 34.6% for the efficacy document field,
+A reported list with no efficacy? I opened the other fields, and efficacy was scattered across three. Fill rate (rows with a value ÷ all rows) comes to 59.9% for the efficacy name field, 34.6% for the efficacy document field,
 21.1% for the sun protection factor (SPF) field. Read all three together and 94.7% of rows are filled;
 5.3% are empty in all three. Rows with an efficacy name but an empty document field alone number 117,327.</p>
 
@@ -263,11 +264,11 @@ A reported list with no efficacy? I opened the other fields, and efficacy was sc
 </div>
 
   <p>A lookup that reads one field returns "no efficacy data" for six in ten products that were properly reported. Trust that answer and you can no longer tell
-"not reported" from "I read the wrong field". This is usually what makes data unusable. Not wrong values, but right values sitting in a field you are not reading.</p>
+"not reported" from "I read the wrong field." This is usually what makes data unusable. The values are right; they just sit in a field you aren't reading.</p>
 
   <h2><span class="num">02</span>There are two lists</h2>
 
-  <p>A functional cosmetic enters through one of two doors: "report" or "review". Make it with ingredients and amounts already on the official list and a report is enough;
+  <p>A functional cosmetic enters through one of two routes: "report" or "review". Make it with ingredients and amounts already on the official list and a report is enough;
 anything else goes to review. On the public data portal the two are separate services you apply for separately, and the field names differ. The reported list has 195,799 rows,
 the reviewed list 20,692, and only <strong>123</strong> names appear in both. The reviewed list has its efficacy document field filled in 90.8% of rows. So someone who looks at the
 reviewed list first comes to believe the document field is never empty, and that belief breaks the moment they move to the reported list.</p>
@@ -277,14 +278,14 @@ reviewed list first comes to believe the document field is never empty, and that
 <p class="figcap">Figure 2 · Size of the two lists and how often the efficacy document field is filled. 123 names appear in both</p>
 </div>
 
-  <p>Query one list and a product on the other comes back "not found". "Not found" is not the same as "not reported", but on screen they print the same.</p>
+  <p>Query one list and a product on the other comes back "not found". "Not found" is not the same as "not reported", but on screen they look identical.</p>
 
   <h2><span class="num">03</span>A product name does not point to a product</h2>
 
   <p>The third one took longest. I assumed searching by product name would do. In the reported list, after removing spaces, <strong>2,930</strong> names
-have two or more reports, covering <strong>6,214</strong> rows. For <strong>361</strong> of those names, different companies reported under the same name. Among names reported more than once, the share split between different companies — 361 ÷ 2,930 — is 12.3%. When a name repeats, about one time in eight someone else's product is in the pile.
-The same company filing the same name several times has its reasons — a different size, a different shade, a reformulation filed again. Different companies
-under one name, 361 times, is not a reason but a trap. Search by name, take the first row as "the product", and you end up judging your page against
+have two or more reports, covering <strong>6,214</strong> rows. For <strong>361</strong> of those names, different companies reported under the same name. Among names reported more than once, the share split between different companies (361 ÷ 2,930) is 12.3%. When a name repeats, about one time in eight someone else's product is in the pile.
+The same company filing the same name several times has its reasons: a different size, a different shade, a reformulation filed again. But 361
+names shared by different companies aren't variants; they're a trap. Search by name, take the first row as "the product", and you end up judging your page against
 someone else's report.</p>
 
   <div class="fig">
@@ -292,22 +293,22 @@ someone else's report.</p>
 <p class="figcap">Figure 3 · 2,930 names reported more than once, 6,214 rows, and 361 names shared by different companies</p>
 </div>
 
-  <p>So the name finds candidates and the report number makes the call. A name is not a key. This is not a registry quirk. Customer names in a company's ledgers
-and product names in its order book are the same trap.</p>
+  <p>So the name finds candidates and the report number makes the call. A name is not a key. Nor is this a registry quirk. Customer names in a company's records
+and product names in its order data are the same trap.</p>
 
   <div class="pull">
   <p>Between open data and usable data there were three fields, two lists, and "a name is not a key".</p>
 </div>
 
-  <h2><span class="num">04</span>The entrance in one line — bytemescan</h2>
+  <h2><span class="num">04</span>One query: bytemescan</h2>
 
   <p>I released a lookup that handles all three as open source (MIT). It is called bytemescan. It queries both lists at once, reads the three efficacy fields together,
-and when given only a product name it does not decide — it returns candidates with their report numbers. Ask again by number and you get "matches the report" or "does not".
-That is because of the 2,930 names in 03. In an AI coding tool such as Claude Code, one registration line lets you ask "is this product reported for this function?" directly.
+and when given only a product name it does not decide; it returns candidates with their report numbers. Ask again by number and you get "matches the report" or "does not."
+That's why the 2,930 names in §03 matter. In an AI coding tool such as Claude Code, one line of setup lets you ask "is this product reported for this function?" directly.
 Installation, the verdict table and the order of use are on the <a href="/blog/bytemescan.html">tool page</a> and in the
 <a href="https://github.com/caffreywlee-decaff/bytemescan">repository</a>.</p>
 
-  <p>The number of candidates a name returns decides the next step. There is one line: two or more candidates from different companies, and no verdict is made without a number.</p>
+  <p>The number of candidates a name returns decides the next step. One rule is absolute: if a name returns candidates from more than one company, no verdict is given without a report number.</p>
 
   <div class="tw">
 <table>
@@ -323,7 +324,7 @@ Installation, the verdict table and the order of use are on the <a href="/blog/b
   <p><strong>Most advertising penalties happen outside the registry.</strong> Of the <strong>198</strong> cosmetics administrative actions published on the MFDS portal
 (actions between October 2025 and October 2026, collected October 15, 2026), 137 were about advertising. The largest group, 81 cases (59%), was wording that could be
 mistaken for a medicine. Wording that looks like a functional claim on a product that is not a functional cosmetic was 7 cases (5%). Registry matching speaks directly to
-the 7. The 81 — does this sentence read like a drug? — is a judgment the registry does not contain. Of the 137 advertising cases, 135 were an advertising suspension for
+the 7. The 81 turn on whether a sentence reads like a drug, a judgment the registry does not contain. Of the 137 advertising cases, 135 were an advertising suspension for
 the product in question, most often for 3 months.</p>
 
   <div class="fig">
@@ -335,20 +336,20 @@ the product in question, most often for 3 months.</p>
   <p>Of 137 advertising actions, registry matching speaks directly to 7. The largest group, 81, turned on whether a sentence reads like a drug.</p>
 </div>
 
-  <p><strong>It does not work out which product a page is.</strong> Sales pages rarely carry a report number. Grouping the same product across several sellers, reading the
+  <p><strong>It does not identify which product a sales page is selling.</strong> Sales pages rarely carry a report number. Grouping the same product across several sellers, reading the
 text inside detail images, and comparing document to document against the registry are outside this open tool.</p>
 
-  <h2><span class="num">06</span>So what do we do</h2>
+  <h2><span class="num">06</span>So what now</h2>
 
   <p>Public data is free; making it usable is not. For this registry, the work was merging three fields, joining two lists, and judging by number instead of name.
-Data inside a company is no different. The ad report, the order ledger and the CRM each hold the same customer in a different field under a different name,
-and joining them comes before any analysis. For the registry, that entrance is now open to anyone.</p>
+Data inside a company is no different. The ad report, the order database and the CRM each hold the same customer in a different field under a different name,
+and joining them comes before any analysis. For the registry, that first step is now open to anyone.</p>
 
-  <p>What comes after — grouping pages scattered across sellers into one reported product, reading the wording inside images, and comparing it against the registry —
-is done at <a href="https://lambency-data.github.io/byteme/">BYTEME sales-page checkup</a>. The case-by-case look at the 198 actions and the sales-page checklist
+  <p>What comes after (grouping pages scattered across sellers into one reported product, reading the wording inside images, and comparing it against the registry)
+is what the <a href="https://lambency-data.github.io/byteme/">byteme sales-page check</a> does. The case-by-case look at the 198 actions and the sales-page checklist
 are on the <a href="https://lambency-data.github.io/byteme/blog/">byteme blog</a> (in Korean).</p>
 
-  <p class="note">Method — full snapshots of the MFDS functional-cosmetics reported list (FtnltCosmRptPrdlstInfoService01) and reviewed list (FtnltCosmSrngPrdlstInfoService05)
+  <p class="note">Method: full snapshots of the MFDS functional-cosmetics reported list (FtnltCosmRptPrdlstInfoService01) and reviewed list (FtnltCosmSrngPrdlstInfoService05)
 from the public data portal, collected September 21, 2026. "Filled" means the value is not empty. "Same name" means identical after removing all spaces inside the name
 (trimming only the ends gives 2,732 names, 5,801 rows and 353 different-company names; other spelling differences are not merged, so the true overlap may be larger).
 "Different companies" means the company names differ after removing spaces. Administrative actions are the 198 on the MFDS public list (collected October 15, 2026);
@@ -357,9 +358,9 @@ where one case lists several violations, each is counted. Code at github.com/caf
   <!-- RELATED:START -->
   <nav class="related" aria-label="Related reading">
     <div class="lb">Related reading</div>
-    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average</span></a>
-    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">The same model, playing two nationalities</span></a>
-    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three elections, sealed before the vote. We did not beat the polling average</span></a>
+    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">I made the same AI play a Korean voter and an American voter</span></a>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, and not a single recorded death</span></a>
   </nav>
   <!-- RELATED:END -->
 

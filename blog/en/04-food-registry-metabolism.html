@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A million food products, and not a single recorded death | Lambency</title>
-<meta name="description" content="I pulled Korea's full food product registry — 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths. Half of everything alive entered within five years, and shelves turn at speeds that differ almost ninefold — measured with shelf metabolism.">
+<meta name="description" content="I pulled Korea's full food product registry: 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths. Half of everything alive entered within five years, and shelf metabolism, our measure of turnover, differs almost ninefold across product types.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
@@ -12,7 +12,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html">
 <meta property="og:title" content="A million food products, and not a single recorded death">
-<meta property="og:description" content="Korea's food registry: 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths — so I measured the age of the survivors instead.">
+<meta property="og:description" content="Korea's food registry: 1,066,415 rows, each with a 'production ended' field. Zero say yes. The registry records births and erases deaths, so I measured the age of the survivors instead.">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -40,7 +40,7 @@
    "headline": "A million food products, and not a single recorded death",
    "url": "https://lambency-data.github.io/blog/en/04-food-registry-metabolism.html",
    "datePublished": "2026-08-12",
-   "dateModified": "2026-08-12",
+   "dateModified": "2026-11-24",
    "inLanguage": "en",
    "author": {
     "@id": "https://lambency-data.github.io/#caff"
@@ -232,30 +232,30 @@
   </h1>
   <div class="meta">
     Caff · August 2026<br>
-    Data — full snapshot of Korea MFDS open API (food product manufacturing reports, collected 2026-08-10), MFDS 2023 food production statistics, MFDS Statistical Yearbook 2023. <strong>Zero internal data.</strong>
+    Data: full snapshot of the open API run by Korea's Ministry of Food and Drug Safety (MFDS) for food product manufacturing reports, collected 2026-08-10; MFDS 2023 food production statistics; MFDS Statistical Yearbook 2023. <strong>Zero internal data.</strong>
   </div>
 
   <div class="lede">
-    <p>Korea's food safety agency publishes a registry of product manufacturing reports. To legally sell a processed food here, you file one per product — which makes this, in effect, a complete roster of the country's packaged food and beverages. The field list includes a column for <strong>whether production has ended</strong>. So I downloaded all million-plus rows and counted. <strong>Zero say yes.</strong></p>
+    <p>Korea's food safety agency publishes a registry of product manufacturing reports. To legally sell a processed food here, you file one per product, which makes this, in effect, a complete roster of the country's packaged food and beverages. The field list includes a column for <strong>whether production has ended</strong>. So I downloaded all million-plus rows and counted. <strong>Zero say yes.</strong></p>
   </div>
 
   <h2><span class="num">01</span>The whole registry, downloaded</h2>
   <p>Deduplicated by report number, the snapshot holds <strong>1,066,415 products</strong> from <strong>29,134 manufacturers</strong>. One row per product: when it was filed, who makes it, what type it is, and whether production has ended.</p>
-  <p>Start with the pace. The past twelve months alone account for <strong>139,097 filings</strong> still alive today — roughly ten thousand a month, <strong>about 380 new products a day</strong>. "New products are flooding in" is not a figure of speech in this industry. It is arithmetic.</p>
+  <p>Start with the pace. The past twelve months alone account for <strong>139,097 filings</strong> still alive today: roughly ten thousand a month, or <strong>about 380 new products a day</strong>. In this industry, "new products are flooding in" is not a figure of speech. It is a count.</p>
 
   <h2><span class="num">02</span>A registry with zero deaths</h2>
-  <p>But there is no exit door. Not one product carries the discontinued flag, which suggests that when production stops or a manufacturer folds, the report is simply <strong>removed from the public view</strong> (I can't confirm the mechanism — no public document describes it; see the methods section).</p>
-  <p>Surely the official statistics count it somewhere. I checked: the 875-page MFDS Statistical Yearbook, the national statistics portal KOSIS, the national indicators site, the MFDS industry trends report, and the agency's open data portal (2026-08-12). <strong>No yearly count of new product filings exists at the product level. Neither does any count of discontinuations.</strong> What exists is a count of manufacturers, and a "production performance" item count — <strong>77,127</strong> for 2023 — which, per its own footnote, collapses every product a company makes within one food type into a single item. Different unit entirely.</p>
-  <p>One contrast worth savoring: for health functional foods, the agency's data catalog lists a separate "production ended" dataset. For ordinary food, no such entry exists at all.</p>
+  <p>But there is no exit door. Not one product carries the discontinued flag, which suggests that when production stops or a manufacturer folds, the report is simply <strong>removed from the public view</strong> (I can't confirm the mechanism, since no public document describes it; see the methods section).</p>
+  <p>Surely the official statistics count it somewhere. I checked: the 875-page MFDS Statistical Yearbook, the national statistics portal KOSIS, the national indicators site, the MFDS industry trends report, and the agency's open data portal (2026-08-12). <strong>No yearly count of new product filings exists at the product level. Neither does any count of discontinuations.</strong> What exists is a count of manufacturers, and a "production performance" item count (<strong>77,127</strong> for 2023) that, per its own footnote, collapses every product a company makes within one food type into a single item. That is a different unit entirely.</p>
+  <p>One telling contrast: for health functional foods, the agency's data catalog lists a separate "production ended" dataset. For ordinary food, no such entry exists at all.</p>
 
   <div class="pull">
-    <p>Births are tallied at 380 a day. Deaths are structurally uncountable.</p>
+    <p>Births are tallied at 380 a day. Deaths aren't counted anywhere.</p>
   </div>
 
-  <p>Why this matters: plenty of food companies call their launches "experiments." But half of any experiment is the <strong>termination call</strong> — what died, when, and why, recorded so the next launch learns something. In this industry's public data, that half is structurally empty. And as we'll see, most companies' internal ledgers look the same.</p>
+  <p>Why this matters: plenty of food companies call their launches "experiments." But half of any experiment is the <strong>termination call</strong>: what died, when, and why, recorded so the next launch learns something. In this industry's public data, that half is missing, and most companies' internal records look no different.</p>
 
   <h2><span class="num">03</span>So I measured the age of the survivors</h2>
-  <p>If you can't count the dead, change the method — <strong>measure the age distribution of the living</strong>. Line up all million products in production today by filing date, and the median lands in 2021. <strong>Half of everything alive entered the registry within the past five years.</strong></p>
+  <p>If you can't count the dead, change the method and <strong>measure the age distribution of the living</strong>. Line up all one million-plus products still in production by filing date, and the median lands in 2021. <strong>Half of everything alive entered the registry within the past five years.</strong></p>
 
   <div class="tw">
   <table>
@@ -273,10 +273,10 @@
   </table>
   </div>
 
-  <p>Read this honestly. The curve rises to the right for two entangled reasons — more products were born recently, and older ones have died out of the frame. This registry alone cannot split the two. Splitting them would take a denominator: how many were filed each year. As §02 established, that number is published nowhere. So this piece claims no survival rate. Instead it builds <strong>a metric that doesn't need the split</strong>.</p>
+  <p>A caution on reading this: the curve rises to the right for two entangled reasons. More products were born recently, and older ones have dropped out of the frame. This registry alone cannot split the two. Splitting them would take a denominator: how many were filed each year. As §02 established, that number is published nowhere. So this piece claims no survival rate. Instead it builds <strong>a metric that doesn't need the split</strong>.</p>
 
   <h2><span class="num">04</span>Every shelf runs on a different clock</h2>
-  <p>The metric: <strong>shelf metabolism = products filed in the past 24 months ÷ all products alive today.</strong> Numerator and denominator come from the same registry on the same day, so no missing denominator has to be guessed. The meaning is plain — of what sits on this shelf right now, how much arrived within two years?</p>
+  <p>The metric: <strong>shelf metabolism = products filed in the past 24 months ÷ all products alive today.</strong> Numerator and denominator come from the same registry on the same day, so no missing denominator has to be guessed. The meaning is plain: of what sits on this shelf right now, how much arrived within the past two years?</p>
   <p>Across the whole registry: <strong>25.0%</strong>. One in four living food products is less than two years old. Split by product type, though, and the gap between the fastest shelf and the slowest stretches to almost ninefold.</p>
 
   <div class="fig">
@@ -321,7 +321,7 @@
 <rect x="190" y="400" width="49" height="16" rx="4" fill="#6e6552" opacity="0.55"/>
 <text x="247" y="413" font-size="11.5" fill="#a89e8a">5.0%</text>
 </svg>
-    <div class="figcap">Fig. · Shelf metabolism by product type (as in §04) — the share of living products filed in the past 24 months. The reference line is the registry-wide 25.0%.</div>
+    <div class="figcap">Fig. · Shelf metabolism by product type (as in §04): the share of living products filed in the past 24 months. The reference line is the registry-wide 25.0%.</div>
   </div>
 
   <div class="tw">
@@ -345,54 +345,54 @@
   </table>
   </div>
 
-  <p>Ready-to-eat meals — lunch boxes, sandwiches, kimbap — run at nearly <strong>half the shelf under two years old</strong>. On that shelf, a position is rented, never owned. At the other end, seasoned laver sits at 5.0% — a shelf where years-old products still hold their places. Beverages split internally too: mixed drinks turn at 36.5% while infusion teas turn at 17.7%. "A new beverage launch" names two entirely different events depending on which shelf it lands on.</p>
-  <p>The ordering survives a change of window. Recomputed at 12 months and at 36, no type swaps ends — figures in the methods section.</p>
+  <p>Ready-to-eat meals (lunch boxes, sandwiches, kimbap) run at nearly <strong>half the shelf under two years old</strong>. On that shelf, a position is rented, never owned. At the other end, seasoned laver sits at 5.0%, a shelf where years-old products still hold their places. Beverages split internally too: mixed drinks turn at 36.5% while infusion teas turn at 17.7%. "A new beverage launch" means two entirely different things depending on which shelf it lands on.</p>
+  <p>The ordering survives a change of window. Recomputed at 12 months and at 36, no product type moves from one end of the ranking to the other (figures in the methods section).</p>
 
   <h2><span class="num">05</span>The rush belongs to a few</h2>
   <p>I also counted who generates those 380 filings a day. The median manufacturer holds <strong>9 living products</strong>; the top 10% of manufacturers hold <strong>67.0%</strong> of everything alive.</p>
-  <p>Filing activity is more concentrated still. Only <strong>53.4%</strong> of manufacturers filed even one new product in the past 24 months — nearly half filed none at all. Among those who did, the median filed <strong>5</strong>, and 54.1% filed five or fewer. Meanwhile, of the 266,862 filings in those 24 months, <strong>53.4% came from the top 1,000 manufacturers.</strong></p>
+  <p>Filing activity is more concentrated still. Only <strong>53.4%</strong> of manufacturers filed even one new product in the past 24 months; nearly half filed none at all. Among those who did, the median filed <strong>5</strong>, and 54.1% filed five or fewer. Meanwhile, of the 266,862 filings in those 24 months, <strong>53.4% came from the top 1,000 manufacturers.</strong></p>
 
   <div class="pull">
     <p>The market's rush is the pace of a few large players. Adopt it as your KPI and you are running on someone else's clock.</p>
   </div>
 
   <h2><span class="num">06</span>What to actually do</h2>
-  <p>Compute your own metabolism first. Same formula — <strong>SKUs launched in the past 24 months ÷ all SKUs currently sold.</strong> With a clean SKU master this is a five-minute calculation, and if it takes longer than five minutes, that itself is the first finding. Then compare against two numbers: your product type's value in the table above, and the registry-wide <strong>25.0%</strong>. That baseline is nobody's opinion — it is the whole market measured with the same ruler.</p>
+  <p>Compute your own metabolism first. Same formula: <strong>SKUs launched in the past 24 months ÷ all SKUs currently sold.</strong> With a clean SKU master this is a five-minute calculation, and if it takes longer than five minutes, that itself is the first finding. Then compare against two numbers: your product type's value in the table above, and the registry-wide <strong>25.0%</strong>. That baseline is nobody's opinion. It is the whole market, measured with the same yardstick.</p>
 
   <div class="tw">
   <table>
     <thead><tr><th>Your position</th><th>How to read it</th><th>What changes</th></tr></thead>
     <tbody>
-      <tr><td>Category above 25.0%, and your company turns faster than the category</td><td>You live by rotation on a rotating shelf</td><td>Change the new-product KPI from <strong>launch count to survival count</strong>. Write the kill criteria — window and threshold — before each launch, and discontinue automatically on a miss. Keep new-product P&amp;L separate from the legacy lines</td></tr>
-      <tr><td>Category above 25.0%, but your company turns slower</td><td>The shelf rotates and you don't</td><td>Pick a strategy explicitly — if you're betting on long-lived SKUs, move budget to repurchase metrics; if you intend to keep pace, measure the launch pipeline's bottleneck first. The expensive place is in between, by accident</td></tr>
+      <tr><td>Category above 25.0%, and your company turns faster than the category</td><td>You live by rotation on a rotating shelf</td><td>Change the new-product KPI from <strong>launch count to survival count</strong>. Write the kill criteria (window and threshold) before each launch, and discontinue automatically on a miss. Keep new-product P&amp;L separate from the legacy lines</td></tr>
+      <tr><td>Category above 25.0%, but your company turns slower</td><td>The shelf rotates and you don't</td><td>Pick a strategy explicitly. If you're betting on long-lived SKUs, move budget to repurchase metrics; if you intend to keep pace, measure the launch pipeline's bottleneck first. The costly position is drifting in between without having chosen to</td></tr>
       <tr><td>Category below 25.0%</td><td>A slow shelf</td><td>The asset is not launch volume but <strong>keeping the products you have</strong>. Before expanding the launch budget, spend on repurchase and distribution coverage of what already sells</td></tr>
     </tbody>
   </table>
   </div>
 
-  <p>One rule holds across all three rows: <strong>record your discontinuations.</strong> What was killed, when, and against what criterion. In a ledger that erases deaths — like this registry — the next launch learns nothing from the last one. A discontinuation log is not a record of failure; it is the cheapest experimental data this industry can accumulate.</p>
+  <p>One rule holds across all three rows: <strong>record your discontinuations.</strong> What was killed, when, and against what criterion. When the records erase deaths, as this registry does, the next launch learns nothing from the last one. A discontinuation log is the cheapest experimental data this industry can accumulate, not a record of failure.</p>
   <p>Three choices made in this calculation, stated with their counterfactuals:</p>
   <ul>
-    <li><strong>Why 24 months.</strong> At 12, the value wobbles with a single holiday-season cycle and with the lag between filing and reaching shelves; at 36, you're measuring a three-year average rather than the current speed. Twenty-four months is the longest window that still hugs "now" while containing two seasonal cycles.</li>
-    <li><strong>Why the denominator is living products.</strong> Using yearly filings as the denominator requires counting dead reports — and this data contains no deaths. Drawing numerator and denominator from the same day's registry dissolves the problem. The price: this metric measures the <strong>youth of the shelf</strong>, not survival-per-launch, and that limitation stays.</li>
-    <li><strong>What I deliberately left out.</strong> The 103,142 filings from food-additive manufacturers — flavorings, mixed preparations — are excluded from the table. They are factory-to-factory trade, not a consumer shelf. For reference, their metabolism is 18.7%, slower than the consumer shelves.</li>
+    <li><strong>Why 24 months.</strong> At 12, the value wobbles with a single holiday-season cycle and with the lag between filing and reaching shelves; at 36, you're measuring a three-year average rather than the current speed. Twenty-four months is the longest window that still reflects the present while containing two seasonal cycles.</li>
+    <li><strong>Why the denominator is living products.</strong> Using yearly filings as the denominator requires counting dead reports, and this data contains no deaths. Drawing numerator and denominator from the same day's registry dissolves the problem. The price: this metric measures the <strong>youth of the shelf</strong>, not survival-per-launch, and that limitation stays.</li>
+    <li><strong>What we deliberately left out.</strong> The 103,142 filings from food-additive manufacturers (flavorings, mixed preparations) are excluded from the table. They are factory-to-factory trade, not a consumer shelf. For reference, their metabolism is 18.7%, slower than the consumer shelves.</li>
   </ul>
 
   <h2><span class="num">07</span>What this registry cannot see</h2>
-  <p><strong>A filing is not a launch.</strong> Products that were filed but never reached a shelf, or shipped once and vanished, are all in here. Shelf metabolism therefore leans high relative to true shelf rotation — the direction is knowable, the magnitude is not.</p>
-  <p><strong>No time or cause of death.</strong> So no survival rate and no half-life can be computed from this data. Those numbers exist only inside companies that kept their own discontinuation history — which is exactly the shared rule in §06.</p>
-  <p><strong>The kill-criteria inputs aren't out here either.</strong> First-repurchase rate after launch, shelf turnover speed — the raw material for a termination call mostly lives in distributors' settlement data. Getting it into your own books is the subject of the third piece in this series.</p>
+  <p><strong>A filing is not a launch.</strong> Products that were filed but never reached a shelf, or shipped once and vanished, are all in here. Shelf metabolism therefore runs high relative to true shelf rotation. The direction of the bias is known; its size is not.</p>
+  <p><strong>No time or cause of death.</strong> So no survival rate and no half-life can be computed from this data. Those numbers exist only inside companies that kept their own discontinuation history, which is exactly why §06 makes it the one rule for every row.</p>
+  <p><strong>The kill-criteria inputs aren't out here either.</strong> First-repurchase rate after launch and shelf turnover speed, the raw material for a termination call, mostly live in distributors' settlement data. Getting that data into your own records is the subject of the third piece in this series.</p>
 
   <h2><span class="num">08</span>What this piece is really saying</h2>
-  <p>The registry records births and erases deaths — so this industry calls its launches experiments while owning no data on the half of an experiment that matters: the termination call. If you can't count the dead, measure the youth of the shelf. Metabolism = products filed in the past 24 months ÷ everything alive, with the market-wide 25% as the baseline. Above it, change the launch KPI from launch count to survival count; below it, move budget from new products to keeping the ones you have. Either way, record your discontinuations — the cheapest experimental data this industry can accumulate.</p>
+  <p>The registry records births and erases deaths. So this industry calls its launches experiments while owning no data on the half of an experiment that matters: the termination call. If you can't count the dead, measure the youth of the shelf. Metabolism = products filed in the past 24 months ÷ everything alive, with the market-wide 25% as the baseline. Above it, change the launch KPI from launch count to survival count; below it, move budget from new products to keeping the ones you have. Either way, record your discontinuations. It is the cheapest experimental data this industry can accumulate.</p>
 
   <div class="tw">
   <table>
-    <thead><tr><th>Wherever you sit</th><th>What to look at first</th></tr></thead>
+    <thead><tr><th>Where you sit</th><th>What to look at first</th></tr></thead>
     <tbody>
-      <tr><td>Fast shelves — ready-to-eat, breads</td><td>Your own metabolism and per-launch kill criteria — is the exit condition written down before the launch?</td></tr>
-      <tr><td>Slow shelves — sauces, teas, rice cakes</td><td>The asset is keeping existing products, not launch volume — which way does the budget point?</td></tr>
-      <tr><td>New-product planning &amp; marketing</td><td>Filing ≠ launch ≠ survival — which of the three is your KPI actually counting?</td></tr>
+      <tr><td>Fast shelves (ready-to-eat, breads)</td><td>Your own metabolism and per-launch kill criteria. Is the exit condition written down before the launch?</td></tr>
+      <tr><td>Slow shelves (sauces, teas, rice cakes)</td><td>The asset is keeping existing products, not launch volume. Which way does the budget point?</td></tr>
+      <tr><td>New-product planning &amp; marketing</td><td>Filing ≠ launch ≠ survival. Which of the three is your KPI actually counting?</td></tr>
       <tr><td>Finance</td><td>Is new-product P&amp;L separated from the legacy lines, and do discontinuations leave a dated, reasoned record?</td></tr>
     </tbody>
   </table>
@@ -401,27 +401,27 @@
   <div class="note">
     <h3>Methods &amp; limits</h3>
     <ul>
-      <li><strong>Source</strong> — Korea MFDS open API, food (and additive) product manufacturing reports: 1,066,448 rows, collection completed 2026-08-10. After removing 33 duplicate report numbers and 14 rows with corrupt filing dates (future or pre-1945), the analysis set is 1,066,401. Fields include filing date, manufacturer, product type, and production-ended status. Product types are the agency's own classification, used as-is.</li>
-      <li><strong>Interpreting "zero discontinued"</strong> — that every row reads "no" is measured fact; that ended or withdrawn reports are deleted from public view is my inference from it. How closures, withdrawals, and production stops are handled in the registry is not documented publicly.</li>
-      <li><strong>Scope</strong> — reports under the Food Sanitation Act. Processed livestock products and health functional foods are governed by different laws and different registries, and are not included. "Food and beverage" in this piece means this scope.</li>
-      <li><strong>The missing yearly series</strong> — I searched the MFDS Statistical Yearbook 2023 (full 875-page text), KOSIS, the national indicators portal, the MFDS industry trend statistics 2023, and the agency's open data file catalog (2026-08-12). No product-level yearly count of new filings or discontinuations exists. The closest official figure — 77,127 items in the 2023 production statistics — counts each (company × food type) pair once, a different unit, so it was not used as a denominator.</li>
-      <li><strong>Window sensitivity</strong> — recomputing metabolism at 12 months (13.0% overall) and 36 months (35.4% overall) preserves the ordering across types: ready-to-eat 27.9→44.8→56.0%, infusion teas 9.3→17.7→25.9%.</li>
-      <li><strong>No company names</strong> — the unit of this piece is the product type and the distribution; no individual manufacturer is evaluated. Every figure comes from the public API, so a reader who wants to verify can pull the same registry and check.</li>
+      <li><strong>Source:</strong> MFDS open API, food (and additive) product manufacturing reports: 1,066,448 rows, collection completed 2026-08-10. After removing 33 duplicate report numbers and 14 rows with corrupt filing dates (future or pre-1945), the analysis set is 1,066,401. Fields include filing date, manufacturer, product type, and production-ended status. Product types are the agency's own classification, used as-is.</li>
+      <li><strong>Interpreting "zero discontinued":</strong> that every row reads "no" is measured fact; that ended or withdrawn reports are deleted from public view is my inference from it. How closures, withdrawals, and production stops are handled in the registry is not documented publicly.</li>
+      <li><strong>Scope:</strong> reports under the Food Sanitation Act. Processed livestock products and health functional foods are governed by different laws and different registries, and are not included. "Food and beverage" in this piece means this scope.</li>
+      <li><strong>The missing yearly series:</strong> I searched the MFDS Statistical Yearbook 2023 (full 875-page text), KOSIS, the national indicators portal, the MFDS industry trend statistics 2023, and the agency's open data file catalog (2026-08-12). No product-level yearly count of new filings or discontinuations exists. The closest official figure, 77,127 items in the 2023 production statistics, counts each (company × food type) pair once, a different unit, so it was not used as a denominator.</li>
+      <li><strong>Window sensitivity:</strong> recomputing metabolism at 12 months (13.0% overall) and 36 months (35.4% overall) preserves the ordering across types: ready-to-eat 27.9→44.8→56.0%, infusion teas 9.3→17.7→25.9%.</li>
+      <li><strong>No company names:</strong> the unit of this piece is the product type and the distribution; no individual manufacturer is evaluated. Every figure comes from the public API, so a reader who wants to verify can pull the same registry and check.</li>
     </ul>
   </div>
 
   <!-- RELATED:START -->
   <nav class="related" aria-label="Related reading">
     <div class="lb">Related reading</div>
-    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The Registry Was Open. The Efficacy Field Was 65% Empty</span></a>
-    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average</span></a>
-    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">The same model, playing two nationalities</span></a>
+    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The registry was open. The efficacy field was 65% empty</span></a>
+    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three elections, sealed before the vote. We did not beat the polling average</span></a>
+    <a class="ritem" href="/blog/en/14-synthetic-audience.html"><span class="rno">14</span><span class="rtit">I made the same AI play a Korean voter and an American voter</span></a>
   </nav>
   <!-- RELATED:END -->
 
   <div class="next">
     <div class="lb">Next · weekly</div>
-    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+    <p>Same method, different industry. The bottleneck differs every time, and finding that difference is what this series does.</p>
   </div>
 
 

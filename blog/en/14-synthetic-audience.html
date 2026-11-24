@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I Made the Same AI Play a Korean Voter and an American Voter | Lambency</title>
-<meta name="description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the same answer 8 times out of 8 with no evidence at all — opposite failure modes. One line opened the door: 'in the last election, you voted for X.' A Korean local-election backtest reached 2.65%p error in battlegrounds. Everyone uses the same models — what differs is the design of the data you inject. The same rule ports straight into CRM message testing.">
+<title>I made the same AI play a Korean voter and an American voter | Lambency</title>
+<meta name="description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the same answer 8 times out of 8 with no evidence at all. The failures ran in opposite directions. One line opened the door: 'in the last election, you voted for X.' A Korean local-election backtest reached 2.65 pp error in battlegrounds. Everyone uses the same models; what differs is how you design the data you feed them. The same rule ports straight into CRM message testing.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
-<meta property="og:title" content="I Made the Same AI Play a Korean Voter and an American Voter">
+<meta property="og:title" content="I made the same AI play a Korean voter and an American voter">
 <meta property="og:description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the sa">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="I Made the Same AI Play a Korean Voter and an American Voter">
+<meta name="twitter:title" content="I made the same AI play a Korean voter and an American voter">
 <meta name="twitter:description" content="I made the same AI play Korean and American voters. The Korean personas refused to answer 12 times out of 12; the American personas insisted on the sa">
 <meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
 <link rel="canonical" href="https://lambency-data.github.io/blog/en/14-synthetic-audience.html">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<meta name="keywords" content="data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -37,10 +37,10 @@
   {
    "@type": "BlogPosting",
    "@id": "https://lambency-data.github.io/blog/en/14-synthetic-audience.html#post",
-   "headline": "I Made the Same AI Play a Korean Voter and an American Voter",
+   "headline": "I made the same AI play a Korean voter and an American voter",
    "url": "https://lambency-data.github.io/blog/en/14-synthetic-audience.html",
    "datePublished": "2026-10-05",
-   "dateModified": "2026-10-05",
+   "dateModified": "2026-11-24",
    "inLanguage": "en",
    "author": {
     "@id": "https://lambency-data.github.io/#caff"
@@ -227,59 +227,58 @@
 <div class="wrap">
   <div class="kicker">DeepCaffein · Public Data Series · 14 · Synthetic Panels</div>
   <h1>I made the same AI play<br>a Korean voter and an American voter
-    <span class="h1sub">Synthetic panels · a Korean local-election backtest × a live US midterm run · AI-prediction methodology</span>
+    <span class="h1sub">Synthetic panels · a Korean local-election backtest × a live US midterm run · forecasting methodology</span>
   </h1>
   <div class="meta">
     Caff · October 2026<br>
-    Data used — exhaustive election-commission counts, census statistics, published surveys (for comparison), US state counts. Every predictive figure is an AI prediction, not a poll; backtests use only elections after the model's knowledge cutoff. <strong>Zero individual-level data.</strong>
+    Data used — exhaustive election-commission counts, census statistics, published surveys (for comparison), US state counts. Every forecast figure here is a model estimate, not a poll; backtests use only elections after the model's knowledge cutoff. <strong>Zero individual-level data.</strong>
   </div>
 
   <div class="lede">
-    <p>A CRM message has five gates. <strong>Sent → opened → read → clicked →
+    <p>A CRM message has five gates: <strong>sent → opened → read → clicked →
 bought.</strong> Each gate has its own hurdle, but in my experience the tallest
-wall is in the middle — getting it opened is the subject line's job, and
+wall is in the middle. Getting it opened is the subject line's job, and
 getting it bought is the product's job. <strong>Getting it read and clicked is
 the message's job, and it is the hardest one.</strong></p>
   </div>
 
   <p>"Who to send to" turned out to be a solvable problem. When I built an RFM
 model for a retail brand's CRM, click rates and revenue lined up in the exact
-order the segments were cut — not because the model was clever, but because
-the criterion — <strong>what counts as one purchase</strong> — was cut
-properly. One question stayed unsolved: <strong>"so what message do we
+order the segments were cut. The model wasn't clever. What mattered was
+defining <strong>a single purchase</strong> correctly. One question stayed unsolved: <strong>"so what message do we
 write?"</strong> Nobody knows before sending. After sending, it is too
 late.</p>
 
-  <p>Chasing that question led me to synthetic audiences — showing a message to
-a population of AI personas first and reading the response distribution.
-In the US it is already being commercialized, starting with political
-campaigns. I decided to test before believing, and picked elections as the
-test bench — <strong>the vote count is published, making it the most
-transparent behavioral data on earth.</strong> So I made the same AI play
+  <p>Chasing that question led me to synthetic audiences: showing a message to
+a population of AI personas first and reading the distribution of responses.
+In the US the approach is already being commercialized, starting with political
+campaigns. I decided to test it before believing it, and we picked elections as
+the test bench, because <strong>the vote count is published, which makes it the most
+transparent behavioral data there is.</strong> So we made the same AI play
 Korean voters and American voters. The short version: the Korean AI went
 silent, and the American AI wouldn't budge.</p>
 
-  <h2><span class="num">01</span>Korea — the AI refuses to answer</h2>
+  <h2><span class="num">01</span>Korea: the AI refuses to answer</h2>
 
-  <p>Korea came first. We built personas from real census and voting statistics and asked them political questions. A 35-year-old Seoul man: asked his party preference, he answered "no party" <strong>twelve times out of twelve</strong> — at temperature 1.0, with randomness wide open, the variance was zero. A 45-year-old Gwangju woman rated the president positively <strong>zero times out of ten</strong> — in a city where actual approval runs 79%. Swapping in past presidents changed nothing. It isn't ignorance; <strong>the model avoids the topic of Korean politics itself.</strong></p>
+  <p>Korea came first. We built personas from real census and voting statistics and asked them political questions. A 35-year-old Seoul man, asked his party preference, answered "no party" <strong>twelve times out of twelve</strong>. At temperature 1.0, with randomness wide open, the variance was zero. A 45-year-old Gwangju woman rated the president positively <strong>zero times out of ten</strong>, in a city where actual approval runs 79%. Swapping in past presidents changed nothing. This isn't a knowledge gap. <strong>The model steers away from Korean politics altogether.</strong></p>
 
-  <p>Handing the persona regional statistics didn't help either. Mid-level aggregates like "Gangnam 30.1%" never opened its mouth — an AI does not translate aggregate numbers into an individual's voice.</p>
+  <p>Handing the persona regional statistics didn't help. Mid-level aggregates such as "Gangnam: 30.1%" didn't get it talking either; an AI does not translate aggregate numbers into an individual's voice.</p>
 
-  <h2><span class="num">02</span>The breakthrough — history, not statistics</h2>
+  <h2><span class="num">02</span>The breakthrough: history, not statistics</h2>
 
-  <p>One line opened the door: <strong>"In the last presidential election, you voted for candidate ○○."</strong> Given a <strong>personal past action</strong> instead of an aggregate, the same persona immediately produced a natural distribution — eight same-party voters splitting into approve 4 / disapprove 2 / undecided 2, the texture you see in real surveys.</p>
+  <p>One line opened the door: <strong>"In the last presidential election, you voted for candidate X."</strong> Given a <strong>personal past action</strong> instead of an aggregate, the same persona immediately produced a natural distribution. Eight same-party voters split into approve 4 / disapprove 2 / undecided 2, the texture you see in real surveys.</p>
 
-  <p>Past votes were allocated by each district's actual counted ratios (election commission, exhaustive). District ordering fell into place (Gangnam 15% < Nowon 24%), and against the newest survey the model could not have memorized, the Seoul error came down to <strong>+0.6%p</strong>.</p>
+  <p>Past votes were allocated by each district's actual counted ratios (election commission, exhaustive). District ordering fell into place (Gangnam 15% &lt; Nowon 24%), and against the newest survey the model could not have memorized, the Seoul error came down to <strong>+0.6 pp</strong>.</p>
 
-  <p>One rule came out of this. <strong>Reading statistics to an AI is useless. You must translate the statistics into a personal history.</strong> That translation is the heart of the method — remember it; we will use it again below.</p>
+  <p>One rule came out of this. <strong>Reading statistics to an AI is useless. You must translate the statistics into a personal history.</strong> That translation is the heart of the method, and we will use it again below.</p>
 
-  <h2><span class="num">03</span>America — the opposite failure</h2>
+  <h2><span class="num">03</span>America: the opposite failure</h2>
 
-  <p>We ported the same engine to the US, and the opposite problem appeared. The American personas split perfectly with no evidence at all — a 58-year-old white Texan man picked the same side <strong>eight times out of eight</strong>. In Maine, the personas reproduced the state's famous crossover pattern — Democratic leaners backing a Republican senator — <strong>without it ever being put in the prompt</strong>. The model has read so much English-language politics that it is less a persona than a pundit.</p>
+  <p>We ported the same engine to the US, and the opposite problem appeared. The American personas split cleanly along party lines with no evidence at all: a 58-year-old white Texan man picked the same side <strong>eight times out of eight</strong>. In Maine, the personas reproduced the state's well-known crossover pattern, Democratic leaners backing a Republican senator, <strong>without it ever being put in the prompt</strong>. The model has read so much English-language politics that it behaves less like a persona than a pundit.</p>
 
-  <p>The problem is that this knowledge <strong>carries its own lean</strong>. Even in states the Republicans win comfortably, the model kept producing Democratic leads, and plugging in components — news, candidate profiles — barely moved it. The Korean AI failed because it was empty; <strong>the American AI fails because it is full.</strong></p>
+  <p>The problem is that this knowledge <strong>carries its own lean</strong>. Even in states the Republicans win comfortably, the model kept producing Democratic leads, and plugging in components (news, candidate profiles) barely moved it. The Korean model failed for lack of data; <strong>the American one failed because it had too much.</strong></p>
 
-  <h2><span class="num">04</span>The discovery is that the failure modes are opposites</h2>
+  <h2><span class="num">04</span>The two failures point in opposite directions</h2>
 
   <div class="fig">
 <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KR vs US response contrast">
@@ -322,28 +321,28 @@ silent, and the American AI wouldn't budge.</p>
 <text class="a" x="60" y="218" font-size="11.5" font-weight="bold">All 8: the same candidate — overconfidence</text>
 <text class="t" x="60" y="242" font-size="10.5">temperature 1.0 — maximum randomness, zero variance either way</text>
 </svg>
-<p class="figcap">Figure 2 · The same persona, the same question, repeated — the failures point in opposite directions</p>
+<p class="figcap">Figure 1 · The same persona, the same question, repeated. Korea and the US fail in opposite directions</p>
 </div>
 
   <div class="tw">
 <table>
   <thead><tr><th></th><th>Korean personas</th><th>American personas</th></tr></thead>
-  <tbody><tr><td>Failure mode</td><td><strong>Reticence</strong> — avoids answering</td><td><strong>Overconfidence</strong> — insists on its own view</td></tr><tr><td>Cause</td><td>Too little Korean political data</td><td>Too much English political data</td></tr><tr><td>What you do</td><td><strong>Design and inject</strong> evidence (past behavior)</td><td><strong>Pin it down</strong> with statistical anchors (calibration)</td></tr></tbody>
+  <tbody><tr><td>Failure mode</td><td><strong>Reticence</strong>: avoids answering</td><td><strong>Overconfidence</strong>: insists on its own view</td></tr><tr><td>Cause</td><td>Too little Korean political data</td><td>Too much English political data</td></tr><tr><td>What you do</td><td><strong>Design and inject</strong> evidence (past behavior)</td><td><strong>Pin it down</strong> with statistical anchors (calibration)</td></tr></tbody>
 </table>
 </div>
 
-  <p>What the table says: either way, this is not a problem of "prompting the AI well." <strong>It is a problem of designing what to give as evidence and what to pin as statistics.</strong></p>
+  <p>Either way, the fix is not better prompting. <strong>It is deciding what to give the model as evidence and what to pin down with statistics.</strong></p>
 
-  <p>Back in graduate school, one line from a guest lecture by a Google data scientist stuck with me. The gist: <strong>"You'll use an off-the-shelf model anyway. What matters is which data you feed it, how you process it, and how you deliver it."</strong> That was before anyone said "LLM," and today not a word of it needs changing. Everyone uses the same models — what differs is the design of the data you inject. The Korean persona's silence and the American persona's stubbornness were proving that old sentence all over again.</p>
+  <p>Back in graduate school, one line from a guest lecture by a Google data scientist stuck with me. The gist: <strong>"You'll use an off-the-shelf model anyway. What matters is which data you feed it, how you process it, and how you deliver it."</strong> That was before anyone said "LLM," and not a word of it needs changing today. Everyone uses the same models; what differs is how you design the data you feed them. The Korean persona's silence and the American persona's stubbornness proved the point again.</p>
 
-  <h2><span class="num">05</span>The scorecard — honestly</h2>
+  <h2><span class="num">05</span>The scorecard, honestly</h2>
 
-  <p>Where the method stands should be written in numbers. We backtested Korea's June 3 local elections (the model's knowledge cutoff precedes the election, so it cannot have memorized the answer). One yardstick throughout — error (MAE, %p) = Σ|predicted vote share − actual counted share| ÷ number of regions. Lower is better.</p>
+  <p>Where the method stands should be stated in numbers. We backtested Korea's June 3 local elections (the model's knowledge cutoff precedes the election, so it cannot have memorized the answer). One yardstick throughout: error (MAE, pp) = Σ|predicted vote share − actual counted share| ÷ number of regions. Lower is better.</p>
 
   <div class="tw">
 <table>
   <thead><tr><th>Stage</th><th>Overall error (MAE)</th><th>4 battlegrounds</th></tr></thead>
-  <tbody><tr><td>Allocation + AI only</td><td>12.45%p</td><td>4.74</td></tr><tr><td>+ incumbency premium & margin compression</td><td>6.89</td><td><strong>2.65</strong></td></tr><tr><td>+ hometown cross-voting</td><td><strong>4.08</strong></td><td>2.65</td></tr><tr><td>Domestic rival AI, published</td><td>2.99</td><td>4.04</td></tr><tr><td>Broadcast exit poll</td><td>2.68</td><td>—</td></tr></tbody>
+  <tbody><tr><td>Allocation + AI only</td><td>12.45 pp</td><td>4.74</td></tr><tr><td>+ incumbency premium & margin compression</td><td>6.89</td><td><strong>2.65</strong></td></tr><tr><td>+ hometown cross-voting</td><td><strong>4.08</strong></td><td>2.65</td></tr><tr><td>Domestic rival AI, published</td><td>2.99</td><td>4.04</td></tr><tr><td>Broadcast exit poll</td><td>2.68</td><td>n/a</td></tr></tbody>
 </table>
 </div>
 
@@ -367,53 +366,53 @@ silent, and the American AI wouldn't budge.</p>
 <text class="a" x="295" y="223.0" font-size="12" font-weight="bold">2.68</text>
 <text class="t" x="10" y="250" font-size="10.5">Overall error (MAE, %p) — lower is better. Top three: our stages; bottom two: reference lines</text>
 </svg>
-<p class="figcap">Figure 1 · June 3 local-election backtest — error falls as each measured coefficient is added. Assembled with the answer known</p>
+<p class="figcap">Figure 2 · June 3 local-election backtest: error falls as each measured coefficient is added. Assembled with the answer known</p>
 </div>
 
-  <p>On overall error we still trail the rival AI (4.08 vs 2.99). But <strong>in the battlegrounds where races are actually decided, we lead</strong> (2.65 vs 4.04) — exit-poll territory. And this is a backtest: parts assembled with the answer known. The real proof of performance does not exist yet — that is §07.</p>
+  <p>On overall error we still trail the rival AI (4.08 vs 2.99). But <strong>in the battlegrounds where races are actually decided, we lead</strong> (2.65 vs 4.04), close to the exit poll's overall error. And this is a backtest, assembled with the answer known. The real test of performance has not happened yet; that is §07.</p>
 
-  <p>One experiment is missing from the table — before those coefficients, we tried <strong>injecting each candidate's micro-profile (incumbency, hometown, career) directly into the personas.</strong> The error fell from 12.45 to <strong>10.35</strong>. The lever is real. But inspection showed the model was adding a flat <strong>+5–9%p</strong> to the word "incumbent" — regions where that happened to be the right direction improved, and the others got worse. The measured incumbency premium is <strong>+2.95%p</strong>. So the experiment was not discarded but replaced — <strong>the AI knows the direction, but you must never let it set the size.</strong> The lever the micro-data revealed, rebuilt as a statistical coefficient, is the table's second row.</p>
+  <p>One experiment is missing from the table. Before those coefficients, we tried <strong>injecting each candidate's micro-profile (incumbency, hometown, career) directly into the personas.</strong> The error fell from 12.45 to <strong>10.35</strong>. The lever is real. But inspection showed the model was adding a flat <strong>+5–9 pp</strong> to the word "incumbent." Regions where that happened to be the right direction improved, and the others got worse. The measured incumbency premium is <strong>+2.95 pp</strong>. So the experiment was replaced rather than discarded: <strong>the AI knows the direction, but you must never let it set the size.</strong> The lever the micro-data revealed, rebuilt as a statistical coefficient, is the table's second row.</p>
 
-  <p>Hometown cross-voting works the same way: +22.3%p measured in Daegu in 2014 repeated twelve years later as +22.5%p for the same candidate — every coefficient comes from exhaustive counts of past elections.</p>
+  <p>Hometown cross-voting works the same way: +22.3 pp measured in Daegu in 2014 recurred twelve years later as +22.5 pp for the same candidate. Every coefficient comes from exhaustive counts of past elections.</p>
 
-  <h2><span class="num">06</span>So what does this engine sell</h2>
+  <h2><span class="num">06</span>So what does this engine sell?</h2>
 
-  <p>Back to the opening question — "what message do we write?" The engine sells two things. To politics: <strong>AI predictions with exit-poll-grade precision in battlegrounds</strong> — exactly matching a campaign's need to be right only where races are decided. To commerce: <strong>a synthetic customer panel that tests the message before you send it.</strong></p>
+  <p>Back to the opening question: "what message do we write?" The engine sells two things. To politics: <strong>forecasts whose backtest error in battleground regions came close to the exit poll's</strong>, which matches a campaign's need to be right where races are decided. To commerce: <strong>a synthetic customer panel that tests the message before you send it.</strong></p>
 
-  <p>Carry over the rule from §02 verbatim. Just as a voter persona would not open its mouth for "Gangnam 30.1%," a customer persona cannot act on "our repeat rate is 24%." Just as we gave the voter "you voted for ○○," <strong>you give the customer your company's order history</strong> — "over the past year you bought this brand three times, most recently on discount." At that moment the persona starts answering: about the new concept, the price increase, copy A versus copy B.</p>
+  <p>Carry over the rule from §02 unchanged. Just as a voter persona would not talk when given "Gangnam: 30.1%," a customer persona cannot act on "our repeat rate is 24%." Just as we gave the voter "you voted for X," <strong>you give the customer your company's order history</strong>: "over the past year you bought this brand three times, most recently on discount." At that point the persona starts answering about the new concept, the price increase, copy A versus copy B.</p>
 
-  <p>The next step is that each gate can be asked separately. The five gates are five different questions — does this subject line make you <strong>open</strong>, does this first sentence make you <strong>read</strong>, does this offer make you <strong>click</strong>? A real send has to clear all five at once; a synthetic panel can test them one at a time. That is what we are designing now — not yet measured, so this paragraph is a design, not a performance claim.</p>
+  <p>The next step is to ask about each gate separately. The five gates are five different questions: does this subject line make you <strong>open</strong>, does this first sentence make you <strong>read</strong>, does this offer make you <strong>click</strong>? A real send has to clear all five at once; a synthetic panel can test them one at a time. That is what we are designing now. It has not been measured yet, so this paragraph describes a design, not a performance claim.</p>
 
-  <p>And the lesson of §03 attaches as a warning. The model has read plenty of consumer trends too — left alone, it voices its own opinions. That is why a calibration layer pinned to measured statistics is mandatory, and <strong>that layer is the product.</strong> Everyone uses the same models. Turning your company's data into a history a persona can act from is what almost nobody does.</p>
+  <p>And the lesson of §03 comes with it as a warning. The model has read plenty about consumer trends too, and left alone it voices its own opinions. That is why a calibration layer pinned to measured statistics is mandatory, and <strong>that layer is the product.</strong> Everyone uses the same models. Almost nobody turns their company's data into a history a persona can act on.</p>
 
   <h2><span class="num">07</span>If the method is wrong, we publish that too</h2>
 
-  <p>A prediction for the US midterms (November 3) is in progress. The methodology and the pass bar (error ≤4%p) were <strong>sealed before the count</strong> — the document's fingerprint (hash) is public in advance, so nothing can be revised afterward, and <strong>if it fails, the failure is published as is.</strong> The backtest was practice; this is the first live round.</p>
+  <p>A forecast for the US midterms (November 3) is in progress. The methodology and the pass bar (error ≤4 pp) were <strong>sealed before the count</strong>. The document's fingerprint (hash) was published in advance, so nothing can be revised afterward, and <strong>if it fails, the failure is published as is.</strong> The backtest was practice; this is the first live round.</p>
 
-  <p>To be precise — <strong>the sealed numbers are not what this post's AI personas produced directly.</strong> They are a statistical anchor built from approval ratings. Just before sealing, feeding the AI news and candidate information moved one state (Georgia) by 17 points, and the cause could not be controlled, so the AI's direct output was removed from the sealed figures. The AI engine is <strong>scored alongside as a diagnostic</strong> on the same day, and its result is published separately. It is exactly what §06 says — the AI alone does not get there; it needs a layer pinned down by measured statistics.</p>
+  <p>To be precise: <strong>the sealed numbers are not what this post's AI personas produced directly.</strong> They are a statistical anchor built from approval ratings. Just before sealing, feeding the AI news and candidate information moved one state (Georgia) by 17 pp, and the cause could not be controlled, so the AI's direct output was removed from the sealed figures. The AI engine is <strong>scored alongside as a diagnostic</strong> on the same day, and its result is published separately. This is the point of §06: the AI alone does not get there; it needs a layer pinned down by measured statistics.</p>
 
-  <p>Two more elections were locked before the count — Brazil's presidential runoff (October 25) and Taiwan's local elections (November 28). Those two are structural models built from past returns and polls, not personas. Each is scored in its own <strong>follow-up post</strong> as results come in, with the sealed numbers next to the actual count.</p>
+  <p>Two more elections were sealed before the count: Brazil's presidential runoff (October 25) and Taiwan's local elections (November 28). Those two are structural models built from past returns and polls, not personas. Each is scored in its own <strong>follow-up post</strong> as results come in, with the sealed numbers next to the actual count.</p>
 
-  <p>Preparing the seal taught us two things. One — <strong>the prediction industry's default business is selection bias.</strong> Hits get framed after the fact; misses disappear quietly. Sealing before the count makes that business impossible. We seal not to look honest, but because <strong>only a prediction that cannot be cherry-picked afterward can serve as the basis for the next contract.</strong> Two — the hardest part was not predicting but <strong>writing the pass bar in advance.</strong> "How many points of error counts as success" had to be nailed down before seeing the result — and the moment that bar was set, every backtest number turned from an excuse into a basis.</p>
+  <p>Preparing the seal taught us two things. First, <strong>the prediction industry's default business model runs on selection bias.</strong> Hits get framed after the fact; misses disappear quietly. Sealing before the count makes that impossible. The point of sealing is commercial: <strong>only a forecast that can't be cherry-picked afterward can underpin the next contract.</strong> Second, the hardest part was not forecasting but <strong>writing the pass bar in advance.</strong> "How many points of error counts as success" had to be nailed down before seeing the result, and once that bar was set, every backtest number stopped being a talking point and became evidence.</p>
 
-  <p>Nothing confines this structure to elections. <strong>It works for CRM campaigns too</strong> — seal the panel's prediction (which segment responds to which message) before the send, then score it together against measured clicks and revenue. It turns "let's verify our AI against outcomes" into a contract structure, and that is what we are designing next.</p>
+  <p>Nothing confines this structure to elections. <strong>It works for CRM campaigns too</strong>: seal the panel's prediction (which segment responds to which message) before the send, then score it against measured clicks and revenue. That turns "let's verify our AI against outcomes" into a contract structure, and it is what we are designing next.</p>
 
-  <p><strong>If you want the November 3 scorecard, leave your email below.</strong> When the count is in, we will write the follow-up scoring piece and send it when it publishes — whether we were right or wrong.</p>
+  <p><strong>If you want the November 3 scorecard, leave your email below.</strong> When the count is in, we will write the follow-up scoring piece and send it when it publishes, whether we were right or wrong.</p>
 
-  <p class="note">Method — synthetic panel: response distributions from a
+  <p class="note">Method: a synthetic panel, meaning response distributions from a
 population of LLM personas grounded in published aggregate data (election
-commission counts, census). Every predictive figure in this piece is an
-<strong>AI prediction</strong>, not a poll. Backtests use only elections after
+commission counts, census). Every forecast figure in this piece is a
+<strong>model estimate</strong>, not a poll. Backtests use only elections after
 the model's knowledge cutoff (no answer leakage). No individual-level voter
-profiling — personas are syntheses of published statistics. This is a record
+profiling; personas are syntheses of published statistics. This is a record
 of methodology, not commentary on any party or candidate.</p>
 
   <!-- RELATED:START -->
   <nav class="related" aria-label="Related reading">
     <div class="lb">Related reading</div>
-    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The Registry Was Open. The Efficacy Field Was 65% Empty</span></a>
-    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three Elections, Sealed Before the Vote. We Did Not Beat the Polling Average</span></a>
-    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, zero discontinued.</span></a>
+    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The registry was open. The efficacy field was 65% empty</span></a>
+    <a class="ritem" href="/blog/en/19-three-elections-sealed.html"><span class="rno">19</span><span class="rtit">Three elections, sealed before the vote. We did not beat the polling average</span></a>
+    <a class="ritem" href="/blog/en/04-food-registry-metabolism.html"><span class="rno">04</span><span class="rtit">A million food products, and not a single recorded death</span></a>
   </nav>
   <!-- RELATED:END -->
 

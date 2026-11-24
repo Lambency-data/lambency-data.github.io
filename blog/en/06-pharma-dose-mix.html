@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Data Is Public. Nobody's Using It — Korea's Prescription Data | Lambency</title>
-<meta name="description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874 in eighteen months. Using it directly showed: combination drugs crossed half the market, the best-selling drug's dose demand and product lineup diverge by 18 points on average, and low doses arrived years late. The demand is public; nobody builds against it.">
+<title>The data is public. Nobody's using it — Korea's prescription data | Lambency</title>
+<meta name="description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications, while apartment price data drew 16,874 in eighteen months. Using it directly showed: combination drugs crossed half the market, the best-selling drug's dose demand and product lineup diverge by 18pp on average, and low doses arrived years late. The demand data is public; nobody plans around it.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/blog/en/06-pharma-dose-mix.html">
-<meta property="og:title" content="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
-<meta property="og:description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874">
+<meta property="og:title" content="The data is public. Nobody's using it — Korea's prescription data">
+<meta property="og:description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications, while apartment price data drew 16,874">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Data Is Public. Nobody's Using It — Korea's Prescription Data">
-<meta name="twitter:description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874">
+<meta name="twitter:title" content="The data is public. Nobody's using it — Korea's prescription data">
+<meta name="twitter:description" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications, while apartment price data drew 16,874">
 <meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
 <link rel="canonical" href="https://lambency-data.github.io/blog/en/06-pharma-dose-mix.html">
 <link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/06-pharma-dose-mix.html">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-<meta name="keywords" content="Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874">
+<meta name="keywords" content="data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -37,10 +37,10 @@
   {
    "@type": "BlogPosting",
    "@id": "https://lambency-data.github.io/blog/en/06-pharma-dose-mix.html#post",
-   "headline": "The Data Is Public. Nobody's Using It — Korea's Prescription Data",
+   "headline": "The data is public. Nobody's using it — Korea's prescription data",
    "url": "https://lambency-data.github.io/blog/en/06-pharma-dose-mix.html",
    "datePublished": "2026-08-24",
-   "dateModified": "2026-08-24",
+   "dateModified": "2026-11-24",
    "inLanguage": "en",
    "author": {
     "@id": "https://lambency-data.github.io/#caff"
@@ -65,7 +65,7 @@
    "url": "https://lambency-data.github.io/",
    "logo": "https://lambency-data.github.io/assets/logo.svg",
    "image": "https://lambency-data.github.io/assets/og-en.png",
-   "description": "Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications — apartment prices drew 16,874 in eighteen months. Using it ",
+   "description": "Korea publishes prescription data by ingredient, dose, district and month. In ten years the API drew 2,352 applications, while apartment price data drew 16,874 in eighteen months. Using it ",
    "email": "caffrey.w.lee@gmail.com",
    "address": {
     "@type": "PostalAddress",
@@ -231,42 +231,38 @@
   </h1>
   <div class="meta">
     Caff · August 2026<br>
-    Data used — HIRA drug-utilization open API (top 100 classes × 3 time points; district and ingredient level; 3,695 queries), the reimbursed-drug ATC mapping list, resident population registry, HIRA research reports and ministry releases, peer-reviewed literature. <strong>Zero internal data.</strong>
+    Data used: the drug-utilization open API of HIRA, Korea's Health Insurance Review and Assessment Service (top 100 classes × 3 time points; district and ingredient level; 3,695 queries), the list mapping reimbursed drugs to ATC codes (the WHO drug classification), the resident population registry, HIRA research reports and ministry releases, peer-reviewed literature. <strong>Zero internal data.</strong>
   </div>
 
   <div class="lede">
-    <p>I spent the first months of the pandemic on a hospital data team in the United States. There was no vaccine yet, and the doctors were testing drugs that might work. My job was to make those tests statistically real — starting with the math of how many patients you need before a difference stops being luck. What stayed with me from those months is this. The same drug looked different at different doses, and sometimes the difference dissolved when you measured it properly. But one thing was unambiguous: <strong>what dose reliably separated was not efficacy but safety.</strong> The high-dose arm got into trouble first. The conclusion those months left behind is simple — for the same molecule, the milligrams are a different event.</p>
+    <p>I spent the first months of the pandemic on a hospital data team in the United States. There was no vaccine yet, and the doctors were testing drugs that might work. My job was to make those tests statistically sound, starting with the math of how many patients you need before a difference stops being luck. Here is what stayed with me. The same drug looked different at different doses, and sometimes the difference dissolved when you measured it properly. But one thing was unambiguous: <strong>where dose reliably made a difference was safety, not efficacy.</strong> The high-dose arm got into trouble first. The lesson I took from those months is simple: with the same molecule, a different dose is a different drug.</p>
   </div>
 
   <h2><span class="num">01</span>The note-parsing years</h2>
 
-  <p>This is not a story about making vaccines. I am a data person, and that work led me to a healthcare IT company, collecting oncology data from American hospitals. The data lived in three systems: <strong>Epic and Cerner</strong>, which run whole hospitals, and <strong>iKnowMed</strong>, used by community oncology clinics. They store the same items, but every hospital wrote them differently — some in codes, some in other units, some not at all. Every new hospital meant redoing the mapping from scratch.</p>
+  <p>This isn't a story about making vaccines. I'm a data person, and that work led me to a healthcare IT company that collected oncology data from American hospitals. The data lived in three systems: <strong>Epic and Cerner</strong>, which run whole hospitals, and <strong>iKnowMed</strong>, used by community oncology clinics. They store the same items, but every hospital recorded them differently: some as codes, some in other units, some not at all. Every new hospital meant redoing the mapping from scratch.</p>
 
-  <p>The data had to flow in real time. If the pipeline died overnight, the next morning's clinic saw yesterday's numbers, so we rotated on-call shifts through weekends and holidays. And the hardest part was the prescriptions themselves. <strong>What drug a patient received, at how many milligrams, was in no column at all.</strong> It was inside the sentences of the physician's notes. Building the rules that pulled drug names and doses out of those sentences was half the project. The notes also carried patient identifiers, and in the end the project was stopped over exactly that. The prescription data I knew was that kind of thing — something you build until you have to stop.</p>
+  <p>The data had to flow in real time. If the pipeline died overnight, the next morning's clinic saw yesterday's numbers, so we rotated on-call shifts through weekends and holidays. And the hardest part was the prescriptions themselves. <strong>What drug a patient received, at how many milligrams, was in no column at all.</strong> It was inside the sentences of the physician's notes. Building the rules that pulled drug names and doses out of those sentences was half the project. The notes also carried patient identifiers, and in the end the project was stopped over exactly that. That was prescription data as I knew it: something you build by hand until you're forced to stop.</p>
 
   <h2><span class="num">02</span>In Korea, it's a table</h2>
 
-  <p>That is why I paused when I first opened Korea's public health-insurance data. Here, that data is a table. <strong>Ingredient, dose, and formulation live inside a single nine-digit code, and prescription quantities and amounts for each code are published by district, by month, nationwide, back to 2010.</strong> No notes to parse. No privacy problem — it is aggregated. It sits there, tidier than what we built on weekend shifts, for anyone to look at.</p>
+  <p>That is why I paused when I first opened Korea's public health-insurance data. Here, that data is a table. <strong>Ingredient, dose, and formulation live inside a single nine-digit code, and prescription quantities and amounts for each code are published by district, by month, nationwide, back to 2010.</strong> No notes to parse, and no privacy problem, because it is aggregated. It sits there, tidier than what we built on weekend shifts, for anyone to look at.</p>
 
-  <p>But being public and being usable turned out to be different things. The data lives behind a query screen, not a download. Pick one therapeutic class, one region, one month, and you get one table. It is a door built for a person with a mouse — assembling this article's national picture took 3,695 queries, over two days, at whatever pace the server would tolerate. The official file channels do not carry this combination at all. <strong>The data is open; the door is narrow.</strong> In America the wall was the physician's note. Here, the wall is this door.</p>
+  <p>But public and usable turned out to be different things. The data sits behind a query screen, with no download. Pick one therapeutic class, one region and one month, and you get one table. The interface is built for a person clicking with a mouse: assembling the national picture in this piece took 3,695 queries over two days, at whatever pace the server would tolerate. The official bulk files don't offer this combination at all. <strong>The data is open; access is narrow.</strong> In the US the obstacle was the physician's note. Here it is access.</p>
 
-  <p>How many people have actually walked through it can be counted. On Korea's open-data portal, applications for this prescription-data API total 2,352 in ten years (as of 2026-08-23). The hospital-location data the same agency opened the same year has 8,606. Apartment transaction prices collected 16,874 applications within a year and a half of registration. On GitHub, public repositories touching this API: zero. Repositories touching real-estate prices: 248. <strong>Sixteen thousand hands lined up for property numbers; this door saw two thousand in a decade, and I could not find a single public analysis they left behind.</strong> Why? Housing prices are everyone's own problem; prescription data belongs to an industry — an industry used to buying estimates, facing a narrow door. A guess, but probably all three.</p>
+  <p>You can count how many people have actually used it. On Korea's open-data portal, applications for this prescription-data API total 2,352 in ten years (as of 2026-08-23). The hospital-location data the same agency opened the same year has 8,606. Apartment transaction prices drew 16,874 applications within a year and a half of being listed. On GitHub, public repositories that use this API: zero. Repositories that use real-estate price data: 248. <strong>Property data drew more than sixteen thousand applications in a year and a half. This API drew a little over two thousand in a decade, and we could not find a single public analysis to show for them.</strong> Why? Our guess is that three things are at work: house prices are everyone's business, while prescription data concerns a single industry; that industry is used to buying estimates rather than building them; and access is narrow.</p>
 
-  <div class="pull">
-  <p>Sixteen thousand hands gathered around real-estate prices in eighteen months. This door saw two thousand in ten years.</p>
-</div>
+  <p>So the gap in this industry looks different from the ones earlier in the series. Until now the gaps were data that didn't exist (the food registry records no deaths) or data someone else controls (the shelf data belongs to the retailer). Here it is the opposite: <strong>the data is wide open, and nobody is using it.</strong> So let's use it.</p>
 
-  <p>So this industry's gap has a different shape from the earlier essays. The gaps so far were data that didn't exist (the food registry records no deaths) or data in someone else's hands (the shelf belongs to the channel). Here it is the opposite: <strong>the data is this open, and nobody is using it.</strong> So let's use it.</p>
+  <p>This piece follows one drug: <strong>the lipid-lowering combination, a statin and ezetimibe in a single pill</strong>, sold under names like Rosuzet, a leading Korean brand. Why this one? Over the past five years it became Korea's most-prescribed drug class. You would expect the best-selling drug to be the one designed with the best knowledge of demand. The data shows something closer to the opposite. Here is the story, in order.</p>
 
-  <p>This essay will follow one drug. <strong>The lipid-lowering combination — a statin and ezetimibe fused into a single pill</strong>, the kind you may know by names like Rosuzet. Why this one: over the past five years it became the most-prescribed drug class in Korea. You would expect the best-selling drug to be the one built with the best knowledge of demand. What the data shows is closer to the opposite. Here is that story, in order.</p>
+  <h2><span class="num">03</span>A map of the market: its shape is changing</h2>
 
-  <h2><span class="num">03</span>A map of the market — its shape is changing</h2>
+  <p>Data first. We took the 100 therapeutic classes with the most reimbursed products and pulled nationwide claims for three months: June 2019, June 2024, and March 2026, the latest month available. Monthly reimbursement for these 100 classes went from ₩720 billion to ₩1.19 trillion in five years. That is 64% growth, but what stands out more than the growth is that <strong>the market is changing shape.</strong></p>
 
-  <p>Data first. I took the 100 therapeutic classes with the most reimbursed products and collected nationwide claims for three months: June 2019, June 2024, and March 2026, the latest month available. The monthly reimbursement for these 100 classes went from ₩720bn to ₩1,190bn in five years. That is 64% growth — but what catches the eye before the growth is that <strong>the market is changing shape.</strong></p>
+  <p>As of 2024, the biggest class isn't statins but the <strong>lipid combination</strong>. At ₩78 billion a month, 4.4 times its level five years earlier, it has overtaken single-ingredient statins (₩62.6 billion, +50%). The same pattern shows up elsewhere: blood-pressure combinations are up 94% and 279%, and diabetes combinations 118%. Much of the combinations' rise is substitution: lipid drugs as a whole grew 135% in five years, while the combination share within them went from 35% to 55%. <strong>A market of one ingredient per pill has crossed the halfway mark toward a market of several.</strong></p>
 
-  <p>As of 2024, the biggest class is not statins. It is the <strong>lipid combination</strong> — a statin plus ezetimibe in one pill. ₩78bn a month, 4.4 times its level five years earlier, overtaking single statins (₩62.6bn, +50%). The same direction repeats elsewhere: blood-pressure combinations are up +94% and +279%, diabetes combinations +118%. Much of this is substitution rather than growth — lipid drugs as a whole grew +135% in five years, while the combination share within them went from 35% to 55%. <strong>A market of one ingredient per pill crossed the halfway mark into a market of several.</strong></p>
-
-  <p>Other classes tell their own stories on the same map. In acid suppression the old generation (H2 blockers) fell -34% — the only decline in the top 100 — while the new generation (PPIs) filled the space at +174%. And the class containing choline alfoscerate, a "brain-function" drug under reimbursement review for disputed efficacy, still moves ₩36.4bn a month. But this essay doesn't linger there; it follows the class that became number one.</p>
+  <p>Other classes tell their own stories on the same map. In acid suppression, the older generation (H2 blockers) fell 34%, the only decline in the top 100, while the newer generation (PPIs) grew 174% to fill the space. The class containing choline alfoscerate, a "brain-function" drug whose reimbursement is under review over disputed efficacy, still moves ₩36.4 billion a month. But this piece doesn't linger there; it follows the class that became number one.</p>
 
   <div class="fig">
 <svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="치료군 지도: 규모와 성장"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
@@ -342,9 +338,9 @@
 <p class="figcap">Figure 1 · Size and 5-year growth of the top 100 classes (monthly reimbursement Jun 2024 × growth vs Jun 2019). Amber = combinations</p>
 </div>
 
-  <p>(Note: the disease names attached to this data are the primary diagnosis on the prescription — the patient's representative condition, not the drug's indication. That is also why the most frequent diagnosis on statin prescriptions is not a lipid disorder but hypertension, at 25% of prescribed volume.)</p>
+  <p>(Note: the diagnoses in this data are the primary diagnosis on the prescription, meaning the patient's main recorded condition rather than the drug's indication. That is why the most frequent diagnosis on statin prescriptions is hypertension, at 25% of prescribed volume, rather than a lipid disorder.)</p>
 
-  <p>You can also see the order in which this combination spread. Divide each region's prescriptions by its population — proportional is 1.0 — and in 2019, when the market was a third of its current size, Seoul was highest at 1.31. The new drug settled in Seoul first. The five years since were growth for everyone: Seoul's per-capita prescriptions rose 3.3-fold. The rest of the country simply rose faster — Gwangju and Daegu 4-fold, Jeju 4.3-fold, Sejong 5.2-fold. By 2024, per-capita prescriptions in Gwangju and Daegu (2.6 tablets per person-month) had reached Seoul's level. <strong>Seoul did not decline; the country caught up to Seoul.</strong> In the chart below, the multiples converging toward 1.0 are the trace of it. Who learned from whom — the path of transmission — is not visible in this data. What is visible is who settled first, who followed, and how fast the gap closed.</p>
+  <p>The data also shows the order in which the combination spread. Divide each region's prescriptions by its population (1.0 means proportional). In 2019, when the market was a third of its current size, Seoul was highest at 1.31: the new drug caught on in Seoul first. The five years since brought growth everywhere, with Seoul's per-capita prescriptions up 3.3-fold. The rest of the country simply grew faster: Gwangju and Daegu 4-fold, Jeju 4.3-fold, Sejong 5.2-fold. By 2024, per-capita prescriptions in Gwangju and Daegu (2.6 tablets per person per month) had reached Seoul's level. <strong>Seoul did not fall back; the rest of the country caught up.</strong> In the chart below, the multiples converging toward 1.0 show it. Who learned from whom is not visible in this data. What is visible is who adopted first, who followed, and how fast the gap closed.</p>
 
   <div class="fig">
 <svg viewBox="0 0 720 429" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="지질 복합제 지역 확산 2019 대비 2024"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
@@ -437,23 +433,23 @@
 <text class="t" x="654" y="386" font-size="10.5">1.31→1.17</text>
 <text class="t" x="80" y="26" font-size="10" text-anchor="end">○ 2019 · ● 2024</text>
 </svg>
-<p class="figcap">Figure 2 · The lipid combination's regional multiples, 2019 (○) → 2024 (●). 1.0 = proportional to population. Amber = rising</p>
+<p class="figcap">Figure 2 · The lipid combination's regional multiples, 2019 (○) vs 2024 (●). 1.0 = proportional to population. Amber = rising</p>
 </div>
 
-  <p>(Note: region here is the location of the prescribing institution, not the patient's address. Sejong's low multiple and Daejeon's high one are a pair — Sejong residents seen in Daejeon clinics — and should always be read together.)</p>
+  <p>(Note: region here is the location of the prescribing institution, not the patient's address. Sejong's low multiple and Daejeon's high one go together, since many Sejong residents are treated at Daejeon clinics, and should always be read as a pair.)</p>
 
-  <h2><span class="num">04</span>Same drug — which milligrams sell</h2>
+  <h2><span class="num">04</span>Same drug: which doses sell</h2>
 
-  <p>This is the part the essay was written for. When combinations pass half the market, the number of products to make multiplies. Two ingredients make a pair, and every pair splits again by dose. What to make, and how much of it, becomes a much harder question than before.</p>
+  <p>This is the part this piece was written for. Once combinations pass half the market, the number of products to make multiplies. Two ingredients make a pair, and every pair splits again by dose. What to make, and how much, becomes a far harder question.</p>
 
-  <p>Count the supply first. The 21,953 reimbursed drugs collapse to 2,268 ingredients by code. What matters is that the nine-digit code holds more than the ingredient: four digits for the molecule, two for the dose, three for the form. <strong>Which milligrams it is, is already split out in the code.</strong> The exact distinction we tried to parse out of physicians' notes in America is one line of code here. Two-thirds of ingredients (65.5%) come in a single dose — but there is another end. Donepezil, the dementia drug, comes in ten dose-forms made by 122 companies as 288 products. Rosuvastatin: seven, 124 companies, 330 products. For hospitals and pharmacies this is an inventory problem — stocking one drug means choosing among hundreds.</p>
+  <p>Start with supply. The 21,953 reimbursed drugs collapse to 2,268 ingredients by code. The key point is that the nine-digit code holds more than the ingredient: four digits for the molecule, two for the dose, three for the form. <strong>The dose already has its own field in the code.</strong> The exact distinction we tried to parse out of physicians' notes in the US is a single field here. Two-thirds of ingredients (65.5%) come in a single dose, but the other end of the range is crowded. Donepezil, the dementia drug, comes in ten dose-forms, made by 122 companies as 288 products. Rosuvastatin comes in seven, from 124 companies, as 330 products. For hospitals and pharmacies this is an inventory problem: stocking one drug means choosing among hundreds of products.</p>
 
-  <p>And because the dose is in the code, demand can be read by dose too. I split all dose combinations of the two number-one classes — lipid and diabetes combinations — by prescription volume. Doses are written the way product names write them: "ezetimibe 10mg + statin 5mg" becomes 10/5. The rosuvastatin combination sells in four doses: 48.5% of prescriptions go to 10/5 alone, 33.2% to 10/10. The atorvastatin combination is even more concentrated — <strong>10/10 alone takes 67.6% of prescriptions.</strong> The metformin-dapagliflozin diabetes combination scatters across nine doses. Same "combination drug," very different shapes of demand.</p>
+  <p>And because the dose is in the code, demand can be read by dose as well. We broke down every dose combination in the two leading combination classes, lipid and diabetes, by prescription volume. Doses are written the way product names write them: "ezetimibe 10mg + statin 5mg" becomes 10/5. The rosuvastatin combination sells in four doses, with 48.5% of prescriptions going to 10/5 alone and 33.2% to 10/10. The atorvastatin combination is even more concentrated: <strong>10/10 alone takes 67.6% of prescriptions.</strong> The metformin-dapagliflozin diabetes combination is spread across nine doses. Same "combination drug," very different shapes of demand.</p>
 
-  <p>Now set that demand beside the products companies have registered. The atorvastatin combination's products: 96 at 10/10, 97 at 10/20, 66 at 10/40 — <strong>spread almost evenly across the three doses.</strong> By product count alone, the three doses look equally important. Yet two-thirds of the prescriptions go to 10/10 alone. The rosuvastatin side shows the reverse mismatch too: the 10/20 dose takes 10% of prescriptions but holds 31% of the products, while the youngest dose, 10/2.5, where demand is growing, holds 6%. <strong>Prescriptions concentrate; products spread evenly — demand and supply have different shapes.</strong> In the chart below, the width mismatch between the upper and lower bars is that difference.</p>
+  <p>Now set that demand beside the products companies have registered. The atorvastatin combination has 96 products at 10/10, 97 at 10/20 and 66 at 10/40, <strong>spread almost evenly across the three doses.</strong> Judged by product count alone, the three doses look equally important. Yet two-thirds of prescriptions go to 10/10. The rosuvastatin side shows a mismatch as well: the 10/20 dose gets 10% of prescriptions but accounts for 31% of products, while the newest dose, 10/2.5, where demand is growing, accounts for just 6%. <strong>Prescriptions concentrate while products spread evenly: demand and supply have different shapes.</strong> In the chart below, the difference in width between the upper and lower bars is that gap.</p>
 
   <div class="pull">
-  <p>Prescriptions pile onto one dose; products sit evenly across three. And this, with demand published at national scale.</p>
+  <p>Prescriptions pile onto one dose while products sit evenly across three, and demand data for every dose is published nationwide.</p>
 </div>
 
   <div class="fig">
@@ -494,68 +490,64 @@
 <rect x="537.5" y="244" width="156.5" height="30" fill="#a89e8a" fill-opacity="0.45"/>
 <text x="544" y="263" font-size="10.5" fill="#ece5d8">10/40 · 25%</text>
 </svg>
-<p class="figcap">Figure 3 · Prescription share (top) vs registered-product share (bottom) by dose, Jun 2024. Width mismatches are the gap</p>
+<p class="figcap">Figure 3 · Prescription share (top) vs registered-product share (bottom) by dose, Jun 2024. Differences in width are the gap</p>
 </div>
 
-  <p>Reduced to one number: take the share of prescriptions going to each pair's most-prescribed dose, minus that dose's share of products — the atorvastatin combination is 67.6% versus 37.1%, a gap of 30.5 points. Weighted by volume across both classes, the average gap is <strong>18 points</strong>. The more a dose is prescribed, the less of the product lineup it gets.</p>
+  <p>To put it in one number, take the share of prescriptions going to each pair's most-prescribed dose and subtract that dose's share of products. For the atorvastatin combination that is 67.6% against 37.1%, a gap of 30.5pp. Weighted by volume across both classes, the average gap is <strong>18pp</strong>. The more heavily a dose is prescribed, the smaller its share of the product lineup.</p>
 
-  <p>To be precise about what this does and does not say: product counts are registered products, not production volume. How much each company makes of each product is not in this data. So the number says one thing — <strong>the shape of the lineup differs from the shape of demand.</strong> What is oversupplied and what is short only comes out when each company joins its own production and shipment data. Public data shows the mismatch exists; that is where it stops.</p>
+  <p>To be precise about what this does and doesn't show: product counts are registered products, not production volume. How much each company makes of each product is not in this data. So the number says one thing only: <strong>the shape of the lineup differs from the shape of demand.</strong> What is oversupplied and what is short only becomes clear when each company adds its own production and shipment data. Public data shows that the mismatch exists, and no more.</p>
 
-  <p>Add time and one more thing appears. The rosuvastatin combination's lowest dose, 10/2.5, did not exist in 2019. It reached 8.5% in 2024 and 12% by March 2026. On the atorvastatin side, the low 10/5 dose only recently entered at 5%. The patients who needed lower doses existed all along. <strong>The products arrived late.</strong> And the signal had been there for years: a 2019 study found 15.6% of prescriptions involved tablet-splitting. That is what physicians and pharmacists do when the doses on sale don't match the doses needed.</p>
+  <p>Add time and one more thing appears. The rosuvastatin combination's lowest dose, 10/2.5, did not exist in 2019. It reached 8.5% in 2024 and 12% by March 2026. On the atorvastatin side, the low 10/5 dose entered only recently, at 5%. The patients who needed lower doses were there all along; <strong>the products arrived late.</strong> The signal had been there for years, too: a 2019 study found that 15.6% of prescriptions involved splitting tablets, which is what physicians and pharmacists do when the doses on sale don't match the doses patients need.</p>
 
-  <p>I don't think the industry didn't know. But a public analysis that measures this mismatch at national scale, down to the individual dose, I could not find. What it took was not new data. It took joining two already-public tables — one from prescriptions, one from the registry — on a nine-digit code.</p>
+  <p>The industry very likely knew. But we could not find a public analysis that measures this mismatch nationally, dose by dose. Doing it required no new data, only joining two tables that are already public, one of prescriptions and one from the drug registry, on the nine-digit code.</p>
 
-  <h2><span class="num">05</span>The rulers this essay made</h2>
+  <h2><span class="num">05</span>The yardsticks from this piece</h2>
 
-  <p>To make the observations reusable for any class, here they are as rulers. This essay measured two things.</p>
+  <p>To make these observations reusable for any drug class, here they are as yardsticks. We measured two things.</p>
 
-  <p>One is the <strong>dose gap</strong>: within an ingredient pair, the prescription share of the most-prescribed dose minus that dose's share of registered products. Near zero when demand and lineup share a shape; the wider it opens, the emptier the shelf where demand concentrates. Across the two classes here it averaged +18 points; the atorvastatin combination was +30.5 points.</p>
+  <p>One is the <strong>dose gap</strong>: within an ingredient pair, the prescription share of the most-prescribed dose minus that dose's share of registered products. It is near zero when demand and the lineup have the same shape; the wider it gets, the thinner the lineup where demand is concentrated. Across the two classes here it averaged +18pp, and the atorvastatin combination came in at +30.5pp.</p>
 
-  <p>The other is the <strong>regional multiple</strong>: a region's share of prescriptions divided by its share of population. 1.0 is proportional; the further from 1.0, the more that region has its own story. With this ruler we measured the country catching up to Seoul, the multiples converging toward 1.0.</p>
+  <p>The other is the <strong>regional multiple</strong>: a region's share of prescriptions divided by its share of population. A value of 1.0 is proportional; the further from 1.0, the more that region has its own story. This is the yardstick that showed the rest of the country catching up to Seoul, with multiples converging toward 1.0.</p>
 
-  <p>The decision rule: if the dose gap is wide, if corroborating signals overlap — tablet-splitting, doses arriving late — and if the regional multiples are moving, that class's lineup and inventory allocation likely deserve a redesign against demand data. But the conclusion is not drawn from public data alone. Product counts are not production volumes; the final call comes after joining each company's own production and shipment numbers.</p>
+  <p>The decision rule: if the dose gap is wide, if other signals point the same way (tablet-splitting, doses arriving late), and if the regional multiples are moving, that class's lineup and inventory allocation probably need to be redesigned around demand data. Public data alone can't settle it, though. Product counts are not production volumes, so the final call comes after adding each company's own production and shipment numbers.</p>
 
   <div class="tw">
 <table>
-  <thead><tr><th>Ruler</th><th>How it's measured</th><th>Reference</th><th>What you do when it trips</th></tr></thead>
+  <thead><tr><th>Yardstick</th><th>How it's measured</th><th>Reference</th><th>What to do when it flags</th></tr></thead>
   <tbody>
     <tr><td>Dose gap</td><td>Rx share of the most-prescribed dose − that dose's product share</td>
-    <td>Near 0 = aligned. The two classes here average <strong>+18pts</strong></td>
-    <td>Starting with the widest pairs, check against your own production and shipment data — consider a lineup redesign</td></tr>
+    <td>Near 0 = aligned. The two classes here average <strong>+18pp</strong></td>
+    <td>Starting with the widest pairs, check against your own production and shipment data and consider redesigning the lineup</td></tr>
     <tr><td>Regional multiple</td><td>Region's Rx share ÷ population share</td>
     <td><strong>1.0</strong> = proportional to population</td>
-    <td>Re-examine field and inventory allocation starting with regions far from 1.0 or moving year over year</td></tr>
+    <td>Starting with regions far from 1.0 or shifting year over year, re-examine sales-force and inventory allocation</td></tr>
   </tbody>
 </table>
 </div>
 
   <h2><span class="num">06</span>The money beside the data</h2>
 
-  <p>Why it matters that nobody uses this data can be counted in money. By a HIRA research report's estimate (2018), duplicate prescriptions of the same ingredient leak ₩138.2bn a year — 1.16% of prescription value. Drugs prescribed but never taken are estimated at ₩218bn a year. Of leftover medicine, 55.2% went into the trash or the drain, and in 94.4% of cases the patient decided alone whether to take it.</p>
+  <p>The cost of leaving this data unused can be put in money. A HIRA research report (2018) estimated that duplicate prescriptions of the same ingredient waste ₩138.2 billion a year, 1.16% of prescription value. Drugs prescribed but never taken are estimated at ₩218 billion a year. Of leftover medicine, 55.2% ended up in the trash or down the drain, and in 94.4% of cases patients decided on their own whether to take it.</p>
 
-  <p>It is not for lack of infrastructure. Hospital-grade EMR adoption was already 93.9% in the 2020 survey; certified institutions went from 41 in June 2020 to 4,052 by December 2024. The system that checks every outpatient prescription in real time for duplication and contraindications (DUR) screened about 1.49 billion prescriptions in 2025. <strong>This is a country where prescription data flows in real time.</strong> What's missing is the layer that reads that flow into demand and inventory — and the money leaks through that missing layer.</p>
+  <p>Infrastructure isn't the problem. EMR adoption among hospitals was already 93.9% in the 2020 survey, and institutions with certified EMR systems went from 41 in June 2020 to 4,052 by December 2024. The system that checks every outpatient prescription in real time for duplication and contraindications (DUR, drug utilization review) screened about 1.49 billion prescriptions in 2025. <strong>Prescription data in Korea flows in real time.</strong> What's missing is anyone turning that flow into demand and inventory planning, and that is where the money leaks.</p>
 
-  <p>And there is one more hole. Patient-side waste at least has official estimates. <strong>For the inventory hospitals and pharmacies discard, I could not find a statistic at all.</strong> The eye that counts waste stops at the patient. Institutional inventory lives only in each institution's own ledger, and nobody adds it up.</p>
-
-  <div class="pull">
-  <p>The eye that counts waste stops at the patient. How much hospital and pharmacy stock gets discarded — there is no statistic.</p>
-</div>
+  <p>There is one more gap. Waste on the patient side at least has official estimates. <strong>For inventory that hospitals and pharmacies throw away, we could not find a statistic at all.</strong> Official waste counts stop at the patient. Institutional stock is tracked only in each institution's own inventory records, and nobody adds it up.</p>
 
   <h2><span class="num">07</span>What this data cannot see</h2>
 
-  <p><strong>Its field of view ends at the reimbursement boundary.</strong> This is data that captures ₩1.2 trillion a month, and the Wegovy boom everyone knows about registers as zero inside it. Obesity drugs have no reimbursed products at all, and reimbursement claims for the GLP-1 class Wegovy belongs to measured zero at all three time points. A diabetes drug that did enter reimbursement — the SGLT2 inhibitors — shows up clearly, growing from ₩2.6bn to ₩9.1bn a month. The private-pay market is outside this lens.</p>
+  <p><strong>It sees only what insurance reimburses.</strong> The data captures ₩1.19 trillion a month, yet the Wegovy boom everyone has heard about registers as zero. Obesity drugs have no reimbursed products at all, and reimbursement claims for GLP-1 drugs, the class Wegovy belongs to, were zero at all three time points. A diabetes class that did win reimbursement, the SGLT2 inhibitors, shows up clearly, growing from ₩2.6 billion to ₩9.1 billion a month. The out-of-pocket market is outside this data's view.</p>
 
-  <p><strong>These are prescriptions, not consumption.</strong> As the non-adherence numbers in section 06 show, the two differ — read prescription volume as demand with that margin in mind.</p>
+  <p><strong>These are prescriptions, not consumption.</strong> As the non-adherence figures in section 06 show, the two differ, so read prescription volume as demand with that margin in mind.</p>
 
-  <p><strong>Diagnoses are primary diagnoses.</strong> The representative condition on the prescription, not the drug's indication. Use the distribution to see the patient profile, not as indication statistics.</p>
+  <p><strong>Diagnoses are primary diagnoses.</strong> That is the patient's main recorded condition, not the drug's indication. Use the distribution to understand the patient profile, not as indication statistics.</p>
 
-  <p><strong>Regions are institution locations.</strong> They can differ from where patients live, and regions dense with large hospitals look inflated. Hence dividing by population, and reading outflow-inflow pairs like Sejong-Daejeon together.</p>
+  <p><strong>Regions are institution locations.</strong> They can differ from where patients live, and regions with many large hospitals look inflated. That is why we divide by population and read outflow and inflow pairs such as Sejong and Daejeon together.</p>
 
-  <p><strong>Masking and lag.</strong> Cells with three or fewer manufacturers are masked, and the aggregates run months behind — the latest month in this essay is March 2026.</p>
+  <p><strong>Masking and lag.</strong> Cells with three or fewer manufacturers are masked, and the aggregates run months behind; the latest month in this piece is March 2026.</p>
 
-  <h2><span class="num">08</span>What this essay wants to say</h2>
+  <h2><span class="num">08</span>What this piece is really saying</h2>
 
-  <p>In America we parsed physicians' notes to build prescription data, and had to stop. Korea publishes the same data by ingredient, dose, region, and month — and in ten years this door saw about two thousand applications and, as far as I could find, not one public analysis. Using it directly showed: while combinations crossed half the market, the best-selling drug's dose demand and its product lineup diverge by an average of 18 points; low doses arrived years after their demand; and the country's five-year catch-up to Seoul is stamped in the regional multiples. This was never a picture missing for lack of data. <strong>It was missing for lack of anyone looking.</strong> What the two rulers — dose gap and regional multiple — read for your own therapeutic class can be measured today, from public data.</p>
+  <p>In the US we parsed physicians' notes to build prescription data, and had to stop. Korea publishes the same data by ingredient, dose, region and month, yet in ten years the API drew a little over two thousand applications and, as far as we could find, not one public analysis. Working with it directly showed three things: as combinations crossed half the market, dose demand for the best-selling drug and its product lineup diverged by an average of 18pp; low doses arrived years after the demand for them; and the regional multiples record the rest of the country catching up to Seoul over five years. <strong>The data was always there; nobody had looked.</strong> What the two yardsticks, dose gap and regional multiple, show for your own therapeutic class can be measured today from public data.</p>
 
   <div class="fig">
 <svg viewBox="0 0 720 388" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="자리별로 먼저 볼 것"><style>text{font-family:'IBM Plex Mono',monospace}.t{fill:#6e6552}.d{fill:#a89e8a}.a{fill:#e8b458}</style>
@@ -598,11 +590,11 @@
   <div class="note">
 <h3>Method &amp; limits</h3>
 <ul>
-  <li><strong>Sources</strong> — HIRA's drug-utilization open API (registered on Korea's open-data portal): nationwide claims for the top 100 therapeutic classes (ATC level 4) by reimbursed product count, at 2019-06, 2024-06 and 2026-03, plus district-level (298 official region codes) and ingredient-level sweeps for the lipid and diabetes combinations — 3,695 queries, dispensing basis, all payer types summed. The product and dose axis comes from the reimbursed-drug ATC mapping list (as of 2025-06-30), 21,953 products.</li>
-  <li><strong>The dose-safety account in section 01</strong> — grounded in public literature: a randomized trial halted early for significantly higher mortality in its high-dose arm (CloroCovid-19, 2020); efficacy differences were non-significant in most trials. Personal experience is used only as scene and timing.</li>
-  <li><strong>Dose gap definition</strong> — within an ingredient pair, the volume share of the most-prescribed dose minus that dose's share of registered products. Product counts are registration counts, not production volumes — the gap speaks only to the shape of the lineup.</li>
-  <li><strong>Regional multiple definition</strong> — a province's share of prescription volume ÷ its share of resident population (Ministry of the Interior, same-month basis). Gwangju and South Jeolla are computed on their pre-2026 administrative boundaries.</li>
-  <li><strong>Reproducibility</strong> — the figures in this essay pass a verification script that recomputes them from the raw data; application counts and repository counts are as of 2026-08-23.</li>
+  <li><strong>Sources</strong>: HIRA's drug-utilization open API (registered on Korea's open-data portal), covering nationwide claims for the top 100 therapeutic classes (ATC level 4) by reimbursed product count, at 2019-06, 2024-06 and 2026-03, plus district-level (298 official region codes) and ingredient-level sweeps for the lipid and diabetes combinations; 3,695 queries in total, counted on a dispensing basis, with all payer types summed. The product and dose axis comes from the reimbursed-drug ATC mapping list (as of 2025-06-30), 21,953 products.</li>
+  <li><strong>The dose-safety account in section 01</strong>: drawn from the published literature, namely a randomized trial halted early for significantly higher mortality in its high-dose arm (CloroCovid-19, 2020). In most trials, efficacy differences were not significant. Personal experience supplies only the setting and timing.</li>
+  <li><strong>Dose gap definition</strong>: within an ingredient pair, the volume share of the most-prescribed dose minus that dose's share of registered products. Product counts are registration counts, not production volumes, so the gap speaks only to the shape of the lineup.</li>
+  <li><strong>Regional multiple definition</strong>: a province's share of prescription volume ÷ its share of resident population (Ministry of the Interior, same-month basis). Gwangju and South Jeolla are computed on their pre-2026 administrative boundaries.</li>
+  <li><strong>Reproducibility</strong>: the figures in this piece are recomputed from the raw data by a verification script; application and repository counts are as of 2026-08-23.</li>
 </ul>
 </div>
 
@@ -610,14 +602,14 @@
   <nav class="related" aria-label="Related reading">
     <div class="lb">Related reading</div>
     <a class="ritem" href="/blog/en/01-k-beauty-ad-efficiency.html"><span class="rno">01</span><span class="rtit">Revenue grew. Margins collapsed anyway.</span></a>
-    <a class="ritem" href="/blog/en/21-returning-customer.html"><span class="rno">21</span><span class="rtit">They Say You Sell It Once. The Books Say the Customer Came Back</span></a>
-    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The Registry Was Open. The Efficacy Field Was 65% Empty</span></a>
+    <a class="ritem" href="/blog/en/21-returning-customer.html"><span class="rno">21</span><span class="rtit">They say you sell it once. The books say the customer came back</span></a>
+    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The registry was open. The efficacy field was 65% empty</span></a>
   </nav>
   <!-- RELATED:END -->
 
   <div class="next">
     <div class="lb">Next · weekly</div>
-    <p>Same method, different industry. The bottleneck differs every time — finding that difference is what this series does.</p>
+    <p>Same method, different industry. The bottleneck differs every time, and finding that difference is what this series does.</p>
   </div>
 
   <div class="subscribe">
@@ -634,7 +626,7 @@
   </div>
 
   <div class="cta">
-    <p>This is as far as public data can see. Repurchase, incrementality, attribution — <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
+    <p>This is as far as public data can see. Repurchase, incrementality, attribution: <strong>the numbers that change decisions live inside your own data, and making them countable is what Lambency does.</strong></p>
     <a href="mailto:caffrey.w.lee@gmail.com">caffrey.w.lee@gmail.com</a>
   </div>
 

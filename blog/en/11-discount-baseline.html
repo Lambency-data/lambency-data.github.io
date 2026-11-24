@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The List Price Was Honest. That Turned Out to Be the Harder Problem | Lambency</title>
-<meta name="description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion — that list prices are padded to manufacture a discount — and it did not survive: list prices held steady for 96.2% of products, and matched the undiscounted week's real selling price to the won 97.2% of the time. The honest list price is what makes the real problem visible: 1,833 of 6,630 products (27.6%) have zero observations of themselves at that price. Discount depth does not separate them either — both groups sit at a median of 20.0%. Which is why the same data yields a promotional share of either 40.6% or 68.3%.">
+<title>The list price was honest. That turned out to be the harder problem | Lambency</title>
+<meta name="description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion, that list prices are padded to manufacture a discount, and it did not survive: list prices held steady for 96.2% of products, and matched the undiscounted week's real selling price to the won 97.2% of the time. The honest list price is what makes the real problem visible: 1,833 of 6,630 products (27.6%) have zero observations of themselves at that price. Discount depth does not separate them either: both groups sit at a median of 20.0%. That is why the same data yields a promotional share of either 40.6% or 68.3%.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lambency">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://lambency-data.github.io/blog/en/11-discount-baseline.html">
-<meta property="og:title" content="The List Price Was Honest. That Turned Out to Be the Harder Problem">
-<meta property="og:description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion — that list prices are padded to manufacture a discount — and it did not s">
+<meta property="og:title" content="The list price was honest. That turned out to be the harder problem">
+<meta property="og:description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion, that list prices are padded to manufacture a discount, and it did not survive.">
 <meta property="og:image" content="https://lambency-data.github.io/assets/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The List Price Was Honest. That Turned Out to Be the Harder Problem">
-<meta name="twitter:description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion — that list prices are padded to manufacture a discount — and it did not s">
+<meta name="twitter:title" content="The list price was honest. That turned out to be the harder problem">
+<meta name="twitter:description" content="Seven weeks of Olive Young shelf prices. I started with the usual suspicion, that list prices are padded to manufacture a discount, and it did not survive.">
 <meta name="twitter:image" content="https://lambency-data.github.io/assets/og-en.png">
 <link rel="canonical" href="https://lambency-data.github.io/blog/en/11-discount-baseline.html">
 <link rel="alternate" hreflang="ko" href="https://lambency-data.github.io/blog/11-discount-baseline.html">
@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-<meta name="keywords" content="Find the conditions that make sales high in a neighbourhood, move there, and rent is higher by exactly that much — the burden ratio does not move (+0.">
+<meta name="keywords" content="data consulting, data analytics, growth analytics, CRM analytics, experiment design, A/B testing, causal inference, incrementality, marketing measurement, RFM analysis, LTV modeling, retention analysis, customer segmentation, data infrastructure, customer data platform, LLM agents, applied AI, CDP implementation, data cleansing, data cleaning, data preprocessing, data integration, data quality, data warehouse, ETL pipeline">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -37,10 +37,10 @@
   {
    "@type": "BlogPosting",
    "@id": "https://lambency-data.github.io/blog/en/11-discount-baseline.html#post",
-   "headline": "The List Price Was Honest. That Turned Out to Be the Harder Problem",
+   "headline": "The list price was honest. That turned out to be the harder problem",
    "url": "https://lambency-data.github.io/blog/en/11-discount-baseline.html",
    "datePublished": "2026-09-14",
-   "dateModified": "2026-09-14",
+   "dateModified": "2026-11-24",
    "inLanguage": "en",
    "author": {
     "@id": "https://lambency-data.github.io/#caff"
@@ -65,7 +65,7 @@
    "url": "https://lambency-data.github.io/",
    "logo": "https://lambency-data.github.io/assets/logo.svg",
    "image": "https://lambency-data.github.io/assets/og-en.png",
-   "description": "Seven weeks of Olive Young shelf prices. I started with the usual suspicion — that list prices are padded to manufacture a discount — and it did not survive: list prices held stead",
+   "description": "Seven weeks of Olive Young shelf prices. I started with the usual suspicion, that list prices are padded to manufacture a discount, and it did not survive: list prices held stead",
    "email": "caffrey.w.lee@gmail.com",
    "address": {
     "@type": "PostalAddress",
@@ -231,36 +231,29 @@
   </h1>
   <div class="meta">
     Caff · September 2026<br>
-    Data used — a weekly capture of the top 100 products on each category shelf of Olive Young's online store (2026-06-29 to 08-10, seven pulls · 119 shelves · 13,780 products · 2,044 brands · 75,149 rows), each row carrying that week's list price, selling price and discount rate. <strong>Zero internal data.</strong>
+    Data used: a weekly capture of the top 100 products on each category shelf of Olive Young's online store (2026-06-29 to 08-10; seven pulls · 119 shelves · 13,780 products · 2,044 brands · 75,149 rows), each row carrying that week's list price, selling price and discount rate. <strong>Zero internal data.</strong>
   </div>
 
   <div class="lede">
     <p>In the fifth piece in this series I pulled Olive Young's shelf rankings every week for
 seven weeks and counted which products sit next to which. Three columns in those files
-went untouched: <strong>list price, selling price, discount rate.</strong> Nothing new was
-scraped for this piece. The same seven weeks, opened with a different question.</p>
+went untouched: <strong>list price, selling price, discount rate.</strong> Nothing new was scraped for this piece: it is the same seven weeks, read with a different question.</p>
   </div>
 
-  <p>My first thought was the obvious suspicion — that list prices are inflated so the
-discount looks bigger than it is. <strong>I checked. They are not.</strong> And once the
+  <p>My first thought was the obvious suspicion: that list prices are inflated to make the discount look bigger than it is. <strong>I checked. They are not.</strong> And once the
 list price checked out, something more awkward came into view:
 <strong>one product in four had not sold at that price once in seven weeks.</strong>
-Nobody is running a discount. That is simply the price.</p>
+Nobody is running a discount on these. That is simply the price.</p>
 
-  <p>This piece is about why the difference matters. <strong>In an order table the two look
-identical — "20% off" either way. The discount rate does not separate them either. And so
-a great deal of promotional measurement is running without knowing what it is
-measuring.</strong></p>
+  <p>This piece is about why the difference matters. <strong>In an order table the two look identical: "20% off" either way. The discount rate doesn't separate them either. As a result, a great deal of promotional measurement doesn't know what it is measuring.</strong></p>
 
   <h2><span class="num">01</span>One row in three had no list price at all</h2>
 
-  <p>Seven weekly pulls, 29 June to 10 August 2026, top 100 of each of 119 shelves:
+  <p>Seven weekly pulls from June 29 to August 10, 2026, top 100 of each of 119 shelves:
 75,149 rows, 13,780 products, 2,044 brands. Every row carries that week's list price,
 selling price and discount rate.</p>
 
-  <p>The first thing to notice is an absence. <strong>The list-price column is empty in
-24,775 rows — 33.0%.</strong> Empty means no discount is being shown. The other two thirds
-carry one.</p>
+  <p>The first thing to notice is what's missing. <strong>The list-price column is empty in 24,775 rows (33.0%).</strong> An empty field means no discount is being shown. The other two-thirds show one.</p>
 
   <div class="tw">
 <table>
@@ -270,17 +263,14 @@ carry one.</p>
 </div>
 
   <div class="pull">
-  <p>Discounting spread from 63.4% of the shelf to 70.2% over seven weeks. The median discount was exactly 20.0% in every single one of them.</p>
+  <p>Discounting spread from 63.4% of the shelf to 70.2% over seven weeks. The median discount was exactly 20.0% every week.</p>
 </div>
 
-  <p>The reach moves; the depth does not. <strong>31.6%</strong> of discounts land on a round
-10, 20, 30, 40 or 50. These are not negotiated numbers. They are picked off a shelf of
-standard sizes.</p>
+  <p>How widely discounts are used changes; how deep they go does not. <strong>31.6%</strong> of discounts land on a round 10, 20, 30, 40 or 50. These aren't negotiated numbers. They come from a short menu of standard sizes.</p>
 
-  <h2><span class="num">02</span>The suspicion was wrong — the list price is not inflated</h2>
+  <h2><span class="num">02</span>The suspicion was wrong: list prices are not inflated</h2>
 
-  <p>Before going further I tried to kill the idea. If list prices were padded to manufacture
-a discount, they would drift, or nothing would ever change hands at them. Four tests.</p>
+  <p>Before going further I tried to disprove the idea. If list prices were padded to manufacture a discount, they would drift, or nothing would ever sell at them. I ran four tests.</p>
 
   <div class="tw">
 <table>
@@ -289,25 +279,18 @@ a discount, they would drift, or nothing would ever change hands at them. Four t
 </table>
 </div>
 
-  <p>The second test is the one that decides it. When a product shows a discount in three
-weeks and none in the other four, you can hold the two against each other: what it
-actually sold for in the clean weeks, versus the list price it advertises in the
-discounted ones. They matched to the won in 97.2% of cases.</p>
+  <p>The second test settles it. When a product shows a discount in three weeks and none in the other four, you can compare the two: what it actually sold for in the undiscounted weeks, against the list price it shows in the discounted ones. They matched to the won in 97.2% of cases.</p>
 
   <div class="pull">
   <p>An empty list-price column is not a scraping failure. In that week the product really is selling at that price.</p>
 </div>
 
-  <p><strong>So the problem is not that the list price lies. The list price is true — and a
-large share of products have never sold at it.</strong> That is a much more awkward thing
-to deal with. A lie can be corrected. Here nobody has lied and the numbers still do not
-come out.</p>
+  <p><strong>So the problem isn't a lying list price. The list price is true, and a large share of products have never sold at it.</strong> That is much harder to deal with. A lie can be corrected. Nobody has lied here, and the measurement still doesn't work.</p>
 
   <h2><span class="num">03</span>One in four had never sold at full price</h2>
 
-  <p>I narrowed to the 6,630 products that appear in all seven weeks (48% of 13,780) and
-asked two things of each: <strong>how many weeks did it show a discount</strong>, and
-<strong>did the selling price actually move</strong>.</p>
+  <p>I narrowed the sample to the 6,630 products that appear in all seven weeks (48% of 13,780) and asked two questions of each: <strong>how many weeks it showed a discount</strong>, and
+<strong>whether the selling price actually moved</strong>.</p>
 
   <div class="tw">
 <table>
@@ -331,22 +314,19 @@ asked two things of each: <strong>how many weeks did it show a discount</strong>
 <text x="577.1" y="196" font-size="13" text-anchor="middle" fill="#e8b458">Always on</text>
 <text x="577.1" y="216" class="t" font-size="12.5" text-anchor="middle">1,833 · 27.6%</text>
 </svg>
-<p class="figcap">Figure 1 · The 6,630 seven-week residents, split three ways. The 745 in the lighter block held both price and rate for all seven weeks — that is a price, not a discount</p>
+<p class="figcap">Figure 1 · The 6,630 products present in all seven weeks, split three ways. The 745 in the lighter block held both price and discount rate for all seven weeks</p>
 </div>
 
-  <p>The bottom row is the finding. <strong>1,833 products — 27.6% — have zero observations
-of themselves at full price.</strong> And 745 of them go further still: same selling price
-and same discount rate for seven straight weeks. <strong>All 745</strong> held the discount
+  <p>The bottom row is the finding. <strong>1,833 products (27.6%) were never once observed at full price.</strong> And 745 of them go further: the same selling price and the same discount rate for seven straight weeks. <strong>All 745</strong> held the discount
 rate constant, at a median of 20.0%.</p>
 
   <div class="pull">
-  <p>Seven weeks, one price, one discount rate. That is not a discount. That is the price.</p>
+  <p>Seven weeks, one price, one discount rate. At that point the discount is simply the price.</p>
 </div>
 
-  <p>I checked whether "present in all seven weeks" is doing the work. It is not. Loosen it
-to products seen in at least two weeks — 11,297 of them — and the share is 32.4%; at four
+  <p>I checked whether the "present in all seven weeks" filter is driving this. It isn't. Loosen it to products seen in at least two weeks (11,297 of them) and the share is 32.4%; at four
 weeks or more (9,019 products) it is 29.3%; the strict seven-week panel gives 27.6%.
-Widening the sample nudges the number up, not down.</p>
+Widening the sample pushes the number up, not down.</p>
 
   <h2><span class="num">04</span>The order table cannot tell these three apart</h2>
 
@@ -355,13 +335,11 @@ Widening the sample nudges the number up, not down.</p>
   <div class="tw">
 <table>
   <thead><tr><th></th><th>What it is</th><th>What it should be in the books</th></tr></thead>
-  <tbody><tr><td>Never discounted</td><td>selling at price</td><td>revenue</td></tr><tr><td>On and off</td><td>cut for that week only</td><td><strong>promotional spend</strong> — measure the lift</td></tr><tr><td>Discounted every week</td><td>this is the price</td><td><strong>pricing</strong> — revise the list</td></tr></tbody>
+  <tbody><tr><td>Never discounted</td><td>selling at price</td><td>revenue</td></tr><tr><td>On and off</td><td>cut for that week only</td><td><strong>promotional spend</strong>: measure the lift</td></tr><tr><td>Discounted every week</td><td>this is the price</td><td><strong>pricing</strong>: revise the list price</td></tr></tbody>
 </table>
 </div>
 
-  <p>But <strong>rows two and three are indistinguishable in an order table.</strong> Both
-land as "list 43,000 / sold 34,400 / 20% off". Looking at a single order, there is no way
-to tell whether that 20% is this week's decision or the last six months of them.</p>
+  <p>But <strong>rows two and three are indistinguishable in an order table.</strong> Both land as "list 43,000 / sold 34,400 / 20% off." From a single order, there is no way to tell whether that 20% was cut this week or has been the price for six months.</p>
 
   <p>No schema draws this line. And yet <strong>marketing has to draw it</strong>, because one
 side is a budget you raise or cut and the other is a price you set. Left in the same
@@ -369,8 +347,7 @@ column, the two decisions end up arguing over one number.</p>
 
   <h2><span class="num">05</span>"Deep means promotional" does not hold either</h2>
 
-  <p>There is an obvious objection here. <em>One order tells you nothing, fine — but the
-discount rate must. An always-on markdown will be shallow; a real event will be deep.</em>
+  <p>There is an obvious objection here. <em>Fine, one order tells you nothing, but surely the discount rate does. An always-on markdown should be shallow; a real event should be deep.</em>
 It sounds right, so I measured it.</p>
 
   <div class="tw">
@@ -418,22 +395,17 @@ It sounds right, so I measured it.</p>
 <rect x="66" y="56" width="11" height="11" fill="#a89e8a"/>
 <text x="84" y="66" font-size="12.5" fill="#a89e8a">Intermittent · n=18,844</text>
 </svg>
-<p class="figcap">Figure 2 · Discount depth. Both medians sit at 20.0%; the widest band gap is 3.6pp</p>
+<p class="figcap">Figure 2 · Discount depth by group. Both medians are 20.0%; the widest gap in any band is 3.6pp</p>
 </div>
 
   <p>That is 12,831 observations against 18,844. <strong>The medians agree to the decimal,
-and the widest gap in any band is 3.6pp.</strong> On means it is 21.7% against 20.9% — the
-always-on group is, if anything, marginally deeper.</p>
+and the widest gap in any band is 3.6pp.</strong> The means are 21.7% and 20.9%, so if anything the always-on group runs slightly deeper.</p>
 
   <div class="pull">
-  <p>As distributions the two groups are effectively the same. Depth will not separate them.</p>
+  <p>As distributions, the two groups are effectively identical. Depth won't separate them.</p>
 </div>
 
-  <p>This matters because <strong>a lot of companies use exactly this rule as a stand-in —
-anything past some threshold counts as a promotion.</strong> It does not work here. What
-makes something a promotion is not how deep the cut is but
-<strong>whether the product ever sold without one</strong>, and that fact is not present in
-any single order. <strong>It only exists across time.</strong></p>
+  <p>This matters because <strong>many companies use exactly this rule as a proxy: anything past some threshold counts as a promotion.</strong> It doesn't work here. What makes something a promotion is <strong>whether the product ever sold without the cut</strong>, not how deep the cut is, and no single order contains that fact. <strong>It only shows up over time.</strong></p>
 
   <h2><span class="num">06</span>So "promotional share" is not one number</h2>
 
@@ -448,20 +420,14 @@ product-week observations.</p>
 </div>
 
   <div class="pull">
-  <p>From the same data, "promotional share" is 40.6% or it is 68.3%. The gap is 27.6 points (the difference before rounding — subtracting the two displayed figures gives 27.7).</p>
+  <p>From the same data, "promotional share" is either 40.6% or 68.3%. The gap is 27.6pp (the unrounded difference; subtracting the two displayed figures gives 27.7).</p>
 </div>
 
-  <p><strong>Those 27.6 points are the number this piece produced.</strong> They appear in no
-source file; they only exist once you fold the presence or absence of a list price into
-product-by-week. And the width is not an error bar — it is
-<strong>resolution.</strong> It says the order table cannot tell you where inside that range
-you actually are.</p>
+  <p><strong>Those 27.6pp are the number this piece produced.</strong> They appear in no source file; they only exist once you collapse the data to one row per product per week and track whether a list price was present. Nor is the width an error bar. It is <strong>a blind spot:</strong> the order table cannot tell you where inside that range you actually are.</p>
 
-  <p>The remaining 62.7% — the 4,159 products that genuinely go on and off — are not in good
-shape either. Their <strong>median count of undiscounted weeks is two</strong>. For 1,423 of
+  <p>The remaining 62.7%, the 4,159 products that genuinely go on and off discount, aren't in good shape either. Their <strong>median count of undiscounted weeks is two</strong>. For 1,423 of
 them (34.2%) it is one; for 2,436 (58.6%) it is two or fewer. Measuring lift means
-comparing against the weeks you did nothing, and here "the weeks you did nothing" is
-<strong>one or two observations</strong>. A single week of weather, or one competitor's
+comparing against the weeks you did nothing, and here "the weeks you did nothing" amount to <strong>one or two observations</strong>. A single week of weather, or one competitor's
 event, flips the answer.</p>
 
   <h2><span class="num">07</span>Only 4.1% were observed repeating</h2>
@@ -473,24 +439,21 @@ times each of the 4,159 intermittent products changed state across the seven wee
   <div class="tw">
 <table>
   <thead><tr><th>On↔off switches in 7 weeks</th><th>Products</th><th>Share</th></tr></thead>
-  <tbody><tr><td>1</td><td>2,141</td><td><strong>51.5%</strong></td></tr><tr><td>2 (on then off — one complete promotion)</td><td>1,849</td><td>44.5%</td></tr><tr><td><strong>3 or more (repeats)</strong></td><td><strong>169</strong></td><td><strong>4.1%</strong></td></tr></tbody>
+  <tbody><tr><td>1</td><td>2,141</td><td><strong>51.5%</strong></td></tr><tr><td>2 (on then off: one complete promotion)</td><td>1,849</td><td>44.5%</td></tr><tr><td><strong>3 or more (repeats)</strong></td><td><strong>169</strong></td><td><strong>4.1%</strong></td></tr></tbody>
 </table>
 </div>
 
   <p>Half of them (51.5%) switched exactly once. That means the product turned its discount
-on and stayed on, or off and stayed off, inside the window —
-<strong>and within this window you cannot tell a promotion from a price change.</strong>
-The observation is cut off by the edge of the window.</p>
+on and stayed on, or off and stayed off, inside the window, <strong>and within the window you can't tell a promotion from a price change.</strong> The edge of the window cuts the observation off.</p>
 
-  <p>A full cycle — on, then off — shows up for 44.5%. <strong>Two or more cycles: 169
+  <p>A full cycle (on, then off) shows up for 44.5%. <strong>Two or more cycles: 169
 products, 4.1%.</strong></p>
 
   <div class="pull">
-  <p>Buying precision through repetition is available for one product in twenty-five.</p>
+  <p>Only one product in twenty-five gives you repeated trials to average over.</p>
 </div>
 
-  <p>Pooling does not rescue this. <strong>It is the kind of gap that has to be closed at the
-moment of recording.</strong> Re-reading last quarter's orders will not recover a list price
+  <p>Pooling doesn't rescue this. <strong>This gap has to be closed when the data is recorded.</strong> Re-reading last quarter's orders won't recover a list price
 that was never written down.</p>
 
   <h2><span class="num">08</span>The gap is worst where the money is</h2>
@@ -501,13 +464,12 @@ seven-week products:</p>
   <div class="tw">
 <table>
   <thead><tr><th>Highest baseline-zero</th><th></th><th>Lowest</th><th></th></tr></thead>
-  <tbody><tr><td>Hygiene — nappies</td><td><strong>79.2%</strong></td><td>Hobby — music</td><td><strong>0.0%</strong></td></tr><tr><td>Sheet masks</td><td>75.0%</td><td>Fashion accessories</td><td>2.9%</td></tr><tr><td>Home & baby</td><td>68.5%</td><td>Dermo — cleansing</td><td>3.8%</td></tr><tr><td>Makeup — base</td><td>65.4%</td><td>Food — baby food</td><td>7.5%</td></tr><tr><td>Health — fitness gear</td><td>61.7%</td><td>Hair tools & brushes</td><td>8.1%</td></tr></tbody>
+  <tbody><tr><td>Hygiene: diapers</td><td><strong>79.2%</strong></td><td>Hobby: music</td><td><strong>0.0%</strong></td></tr><tr><td>Sheet masks</td><td>75.0%</td><td>Fashion accessories</td><td>2.9%</td></tr><tr><td>Home & baby</td><td>68.5%</td><td>Dermo: cleansing</td><td>3.8%</td></tr><tr><td>Makeup: base</td><td>65.4%</td><td>Food: baby food</td><td>7.5%</td></tr><tr><td>Health: fitness gear</td><td>61.7%</td><td>Hair tools & brushes</td><td>8.1%</td></tr></tbody>
 </table>
 </div>
 
-  <p>A spread of <strong>79.2 points</strong>. Repeat-purchase commodities where brands are
-close substitutes sit at the top; categories where the list price is part of the identity
-sit at the bottom. <strong>A category-average diagnosis erases the entire spread.</strong></p>
+  <p>A spread of <strong>79.2pp</strong>. Repeat-purchase commodities where brands are
+close substitutes sit at the top; categories where the list price is part of the brand's identity sit at the bottom. <strong>A category-average diagnosis erases the entire spread.</strong></p>
 
   <p>Shelf position splits it too.</p>
 
@@ -522,62 +484,46 @@ sit at the bottom. <strong>A category-average diagnosis erases the entire spread
   <p>Around 30% in the top thirty, 25.1% down at 51–100. The better the slot, the less likely there is anything to compare against.</p>
 </div>
 
-  <p>The unmeasurable stretch and the high-volume stretch are the same stretch. So "we track
-discount ROI" can be perfectly true and <strong>still undefined on the products that
-matter most.</strong></p>
+  <p>The products you can't measure and the products that sell the most are the same products. So "we track discount ROI" can be perfectly true and still be <strong>undefined for the products that matter most.</strong></p>
 
-  <p>At brand level the distribution is barbelled. Of the 435 brands with five or more
+  <p>At brand level the distribution is polarized. Of the 435 brands with five or more
 seven-week products, <strong>171 (39.3%) have no baseline-zero product at all, and 25
-(5.7%) are baseline-zero throughout.</strong> This is not an industry habit. It is a choice,
-made differently by different companies.</p>
+(5.7%) are baseline-zero throughout.</strong> So this isn't an industry habit; each company makes its own choice.</p>
 
   <h2><span class="num">09</span>The metric I did not use, and why</h2>
 
   <p>A more obvious metric presented itself first: <strong>price amplitude</strong>, the
 spread between a product's highest and lowest weekly price over its mean. Median 14.8%
-across the panel, above 48% for the top decile. It writes itself — look how prices swing.</p>
+across the panel, above 48% for the top decile. The story writes itself: look how prices swing.</p>
 
-  <p><strong>I dropped it.</strong> Opening the top of that ranking by hand turns up this:</p>
+  <p><strong>I dropped it.</strong> Checking the top of that ranking by hand turns up this:</p>
 
   <p><code>(1 sheet / 30 sheets)</code> · <code>[1 / 3 / 4 / 10 pack]</code> ·
 <code>single or gift set (50ml / 200ml / 500ml)</code></p>
 
-  <p>One product code, several sizes and pack counts underneath it, and the displayed price is
-one of them. When 900 won and 27,100 won live under the same code the amplitude reads 549%
-— but <strong>the price did not move; the visible option did.</strong> The data agrees:
+  <p>One product code covers several sizes and pack counts, and the displayed price belongs to one of them. When ₩900 and ₩27,100 live under the same code, the amplitude reads 549%, <strong>but the price didn't move; the option on display did.</strong> The data agrees:
 of the 41 products with amplitude above 100%, <strong>43.9% carry an option marker in the
 name</strong>, against 11.9% across the panel.</p>
 
   <p>Baseline availability is far less exposed to this, because it reads only the
 <strong>presence or absence</strong> of a list price. Products with option markers come in
-at 32.1% baseline-zero, those without at 27.1% — a five-point difference, not the
-multiples that amplitude produces.</p>
+at 32.1% baseline-zero, those without at 27.1%: a gap of five percentage points, not the multiples amplitude produces.</p>
 
   <div class="pull">
-  <p>The same data offered two metrics. I took the one the contamination could not reach. Choosing comes before measuring.</p>
+  <p>The same data offered two metrics. I took the one the contamination could not reach.</p>
 </div>
 
-  <p><strong>Seven weeks is a choice too.</strong> At four weeks an always-on price and a
-four-week promotion are the same object — both look discounted in every observed week.
-Stretch to six months and list-price revisions leak in, so the "baseline" becomes an old
-price. Seven weeks sits between those, which is why this piece only ever says "always-on"
-to mean "in all seven weeks".</p>
+  <p><strong>Seven weeks is a choice too.</strong> In a four-week window, an always-on price and a four-week promotion look identical: both show a discount in every observed week. Stretch to six months and list-price revisions creep in, so the "baseline" becomes an old price. Seven weeks sits between the two, and this piece only ever uses "always-on" to mean "in all seven weeks."</p>
 
-  <p><strong>Restricting to seven-week residents is a choice as well.</strong> The shorter the
-observation, the more baseline-zero appears <strong>by construction</strong> — a product seen
-in one week is baseline-zero as long as that single week was discounted. Measured: 57.5%
-across the 2,483 products seen in a single week, 35.2% at three weeks, 27.6% at seven.
-<strong>Mixing short observations inflates the headline.</strong> The most conservative cell
-is the one in the text.</p>
+  <p><strong>Restricting to products present all seven weeks is a choice as well.</strong> The shorter the observation, the more baseline-zero appears <strong>by construction</strong>: a product seen in only one week is baseline-zero if that week was discounted. Measured, it is 57.5% across the 2,483 products seen in a single week, 35.2% at three weeks and 27.6% at seven. <strong>Mixing in short observations inflates the headline.</strong> The figure in the text is the most conservative one.</p>
 
-  <p>Folding to product-by-week is the last one. The source is a per-shelf ranking, so
+  <p>The last choice is collapsing the data to one row per product per week. The source is a per-shelf ranking, so
 <strong>a product can appear on up to four shelves in the same week (11.6% appear on two or
-more)</strong>. Counted unfolded, products with wide shelf presence are counted repeatedly,
-and the result tilts toward always-on.</p>
+more)</strong>. Without that step, products on many shelves are counted several times, and the result tilts toward always-on.</p>
 
   <h2><span class="num">10</span>What to actually do</h2>
 
-  <p>That is as far as the outside view goes. Inside, there are three things.</p>
+  <p>That is as far as an outside view goes. Inside the company, there are three things to do.</p>
 
   <p><strong>(a) The metric.</strong> Per SKU,
 <strong>baseline availability = undiscounted weeks ÷ total observed weeks.</strong>
@@ -587,16 +533,11 @@ Most companies already have all four. They cannot produce the metric because
 
   <p><strong>(b) The thresholds are 0 and 3.</strong> Neither is an arbitrary line.</p>
 
-  <p><strong>Zero</strong> — lift is a difference between two states, and at a baseline of zero
-one of the states does not exist. The effect is not small; it is
-<strong>undefined.</strong> That boundary comes from logic, not from statistics.</p>
+  <p><strong>Zero</strong>: lift is the difference between two states, and at a baseline of zero one of those states doesn't exist. The effect isn't small; it is <strong>undefined.</strong> This boundary comes from logic, not statistics.</p>
 
-  <p><strong>Three</strong> — in a seven-week window, three undiscounted weeks means one odd
-week cannot move the median, because two remain. At two, one odd week is half your evidence.
-In a thirteen-week window the number becomes five. The rule is not the digit but
-<strong>"no single observation may be worth half the baseline."</strong></p>
+  <p><strong>Three</strong>: in a seven-week window, with three undiscounted weeks one odd week can't move the median, because two remain. At two, one odd week is half your evidence. In a thirteen-week window the number becomes five. The rule isn't the digit itself; it is <strong>"no single observation may count for half the baseline."</strong></p>
 
-  <p><strong>(c) The decision rule.</strong> Put your own values in and the next move is fixed.</p>
+  <p><strong>(c) The decision rule.</strong> Plug in your own values and the next move follows.</p>
 
   <div class="tw">
 <table>
@@ -606,54 +547,40 @@ In a thirteen-week window the number becomes five. The rule is not the digit but
 </div>
 
   <p>What changes is not the budget but <strong>which line of the P&L the volume sits on.</strong>
-Leave baseline-zero volume in promotional spend and you will eventually be told that cutting
-discounts raises profit — when what is actually on the table is a price increase, and the
-volume leaves with it. Move the column and the pricing decision becomes visible as one.</p>
+Leave baseline-zero volume in promotional spend and someone will eventually tell you that cutting discounts raises profit, when what is actually on the table is a price increase, and the volume will leave with it. Move it to the right column and the pricing decision shows up for what it is.</p>
 
   <p>You can run this on your own data today. <strong>Over the last thirteen weeks, count for
-each SKU how many weeks it sold at list, sort them into three buckets — 0, 1–2, 3+ — and
-take each bucket's share of revenue.</strong> The share sitting in the zero bucket is
-<strong>what has to come out of your promotional reporting.</strong> On the shelf data here
-that share was 40.5% of observations.</p>
+each SKU how many weeks it sold at list, sort them into three buckets (0, 1–2, 3+) and take each bucket's share of revenue.</strong> The share sitting in the zero bucket is
+<strong>what has to come out of your promotional reporting.</strong> On the shelf data here, that share was 40.5% of discounted observations.</p>
 
-  <p>And if the list price for that week is not in your order table,
-<strong>the calculation is not available for the past at all.</strong> Then the job is not
-analysis, it is instrumentation: from today, write the list price and the realised price
-per SKU per week. Thirteen weeks later the three buckets exist for the first time.</p>
+  <p>If your order table doesn't store that week's list price, <strong>you can't run this calculation on the past at all.</strong> Then the job is instrumentation, not analysis: starting today, record the list price and the realized price per SKU per week. Thirteen weeks from now, the three buckets will exist for the first time.</p>
 
   <h2><span class="num">11</span>What this data cannot show</h2>
 
   <p>The boundaries, stated plainly.</p>
 
-  <p>1. <strong>There is no volume and no revenue.</strong> Every share here is a share of product-week <strong>observations</strong>, not of sales. Do not read "40.5%" as a revenue share. 2. <strong>Discounts below the sticker are invisible.</strong> Coupons, card promotions and membership pricing are not in this data. Real paid prices are lower than what I saw — which makes baselines scarcer, not more plentiful. 3. <strong>Only the top 100 of each shelf was collected</strong>, and baseline-zero is more common higher up (31.0% against 25.1%). Across a full shelf the 27.6% would <strong>fall</strong>. This number leans high. 4. <strong>Seven weeks is one season</strong> (29 Jun – 10 Aug). It does not contain a full promotional calendar. "Always-on" means always-on inside this window, and the 51.5% single-switch share in §07 is the size of that censoring. 5. <strong>No costs, no margins.</strong> No absolute ROI is computed here. The only verdict this piece issues is whether a baseline exists. 6. <strong>One channel.</strong> The same product may be priced differently on a brand's own store or elsewhere, in which case its baseline is not the one seen here.</p>
+  <p>1. <strong>There is no volume and no revenue.</strong> Every share here is a share of product-week <strong>observations</strong>, not of sales. Do not read "40.5%" as a revenue share. 2. <strong>Discounts below the sticker are invisible.</strong> Coupons, card promotions and membership pricing are not in this data. Actual prices paid are lower than what I saw, which makes baselines scarcer, not more plentiful. 3. <strong>Only the top 100 of each shelf was collected</strong>, and baseline-zero is more common higher up (31.0% against 25.1%). Across a full shelf the 27.6% would <strong>fall</strong>. This number leans high. 4. <strong>Seven weeks is one season</strong> (Jun 29 to Aug 10). It does not contain a full promotional calendar. "Always-on" means always-on inside this window, and the 51.5% single-switch share in §07 is the size of that censoring. 5. <strong>No costs, no margins.</strong> No absolute ROI is computed here. The only verdict this piece issues is whether a baseline exists. 6. <strong>One channel.</strong> The same product may be priced differently on a brand's own store or elsewhere, in which case its baseline is not the one seen here.</p>
 
   <h2><span class="num">12</span>What this piece is saying</h2>
 
   <p>I opened the file suspecting the list price, found it honest, and then found the real
 problem behind it. <strong>One product in four (27.6%) carries a true list price it has
-never sold at.</strong> For those products "20% off" is not a discount, it is the price —
-and the order table records it exactly like a real promotion.
+never sold at.</strong> For those products, "20% off" is simply the price, and the order table records it exactly like a real promotion.
 <strong>The discount rate does not separate them either</strong>: both groups sit at a
 median of 20.0%.</p>
 
-  <p>The consequence is measurable. <strong>From identical data, "promotional share" is 40.6%
-or 68.3%, and nothing in the order table decides where inside those 27.6 points you
-are.</strong> Even the genuine promotions have a median of two comparison weeks, and only
+  <p>The consequence is measurable. <strong>From identical data, "promotional share" is either 40.6% or 68.3%, and nothing in the order table tells you where inside that 27.6pp range you are.</strong> Even the genuine promotions have a median of two comparison weeks, and only
 4.1% were seen repeating. The shortage is
 <strong>worst exactly where the volume is.</strong></p>
 
-  <p>Fixing it does not take new data. This piece did not scrape anything new either — it used
-<strong>three columns that were already sitting in a file we had.</strong> What it takes is
-keeping price by week, and dividing what accumulates by baseline availability.
-<strong>The work that comes before analysis is making the thing analysable, and in this
-category that work lives in the price history.</strong></p>
+  <p>Fixing it doesn't take new data. This piece didn't scrape anything new either; it used <strong>three columns already sitting in a file we had.</strong> What it takes is keeping price by week and sorting what accumulates by baseline availability. <strong>The work before analysis is making the data analyzable, and in this category that work lives in the price history.</strong></p>
 
   <h3>Where to start, depending on where you sit</h3>
 
   <div class="tw">
 <table>
   <thead><tr><th>If you are</th><th>Start here</th></tr></thead>
-  <tbody><tr><td>Brand marketing</td><td>Baseline weeks per SKU for the last thirteen. Begin with <strong>the revenue share of the zero bucket</strong> — that is what leaves your promotional report</td></tr><tr><td>CRM / data</td><td>Does your order table keep <strong>that week's list price</strong>? If not, baselines cannot be reconstructed after the fact. Recording from today is the only route</td></tr><tr><td>Pricing / merchandising</td><td>Baseline-zero SKUs are <strong>pricing decisions</strong>, not discount decisions. Reset the list to the realised price, then look again</td></tr><tr><td>Leadership</td><td>When someone reports that cutting discounts will raise profit, ask for the baseline availability of that volume. At zero, you are being handed a price increase</td></tr></tbody>
+  <tbody><tr><td>Brand marketing</td><td>Baseline weeks per SKU for the last thirteen. Begin with <strong>the revenue share of the zero bucket</strong>: that is what comes out of your promotional report</td></tr><tr><td>CRM / data</td><td>Does your order table keep <strong>that week's list price</strong>? If not, baselines cannot be reconstructed after the fact. Recording from today is the only route</td></tr><tr><td>Pricing / merchandising</td><td>Baseline-zero SKUs are <strong>pricing decisions</strong>, not discount decisions. Reset the list price to the realized price, then look again</td></tr><tr><td>Leadership</td><td>When someone reports that cutting discounts will raise profit, ask for the baseline availability of that volume. At zero, you are being handed a price increase</td></tr></tbody>
 </table>
 </div>
 
@@ -667,32 +594,28 @@ discount rate. It is the same capture used for the fifth piece in this series, w
 not touch the three price columns.</p>
 
   <p>The unit of observation is product code × week. A product can appear on several shelves
-in one week (11.6% on two or more, up to four), so rows are folded before counting;
-unfolded, products with wide shelf presence are counted repeatedly. Within a product-week,
+in one week (11.6% on two or more, up to four), so rows are collapsed to one per product-week before counting; otherwise products on many shelves would be counted several times. Within a product-week,
 selling prices disagreed in 2 cases and list prices in 1. An "undiscounted observation" is
 a week with an empty list-price field, and that definition is validated by the second test
 in §02 (97.2% exact agreement).</p>
 
   <p>"Baseline zero" means every observed week showed a discount. Headline figures use the
-6,630 products present in all seven weeks; loosening residency to two weeks or more
+6,630 products present in all seven weeks; loosening the presence requirement to two weeks or more
 (11,297 products) gives 32.4% and to four or more (9,019) gives 29.3%. Because short
-observations produce baseline-zero by construction (57.5% at one week), the most
-conservative cell is the one quoted. Shelf-level figures assign each product to its modal
-shelf and compare only the 86 shelves holding at least 30 resident products. Price
+observations produce baseline-zero by construction (57.5% at one week), the most conservative figure is the one quoted. Shelf-level figures assign each product to its modal
+shelf and compare only the 86 shelves holding at least 30 products present all seven weeks. Price
 amplitude was excluded as a metric because option bundling sits under the product code
 (§09). The reproduction script is kept with the research note.</p>
 
-  <p>No brand is named in this piece. The argument is about structure rather than any
-individual company, and the top of these shelves may include companies we are in live
-conversations with. Shelf names are Olive Young's category labels, not company names.</p>
+  <p>No brand is named in this piece. The argument is about structure rather than any individual company. Shelf names are Olive Young's category labels, not company names.</p>
 </div>
 
   <!-- RELATED:START -->
   <nav class="related" aria-label="Related reading">
     <div class="lb">Related reading</div>
-    <a class="ritem" href="/blog/en/21-returning-customer.html"><span class="rno">21</span><span class="rtit">They Say You Sell It Once. The Books Say the Customer Came Back</span></a>
-    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The Registry Was Open. The Efficacy Field Was 65% Empty</span></a>
-    <a class="ritem" href="/blog/en/18-ad-vs-payroll.html"><span class="rno">18</span><span class="rtit">Ad spend nearly doubled. Payroll moved 9%.</span></a>
+    <a class="ritem" href="/blog/en/21-returning-customer.html"><span class="rno">21</span><span class="rtit">They say you sell it once. The books say the customer came back</span></a>
+    <a class="ritem" href="/blog/en/20-open-registry-usable.html"><span class="rno">20</span><span class="rtit">The registry was open. The efficacy field was 65% empty</span></a>
+    <a class="ritem" href="/blog/en/18-ad-vs-payroll.html"><span class="rno">18</span><span class="rtit">Ad spend rose 84%. Spending on people rose 9%</span></a>
   </nav>
   <!-- RELATED:END -->
 
